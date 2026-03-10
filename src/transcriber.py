@@ -1,8 +1,5 @@
 """Transcriber for VOD audio using OpenAI Whisper"""
 import logging
-import os
-import json
-from typing import Optional
 
 import openai
 
@@ -90,7 +87,7 @@ def process_downloaded_vods() -> int:
     from .downloader import Downloader
 
     processed = 0
-    transcriber = Transcriber()
+    transcriber = create_transcriber()
     downloader = Downloader()
 
     with get_db_session() as session:
@@ -135,6 +132,23 @@ def process_downloaded_vods() -> int:
                 vod.status = VodStatus.FAILED
 
     return processed
+
+
+def create_transcriber():
+    """Factory function to create the appropriate transcriber based on settings
+
+    Returns:
+        Transcriber instance (API or local)
+    """
+    settings = get_settings()
+
+    if settings.whisper_use_local:
+        from .transcriber_local import LocalTranscriber
+        logger.info("Using local Whisper transcriber")
+        return LocalTranscriber()
+    else:
+        logger.info("Using OpenAI Whisper API transcriber")
+        return Transcriber()
 
 
 if __name__ == "__main__":

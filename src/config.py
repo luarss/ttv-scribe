@@ -17,6 +17,11 @@ class Settings(BaseSettings):
     whisper_model: str = "base"
     audio_output_dir: str = "/tmp/ttv-scribe-audio"
 
+    # Local Whisper settings (for faster-whisper)
+    whisper_use_local: bool = False  # Set to True to use local transcription
+    whisper_device: str = "cpu"  # cpu or cuda (for GPU)
+    whisper_compute_type: str = "int8"  # int8, float16, float32
+
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"
