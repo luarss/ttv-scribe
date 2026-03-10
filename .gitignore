@@ -1,3 +1,5 @@
 .env
 .pyc
 *.db
+__pycache__/
+*.egg-info/

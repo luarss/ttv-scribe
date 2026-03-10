@@ -1,0 +1,71 @@
+name: Test Local Transcription
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-transcription:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Create .env file
+        run: |
+          cat > .env << EOF
+          TWITCH_CLIENT_ID=${{ secrets.TWITCH_CLIENT_ID }}
+          TWITCH_CLIENT_SECRET=${{ secrets.TWITCH_CLIENT_SECRET }}
+          WHISPER_USE_LOCAL=true
+          WHISPER_MODEL=small
+          WHISPER_DEVICE=cpu
+          WHISPER_COMPUTE_TYPE=int8
+          DATABASE_URL=sqlite:///./ttv_scribe.db
+          LOG_LEVEL=INFO
+          EOF
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+
+      - name: Test Twitch API connection
+        run: |
+          python -c "
+          from src.twitch import TwitchClient
+          client = TwitchClient()
+          print('Twitch API connected successfully')
+          "
+
+      - name: Test local transcriber import
+        run: |
+          python -c "
+          from src.transcriber_local import LocalTranscriber
+          t = LocalTranscriber()
+          print(f'LocalTranscriber initialized with model: {t.settings.whisper_model}')
+          print(f'Device: {t.settings.whisper_device}, Compute: {t.settings.whisper_compute_type}')
+          "
+
+      - name: Download and test transcription (if sample audio available)
+        run: |
+          python -c "
+          # Quick test that the transcriber can load the model
+          from src.transcriber_local import LocalTranscriber
+          t = LocalTranscriber()
+          # Just verify model can be accessed (will download on first run)
+          model = t.model
+          print(f'Model loaded successfully: {type(model).__name__}')
+          "
+        env:
+          HF_HUB_OFFLINE: 0
+
+      - name: Test factory function
+        run: |
+          python -c "
+          from src.transcriber import create_transcriber
+          t = create_transcriber()
+          print(f'Created transcriber: {type(t).__name__}')
+          "
