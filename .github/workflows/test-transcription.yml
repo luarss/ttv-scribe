@@ -39,11 +39,6 @@ jobs:
       - name: Install dependencies
         run: uv pip install -e .
 
-      - name: Configure git
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-
       - name: Run transcription
         run: python scripts/transcribe_vod.py ${{ github.event.inputs.username }} ${{ github.event.inputs.vod_id }}
 
@@ -51,6 +46,8 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "feat: add transcript for ${{ github.event.inputs.username }}/${{ github.event.inputs.vod_id }}"
+          commit_user_name: "GitHub Actions"
+          commit_user_email: "actions@github.com"
           file_pattern: "transcripts/*.txt"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
