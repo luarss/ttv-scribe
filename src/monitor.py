@@ -9,8 +9,11 @@ from .twitch.client import TwitchClient
 logger = logging.getLogger(__name__)
 
 
-def check_for_new_vods() -> int:
+def check_for_new_vods(max_duration_minutes: int | None = None) -> int:
     """Check for new VODs from all tracked streamers
+
+    Args:
+        max_duration_minutes: If set, only include VODs shorter than this duration
 
     Returns:
         Number of new VODs found
@@ -23,7 +26,7 @@ def check_for_new_vods() -> int:
 
         for streamer in streamers:
             try:
-                new_count = _check_streamer_vods(session, streamer)
+                new_count = _check_streamer_vods(session, streamer, max_duration_minutes)
                 new_vod_count += new_count
             except Exception as e:
                 logger.error(f"Error checking VODs for {streamer.username}: {e}")
@@ -31,8 +34,11 @@ def check_for_new_vods() -> int:
     return new_vod_count
 
 
-def _check_streamer_vods(session, streamer: Streamer) -> int:
+def _check_streamer_vods(session, streamer: Streamer, max_duration_minutes: int | None = None) -> int:
     """Check for new VODs for a specific streamer
+
+    Args:
+        max_duration_minutes: If set, only include VODs shorter than this duration
 
     Returns:
         Number of new VODs added
@@ -63,20 +69,37 @@ def _check_streamer_vods(session, streamer: Streamer) -> int:
             vod_data["created_at"].replace("Z", "+00:00")
         )
 
-        # Parse duration (could be "HH:MM:SS" or just seconds)
+        # Parse duration (Twitch returns "2h3m10s" or "45m30s" format)
         duration = vod_data.get("duration")
         if duration:
-            # Try to parse "HH:MM:SS" format
             try:
-                parts = duration.split(":")
-                if len(parts) == 3:
-                    duration = int(parts[0]) * 3600 + int(parts[1]) * 60 + int(parts[2])
-                elif len(parts) == 2:
-                    duration = int(parts[0]) * 60 + int(parts[1])
-                else:
-                    duration = int(parts[0])
+                # Handle Twitch format: "2h3m10s", "45m30s", "30s"
+                total_seconds = 0
+                current_num = ""
+                for char in duration:
+                    if char.isdigit():
+                        current_num += char
+                    elif char == 'h':
+                        total_seconds += int(current_num) * 3600
+                        current_num = ""
+                    elif char == 'm':
+                        total_seconds += int(current_num) * 60
+                        current_num = ""
+                    elif char == 's':
+                        total_seconds += int(current_num)
+                        current_num = ""
+                duration = total_seconds if total_seconds > 0 else None
             except (ValueError, IndexError):
                 duration = None
+
+        # Filter by max duration if specified
+        if max_duration_minutes is not None and duration is not None:
+            if duration > max_duration_minutes * 60:
+                logger.debug(f"Skipping VOD {vod_id} - too long ({duration}s)")
+                continue
+
+        if duration is not None:
+            logger.debug(f"VOD {vod_id} duration: {duration}s ({duration/60:.1f} min)")
 
         vod = Vod(
             vod_id=vod_id,
