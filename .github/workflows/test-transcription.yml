@@ -28,6 +28,8 @@ jobs:
 
       - name: Install dependencies
         run: uv sync
+
+      - name: Create .env file
         run: |
           cat > .env << EOF
           TWITCH_CLIENT_ID=${{ secrets.TWITCH_CLIENT_ID }}
@@ -39,9 +41,6 @@ jobs:
           DATABASE_URL=sqlite:///./ttv_scribe.db
           LOG_LEVEL=INFO
           EOF
-
-      - name: Install dependencies
-        run: uv pip install --system --break-system-packages -e .
 
       - name: Run transcription
         run: uv run python scripts/transcribe_vod.py ${{ github.event.inputs.username }} ${{ github.event.inputs.vod_id }}
