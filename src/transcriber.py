@@ -1,0 +1,143 @@
+"""Transcriber for VOD audio using OpenAI Whisper"""
+import logging
+import os
+import json
+from typing import Optional
+
+import openai
+
+from .config import get_settings
+from .database import get_db_session
+from .models import Vod, Transcript, VodStatus
+
+logger = logging.getLogger(__name__)
+
+
+class Transcriber:
+    """Transcriber using OpenAI Whisper API"""
+
+    def __init__(self):
+        self.settings = get_settings()
+        openai.api_key = self.settings.openai_api_key
+
+    def transcribe_vod(self, vod: Vod, audio_path: str) -> tuple[str, dict, float]:
+        """Transcribe a VOD's audio
+
+        Args:
+            vod: The Vod object
+            audio_path: Path to the audio file
+
+        Returns:
+            Tuple of (transcript_text, metadata, cost)
+
+        Raises:
+            Exception: If transcription fails
+        """
+        logger.info(f"Transcribing VOD {vod.vod_id}")
+
+        with open(audio_path, "rb") as audio_file:
+            response = openai.audio.transcriptions.create(
+                model="whisper-1",
+                file=audio_file,
+                response_format="verbose_json",
+                timestamp_granularities=["segment"],
+            )
+
+        # Extract text
+        text = response.text
+
+        # Extract metadata - timestamps for key moments (every 5 minutes)
+        metadata = self._extract_metadata(response)
+
+        # Estimate cost (Whisper pricing: $0.006/minute for audio)
+        duration = vod.duration or 0
+        cost = (duration / 60) * 0.006 if duration else 0.0
+
+        logger.info(f"Transcribed VOD {vod.vod_id}, cost: ${cost:.4f}")
+
+        return text, metadata, cost
+
+    def _extract_metadata(self, response) -> dict:
+        """Extract useful metadata from transcription response"""
+        segments = getattr(response, "segments", [])
+
+        if not segments:
+            return {}
+
+        # Extract timestamp key moments (every 5 minutes / 300 seconds)
+        key_moments = []
+        for segment in segments:
+            start = segment.get("start", 0)
+            # Add key moment at 5-minute intervals
+            if start > 0 and start % 300 < 5:
+                key_moments.append({
+                    "time": int(start),
+                    "text": segment.get("text", "").strip()[:200],
+                })
+
+        return {
+            "segments_count": len(segments),
+            "key_moments": key_moments,
+        }
+
+
+def process_downloaded_vods() -> int:
+    """Process all downloaded VODs awaiting transcription
+
+    Returns:
+        Number of VODs transcribed
+    """
+    from .downloader import Downloader
+
+    processed = 0
+    transcriber = Transcriber()
+    downloader = Downloader()
+
+    with get_db_session() as session:
+        # Find VODs that have been downloaded (in a real app, we'd track this)
+        # For MVP, we'll just process VODs with duration
+        pending = session.query(Vod).filter(
+            Vod.status == VodStatus.DOWNLOADING,
+            Vod.duration.isnot(None),
+        ).all()
+
+        for vod in pending:
+            try:
+                # Update status
+                vod.status = VodStatus.TRANSCRIBING
+
+                # Download audio
+                audio_path = downloader.download_vod_audio(vod)
+
+                # Transcribe
+                text, metadata, cost = transcriber.transcribe_vod(vod, audio_path)
+
+                # Save transcript
+                transcript = Transcript(
+                    vod_id=vod.id,
+                    text=text,
+                    transcript_metadata=metadata,
+                    cost=cost,
+                )
+                session.add(transcript)
+
+                # Mark as completed
+                vod.status = VodStatus.COMPLETED
+
+                # Cleanup audio
+                downloader.cleanup_audio(audio_path)
+
+                processed += 1
+                logger.info(f"Completed transcription for VOD {vod.vod_id}")
+
+            except Exception as e:
+                logger.error(f"Failed to transcribe VOD {vod.vod_id}: {e}")
+                vod.status = VodStatus.FAILED
+
+    return processed
+
+
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
+    count = process_downloaded_vods()
+    logger.info(f"Transcribed {count} VODs")
