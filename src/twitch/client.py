@@ -79,6 +79,21 @@ class TwitchClient:
 
         return data.get("data", [])
 
+    def get_video_by_id(self, video_id: str) -> Optional[dict]:
+        """Get a specific Twitch VOD by ID"""
+        response = self._client.get(
+            f"{self.BASE_URL}/videos",
+            headers=self._get_headers(),
+            params={"id": video_id},
+        )
+        response.raise_for_status()
+        data = response.json()
+
+        videos = data.get("data", [])
+        if videos:
+            return videos[0]
+        return None
+
     def close(self):
         """Close the HTTP client"""
         self._client.close()

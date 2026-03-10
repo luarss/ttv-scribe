@@ -2,9 +2,18 @@ name: Test Local Transcription
 
 on:
   workflow_dispatch:
+    inputs:
+      username:
+        description: 'Twitch username'
+        required: true
+        type: string
+      vod_id:
+        description: 'VOD ID to transcribe'
+        required: true
+        type: string
 
 jobs:
-  test-transcription:
+  transcribe-and-commit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -32,40 +41,122 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e .
 
-      - name: Test Twitch API connection
+      - name: Configure git
         run: |
-          python -c "
-          from src.twitch import TwitchClient
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+      - name: Run transcription pipeline
+        run: |
+          python << 'EOF'
+          import logging
+          import os
+          from datetime import datetime
+
+          from src.database import get_db_session, init_db
+          from src.models import Vod, Streamer, VodStatus
+          from src.twitch.client import TwitchClient
+          from src.downloader import Downloader
+          from src.transcriber import create_transcriber, export_transcript_to_file
+
+          logging.basicConfig(level=logging.INFO)
+          logger = logging.getLogger(__name__)
+
+          # Get inputs
+          username = "${{ github.event.inputs.username }}"
+          vod_id = "${{ github.event.inputs.vod_id }}"
+
+          logger.info(f"Starting transcription for user={username}, vod_id={vod_id}")
+
+          # Initialize database
+          init_db()
+
+          # Get VOD info from Twitch
           client = TwitchClient()
-          print('Twitch API connected successfully')
-          "
+          video = client.get_video_by_id(vod_id)
 
-      - name: Test local transcriber import
-        run: |
-          python -c "
-          from src.transcriber_local import LocalTranscriber
-          t = LocalTranscriber()
-          print(f'LocalTranscriber initialized with model: {t.settings.whisper_model}')
-          print(f'Device: {t.settings.whisper_device}, Compute: {t.settings.whisper_compute_type}')
-          "
+          if not video:
+            logger.error(f"VOD {vod_id} not found")
+            exit(1)
 
-      - name: Download and test transcription (if sample audio available)
-        run: |
-          python -c "
-          # Quick test that the transcriber can load the model
-          from src.transcriber_local import LocalTranscriber
-          t = LocalTranscriber()
-          # Just verify model can be accessed (will download on first run)
-          model = t.model
-          print(f'Model loaded successfully: {type(model).__name__}')
-          "
+          logger.info(f"Found VOD: {video.get('title', 'Untitled')}")
+
+          # Get or create streamer
+          with get_db_session() as session:
+            streamer = session.query(Streamer).filter_by(username=username).first()
+            if not streamer:
+              streamer = Streamer(username=username)
+              session.add(streamer)
+              session.flush()
+              logger.info(f"Created streamer: {username}")
+
+            # Check if VOD already exists
+            vod = session.query(Vod).filter_by(vod_id=vod_id).first()
+            if not vod:
+              vod = Vod(
+                vod_id=vod_id,
+                streamer_id=streamer.id,
+                title=video.get("title"),
+                duration=video.get("duration"),
+                recorded_at=datetime.fromisoformat(video.get("created_at").replace("Z", "+00:00")),
+                status=VodStatus.PENDING,
+              )
+              session.add(vod)
+              session.flush()
+              logger.info(f"Created VOD entry: {vod_id}")
+            else:
+              logger.info(f"Found existing VOD: {vod_id}")
+
+          # Download audio
+          downloader = Downloader()
+          with get_db_session() as session:
+            vod = session.query(Vod).filter_by(vod_id=vod_id).first()
+            vod.status = VodStatus.DOWNLOADING
+
+          audio_path = downloader.download_vod_audio(vod)
+          logger.info(f"Downloaded audio to: {audio_path}")
+
+          # Transcribe
+          transcriber = create_transcriber()
+          with get_db_session() as session:
+            vod = session.query(Vod).filter_by(vod_id=vod_id).first()
+            vod.status = VodStatus.TRANSCRIBING
+
+          text, metadata, cost = transcriber.transcribe_vod(vod, audio_path)
+          logger.info(f"Transcribed, cost: ${cost:.4f}")
+
+          # Save transcript to database
+          with get_db_session() as session:
+            vod = session.query(Vod).filter_by(vod_id=vod_id).first()
+            from src.models import Transcript
+            transcript = Transcript(
+              vod_id=vod.id,
+              text=text,
+              transcript_metadata=metadata,
+              cost=cost,
+            )
+            session.add(transcript)
+            vod.status = VodStatus.COMPLETED
+            logger.info("Saved transcript to database")
+
+          # Export to file
+          with get_db_session() as session:
+            vod = session.query(Vod).filter_by(vod_id=vod_id).first()
+            filepath = export_transcript_to_file(vod, output_dir="./transcripts")
+            logger.info(f"Exported transcript to: {filepath}")
+
+          # Cleanup audio
+          downloader.cleanup_audio(audio_path)
+          logger.info("Transcription complete!")
+
+          # Print output path for later steps
+          print(f"TRANSCRIPT_FILE={filepath}")
+          EOF
+
+      - name: Commit transcript file
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "feat: add transcript for ${{ github.event.inputs.username }}/${{ github.event.inputs.vod_id }}"
+          file_pattern: "transcripts/*.txt"
         env:
-          HF_HUB_OFFLINE: 0
-
-      - name: Test factory function
-        run: |
-          python -c "
-          from src.transcriber import create_transcriber
-          t = create_transcriber()
-          print(f'Created transcriber: {type(t).__name__}')
-          "
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,5 +1,6 @@
 """Transcriber for VOD audio using OpenAI Whisper"""
 import logging
+import os
 
 import openai
 
@@ -155,3 +156,48 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     count = process_downloaded_vods()
     logger.info(f"Transcribed {count} VODs")
+
+
+def export_transcript_to_file(vod: Vod, output_dir: str = "./transcripts") -> str:
+    """Export transcript to a text file
+
+    Args:
+        vod: The Vod object to export transcript for
+        output_dir: Base directory for transcript output
+
+    Returns:
+        Path to the created transcript file
+
+    Raises:
+        ValueError: If no transcript exists for the VOD
+    """
+    with get_db_session() as session:
+        # Refresh the vod to get the latest transcript
+        session.refresh(vod)
+
+        if not vod.transcript:
+            raise ValueError(f"No transcript found for VOD {vod.vod_id}")
+
+        # Get the streamer's username
+        username = vod.streamer.username if vod.streamer else "unknown"
+
+        # Create output directory: ./transcripts/<username>/
+        user_dir = os.path.join(output_dir, username)
+        os.makedirs(user_dir, exist_ok=True)
+
+        # Use VOD ID as filename (or sanitize title if available)
+        filename = f"{vod.vod_id}.txt"
+        if vod.title:
+            # Sanitize title for use as filename
+            sanitized = "".join(c for c in vod.title if c.isalnum() or c in " -_").strip()
+            sanitized = sanitized[:100]  # Limit length
+            filename = f"{sanitized}.txt"
+
+        filepath = os.path.join(user_dir, filename)
+
+        # Write transcript to file
+        with open(filepath, "w", encoding="utf-8") as f:
+            f.write(vod.transcript.text)
+
+        logger.info(f"Exported transcript to {filepath}")
+        return filepath
