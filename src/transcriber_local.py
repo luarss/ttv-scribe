@@ -4,7 +4,6 @@ import logging
 from faster_whisper import WhisperModel
 
 from .config import get_settings
-from .models import Vod
 
 logger = logging.getLogger(__name__)
 

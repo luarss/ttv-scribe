@@ -10,7 +10,6 @@ class Settings(BaseSettings):
     twitch_client_id: str = ""
     twitch_client_secret: str = ""
     openai_api_key: str = ""
-    database_url: str = "sqlite:///./ttv_scribe.db"
 
     # Optional settings
     log_level: str = "INFO"

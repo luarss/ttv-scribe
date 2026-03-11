@@ -301,6 +301,26 @@ class StateManager:
         self._save_streamers(streamers)
         logger.debug(f"Updated streamer {username}: {kwargs}")
 
+    def get_vods_by_streamer(self, username: str) -> list[VodRecord]:
+        """Get all VODs for a specific streamer
+
+        Args:
+            username: The streamer username
+
+        Returns:
+            List of VodRecords for the streamer
+        """
+        vods = self._load_vods()
+        return [v for v in vods.values() if v.streamer == username]
+
+    def get_all_vods(self) -> list[VodRecord]:
+        """Get all VOD records
+
+        Returns:
+            List of all VodRecords
+        """
+        return list(self._load_vods().values())
+
 
 # Global state manager instance
 _state_manager: StateManager | None = None
