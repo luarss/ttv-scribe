@@ -16,6 +16,8 @@ class Settings(BaseSettings):
     log_level: str = "INFO"
     whisper_model: str = "base"
     audio_output_dir: str = "/tmp/ttv-scribe-audio"
+    state_file_dir: str = "./state"
+    transcript_dir: str = "./transcripts"
 
     # Local Whisper settings (for faster-whisper)
     whisper_use_local: bool = False  # Set to True to use local transcription

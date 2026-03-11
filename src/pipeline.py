@@ -1,8 +1,6 @@
 """Processing pipeline for TTV-Scribe"""
 import logging
-import sys
 
-from .database import init_db
 from .monitor import check_for_new_vods
 from .downloader import process_pending_vods
 from .transcriber import process_downloaded_vods
@@ -17,14 +15,6 @@ def run_pipeline(max_duration_minutes: int | None = None):
         max_duration_minutes: If set, only process VODs shorter than this duration
     """
     logger.info("Starting TTV-Scribe pipeline")
-
-    # Initialize database
-    try:
-        init_db()
-        logger.info("Database initialized")
-    except Exception as e:
-        logger.error(f"Failed to initialize database: {e}")
-        sys.exit(1)
 
     # Step 1: Check for new VODs
     try:

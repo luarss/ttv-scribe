@@ -1,12 +1,10 @@
 """Downloader for Twitch VODs using yt-dlp"""
 import logging
 import os
-import tempfile
 import yt_dlp
 
 from .config import get_settings
-from .database import get_db_session
-from .models import Vod, VodStatus
+from .state import get_pending_vods, get_state_manager, VodStatus
 
 logger = logging.getLogger(__name__)
 
@@ -19,11 +17,11 @@ class Downloader:
         self.output_dir = self.settings.audio_output_dir
         os.makedirs(self.output_dir, exist_ok=True)
 
-    def download_vod_audio(self, vod_id: str) -> str:
+    def download_vod_audio(self, vod_data: dict) -> str:
         """Download audio from a VOD
 
         Args:
-            vod_id: The VOD ID to download
+            vod_data: The VOD data dictionary
 
         Returns:
             Path to the downloaded audio file
@@ -31,6 +29,9 @@ class Downloader:
         Raises:
             Exception: If download fails
         """
+        vod_id = vod_data["vod_id"]
+        title = vod_data.get("title", "Unknown")
+
         twitch_url = f"https://www.twitch.tv/videos/{vod_id}"
 
         # Create temp file for output
@@ -48,7 +49,7 @@ class Downloader:
             "extract_flat": False,
         }
 
-        logger.info(f"Downloading VOD {vod_id}")
+        logger.info(f"Downloading VOD {vod_id}: {title}")
 
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([twitch_url])
@@ -80,21 +81,25 @@ def process_pending_vods() -> int:
     """
     processed = 0
     downloader = Downloader()
+    manager = get_state_manager()
 
-    with get_db_session() as session:
-        pending_vods = session.query(Vod).filter(
-            Vod.status == VodStatus.PENDING
-        ).all()
+    # Get all pending VODs
+    pending_vods = get_pending_vods()
 
-        for vod in pending_vods:
-            try:
-                downloader.download_vod_audio(vod)
-                # In the full pipeline, this would continue to transcription
-                # For now, just mark as downloaded
-                processed += 1
-            except Exception as e:
-                logger.error(f"Failed to download VOD {vod.vod_id}: {e}")
-                vod.status = VodStatus.FAILED
+    for vod_data in pending_vods:
+        vod_id = vod_data["vod_id"]
+        try:
+            # Update status to DOWNLOADING
+            manager.update_vod(vod_id, status=VodStatus.DOWNLOADING.value)
+
+            # Download audio
+            downloader.download_vod_audio(vod_data)
+
+            processed += 1
+            logger.info(f"Downloaded VOD {vod_id}")
+        except Exception as e:
+            logger.error(f"Failed to download VOD {vod_id}: {e}")
+            manager.update_vod(vod_id, status=VodStatus.FAILED.value)
 
     return processed
 

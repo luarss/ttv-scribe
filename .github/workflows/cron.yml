@@ -39,8 +39,9 @@ jobs:
           WHISPER_MODEL=small
           WHISPER_DEVICE=cpu
           WHISPER_COMPUTE_TYPE=int8
-          DATABASE_URL=sqlite:///./ttv_scribe.db
           LOG_LEVEL=INFO
+          STATE_FILE_DIR=./state
+          TRANSCRIPT_DIR=./transcripts
           EOF
 
       - name: Run pipeline
