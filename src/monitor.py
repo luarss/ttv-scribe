@@ -15,11 +15,11 @@ from .twitch.client import TwitchClient
 logger = logging.getLogger(__name__)
 
 
-def check_for_new_vods(max_duration_minutes: int | None = None) -> int:
+def check_for_new_vods(max_duration_minutes: int = 60) -> int:
     """Check for new VODs from all tracked streamers
 
     Args:
-        max_duration_minutes: If set, only include VODs shorter than this duration
+        max_duration_minutes: Only include VODs shorter than this duration
 
     Returns:
         Number of new VODs found
@@ -49,14 +49,14 @@ def check_for_new_vods(max_duration_minutes: int | None = None) -> int:
 def _check_streamer_vods(
     username: str,
     twitch_id: str | None,
-    max_duration_minutes: int | None = None,
+    max_duration_minutes: int = 60,
 ) -> int:
     """Check for new VODs for a specific streamer
 
     Args:
         username: The streamer's username
         twitch_id: Optional Twitch user ID
-        max_duration_minutes: If set, only include VODs shorter than this duration
+        max_duration_minutes: Only include VODs shorter than this duration
 
     Returns:
         Number of new VODs added
@@ -116,11 +116,10 @@ def _check_streamer_vods(
             except (ValueError, IndexError):
                 duration = None
 
-        # Filter by max duration if specified
-        if max_duration_minutes is not None and duration is not None:
-            if duration > max_duration_minutes * 60:
-                logger.debug(f"Skipping VOD {vod_id} - too long ({duration}s)")
-                continue
+        # Filter by max duration
+        if duration is not None and duration > max_duration_minutes * 60:
+            logger.debug(f"Skipping VOD {vod_id} - too long ({duration}s)")
+            continue
 
         if duration is not None:
             logger.debug(f"VOD {vod_id} duration: {duration}s ({duration/60:.1f} min)")

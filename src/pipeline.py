@@ -11,11 +11,11 @@ logger = logging.getLogger(__name__)
 STREAMERS_TO_CHECK = ["cooksux", "peeguutv"]
 
 
-def run_pipeline(max_duration_minutes: int | None = None):
+def run_pipeline(max_duration_minutes: int = 60):
     """Run the full processing pipeline
 
     Args:
-        max_duration_minutes: If set, only process VODs shorter than this duration
+        max_duration_minutes: Only process VODs shorter than this duration (default: 60)
     """
     logger.info("Starting TTV-Scribe pipeline")
 
