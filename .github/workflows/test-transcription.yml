@@ -26,6 +26,9 @@ jobs:
       - name: Set up environment
         run: uv venv
 
+      - name: Install system dependencies
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
       - name: Install dependencies
         run: uv pip install -e .
 
