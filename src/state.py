@@ -1,11 +1,11 @@
 """File-based state management for VOD tracking.
 
-Replaces SQLite database with file-based inference.
-Streamers and VODs are inferred from the transcripts directory structure.
-- Streamers = subdirectories in transcripts/
-- VODs = .txt files within each streamer's directory
+Uses JSON files to persist VOD and streamer records.
+- Streamers = subdirectories in transcripts/ (for discovery) + vods.json (for metadata)
+- VODs = vods.json (for in-progress) + .txt files in transcripts/ (for completed)
 """
 import enum
+import json
 import logging
 from dataclasses import dataclass, field, asdict
 from datetime import datetime, timezone
@@ -62,11 +62,15 @@ class VodRecord:
 
 
 class StateManager:
-    """Manages VOD state by inferring from transcripts directory.
+    """Manages VOD state using JSON files for persistence.
 
-    - Streamers = subdirectories in transcripts/
-    - VODs = transcript files within each streamer's directory
+    - Completed VODs: inferred from transcripts directory (matching .txt files)
+    - In-progress VODs: stored in vods.json
+    - Streamers: stored in streamers.json (for metadata like twitch_id)
     """
+
+    VODS_FILE = "vods.json"
+    STREAMERS_FILE = "streamers.json"
 
     def __init__(self, state_dir: str | None = None, transcript_dir: str | None = None):
         """Initialize state manager
@@ -89,8 +93,57 @@ class StateManager:
         self.transcript_dir = Path(transcript_dir) if transcript_dir else Path("./transcripts")
         self.transcript_dir.mkdir(parents=True, exist_ok=True)
 
-    def _scan_vods(self) -> dict[str, VodRecord]:
-        """Scan transcripts directory for VODs.
+        # In-memory cache
+        self._vods_cache: dict[str, VodRecord] = {}
+        self._streamers_cache: dict[str, StreamerRecord] = {}
+        self._load_state()
+
+    def _load_state(self):
+        """Load state from JSON files"""
+        # Load vods
+        vods_file = self.state_dir / self.VODS_FILE
+        if vods_file.exists():
+            try:
+                with open(vods_file) as f:
+                    data = json.load(f)
+                    for vod_data in data.get("vods", []):
+                        vod = VodRecord.from_dict(vod_data)
+                        self._vods_cache[vod.vod_id] = vod
+            except (json.JSONDecodeError, KeyError) as e:
+                logger.warning(f"Failed to load vods.json: {e}")
+
+        # Load streamers
+        streamers_file = self.state_dir / self.STREAMERS_FILE
+        if streamers_file.exists():
+            try:
+                with open(streamers_file) as f:
+                    data = json.load(f)
+                    for streamer_data in data.get("streamers", []):
+                        streamer = StreamerRecord.from_dict(streamer_data)
+                        self._streamers_cache[streamer.username] = streamer
+            except (json.JSONDecodeError, KeyError) as e:
+                logger.warning(f"Failed to load streamers.json: {e}")
+
+    def _save_vods(self):
+        """Save vods cache to JSON file"""
+        vods_file = self.state_dir / self.VODS_FILE
+        data = {
+            "vods": [vod.to_dict() for vod in self._vods_cache.values()]
+        }
+        with open(vods_file, "w") as f:
+            json.dump(data, f, indent=2)
+
+    def _save_streamers(self):
+        """Save streamers cache to JSON file"""
+        streamers_file = self.state_dir / self.STREAMERS_FILE
+        data = {
+            "streamers": [s.to_dict() for s in self._streamers_cache.values()]
+        }
+        with open(streamers_file, "w") as f:
+            json.dump(data, f, indent=2)
+
+    def _scan_completed_vods(self) -> dict[str, VodRecord]:
+        """Scan transcripts directory for completed VODs.
 
         Returns:
             Dictionary mapping vod_id to VodRecord
@@ -108,14 +161,26 @@ class StateManager:
 
             for transcript_file in streamer_dir.glob("*.txt"):
                 vod_id = transcript_file.stem  # filename without extension
-                vods[vod_id] = VodRecord(
-                    vod_id=vod_id,
-                    streamer=username,
-                    status=VodStatus.COMPLETED.value,
-                    transcript_path=str(transcript_file),
-                )
+                # Don't override if already in cache with more info
+                if vod_id not in self._vods_cache:
+                    vods[vod_id] = VodRecord(
+                        vod_id=vod_id,
+                        streamer=username,
+                        status=VodStatus.COMPLETED.value,
+                        transcript_path=str(transcript_file),
+                    )
 
         return vods
+
+    def _get_all_vods(self) -> dict[str, VodRecord]:
+        """Get all VODs (from cache + completed from filesystem)"""
+        # Start with cached vods
+        all_vods = dict(self._vods_cache)
+        # Add completed vods from filesystem that aren't in cache
+        for vod_id, vod in self._scan_completed_vods().items():
+            if vod_id not in all_vods:
+                all_vods[vod_id] = vod
+        return all_vods
 
     def get_vod(self, vod_id: str) -> VodRecord | None:
         """Get a VOD record by ID
@@ -126,27 +191,42 @@ class StateManager:
         Returns:
             VodRecord if found, None otherwise
         """
-        vods = self._scan_vods()
-        return vods.get(vod_id)
+        all_vods = self._get_all_vods()
+        return all_vods.get(vod_id)
 
     def add_vod(self, vod: VodRecord):
-        """Create a transcript directory for a VOD
+        """Add a VOD to the state and create transcript directory
 
         Args:
             vod: The VOD record to add
         """
+        # Create directory
         streamer_dir = self.transcript_dir / vod.streamer
         streamer_dir.mkdir(parents=True, exist_ok=True)
-        logger.debug(f"Created directory for VOD {vod.vod_id} at {streamer_dir}")
+
+        # Add to cache and persist
+        self._vods_cache[vod.vod_id] = vod
+        self._save_vods()
+        logger.debug(f"Added VOD {vod.vod_id} to state")
 
     def update_vod(self, vod_id: str, **kwargs):
-        """Update a VOD record (no-op, VODs are inferred from filesystem)
+        """Update a VOD record
 
         Args:
             vod_id: The VOD ID to update
-            **kwargs: Fields to update (ignored)
+            **kwargs: Fields to update
         """
-        pass
+        if vod_id not in self._vods_cache:
+            logger.warning(f"Attempted to update unknown VOD {vod_id}")
+            return
+
+        vod = self._vods_cache[vod_id]
+        for key, value in kwargs.items():
+            if hasattr(vod, key):
+                setattr(vod, key, value)
+
+        self._save_vods()
+        logger.debug(f"Updated VOD {vod_id}: {kwargs}")
 
     def get_vods_by_status(self, status: VodStatus | str) -> list[VodRecord]:
         """Get all VODs with a specific status
@@ -157,17 +237,11 @@ class StateManager:
         Returns:
             List of VodRecords with the given status
         """
-        if status == VodStatus.PENDING.value or status == VodStatus.PENDING:
-            return []
-        if status == VodStatus.DOWNLOADING.value or status == VodStatus.DOWNLOADING:
-            return []
-        if status == VodStatus.TRANSCRIBING.value or status == VodStatus.TRANSCRIBING:
-            return []
-
-        vods = self._scan_vods()
         if isinstance(status, VodStatus):
             status = status.value
-        return [v for v in vods.values() if v.status == status]
+
+        all_vods = self._get_all_vods()
+        return [v for v in all_vods.values() if v.status == status]
 
     def is_processed(self, vod_id: str) -> bool:
         """Check if a VOD has been processed (completed)
@@ -187,25 +261,25 @@ class StateManager:
         """Get all VODs awaiting download
 
         Returns:
-            Empty list (VODs are inferred, not tracked)
+            List of pending VodRecords
         """
-        return []
+        return self.get_vods_by_status(VodStatus.PENDING)
 
     def get_downloading_vods(self) -> list[VodRecord]:
         """Get all VODs currently being downloaded
 
         Returns:
-            Empty list (VODs are inferred, not tracked)
+            List of downloading VodRecords
         """
-        return []
+        return self.get_vods_by_status(VodStatus.DOWNLOADING)
 
     def get_transcribing_vods(self) -> list[VodRecord]:
         """Get all VODs currently being transcribed
 
         Returns:
-            Empty list (VODs are inferred, not tracked)
+            List of transcribing VodRecords
         """
-        return []
+        return self.get_vods_by_status(VodStatus.TRANSCRIBING)
 
     def get_completed_vods(self) -> list[VodRecord]:
         """Get all completed VODs
@@ -217,26 +291,27 @@ class StateManager:
 
     # Streamer management methods
 
-    def _scan_streamers(self) -> dict[str, StreamerRecord]:
-        """Scan transcripts directory for streamers.
+    def _get_all_streamers(self) -> dict[str, StreamerRecord]:
+        """Get all streamers (from cache + discovered from filesystem)
 
         Returns:
             Dictionary mapping username to StreamerRecord
         """
-        streamers: dict[str, StreamerRecord] = {}
+        # Start with cached streamers
+        all_streamers = dict(self._streamers_cache)
 
         if not self.transcript_dir.exists():
-            return streamers
+            return all_streamers
 
+        # Add discovered streamers that aren't in cache
         for streamer_dir in self.transcript_dir.iterdir():
             if not streamer_dir.is_dir():
                 continue
+            username = streamer_dir.name
+            if username not in all_streamers:
+                all_streamers[username] = StreamerRecord(username=username)
 
-            streamers[streamer_dir.name] = StreamerRecord(
-                username=streamer_dir.name,
-            )
-
-        return streamers
+        return all_streamers
 
     def get_streamers(self) -> list[StreamerRecord]:
         """Get all tracked streamers
@@ -244,17 +319,22 @@ class StateManager:
         Returns:
             List of StreamerRecords
         """
-        return list(self._scan_streamers().values())
+        return list(self._get_all_streamers().values())
 
     def add_streamer(self, streamer: StreamerRecord):
-        """Add a new streamer (creates directory in transcripts)
+        """Add a new streamer (creates directory in transcripts and persists)
 
         Args:
             streamer: The streamer record to add
         """
+        # Create directory
         streamer_dir = self.transcript_dir / streamer.username
         streamer_dir.mkdir(parents=True, exist_ok=True)
-        logger.debug(f"Created directory for streamer {streamer.username}")
+
+        # Add to cache and persist
+        self._streamers_cache[streamer.username] = streamer
+        self._save_streamers()
+        logger.debug(f"Added streamer {streamer.username} to state")
 
     def get_streamer(self, username: str) -> StreamerRecord | None:
         """Get a streamer record by username
@@ -265,17 +345,31 @@ class StateManager:
         Returns:
             StreamerRecord if found, None otherwise
         """
-        streamers = self._scan_streamers()
-        return streamers.get(username)
+        all_streamers = self._get_all_streamers()
+        return all_streamers.get(username)
 
     def update_streamer(self, username: str, **kwargs):
-        """Update a streamer record (no-op, streamers are inferred)
+        """Update a streamer record
 
         Args:
             username: The streamer username to update
-            **kwargs: Fields to update (ignored)
+            **kwargs: Fields to update (e.g., twitch_id)
         """
-        pass
+        # Get or create streamer
+        if username in self._streamers_cache:
+            streamer = self._streamers_cache[username]
+        else:
+            # Create new from filesystem discovery
+            streamer = StreamerRecord(username=username)
+            self._streamers_cache[username] = streamer
+
+        # Update fields
+        for key, value in kwargs.items():
+            if hasattr(streamer, key):
+                setattr(streamer, key, value)
+
+        self._save_streamers()
+        logger.debug(f"Updated streamer {username}: {kwargs}")
 
     def get_vods_by_streamer(self, username: str) -> list[VodRecord]:
         """Get all VODs for a specific streamer
@@ -286,8 +380,8 @@ class StateManager:
         Returns:
             List of VodRecords for the streamer
         """
-        vods = self._scan_vods()
-        return [v for v in vods.values() if v.streamer == username]
+        all_vods = self._get_all_vods()
+        return [v for v in all_vods.values() if v.streamer == username]
 
     def get_all_vods(self) -> list[VodRecord]:
         """Get all VOD records
@@ -295,7 +389,7 @@ class StateManager:
         Returns:
             List of all VodRecords
         """
-        return list(self._scan_vods().values())
+        return list(self._get_all_vods().values())
 
 
 # Global state manager instance

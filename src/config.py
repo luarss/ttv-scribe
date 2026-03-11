@@ -18,6 +18,9 @@ class Settings(BaseSettings):
     state_file_dir: str = "./state"
     transcript_dir: str = "./transcripts"
 
+    # Legacy (ignored)
+    database_url: str = ""
+
     # Local Whisper settings (for faster-whisper)
     whisper_use_local: bool = False  # Set to True to use local transcription
     whisper_device: str = "cpu"  # cpu or cuda (for GPU)
