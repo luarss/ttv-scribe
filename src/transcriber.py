@@ -158,11 +158,11 @@ if __name__ == "__main__":
     logger.info(f"Transcribed {count} VODs")
 
 
-def export_transcript_to_file(vod: Vod, output_dir: str = "./transcripts") -> str:
+def export_transcript_to_file(vod_id: str, output_dir: str = "./transcripts") -> str:
     """Export transcript to a text file
 
     Args:
-        vod: The Vod object to export transcript for
+        vod_id: The VOD ID to export transcript for
         output_dir: Base directory for transcript output
 
     Returns:
@@ -172,11 +172,13 @@ def export_transcript_to_file(vod: Vod, output_dir: str = "./transcripts") -> st
         ValueError: If no transcript exists for the VOD
     """
     with get_db_session() as session:
-        # Refresh the vod to get the latest transcript
-        session.refresh(vod)
+        vod = session.query(Vod).filter_by(vod_id=vod_id).first()
+
+        if not vod:
+            raise ValueError(f"VOD {vod_id} not found")
 
         if not vod.transcript:
-            raise ValueError(f"No transcript found for VOD {vod.vod_id}")
+            raise ValueError(f"No transcript found for VOD {vod_id}")
 
         # Get the streamer's username
         username = vod.streamer.username if vod.streamer else "unknown"

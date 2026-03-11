@@ -106,10 +106,8 @@ def main():
         logger.info("Saved transcript to database")
 
     # Export to file
-    with get_db_session() as session:
-        vod = session.query(Vod).filter_by(vod_id=vod_id).first()
-        filepath = export_transcript_to_file(vod, output_dir=output_dir)
-        logger.info(f"Exported transcript to: {filepath}")
+    filepath = export_transcript_to_file(vod_id, output_dir=output_dir)
+    logger.info(f"Exported transcript to: {filepath}")
 
     # Cleanup audio
     downloader.cleanup_audio(audio_path)
