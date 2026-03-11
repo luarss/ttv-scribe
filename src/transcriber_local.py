@@ -1,9 +1,17 @@
 """Local transcriber for VOD audio using faster-whisper"""
+import json
 import logging
+import os
+from datetime import datetime, timezone
 
 from faster_whisper import WhisperModel
 
 from .config import get_settings
+from .state import (
+    get_downloading_vods,
+    get_state_manager,
+    VodStatus,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -30,11 +38,11 @@ class LocalTranscriber:
             )
         return self._model
 
-    def transcribe_vod(self, vod_id: str, audio_path: str) -> tuple[str, dict, float]:
+    def transcribe_vod(self, vod_data: dict, audio_path: str) -> tuple[str, dict, float]:
         """Transcribe an audio file using local Whisper model
 
         Args:
-            vod_id: The VOD ID (unused for local, kept for interface compatibility)
+            vod_data: The VOD data dictionary (must contain vod_id)
             audio_path: Path to the audio file
 
         Returns:
@@ -43,7 +51,8 @@ class LocalTranscriber:
         Raises:
             Exception: If transcription fails
         """
-        logger.info(f"Transcribing audio file: {audio_path}")
+        vod_id = vod_data.get("vod_id", "unknown")
+        logger.info(f"Transcribing VOD {vod_id}")
 
         # Run transcription
         segments, info = self.model.transcribe(
@@ -99,3 +108,158 @@ class LocalTranscriber:
             "segments_count": len(segments),
             "key_moments": key_moments,
         }
+
+
+def save_transcript_to_json(
+    vod_data: dict,
+    text: str,
+    metadata: dict,
+    cost: float,
+) -> str:
+    """Save transcript as JSON file
+
+    Args:
+        vod_data: The VOD data dictionary
+        text: The transcript text
+        metadata: The transcript metadata
+        cost: The transcription cost
+
+    Returns:
+        Path to the saved transcript file
+    """
+    settings = get_settings()
+    transcript_dir = settings.transcript_dir
+
+    streamer = vod_data.get("streamer", "unknown")
+    vod_id = vod_data["vod_id"]
+
+    # Create output directory: ./transcripts/<username>/
+    streamer_dir = os.path.join(transcript_dir, streamer)
+    os.makedirs(streamer_dir, exist_ok=True)
+
+    # Use VOD ID as filename
+    filepath = os.path.join(streamer_dir, f"{vod_id}.json")
+
+    # Build transcript data
+    transcript_data = {
+        "vod_id": vod_id,
+        "streamer": streamer,
+        "title": vod_data.get("title"),
+        "recorded_at": vod_data.get("recorded_at"),
+        "text": text,
+        "metadata": metadata,
+        "cost": cost,
+        "created_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+    }
+
+    # Write to JSON file
+    with open(filepath, "w", encoding="utf-8") as f:
+        json.dump(transcript_data, f, indent=2, ensure_ascii=False)
+
+    logger.info(f"Saved transcript to {filepath}")
+    return filepath
+
+
+def export_transcript_to_text(
+    vod_data: dict,
+    text: str,
+    output_dir: str = "./transcripts",
+) -> str:
+    """Export transcript to a text file
+
+    Args:
+        vod_data: The VOD data dictionary
+        text: The transcript text
+        output_dir: Base directory for transcript output
+
+    Returns:
+        Path to the created transcript file
+    """
+    streamer = vod_data.get("streamer", "unknown")
+    vod_id = vod_data["vod_id"]
+    title = vod_data.get("title")
+
+    # Create output directory: ./transcripts/<username>/
+    user_dir = os.path.join(output_dir, streamer, "text")
+    os.makedirs(user_dir, exist_ok=True)
+
+    # Use VOD ID as filename (or sanitize title if available)
+    filename = f"{vod_id}.txt"
+    if title:
+        # Sanitize title for use as filename
+        sanitized = "".join(c for c in title if c.isalnum() or c in " -_").strip()
+        sanitized = sanitized[:100]  # Limit length
+        filename = f"{sanitized}.txt"
+
+    filepath = os.path.join(user_dir, filename)
+
+    # Write transcript to file
+    with open(filepath, "w", encoding="utf-8") as f:
+        f.write(text)
+
+    logger.info(f"Exported transcript to {filepath}")
+    return filepath
+
+
+def process_downloaded_vods() -> int:
+    """Process all downloaded VODs awaiting transcription
+
+    Returns:
+        Number of VODs transcribed
+    """
+    from .downloader import Downloader
+
+    processed = 0
+    transcriber = LocalTranscriber()
+    downloader = Downloader()
+    manager = get_state_manager()
+
+    # Get all VODs that have been downloaded (status = DOWNLOADING)
+    downloading_vods = get_downloading_vods()
+
+    for vod_data in downloading_vods:
+        vod_id = vod_data["vod_id"]
+        try:
+            # Update status to TRANSCRIBING
+            manager.update_vod(vod_id, status=VodStatus.TRANSCRIBING.value)
+
+            # Download audio (if not already downloaded)
+            audio_path = downloader.download_vod_audio(vod_data)
+
+            # Transcribe
+            text, metadata, cost = transcriber.transcribe_vod(vod_data, audio_path)
+
+            # Save transcript as JSON
+            transcript_path = save_transcript_to_json(vod_data, text, metadata, cost)
+
+            # Also export to text file for compatibility
+            export_transcript_to_text(vod_data, text)
+
+            # Update VOD record with transcript path and mark as completed
+            manager.update_vod(
+                vod_id,
+                status=VodStatus.COMPLETED.value,
+                transcript_path=transcript_path,
+            )
+
+            # Cleanup audio
+            downloader.cleanup_audio(audio_path)
+
+            processed += 1
+            logger.info(f"Completed transcription for VOD {vod_id}")
+
+        except Exception as e:
+            logger.error(f"Failed to transcribe VOD {vod_id}: {e}")
+            manager.update_vod(vod_id, status=VodStatus.FAILED.value)
+
+    return processed
+
+
+def create_transcriber():
+    """Factory function to create the transcriber (always returns LocalTranscriber)
+
+    Returns:
+        LocalTranscriber instance
+    """
+    logger.info("Using local Whisper transcriber")
+    return LocalTranscriber()

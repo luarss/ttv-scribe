@@ -3,7 +3,7 @@ import logging
 
 from .monitor import check_for_new_vods, add_streamers_to_track
 from .downloader import process_pending_vods
-from .transcriber import process_downloaded_vods
+from .transcriber_local import process_downloaded_vods
 
 logger = logging.getLogger(__name__)
 
