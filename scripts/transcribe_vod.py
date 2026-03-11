@@ -2,13 +2,11 @@
 import argparse
 import logging
 import sys
-from datetime import datetime
 
-from src.database import get_db_session, init_db
-from src.models import Vod, Streamer, Transcript, VodStatus
+from src.state import StateManager, VodRecord, VodStatus, StreamerRecord, get_state_manager
 from src.twitch.client import TwitchClient
 from src.downloader import Downloader
-from src.transcriber import create_transcriber, export_transcript_to_file
+from src.transcriber import create_transcriber, save_transcript_to_json
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -18,17 +16,15 @@ def main():
     parser = argparse.ArgumentParser(description="Transcribe a Twitch VOD")
     parser.add_argument("username", help="Twitch username")
     parser.add_argument("vod_id", help="VOD ID to transcribe")
-    parser.add_argument("--output-dir", default="./transcripts", help="Output directory for transcripts")
     args = parser.parse_args()
 
     username = args.username
     vod_id = args.vod_id
-    output_dir = args.output_dir
 
     logger.info(f"Starting transcription for user={username}, vod_id={vod_id}")
 
-    # Initialize database
-    init_db()
+    # Initialize state manager
+    state = get_state_manager()
 
     # Get VOD info from Twitch
     client = TwitchClient()
@@ -40,81 +36,66 @@ def main():
 
     logger.info(f"Found VOD: {video.get('title', 'Untitled')}")
 
-    # Get or create streamer and VOD in database
-    with get_db_session() as session:
-        streamer = session.query(Streamer).filter_by(username=username).first()
-        if not streamer:
-            streamer = Streamer(username=username)
-            session.add(streamer)
-            session.flush()
-            logger.info(f"Created streamer: {username}")
+    # Get or create streamer in state
+    streamer = state.get_streamer(username)
+    if not streamer:
+        streamer = StreamerRecord(
+            username=username,
+            twitch_id=str(video.get("user_id", "")),
+        )
+        state.add_streamer(streamer)
+        logger.info(f"Created streamer: {username}")
 
-        # Check if VOD already exists
-        vod = session.query(Vod).filter_by(vod_id=vod_id).first()
-        if not vod:
-            created_at = video.get("created_at")
-            if created_at:
-                created_at = created_at.replace("Z", "+00:00")
-                recorded_at = datetime.fromisoformat(created_at)
-            else:
-                recorded_at = None
+    # Check if VOD already exists in state
+    vod = state.get_vod(vod_id)
+    if not vod:
+        vod = VodRecord(
+            vod_id=vod_id,
+            streamer=username,
+            title=video.get("title"),
+            duration=video.get("duration"),
+            recorded_at=video.get("created_at"),
+            status=VodStatus.PENDING.value,
+        )
+        state.add_vod(vod)
+        logger.info(f"Created VOD entry: {vod_id}")
+    else:
+        logger.info(f"Found existing VOD: {vod_id}")
 
-            vod = Vod(
-                vod_id=vod_id,
-                streamer_id=streamer.id,
-                title=video.get("title"),
-                duration=video.get("duration"),
-                recorded_at=recorded_at,
-                status=VodStatus.PENDING,
-            )
-            session.add(vod)
-            session.flush()
-            logger.info(f"Created VOD entry: {vod_id}")
-        else:
-            logger.info(f"Found existing VOD: {vod_id}")
+    # Build vod_data dict for transcriber functions
+    vod_data = {
+        "vod_id": vod_id,
+        "streamer": username,
+        "title": video.get("title"),
+        "duration": video.get("duration"),
+        "recorded_at": video.get("created_at"),
+    }
 
-    # Download audio
+    # Download audio - update status to downloading
     downloader = Downloader()
-    with get_db_session() as session:
-        vod = session.query(Vod).filter_by(vod_id=vod_id).first()
-        vod.status = VodStatus.DOWNLOADING
-        session.flush()
+    state.update_vod(vod_id, status=VodStatus.DOWNLOADING.value)
 
-        # Pass vod_id instead of Vod object
-        audio_path = downloader.download_vod_audio(vod_id)
-
+    audio_path = downloader.download_vod_audio(vod_data)
     logger.info(f"Downloaded audio to: {audio_path}")
 
-    # Transcribe
+    # Transcribe - update status to transcribing
     transcriber = create_transcriber()
-    with get_db_session() as session:
-        vod = session.query(Vod).filter_by(vod_id=vod_id).first()
-        vod.status = VodStatus.TRANSCRIBING
-        session.flush()
+    state.update_vod(vod_id, status=VodStatus.TRANSCRIBING.value)
 
-        text, metadata, cost = transcriber.transcribe_vod(vod_id, audio_path)
+    text, metadata, cost = transcriber.transcribe_vod(vod_data, audio_path)
 
     logger.info(f"Transcribed, cost: ${cost:.4f}")
 
-    # Save transcript to database
-    with get_db_session() as session:
-        vod = session.query(Vod).filter_by(vod_id=vod_id).first()
-        transcript = Transcript(
-            vod_id=vod.id,
-            text=text,
-            transcript_metadata=metadata,
-            cost=cost,
-        )
-        session.add(transcript)
-        vod.status = VodStatus.COMPLETED
-        logger.info("Saved transcript to database")
+    # Save transcript to JSON
+    filepath = save_transcript_to_json(vod_data, text, metadata, cost)
+    logger.info(f"Saved transcript to: {filepath}")
 
-    # Export to file
-    filepath = export_transcript_to_file(vod_id, output_dir=output_dir)
-    logger.info(f"Exported transcript to: {filepath}")
-
-    # Cleanup audio
-    downloader.cleanup_audio(audio_path)
+    # Update VOD status to completed with transcript path
+    state.update_vod(
+        vod_id,
+        status=VodStatus.COMPLETED.value,
+        transcript_path=filepath,
+    )
     logger.info("Transcription complete!")
 
     print(f"TRANSCRIPT_FILE={filepath}")
