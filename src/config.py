@@ -9,7 +9,6 @@ class Settings(BaseSettings):
     # Required settings
     twitch_client_id: str = ""
     twitch_client_secret: str = ""
-    openai_api_key: str = ""
 
     # Optional settings
     log_level: str = "INFO"
@@ -22,7 +21,6 @@ class Settings(BaseSettings):
     database_url: str = ""
 
     # Local Whisper settings (for faster-whisper)
-    whisper_use_local: bool = False  # Set to True to use local transcription
     whisper_device: str = "cpu"  # cpu or cuda (for GPU)
     whisper_compute_type: str = "int8"  # int8, float16, float32
 

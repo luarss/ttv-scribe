@@ -36,8 +36,6 @@ jobs:
           cat > .env << EOF
           TWITCH_CLIENT_ID=${{ secrets.TWITCH_CLIENT_ID }}
           TWITCH_CLIENT_SECRET=${{ secrets.TWITCH_CLIENT_SECRET }}
-          OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
-          WHISPER_USE_LOCAL=true
           WHISPER_MODEL=small
           WHISPER_DEVICE=cpu
           WHISPER_COMPUTE_TYPE=int8

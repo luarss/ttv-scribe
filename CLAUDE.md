@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**ttv-scribe** is a Twitch VOD transcription pipeline with a React frontend. It monitors streamers, downloads VOD audio via yt-dlp, transcribes with OpenAI Whisper (or local faster-whisper), and stores transcripts as JSON files. State is persisted in JSON files — no database.
+**ttv-scribe** is a Twitch VOD transcription pipeline with a React frontend. It monitors streamers, downloads VOD audio via yt-dlp, transcribes with local faster-whisper, and stores transcripts as JSON files. State is persisted in JSON files — no database.
 
 ## Commands
 
@@ -40,7 +40,7 @@ pnpm lint       # eslint
 GitHub Actions cron → src/pipeline.py
   → monitor.py       (Twitch API: find new VODs from tracked streamers)
   → downloader.py    (yt-dlp: extract MP3 audio to /tmp)
-  → transcriber.py   (OpenAI Whisper API) OR transcriber_local.py (faster-whisper)
+  → transcriber_local.py   (faster-whisper)
   → transcripts/{username}/{vod_id}.json
 ```
 
@@ -80,12 +80,10 @@ GitHub Actions cron → src/pipeline.py
 
 Copy `.env.example` to `.env`:
 - `TWITCH_CLIENT_ID` / `TWITCH_CLIENT_SECRET` — from dev.twitch.tv
-- `OPENAI_API_KEY` — for Whisper API
-- `WHISPER_USE_LOCAL=true` — switch to local faster-whisper (avoids API cost)
 - `WHISPER_MODEL` — model size for local inference (`small`, `medium`, `large`)
 
 ## Key Design Decisions
 - **No database**: JSON files are the source of truth. Git-friendly and stateless deployment via GitHub Actions.
-- **Dual transcription**: Toggle between OpenAI API and local faster-whisper via `WHISPER_USE_LOCAL`.
+- **Local transcription**: Uses faster-whisper for free, local transcription.
 - **Search is simple substring match**: `src/search.py` walks transcript JSON files — no indexing.
 - **Streamers to monitor** are hardcoded in `src/pipeline.py` as `STREAMERS_TO_CHECK`.

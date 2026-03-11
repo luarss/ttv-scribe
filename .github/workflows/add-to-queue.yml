@@ -33,7 +33,6 @@ jobs:
           cat > .env << EOF
           TWITCH_CLIENT_ID=${{ secrets.TWITCH_CLIENT_ID }}
           TWITCH_CLIENT_SECRET=${{ secrets.TWITCH_CLIENT_SECRET }}
-          OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
           LOG_LEVEL=INFO
           STATE_FILE_DIR=./state
           TRANSCRIPT_DIR=./transcripts

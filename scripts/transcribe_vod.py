@@ -6,7 +6,7 @@ import sys
 from src.state import StateManager, VodRecord, VodStatus, StreamerRecord, get_state_manager
 from src.twitch.client import TwitchClient
 from src.downloader import Downloader
-from src.transcriber import create_transcriber, save_transcript_to_json
+from src.transcriber_local import create_transcriber, save_transcript_to_json
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
