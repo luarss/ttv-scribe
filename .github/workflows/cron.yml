@@ -44,3 +44,9 @@ jobs:
 
       - name: Run pipeline
         run: uv run python -m src.pipeline
+
+      - name: Commit and push transcripts
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "feat: add new transcripts"
+          file_pattern: transcripts/* state/*
