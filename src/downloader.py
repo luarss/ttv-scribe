@@ -33,7 +33,6 @@ class Downloader:
         """
         # Update status
         vod.status = VodStatus.DOWNLOADING
-        session = vod.id  # Access session via the object if needed
 
         twitch_url = f"https://www.twitch.tv/videos/{vod.vod_id}"
 
