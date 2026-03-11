@@ -6,11 +6,6 @@ on:
     - cron: "0 0 * * *"
   # Manual trigger for testing or on-demand runs
   workflow_dispatch:
-    inputs:
-      max_duration_minutes:
-        description: 'Maximum VOD duration in minutes (optional)'
-        required: false
-        type: string
 
 jobs:
   monitor-and-process:
@@ -45,9 +40,4 @@ jobs:
           EOF
 
       - name: Run pipeline
-        run: |
-          if [ -n "${{ github.event.inputs.max_duration_minutes }}" ]; then
-            uv run python -c "from src.pipeline import run_pipeline; run_pipeline(max_duration_minutes=int('${{ github.event.inputs.max_duration_minutes }}'))"
-          else
-            uv run python -m src.pipeline
-          fi
+        run: uv run python -m src.pipeline
