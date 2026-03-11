@@ -18,11 +18,11 @@ class Transcriber:
         self.settings = get_settings()
         openai.api_key = self.settings.openai_api_key
 
-    def transcribe_vod(self, vod: Vod, audio_path: str) -> tuple[str, dict, float]:
+    def transcribe_vod(self, vod_id: str, audio_path: str) -> tuple[str, dict, float]:
         """Transcribe a VOD's audio
 
         Args:
-            vod: The Vod object
+            vod_id: The VOD ID to transcribe
             audio_path: Path to the audio file
 
         Returns:
@@ -31,7 +31,12 @@ class Transcriber:
         Raises:
             Exception: If transcription fails
         """
-        logger.info(f"Transcribing VOD {vod.vod_id}")
+        logger.info(f"Transcribing VOD {vod_id}")
+
+        # Get VOD duration from database
+        with get_db_session() as session:
+            vod = session.query(Vod).filter_by(vod_id=vod_id).first()
+            duration = vod.duration if vod else 0
 
         with open(audio_path, "rb") as audio_file:
             response = openai.audio.transcriptions.create(
@@ -48,10 +53,9 @@ class Transcriber:
         metadata = self._extract_metadata(response)
 
         # Estimate cost (Whisper pricing: $0.006/minute for audio)
-        duration = vod.duration or 0
         cost = (duration / 60) * 0.006 if duration else 0.0
 
-        logger.info(f"Transcribed VOD {vod.vod_id}, cost: ${cost:.4f}")
+        logger.info(f"Transcribed VOD {vod_id}, cost: ${cost:.4f}")
 
         return text, metadata, cost
 

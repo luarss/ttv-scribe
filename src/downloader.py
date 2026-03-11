@@ -19,11 +19,11 @@ class Downloader:
         self.output_dir = self.settings.audio_output_dir
         os.makedirs(self.output_dir, exist_ok=True)
 
-    def download_vod_audio(self, vod: Vod) -> str:
+    def download_vod_audio(self, vod_id: str) -> str:
         """Download audio from a VOD
 
         Args:
-            vod: The Vod object to download
+            vod_id: The VOD ID to download
 
         Returns:
             Path to the downloaded audio file
@@ -31,13 +31,10 @@ class Downloader:
         Raises:
             Exception: If download fails
         """
-        # Update status
-        vod.status = VodStatus.DOWNLOADING
-
-        twitch_url = f"https://www.twitch.tv/videos/{vod.vod_id}"
+        twitch_url = f"https://www.twitch.tv/videos/{vod_id}"
 
         # Create temp file for output
-        output_template = os.path.join(self.output_dir, f"{vod.vod_id}.%(ext)s")
+        output_template = os.path.join(self.output_dir, f"{vod_id}.%(ext)s")
 
         ydl_opts = {
             "format": "bestaudio/best",
@@ -51,18 +48,18 @@ class Downloader:
             "extract_flat": False,
         }
 
-        logger.info(f"Downloading VOD {vod.vod_id}: {vod.title}")
+        logger.info(f"Downloading VOD {vod_id}")
 
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([twitch_url])
 
         # Find the downloaded file
-        mp3_path = os.path.join(self.output_dir, f"{vod.vod_id}.mp3")
+        mp3_path = os.path.join(self.output_dir, f"{vod_id}.mp3")
 
         if not os.path.exists(mp3_path):
             raise FileNotFoundError(f"Expected output file not found: {mp3_path}")
 
-        logger.info(f"Downloaded VOD {vod.vod_id} to {mp3_path}")
+        logger.info(f"Downloaded VOD {vod_id} to {mp3_path}")
         return mp3_path
 
     def cleanup_audio(self, filepath: str):

@@ -31,11 +31,11 @@ class LocalTranscriber:
             )
         return self._model
 
-    def transcribe_vod(self, vod: Vod, audio_path: str) -> tuple[str, dict, float]:
+    def transcribe_vod(self, vod_id: str, audio_path: str) -> tuple[str, dict, float]:
         """Transcribe an audio file using local Whisper model
 
         Args:
-            vod: The Vod object (unused for local, kept for interface compatibility)
+            vod_id: The VOD ID (unused for local, kept for interface compatibility)
             audio_path: Path to the audio file
 
         Returns:

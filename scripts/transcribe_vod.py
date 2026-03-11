@@ -40,7 +40,7 @@ def main():
 
     logger.info(f"Found VOD: {video.get('title', 'Untitled')}")
 
-    # Get or create streamer
+    # Get or create streamer and VOD in database
     with get_db_session() as session:
         streamer = session.query(Streamer).filter_by(username=username).first()
         if not streamer:
@@ -54,7 +54,6 @@ def main():
         if not vod:
             created_at = video.get("created_at")
             if created_at:
-                # Handle both with and without 'Z' suffix
                 created_at = created_at.replace("Z", "+00:00")
                 recorded_at = datetime.fromisoformat(created_at)
             else:
@@ -79,8 +78,11 @@ def main():
     with get_db_session() as session:
         vod = session.query(Vod).filter_by(vod_id=vod_id).first()
         vod.status = VodStatus.DOWNLOADING
+        session.flush()
 
-    audio_path = downloader.download_vod_audio(vod)
+        # Pass vod_id instead of Vod object
+        audio_path = downloader.download_vod_audio(vod_id)
+
     logger.info(f"Downloaded audio to: {audio_path}")
 
     # Transcribe
@@ -88,8 +90,10 @@ def main():
     with get_db_session() as session:
         vod = session.query(Vod).filter_by(vod_id=vod_id).first()
         vod.status = VodStatus.TRANSCRIBING
+        session.flush()
 
-    text, metadata, cost = transcriber.transcribe_vod(vod, audio_path)
+        text, metadata, cost = transcriber.transcribe_vod(vod_id, audio_path)
+
     logger.info(f"Transcribed, cost: ${cost:.4f}")
 
     # Save transcript to database
@@ -113,7 +117,6 @@ def main():
     downloader.cleanup_audio(audio_path)
     logger.info("Transcription complete!")
 
-    # Print output path for later steps
     print(f"TRANSCRIPT_FILE={filepath}")
     return filepath
 
