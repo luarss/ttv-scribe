@@ -10,8 +10,12 @@ from .transcriber import process_downloaded_vods
 logger = logging.getLogger(__name__)
 
 
-def run_pipeline():
-    """Run the full processing pipeline"""
+def run_pipeline(max_duration_minutes: int | None = None):
+    """Run the full processing pipeline
+
+    Args:
+        max_duration_minutes: If set, only process VODs shorter than this duration
+    """
     logger.info("Starting TTV-Scribe pipeline")
 
     # Initialize database
@@ -24,7 +28,7 @@ def run_pipeline():
 
     # Step 1: Check for new VODs
     try:
-        new_vods = check_for_new_vods()
+        new_vods = check_for_new_vods(max_duration_minutes=max_duration_minutes)
         logger.info(f"Found {new_vods} new VODs")
     except Exception as e:
         logger.error(f"Error in monitor step: {e}")

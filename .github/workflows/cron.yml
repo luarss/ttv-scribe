@@ -1,0 +1,52 @@
+name: Monitor and Process VODs
+
+on:
+  # Scheduled run - daily at midnight UTC
+  schedule:
+    - cron: "0 0 * * *"
+  # Manual trigger for testing or on-demand runs
+  workflow_dispatch:
+    inputs:
+      max_duration_minutes:
+        description: 'Maximum VOD duration in minutes (optional)'
+        required: false
+        type: string
+
+jobs:
+  monitor-and-process:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          python-version: "3.13"
+
+      - name: Set up environment
+        run: uv venv
+
+      - name: Install dependencies
+        run: uv pip install -e .
+
+      - name: Create .env file
+        run: |
+          cat > .env << EOF
+          TWITCH_CLIENT_ID=${{ secrets.TWITCH_CLIENT_ID }}
+          TWITCH_CLIENT_SECRET=${{ secrets.TWITCH_CLIENT_SECRET }}
+          OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
+          WHISPER_USE_LOCAL=true
+          WHISPER_MODEL=small
+          WHISPER_DEVICE=cpu
+          WHISPER_COMPUTE_TYPE=int8
+          DATABASE_URL=sqlite:///./ttv_scribe.db
+          LOG_LEVEL=INFO
+          EOF
+
+      - name: Run pipeline
+        run: |
+          if [ -n "${{ github.event.inputs.max_duration_minutes }}" ]; then
+            uv run python -c "from src.pipeline import run_pipeline; run_pipeline(max_duration_minutes=int('${{ github.event.inputs.max_duration_minutes }}'))"
+          else
+            uv run python -m src.pipeline
+          fi
