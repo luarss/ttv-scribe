@@ -1,12 +1,11 @@
 """Full-text search for transcripts"""
+import json
 import logging
-from typing import List, Optional
+import os
+from pathlib import Path
+from typing import List
 
-from sqlalchemy import func, text
-from sqlalchemy.orm import Session
-
-from .database import get_db_session
-from .models import Transcript, Vod, Streamer
+from .config import get_settings
 
 logger = logging.getLogger(__name__)
 
@@ -14,67 +13,65 @@ logger = logging.getLogger(__name__)
 def search_transcripts(
     query: str,
     limit: int = 20,
-    session: Optional[Session] = None
+    transcript_dir: str | None = None,
 ) -> List[dict]:
-    """Search transcripts using PostgreSQL full-text search
+    """Search transcripts using simple text matching
 
     Args:
         query: Search query string
         limit: Maximum number of results
-        session: Optional database session
+        transcript_dir: Base directory for transcripts. Defaults to settings.transcript_dir
 
     Returns:
         List of matching transcripts with metadata
     """
-    close_session = False
-    if session is None:
-        session = get_db_session().__enter__()
-        close_session = True
+    if transcript_dir is None:
+        settings = get_settings()
+        transcript_dir = settings.transcript_dir
 
-    try:
-        # Use pg_trgm for fuzzy search if available
-        # Fall back to ILIKE for simple matching
-        results = (
-            session.query(
-                Transcript,
-                Vod,
-                Streamer,
-                func.similarity(Transcript.text, query).label("rank")
-            )
-            .join(Vod, Transcript.vod_id == Vod.id)
-            .join(Streamer, Vod.streamer_id == Streamer.id)
-            .filter(Transcript.text.ilike(f"%{query}%"))
-            .order_by(text("rank DESC"))
-            .limit(limit)
-            .all()
-        )
+    transcript_path = Path(transcript_dir)
+    if not transcript_path.exists():
+        logger.warning(f"Transcript directory does not exist: {transcript_dir}")
+        return []
 
-        matches = []
-        for transcript, vod, streamer, rank in results:
-            matches.append({
-                "transcript_id": transcript.id,
-                "vod_id": vod.vod_id,
-                "vod_title": vod.title,
-                "streamer": streamer.username,
-                "recorded_at": vod.recorded_at.isoformat() if vod.recorded_at else None,
-                "text_preview": transcript.text[:200] + "..." if len(transcript.text) > 200 else transcript.text,
-                "rank": float(rank) if rank else 0.0,
-            })
+    matches = []
+    query_lower = query.lower()
 
-        return matches
+    # Walk through all transcript JSON files
+    for json_file in transcript_path.rglob("*.json"):
+        try:
+            with open(json_file, "r", encoding="utf-8") as f:
+                transcript_data = json.load(f)
 
-    finally:
-        if close_session:
-            session.close()
+            text = transcript_data.get("text", "")
+            if not text:
+                continue
 
+            # Simple case-insensitive search
+            if query_lower in text.lower():
+                # Calculate position for relevance
+                pos = text.lower().find(query_lower)
+                context_start = max(0, pos - 100)
+                context_end = min(len(text), pos + len(query) + 100)
 
-def enable_pg_trgm(session: Session):
-    """Enable pg_trgm extension for fuzzy search"""
-    try:
-        session.execute(text("CREATE EXTENSION IF NOT EXISTS pg_trgm"))
-        session.commit()
-    except Exception as e:
-        logger.warning(f"Could not enable pg_trgm: {e}")
+                matches.append({
+                    "transcript_file": str(json_file),
+                    "vod_id": transcript_data.get("vod_id"),
+                    "vod_title": transcript_data.get("title"),
+                    "streamer": transcript_data.get("streamer"),
+                    "recorded_at": transcript_data.get("recorded_at"),
+                    "text_preview": text[context_start:context_end],
+                    "match_position": pos,
+                })
+
+        except (json.JSONDecodeError, IOError) as e:
+            logger.warning(f"Failed to read {json_file}: {e}")
+            continue
+
+    # Sort by match position (earlier matches first)
+    matches.sort(key=lambda x: x.get("match_position", 0))
+
+    return matches[:limit]
 
 
 if __name__ == "__main__":

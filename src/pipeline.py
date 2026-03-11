@@ -1,30 +1,33 @@
 """Processing pipeline for TTV-Scribe"""
 import logging
-import sys
 
-from .database import init_db
-from .monitor import check_for_new_vods
+from .monitor import check_for_new_vods, add_streamers_to_track
 from .downloader import process_pending_vods
 from .transcriber import process_downloaded_vods
 
 logger = logging.getLogger(__name__)
 
+# Streamers to track - modify this list as needed
+STREAMERS_TO_CHECK = ["cooksux", "peeguutv"]
 
-def run_pipeline():
-    """Run the full processing pipeline"""
+
+def run_pipeline(max_duration_minutes: int = 60):
+    """Run the full processing pipeline
+
+    Args:
+        max_duration_minutes: Only process VODs shorter than this duration (default: 60)
+    """
     logger.info("Starting TTV-Scribe pipeline")
 
-    # Initialize database
-    try:
-        init_db()
-        logger.info("Database initialized")
-    except Exception as e:
-        logger.error(f"Failed to initialize database: {e}")
-        sys.exit(1)
+    # Step 0: Initialize streamers from constant
+    if STREAMERS_TO_CHECK:
+        added = add_streamers_to_track(STREAMERS_TO_CHECK)
+        if added > 0:
+            logger.info(f"Initialized {added} streamers")
 
     # Step 1: Check for new VODs
     try:
-        new_vods = check_for_new_vods()
+        new_vods = check_for_new_vods(max_duration_minutes=max_duration_minutes)
         logger.info(f"Found {new_vods} new VODs")
     except Exception as e:
         logger.error(f"Error in monitor step: {e}")
