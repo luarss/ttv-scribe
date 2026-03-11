@@ -191,13 +191,8 @@ def export_transcript_to_file(vod_id: str, output_dir: str = "./transcripts") ->
         user_dir = os.path.join(output_dir, username)
         os.makedirs(user_dir, exist_ok=True)
 
-        # Use VOD ID as filename (or sanitize title if available)
+        # Use VOD ID as filename for cleaner names
         filename = f"{vod.vod_id}.txt"
-        if vod.title:
-            # Sanitize title for use as filename
-            sanitized = "".join(c for c in vod.title if c.isalnum() or c in " -_").strip()
-            sanitized = sanitized[:100]  # Limit length
-            filename = f"{sanitized}.txt"
 
         filepath = os.path.join(user_dir, filename)
 
