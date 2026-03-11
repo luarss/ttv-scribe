@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
-import Search from './pages/Search';
 import Transcript from './pages/Transcript';
 
 function Navigation() {
@@ -20,17 +19,7 @@ function Navigation() {
                 : 'border-transparent text-gray-600 hover:text-gray-900'
             }`}
           >
-            Home
-          </Link>
-          <Link
-            to="/search"
-            className={`py-4 border-b-2 font-medium transition-colors ${
-              isActive('/search')
-                ? 'border-purple-600 text-purple-600'
-                : 'border-transparent text-gray-600 hover:text-gray-900'
-            }`}
-          >
-            Search
+            Transcripts
           </Link>
         </div>
       </div>
@@ -45,7 +34,6 @@ function App() {
         <Navigation />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/search" element={<Search />} />
           <Route path="/transcript/:vodId" element={<Transcript />} />
         </Routes>
       </div>

@@ -10,11 +10,8 @@ from pydantic import BaseModel
 from ..config import get_settings
 from ..state import (
     StateManager,
-    VodRecord,
-    StreamerRecord,
     get_state_manager,
 )
-from ..search import search_transcripts
 
 logger = logging.getLogger(__name__)
 
@@ -31,17 +28,6 @@ def get_state() -> StateManager:
 
 
 # Pydantic models for API
-class StreamerCreate(BaseModel):
-    username: str
-    twitch_id: Optional[str] = None
-
-
-class StreamerResponse(BaseModel):
-    username: str
-    twitch_id: Optional[str]
-    created_at: str
-
-
 class VodResponse(BaseModel):
     vod_id: str
     streamer: str
@@ -62,87 +48,12 @@ class TranscriptResponse(BaseModel):
     recorded_at: Optional[str]
 
 
-class SearchResult(BaseModel):
-    transcript_file: str
-    vod_id: Optional[str]
-    vod_title: Optional[str]
-    streamer: Optional[str]
-    recorded_at: Optional[str]
-    text_preview: str
-    match_position: int
-
-
 # API Endpoints
 
 @app.get("/")
 def root():
     """Health check endpoint"""
     return {"status": "ok", "version": "0.1.0"}
-
-
-@app.get("/api/streamers", response_model=list[StreamerResponse])
-def list_streamers():
-    """List all tracked streamers"""
-    state = get_state()
-    streamers = state.get_streamers()
-    return [
-        StreamerResponse(
-            username=s.username,
-            twitch_id=s.twitch_id,
-            created_at=s.created_at,
-        )
-        for s in streamers
-    ]
-
-
-@app.post("/api/streamers", response_model=StreamerResponse)
-def add_streamer(streamer: StreamerCreate):
-    """Add a new streamer to track"""
-    state = get_state()
-
-    # Check if already exists
-    existing = state.get_streamer(streamer.username)
-    if existing:
-        raise HTTPException(status_code=400, detail="Streamer already tracked")
-
-    new_streamer = StreamerRecord(
-        username=streamer.username,
-        twitch_id=streamer.twitch_id,
-    )
-    state.add_streamer(new_streamer)
-
-    return StreamerResponse(
-        username=new_streamer.username,
-        twitch_id=new_streamer.twitch_id,
-        created_at=new_streamer.created_at,
-    )
-
-
-@app.get("/api/streamers/{username}/recent", response_model=list[VodResponse])
-def get_streamer_recent_vods(username: str, limit: int = 10):
-    """Get recent VODs for a streamer"""
-    state = get_state()
-    vods = state.get_vods_by_streamer(username)
-
-    # Sort by recorded_at descending
-    vods.sort(key=lambda v: v.recorded_at or "", reverse=True)
-
-    # Apply limit
-    vods = vods[:limit]
-
-    return [
-        VodResponse(
-            vod_id=v.vod_id,
-            streamer=v.streamer,
-            title=v.title,
-            duration=v.duration,
-            recorded_at=v.recorded_at,
-            status=v.status,
-            transcript_path=v.transcript_path,
-            created_at=v.created_at,
-        )
-        for v in vods
-    ]
 
 
 @app.get("/api/vods", response_model=list[VodResponse])
@@ -218,16 +129,6 @@ def get_vod_transcript(vod_id: str):
         transcript_metadata=transcript_data.get("transcript_metadata"),
         recorded_at=transcript_data.get("recorded_at", vod.recorded_at),
     )
-
-
-@app.get("/api/search", response_model=list[SearchResult])
-def search(q: str, limit: int = 20):
-    """Search transcripts by keyword"""
-    if not q or len(q) < 2:
-        return []
-
-    results = search_transcripts(query=q, limit=limit)
-    return results
 
 
 if __name__ == "__main__":
