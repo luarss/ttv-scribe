@@ -10,6 +10,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from filelock import FileLock
+
 from .config import get_settings
 
 logger = logging.getLogger(__name__)
@@ -96,14 +98,19 @@ class StateManager:
             return {}
 
     def _save_vods(self, vods: dict[str, VodRecord]):
-        """Save all VOD records to file
+        """Save all VOD records to file atomically with file locking
 
         Args:
             vods: Dictionary mapping vod_id to VodRecord
         """
-        data = {vod_id: v.to_dict() for vod_id, v in vods.items()}
-        with open(self.vods_file, "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=2, ensure_ascii=False)
+        lock_path = self.vods_file.with_suffix(".lock")
+        lock = FileLock(str(lock_path), timeout=10)
+        with lock:
+            data = {vod_id: v.to_dict() for vod_id, v in vods.items()}
+            temp_path = self.vods_file.with_suffix(".tmp")
+            with open(temp_path, "w", encoding="utf-8") as f:
+                json.dump(data, f, indent=2, ensure_ascii=False)
+            temp_path.rename(self.vods_file)
 
     def get_vod(self, vod_id: str) -> VodRecord | None:
         """Get a VOD record by ID
@@ -229,14 +236,19 @@ class StateManager:
             return {}
 
     def _save_streamers(self, streamers: dict[str, StreamerRecord]):
-        """Save all streamer records to file
+        """Save all streamer records to file atomically with file locking
 
         Args:
             streamers: Dictionary mapping username to StreamerRecord
         """
-        data = {username: s.to_dict() for username, s in streamers.items()}
-        with open(self.streamers_file, "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=2, ensure_ascii=False)
+        lock_path = self.streamers_file.with_suffix(".lock")
+        lock = FileLock(str(lock_path), timeout=10)
+        with lock:
+            data = {username: s.to_dict() for username, s in streamers.items()}
+            temp_path = self.streamers_file.with_suffix(".tmp")
+            with open(temp_path, "w", encoding="utf-8") as f:
+                json.dump(data, f, indent=2, ensure_ascii=False)
+            temp_path.rename(self.streamers_file)
 
     def get_streamers(self) -> list[StreamerRecord]:
         """Get all tracked streamers

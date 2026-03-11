@@ -1,11 +1,14 @@
 """Processing pipeline for TTV-Scribe"""
 import logging
 
-from .monitor import check_for_new_vods
+from .monitor import check_for_new_vods, add_streamers_to_track
 from .downloader import process_pending_vods
 from .transcriber import process_downloaded_vods
 
 logger = logging.getLogger(__name__)
+
+# Streamers to track - modify this list as needed
+STREAMERS_TO_CHECK = ["cooksux", "peeguutv"]
 
 
 def run_pipeline(max_duration_minutes: int | None = None):
@@ -15,6 +18,12 @@ def run_pipeline(max_duration_minutes: int | None = None):
         max_duration_minutes: If set, only process VODs shorter than this duration
     """
     logger.info("Starting TTV-Scribe pipeline")
+
+    # Step 0: Initialize streamers from constant
+    if STREAMERS_TO_CHECK:
+        added = add_streamers_to_track(STREAMERS_TO_CHECK)
+        if added > 0:
+            logger.info(f"Initialized {added} streamers")
 
     # Step 1: Check for new VODs
     try:
