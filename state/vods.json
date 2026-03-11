@@ -29,6 +29,1836 @@
       "status": "completed",
       "transcript_path": "./transcripts/loltyler1/2716282348.json",
       "created_at": "2026-03-11T04:48:34.927738Z"
+    },
+    {
+      "vod_id": "2717036896",
+      "streamer": "cooksux",
+      "title": "IRL KOREA \ud83d\udd34 Pitching Tents | @cooksux @ddooyaa @yoon_froggy | $2 TTS/Tangia | Seoul !star",
+      "duration": 7373,
+      "recorded_at": "2026-03-08T12:10:29+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:40:59.646487Z"
+    },
+    {
+      "vod_id": "2716771875",
+      "streamer": "cooksux",
+      "title": "IRL KOREA \ud83d\udd34 Pitching Tents | @cooksux @ddooya | $2 TTS/Tangia | Seoul !star",
+      "duration": 33501,
+      "recorded_at": "2026-03-08T02:52:02+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:40:59.647115Z"
+    },
+    {
+      "vod_id": "2719389884",
+      "streamer": "peeguutv",
+      "title": "10 subs to !spin \ud83d\udc51 Bangkok IRL \ud83d\udc51 i freaking hate heights. but i love food   \ud83d\udc51 !spw !shoey",
+      "duration": 7158,
+      "recorded_at": "2026-03-11T05:41:42+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.142402Z"
+    },
+    {
+      "vod_id": "2715123543",
+      "streamer": "peeguutv",
+      "title": "\ud83d\udc51BANGKOK IRL \ud83d\udc51 FOOD TOUR w/ StudyTme \ud83d\udc51 MALAYSIA 14th x THE STANS 16th \ud83d\udc51 !seal !shoey",
+      "duration": 36494,
+      "recorded_at": "2026-03-06T08:23:47+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.143062Z"
+    },
+    {
+      "vod_id": "2712592951",
+      "streamer": "peeguutv",
+      "title": "\ud83d\udc51Taipei IRL \ud83d\udc51 LAST DAY IN TAIWAN \ud83d\udc51 MALAYSIA 13th x THE STANS 16th \ud83d\udc51 !seal !shoey",
+      "duration": 36536,
+      "recorded_at": "2026-03-03T09:22:37+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.143668Z"
+    },
+    {
+      "vod_id": "2711709373",
+      "streamer": "peeguutv",
+      "title": "\ud83d\udc51Taipei IRL \ud83d\udc51 Old Place X Phone Repair X Reciever Warranty X Food? \ud83d\udc51 !seal !shoey",
+      "duration": 30126,
+      "recorded_at": "2026-03-02T07:14:10+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.144291Z"
+    },
+    {
+      "vod_id": "2710809817",
+      "streamer": "peeguutv",
+      "title": "\ud83d\udc51Taipei IRL \ud83d\udc51 I need to stop sleeping so late \ud83d\udc51 !seal !shoey",
+      "duration": 42708,
+      "recorded_at": "2026-03-01T07:30:21+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.144932Z"
+    },
+    {
+      "vod_id": "2708817747",
+      "streamer": "peeguutv",
+      "title": "\ud83d\udc51 Resident Evil 9 FULL PLAYTHROUGH \ud83d\udc51 !seal !shoey",
+      "duration": 57064,
+      "recorded_at": "2026-02-27T05:04:31+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.145579Z"
+    },
+    {
+      "vod_id": "2708022939",
+      "streamer": "peeguutv",
+      "title": "\ud83d\udc51Taipei IRL \ud83d\udc51 Leg & Gain Maxxing \ud83d\udc51 !seal !shoey",
+      "duration": 32996,
+      "recorded_at": "2026-02-26T08:08:33+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.146243Z"
+    },
+    {
+      "vod_id": "2707164301",
+      "streamer": "peeguutv",
+      "title": "\u2705 Taipei IRL \u2705 Works on Bewbs ans Fishing Later??? \u2705 !seal !shoey",
+      "duration": 43499,
+      "recorded_at": "2026-02-25T07:22:33+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.146878Z"
+    },
+    {
+      "vod_id": "2705444969",
+      "streamer": "peeguutv",
+      "title": "\ud83d\udd34Taipei IRL \ud83d\udd34 Monday Best Day \ud83d\udd34 !seal !shoey",
+      "duration": 37729,
+      "recorded_at": "2026-02-23T07:20:56+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.147531Z"
+    },
+    {
+      "vod_id": "2703534576",
+      "streamer": "peeguutv",
+      "title": "\ud83d\udd34Taipei IRL \ud83d\udd34 LIFT\uff1f EAT\uff1f BIKES\uff1fHAUNTED HOUSE\uff1fDEGEN\uff1f\uff01\uff1f\uff01 \ud83d\udd34 !seal !shoey",
+      "duration": 45886,
+      "recorded_at": "2026-02-21T05:15:23+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.148208Z"
+    },
+    {
+      "vod_id": "2701811249",
+      "streamer": "peeguutv",
+      "title": "\ud83d\udd34Taipei IRL \ud83d\udd341 SUB = 1 PUSH UP? HOW CAN WE DO??? \ud83d\udd34theres nothing i do better than eating and lifting \ud83d\udd34 !seal !shoey",
+      "duration": 41513,
+      "recorded_at": "2026-02-19T06:45:52+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.148870Z"
+    },
+    {
+      "vod_id": "2701007747",
+      "streamer": "peeguutv",
+      "title": "\ud83d\udd34 Taipei IRL \ud83d\udd34 taiwan tour guide with @tazo lfg\ud83d\udd34 !seal !shoey",
+      "duration": 25435,
+      "recorded_at": "2026-02-18T09:59:32+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.149591Z"
+    },
+    {
+      "vod_id": "2700049421",
+      "streamer": "peeguutv",
+      "title": "\ud83d\udd34 Taipei IRL \ud83d\udd34 @joeykaotyk is having a lot of seggs. we lift, eat, and scratch \ud83d\udd34 !seal !shoey",
+      "duration": 45120,
+      "recorded_at": "2026-02-17T05:36:54+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.150320Z"
+    },
+    {
+      "vod_id": "2699218438",
+      "streamer": "peeguutv",
+      "title": "\ud83d\udd34 Taipei IRL \ud83d\udd34 Home for Lunar New Year \ud83d\udd34 !seal !shoey",
+      "duration": 30057,
+      "recorded_at": "2026-02-16T08:17:27+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.151043Z"
+    },
+    {
+      "vod_id": "2690279075",
+      "streamer": "peeguutv",
+      "title": "\ud83d\udd34NIOH 3 RELEASE PLAYTHROUGH \ud83d\udd34 WE DONT STOP TILL FINISH \ud83d\udd34 // !seal !shoey Day 27 CIGFREE",
+      "duration": 57825,
+      "recorded_at": "2026-02-06T04:00:46+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.151749Z"
+    },
+    {
+      "vod_id": "2689503554",
+      "streamer": "peeguutv",
+      "title": "\ud83d\udd34BANGKOK \ud83d\udd34 MAKING FISH FILET??? \ud83d\udd34 TILT TMR? EXCLUSIVE NIOH 3 24 HR STREAM TOMORROW?!?! // !seal !shoey Day 26 CIGFREE",
+      "duration": 15323,
+      "recorded_at": "2026-02-05T07:11:24+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.152493Z"
+    },
+    {
+      "vod_id": "2685968294",
+      "streamer": "peeguutv",
+      "title": "\ud83d\udd34TAIPEI \ud83c\uddf9\ud83c\uddfc IRL \ud83d\udd34 Whey Run, Shirt Grab, Din Tai Fun yall? \ud83d\udd34 // !seal !shoey Day 22 CIGFREE",
+      "duration": 26211,
+      "recorded_at": "2026-02-01T05:42:24+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.153260Z"
+    },
+    {
+      "vod_id": "2685132029",
+      "streamer": "peeguutv",
+      "title": "\ud83d\udd34TAIPEI \ud83c\uddf9\ud83c\uddfc IRL \ud83d\udd34 Foodmaxxxxxing thats it \ud83d\udd34 // !seal !shoey Day 21 CIGFREE",
+      "duration": 17089,
+      "recorded_at": "2026-01-31T10:58:18+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.154050Z"
+    },
+    {
+      "vod_id": "2684110075",
+      "streamer": "peeguutv",
+      "title": "\ud83d\udd34TAIPEI \ud83c\uddf9\ud83c\uddfc IRL \ud83d\udd34 Taipei Game Show Day 2 + Taiwan Twitch Event \ud83d\udd34 // !seal !shoey Day 20 CIGFREE",
+      "duration": 19758,
+      "recorded_at": "2026-01-30T06:42:08+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.154821Z"
+    },
+    {
+      "vod_id": "2683094666",
+      "streamer": "peeguutv",
+      "title": "\ud83d\udd34TAIPEI \ud83c\uddf9\ud83c\uddfc IRL \ud83d\udd34 Taipei Game Show Day  \ud83d\udd34 // !seal !shoey Day 19 CIGFREE",
+      "duration": 34941,
+      "recorded_at": "2026-01-29T02:30:08+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.155603Z"
+    },
+    {
+      "vod_id": "2682324429",
+      "streamer": "peeguutv",
+      "title": "\ud83d\udd34TAIPEI \ud83c\uddf9\ud83c\uddfc \ud83d\udd34 Shoulders Boulders & Kiko Airport Pickup  \ud83d\udd34 // !seal !shoey Day 17 CIGFREE",
+      "duration": 33061,
+      "recorded_at": "2026-01-28T05:27:09+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.156407Z"
+    },
+    {
+      "vod_id": "2681400145",
+      "streamer": "peeguutv",
+      "title": "\ud83d\udd34TAIPEI IRL \ud83d\udd34 WE ARE BACK BACK BACK.Taipei Game Show Thursday \ud83d\udd34 // !seal !shoey Day 17 CIGFREE",
+      "duration": 34747,
+      "recorded_at": "2026-01-27T04:26:00+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.157192Z"
+    },
+    {
+      "vod_id": "2677705654",
+      "streamer": "peeguutv",
+      "title": "\ud83d\udd34Bangkok IRL  \ud83d\udd34 WE ONLY TOUCH GRASS NOW \ud83d\udd34 TAIPEI SUNDAY \ud83d\udd34 // !seal !shoey Day 13 CIGFREE",
+      "duration": 32858,
+      "recorded_at": "2026-01-23T09:28:01+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.158020Z"
+    },
+    {
+      "vod_id": "2676816246",
+      "streamer": "peeguutv",
+      "title": "Bangkok IRL  \ud83d\udd34 Touching Grass POG \ud83d\udd34 BG3 Later?!?! \ud83d\udd34 TAIPEI SOON \ud83d\udd34 // !seal !shoey Day 12 CIGFREE",
+      "duration": 33884,
+      "recorded_at": "2026-01-22T09:02:40+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.158818Z"
+    },
+    {
+      "vod_id": "2675859244",
+      "streamer": "peeguutv",
+      "title": "LIES OF P DLC \ud83d\udd34 WILL FINISH GAME TODAY \ud83d\udd34 Planning Next IRL Stream \ud83d\udd34 TAIPEI SOON \ud83d\udd34 // !seal !shoey Day 11 CIGFREE",
+      "duration": 49694,
+      "recorded_at": "2026-01-21T05:18:20+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.159700Z"
+    },
+    {
+      "vod_id": "2675082929",
+      "streamer": "peeguutv",
+      "title": "[not] IRL\ud83d\udd34 1 HOUR DJ! \ud83d\udd34WILL BEAT LAST BOSS OF SEKIRO & LIES OF P \ud83d\udd34 TAIPEI SOON \ud83d\udd34 // !seal !shoey Day 10 CIGFREE",
+      "duration": 20673,
+      "recorded_at": "2026-01-20T09:18:56+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.160518Z"
+    },
+    {
+      "vod_id": "2674299604",
+      "streamer": "peeguutv",
+      "title": "[not] IRL\ud83d\udd34 REACT? \ud83d\udd34GAME? \ud83d\udd34 WHAT?!?! \ud83d\udd34 // !seal !shoey Day 9 CIGFREE",
+      "duration": 17633,
+      "recorded_at": "2026-01-19T13:30:38+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.161401Z"
+    },
+    {
+      "vod_id": "2673243404",
+      "streamer": "peeguutv",
+      "title": "[DAY 8] CIGFREE \ud83d\udd34 i am not afraid of heights\u2026 kek \ud83d\udd34 // !seal !shoey",
+      "duration": 15795,
+      "recorded_at": "2026-01-18T07:29:33+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.163355Z"
+    },
+    {
+      "vod_id": "2671347148",
+      "streamer": "peeguutv",
+      "title": "[DAY 6] CIGFREE \ud83d\udd34Back & Biceps \ud83d\udd34 We can actually go out later \ud83d\udd34  // !seal !shoey",
+      "duration": 19543,
+      "recorded_at": "2026-01-16T06:54:49+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.164216Z"
+    },
+    {
+      "vod_id": "2670385840",
+      "streamer": "peeguutv",
+      "title": "[DAY 5] NO CIGGIES IDGAF \ud83d\udd34FEELING A BIT BETTER  \ud83d\udd34COOKING LATER??!?  \ud83d\udd34  // !seal !shoey",
+      "duration": 53153,
+      "recorded_at": "2026-01-15T03:32:45+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.165106Z"
+    },
+    {
+      "vod_id": "2666931875",
+      "streamer": "peeguutv",
+      "title": "IDGAF \ud83d\udd34WE BACK HERE. \ud83d\udd34GET DJ MIXER SET UP??? \ud83d\udd34  // !seal !shoey",
+      "duration": 32848,
+      "recorded_at": "2026-01-11T05:01:58+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.166013Z"
+    },
+    {
+      "vod_id": "2719090642",
+      "streamer": "xQc",
+      "title": "\ud83e\udd99LIVE\ud83e\udd99HERE\ud83e\udd99DRAMA\ud83e\udd99LOCK IN\ud83e\udd99VIDEOS\ud83e\udd99CLIPS\ud83e\udd99REACTS\ud83e\udd99STUFF\ud83e\udd99BOOM\ud83e\udd99PULL UP QUICK\ud83e\udd99DONT MISS IT\ud83e\udd99",
+      "duration": 34081,
+      "recorded_at": "2026-03-10T22:12:59+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.720049Z"
+    },
+    {
+      "vod_id": "2717423360",
+      "streamer": "xQc",
+      "title": "\ud83e\uddacLIVE\ud83e\uddacDRAMA\ud83e\uddacHERE\ud83e\uddacCLICK\ud83e\uddacLOCK IN\ud83e\uddacTOURNAMENT DAY\ud83e\uddacCOOL\ud83e\uddacPULL UP\ud83e\uddacBEST PLAYER OF GAMES\ud83e\uddac",
+      "duration": 34285,
+      "recorded_at": "2026-03-08T20:59:07+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.721257Z"
+    },
+    {
+      "vod_id": "2716691486",
+      "streamer": "xQc",
+      "title": "\ud83e\udd60LIVE\ud83e\udd60CLICK\ud83e\udd60DRAMA\ud83e\udd60NEWS\ud83e\udd60THINGS\ud83e\udd60VIDEOS\ud83e\udd60GAMES\ud83e\udd60STUFF\ud83e\udd60WOW\ud83e\udd60VERY COOL\ud83e\udd60BEST PLAYER OF ALL GAMES\ud83e\udd60",
+      "duration": 21876,
+      "recorded_at": "2026-03-08T01:05:59+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.722476Z"
+    },
+    {
+      "vod_id": "2715655733",
+      "streamer": "xQc",
+      "title": "\ud83d\udc80LOCK IN\ud83d\udc80LIVE\ud83d\udc80NEWS\ud83d\udc80DRAMA\ud83d\udc80CLIPS\ud83d\udc80VIDEOS\ud83d\udc80GAMES\ud83d\udc80POKOPIA GAMEPLAY\ud83d\udc80BEST GAMER WORLD\ud83d\udc80FREE TIPS FOR NOOBS\ud83d\udc80FROM THE MASTER\ud83d\udc80",
+      "duration": 39027,
+      "recorded_at": "2026-03-06T23:04:28+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.723727Z"
+    },
+    {
+      "vod_id": "2714705538",
+      "streamer": "xQc",
+      "title": "\ud83e\udd3c\u200d\u2642\ufe0fLIVE\ud83e\udd3c\u200d\u2642\ufe0fCLICK\ud83e\udd3c\u200d\u2642\ufe0fHERE\ud83e\udd3c\u200d\u2642\ufe0fLOCK IN\ud83e\udd3c\u200d\u2642\ufe0fDRAMA\ud83e\udd3c\u200d\u2642\ufe0fNEWS\ud83e\udd3c\u200d\u2642\ufe0fADRESSING THINGS\ud83e\udd3c\u200d\u2642\ufe0f(LOL)\ud83e\udd3c\u200d\u2642\ufe0fGAMES\ud83e\udd3c\u200d\u2642\ufe0fVIDEOS\ud83e\udd3c\u200d\u2642\ufe0fCLIPS\ud83e\udd3c\u200d\u2642\ufe0fREACT\ud83e\udd3c\u200d\u2642\ufe0f",
+      "duration": 37341,
+      "recorded_at": "2026-03-05T21:15:22+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.724696Z"
+    },
+    {
+      "vod_id": "2713086336",
+      "streamer": "xQc",
+      "title": "\ud83d\ude4b\u200d\u2642\ufe0fLIVE\ud83d\ude4b\u200d\u2642\ufe0fHERE\ud83d\ude4b\u200d\u2642\ufe0fWICKED\ud83d\ude4b\u200d\u2642\ufe0fDRAMA\ud83d\ude4b\u200d\u2642\ufe0fNEWS\ud83d\ude4b\u200d\u2642\ufe0fTHINGS\ud83d\ude4b\u200d\u2642\ufe0fGAMES\ud83d\ude4b\u200d\u2642\ufe0fVIDEOS\ud83d\ude4b\u200d\u2642\ufe0fREACTS\ud83d\ude4b\u200d\u2642\ufe0fSTUFF\ud83d\ude4b\u200d\u2642\ufe0fLOCK IT IN\ud83d\ude4b\u200d\u2642\ufe0fWOAH\ud83d\ude4b\u200d\u2642\ufe0f",
+      "duration": 29927,
+      "recorded_at": "2026-03-03T23:03:15+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.725674Z"
+    },
+    {
+      "vod_id": "2712185491",
+      "streamer": "xQc",
+      "title": "\ud83e\udd3dLIVE\ud83e\udd3dCLICK\ud83e\udd3dHERE\ud83e\udd3dLOCK IN\ud83e\udd3dDRAMA\ud83e\udd3dNEWS\ud83e\udd3dTHINGS\ud83e\udd3dGAMES\ud83e\udd3dVIDS\ud83e\udd3dREACTS\ud83e\udd3dSTUFF\ud83e\udd3dWOAH\ud83e\udd3d",
+      "duration": 28435,
+      "recorded_at": "2026-03-02T21:55:32+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.726685Z"
+    },
+    {
+      "vod_id": "2711405377",
+      "streamer": "xQc",
+      "title": "\ud83d\udc1bLIVE\ud83d\udc1bHERE\ud83d\udc1bQUICK\ud83d\udc1bDRAMA\ud83d\udc1bNEWS\ud83d\udc1bGAMES\ud83d\udc1bVIDEOS\ud83d\udc1bCLIPS\ud83d\udc1bDONT MISS IT\ud83d\udc1bFINISHING RE9\ud83d\udc1bOTHER STUFF TOO\ud83d\udc1bIDK\ud83d\udc1b",
+      "duration": 38191,
+      "recorded_at": "2026-03-01T22:49:49+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.727672Z"
+    },
+    {
+      "vod_id": "2710377380",
+      "streamer": "xQc",
+      "title": "\ud83e\uddd1\u200d\ud83c\udf73LIVE \ud83e\uddd1\u200d\ud83c\udf73DRAMA \ud83e\uddd1\u200d\ud83c\udf73NEWS \ud83e\uddd1\u200d\ud83c\udf73THINGS \ud83e\uddd1\u200d\ud83c\udf73GAMES \ud83e\uddd1\u200d\ud83c\udf73VIDEOS \ud83e\uddd1\u200d\ud83c\udf73REACT \ud83e\uddd1\u200d\ud83c\udf73STUFF \ud83e\uddd1\u200d\ud83c\udf73LOCK IN \ud83e\uddd1\u200d\ud83c\udf73BIG DAY \ud83e\uddd1\u200d\ud83c\udf73WOAH \ud83e\uddd1\u200d\ud83c\udf73",
+      "duration": 39436,
+      "recorded_at": "2026-02-28T21:08:18+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.728671Z"
+    },
+    {
+      "vod_id": "2709113657",
+      "streamer": "xQc",
+      "title": "\ud83c\udf54LIVE\ud83c\udf54HERE\ud83c\udf54DRAMA\ud83c\udf54NEWS\ud83c\udf54WICKED\ud83c\udf54STUFF\ud83c\udf54LOCK IN\ud83c\udf54GAMES\ud83c\udf54VIDEOS\ud83c\udf54CLIPS\ud83c\udf54PROGRESS\ud83c\udf54JUICE\ud83c\udf54IDK ANYMORE\ud83c\udf54",
+      "duration": 5238,
+      "recorded_at": "2026-02-27T15:34:12+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.729669Z"
+    },
+    {
+      "vod_id": "2707669882",
+      "streamer": "xQc",
+      "title": "\ud83c\udf54LIVE\ud83c\udf54HERE\ud83c\udf54DRAMA\ud83c\udf54NEWS\ud83c\udf54WICKED\ud83c\udf54STUFF\ud83c\udf54LOCK IN\ud83c\udf54GAMES\ud83c\udf54VIDEOS\ud83c\udf54CLIPS\ud83c\udf54PROGRESS\ud83c\udf54JUICE\ud83c\udf54IDK ANYMORE\ud83c\udf54",
+      "duration": 35807,
+      "recorded_at": "2026-02-25T22:30:57+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.730701Z"
+    },
+    {
+      "vod_id": "2706772475",
+      "streamer": "xQc",
+      "title": "\ud83d\udc72LIVE\ud83d\udc72CLICK\ud83d\udc72DRAMA\ud83d\udc72NEWS\ud83d\udc72THINGS\ud83d\udc72PULL UP\ud83d\udc72GAMES\ud83d\udc72VIDEOS\ud83d\udc72REACTS\ud83d\udc72IDK\ud83d\udc72WORLDS\ud83d\udc72BEST GAMER\ud83d\udc72IS HERE\ud83d\udc72TAKE NOTES\ud83d\udc72",
+      "duration": 34792,
+      "recorded_at": "2026-02-24T21:30:03+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.731724Z"
+    },
+    {
+      "vod_id": "2705261700",
+      "streamer": "xQc",
+      "title": "\ud83e\udda6LIVE\ud83e\udda6CLICK\ud83e\udda6HERE\ud83e\udda6DRAMA\ud83e\udda6NEWS\ud83e\udda6CANADA\ud83e\udda6DID NOT LOSE\ud83e\udda6HOCKEY\ud83e\udda63V3 PSYOP\ud83e\udda6DISCUSSION\ud83e\udda6POGGERS\ud83e\udda61111\ud83e\udda6",
+      "duration": 25934,
+      "recorded_at": "2026-02-23T01:41:52+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.732742Z"
+    },
+    {
+      "vod_id": "2704138951",
+      "streamer": "xQc",
+      "title": "\ud83d\udd77\ufe0fLIVE \ud83d\udd77\ufe0fCLICK \ud83d\udd77\ufe0fDRAMA \ud83d\udd77\ufe0fNEWS \ud83d\udd77\ufe0fCLIPS \ud83d\udd77\ufe0fVIDEOS \ud83d\udd77\ufe0fTHINGS \ud83d\udd77\ufe0fGAMAES \ud83d\udd77\ufe0fSTUFF \ud83d\udd77\ufe0fTHINGS \ud83d\udd77\ufe0fWHO KNOWS \ud83d\udd77\ufe0fFIND OUT \ud83d\udd77\ufe0fWOW \ud83d\udd77\ufe0f",
+      "duration": 37308,
+      "recorded_at": "2026-02-21T21:50:51+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.733770Z"
+    },
+    {
+      "vod_id": "2702515927",
+      "streamer": "xQc",
+      "title": "*&(*#(**#(**(~&*ERROR*&^#&^*LIVEvDRAMAv&**&*&*&*&*&*&*&&*&*&*&*&*&*&*&*&*&*&*&**&*&*&*&&*STUFFvNEWS38((((((((((((((((((((!!!!!~~~~~~~",
+      "duration": 28613,
+      "recorded_at": "2026-02-20T02:07:40+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.734809Z"
+    },
+    {
+      "vod_id": "2701396523",
+      "streamer": "xQc",
+      "title": "\ud83d\udc02HERE\ud83d\udc02LIVE\ud83d\udc02DRAMA\ud83d\udc02NEWS\ud83d\udc02CLICK\ud83d\udc02NOW\ud83d\udc02SUCH IMPORTANT THINGS\ud83d\udc02TODO\ud83d\udc02SUCH AS\ud83d\udc02VIDEOS\ud83d\udc02REACTS\ud83d\udc02CLIPS\ud83d\udc02GAMES\ud83d\udc02AND YAPPING\ud83d\udc02EXCELLENT\ud83d\udc02",
+      "duration": 40258,
+      "recorded_at": "2026-02-18T20:44:31+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.736095Z"
+    },
+    {
+      "vod_id": "2699745298",
+      "streamer": "xQc",
+      "title": "\ud83d\udc36LIVE\ud83d\udc36STREAM\ud83d\udc36DRAMA\ud83d\udc36NEWS\ud83d\udc36GAMES\ud83d\udc36VIDEOS\ud83d\udc36STUFF\ud83d\udc36COOL\ud83d\udc36LOCK IN\ud83d\udc36RIGHT HERE\ud83d\udc36RIGHT MEOW\ud83d\udc36IDK\ud83d\udc36TITLE TITLE TITLE\ud83d\udc362323\ud83d\udc36",
+      "duration": 32626,
+      "recorded_at": "2026-02-16T22:34:48+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.737118Z"
+    },
+    {
+      "vod_id": "2699020769",
+      "streamer": "xQc",
+      "title": "\ud83d\udca3 LIVE\ud83d\udca3 TOURNY\ud83d\udca3 GAME\ud83d\udca3",
+      "duration": 30486,
+      "recorded_at": "2026-02-16T01:51:26+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.738195Z"
+    },
+    {
+      "vod_id": "2697966454",
+      "streamer": "xQc",
+      "title": "\ud83e\uddb8\u200d\u2642\ufe0fLIVE\ud83e\uddb8\u200d\u2642\ufe0fCLICK\ud83e\uddb8\u200d\u2642\ufe0fHERE\ud83e\uddb8\u200d\u2642\ufe0fLOCK IN\ud83e\uddb8\u200d\u2642\ufe0fDRAMA\ud83e\uddb8\u200d\u2642\ufe0fNEWS\ud83e\uddb8\u200d\u2642\ufe0fTHINGS\ud83e\uddb8\u200d\u2642\ufe0fCLIPS\ud83e\uddb8\u200d\u2642\ufe0fVIDEOS\ud83e\uddb8\u200d\u2642\ufe0fGAMES\ud83e\uddb8\u200d\u2642\ufe0fWOW\ud83e\uddb8\u200d\u2642\ufe0fPULL UP QUICK\ud83e\uddb8\u200d\u2642\ufe0fYAY\ud83e\uddb8\u200d\u2642\ufe0f",
+      "duration": 21018,
+      "recorded_at": "2026-02-14T22:49:20+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.739296Z"
+    },
+    {
+      "vod_id": "2696118372",
+      "streamer": "xQc",
+      "title": "\u23f0LIVE\u23f0ALERT\u23f0PLAYSTATION\u23f0STATE OF PLAY?\u23f0REACT\u23f0DRAMA\u23f0LOCK IN\u23f0WE OUT HERE\u23f0YAY\u23f0",
+      "duration": 36515,
+      "recorded_at": "2026-02-12T21:51:20+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.740338Z"
+    },
+    {
+      "vod_id": "2695233446",
+      "streamer": "xQc",
+      "title": "\ud83c\udf69LIVE\ud83c\udf69CLICK\ud83c\udf69HERE\ud83c\udf69DRAMA\ud83c\udf69NEWS\ud83c\udf69REACTS\ud83c\udf69CLIPS\ud83c\udf69VIDEOS\ud83c\udf69THINGS\ud83c\udf69LOCK IN\ud83c\udf69GAMES\ud83c\udf69COOL\ud83c\udf69PS TOMORROW ASWELL, COOL\ud83c\udf69",
+      "duration": 39397,
+      "recorded_at": "2026-02-11T21:05:56+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.741440Z"
+    },
+    {
+      "vod_id": "2693655783",
+      "streamer": "xQc",
+      "title": "\ud83d\udc71LIVE\ud83d\udc71DRAMA\ud83d\udc71NEWS\ud83d\udc71GAMES\ud83d\udc71VIDEOS\ud83d\udc71THINGS\ud83d\udc71STUFF\ud83d\udc71REACTS\ud83d\udc71LOCK IN\ud83d\udc71PULL UP\ud83d\udc71WOAH\ud83d\udc71INTERESTING\ud83d\udc71VERY NICE MAN\ud83d\udc711010101\ud83d\udc71",
+      "duration": 31723,
+      "recorded_at": "2026-02-10T00:20:35+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.742715Z"
+    },
+    {
+      "vod_id": "2692825270",
+      "streamer": "xQc",
+      "title": "\ud83d\udc4aJUST\ud83d\udc4aDRAMA\ud83d\udc4aNEWS\ud83d\udc4aVIDEOS\ud83d\udc4aREACTS\ud83d\udc4aTHINGS\ud83d\udc4aCOOL\ud83d\udc4aCLIPS\ud83d\udc4aLOCK IN\ud83d\udc4aSUPABOWL DAY\ud83d\udc4aI THINK\ud83d\udc4aIDK\ud83d\udc4aBLAH BLAH\ud83d\udc4a",
+      "duration": 35000,
+      "recorded_at": "2026-02-08T23:06:15+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.743838Z"
+    },
+    {
+      "vod_id": "2690883822",
+      "streamer": "xQc",
+      "title": "\ud83d\ude46LIVE\ud83d\ude46CLICK\ud83d\ude46HERE\ud83d\ude46LOCK IN\ud83d\ude46GAMES\ud83d\ude46REACT\ud83d\ude46VIDS\ud83d\ude46CLIPS\ud83d\ude46STUFF\ud83d\ude46YAY\ud83d\ude46WE OUT HERE\ud83d\ude46YIPPEEEE\ud83d\ude46",
+      "duration": 37011,
+      "recorded_at": "2026-02-06T22:03:40+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.745018Z"
+    },
+    {
+      "vod_id": "2690156687",
+      "streamer": "xQc",
+      "title": "\ud83e\uddb7LIVE\ud83e\uddb7HERE\ud83e\uddb7DRAMA\ud83e\uddb7HUGE\ud83e\uddb7NEWS\ud83e\uddb7LOCK IN\ud83e\uddb7VIDEOS\ud83e\uddb7REACTS\ud83e\uddb7GAMES\ud83e\uddb7AHAHAHA\ud83e\uddb7COOL\ud83e\uddb7ALSO\ud83e\uddb7LAST EVENING STREAM\ud83e\uddb7BEFORE\ud83e\uddb7\"THE NEW ERA\"\ud83e\uddb7KAP\ud83e\uddb7",
+      "duration": 23309,
+      "recorded_at": "2026-02-06T01:20:17+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.746164Z"
+    },
+    {
+      "vod_id": "2690120318",
+      "streamer": "xQc",
+      "title": "\ud83e\uddb7LIVE\ud83e\uddb7HERE\ud83e\uddb7DRAMA\ud83e\uddb7HUGE\ud83e\uddb7NEWS\ud83e\uddb7LOCK IN\ud83e\uddb7VIDEOS\ud83e\uddb7REACTS\ud83e\uddb7GAMES\ud83e\uddb7AHAHAHA\ud83e\uddb7COOL\ud83e\uddb7ALSO\ud83e\uddb7LAST EVENING STREAM\ud83e\uddb7BEFORE\ud83e\uddb7\"THE NEW ERA\"\ud83e\uddb7KAP\ud83e\uddb7",
+      "duration": 2465,
+      "recorded_at": "2026-02-06T00:38:10+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.747306Z"
+    },
+    {
+      "vod_id": "2689281555",
+      "streamer": "xQc",
+      "title": "\ud83e\udd2fLIVE\ud83e\udd2fLOCK IN\ud83e\udd2fDRAMA\ud83e\udd2fNEWS\ud83e\udd2fVIDEOS\ud83e\udd2fGAMES\ud83e\udd2fTHINGS\ud83e\udd2fCLIPS\ud83e\udd2fREACTS\ud83e\udd2fIDK\ud83e\udd2fFLKJEFOKWEHIUWHFIPWHFIUWEQRYU3489417349857\ud83e\udd2f",
+      "duration": 26367,
+      "recorded_at": "2026-02-05T01:02:49+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.748482Z"
+    },
+    {
+      "vod_id": "2688404677",
+      "streamer": "xQc",
+      "title": "\ud83d\ude44LIVE\ud83d\ude44DRAMA\ud83d\ude44NEWS\ud83d\ude44CLICK\ud83d\ude44LOCK IN\ud83d\ude44WOW\ud83d\ude44COOL\ud83d\ude44LETS GO \ud83d\ude44PULL UP\ud83d\ude44",
+      "duration": 24740,
+      "recorded_at": "2026-02-04T00:44:59+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.749664Z"
+    },
+    {
+      "vod_id": "2687509304",
+      "streamer": "xQc",
+      "title": "\u26a0\ufe0fLIVE\u26a0\ufe0fDRAMA\u26a0\ufe0fNEWS\u26a0\ufe0fQQUICK\u26a0\ufe0fLIVE\u26a0\ufe0fLOCK IN\u26a0\ufe0fVIDEOS\u26a0\ufe0fREACTS\u26a0\ufe0fGAMES\u26a0\ufe0fSTUFF\u26a0\ufe0fTHINGS\u26a0\ufe0fWOWIE CLAP\u26a0\ufe0fAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH\u26a0\ufe0f",
+      "duration": 31385,
+      "recorded_at": "2026-02-02T23:59:56+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.750849Z"
+    },
+    {
+      "vod_id": "2686559948",
+      "streamer": "xQc",
+      "title": "\ud83d\udc42LIVE\ud83d\udc42DRAMA\ud83d\udc42NEWS\ud83d\udc42BIG THINGS\ud83d\udc42CLICK\ud83d\udc42ALERT\ud83d\udc42GAMES\ud83d\udc42VIDEOS\ud83d\udc42REACTS\ud83d\udc42THINGS\ud83d\udc42PULL UP AHHHH\ud83d\udc42I",
+      "duration": 36728,
+      "recorded_at": "2026-02-01T21:27:02+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.752049Z"
+    },
+    {
+      "vod_id": "2685828183",
+      "streamer": "xQc",
+      "title": "\ud83d\ude94LIVE\ud83d\ude94DRAMA\ud83d\ude94NEWS\ud83d\ude94HERE\ud83d\ude94CLICK\ud83d\ude94PULL UP\ud83d\ude94VIDEOS\ud83d\ude94GAMES\ud83d\ude94REACTS\ud83d\ude94STUFF\ud83d\ude94IDK\ud83d\ude94BLAH BLAH\ud83d\ude94",
+      "duration": 26269,
+      "recorded_at": "2026-02-01T02:16:07+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.753202Z"
+    },
+    {
+      "vod_id": "2684675658",
+      "streamer": "xQc",
+      "title": "\ud83d\udc3b\u200d\u2744\ufe0fLIVE\ud83d\udc3b\u200d\u2744\ufe0fHERE\ud83d\udc3b\u200d\u2744\ufe0fDRAMA\ud83d\udc3b\u200d\u2744\ufe0fNEWS\ud83d\udc3b\u200d\u2744\ufe0fTHINGS\ud83d\udc3b\u200d\u2744\ufe0fVIDEOS\ud83d\udc3b\u200d\u2744\ufe0fGAMES\ud83d\udc3b\u200d\u2744\ufe0fSTUFF\ud83d\udc3b\u200d\u2744\ufe0fQUICK\ud83d\udc3b\u200d\u2744\ufe0fLOCK IN\ud83d\udc3b\u200d\u2744\ufe0fCLICK IN\ud83d\udc3b\u200d\u2744\ufe0fWOAH\ud83d\udc3b\u200d\u2744\ufe0f",
+      "duration": 34136,
+      "recorded_at": "2026-01-30T22:47:45+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.754429Z"
+    },
+    {
+      "vod_id": "2683824175",
+      "streamer": "xQc",
+      "title": "\ud83d\udc3b\u200d\u2744\ufe0fLIVE\ud83d\udc3b\u200d\u2744\ufe0fHERE\ud83d\udc3b\u200d\u2744\ufe0fDRAMA\ud83d\udc3b\u200d\u2744\ufe0fNEWS\ud83d\udc3b\u200d\u2744\ufe0fTHINGS\ud83d\udc3b\u200d\u2744\ufe0fVIDEOS\ud83d\udc3b\u200d\u2744\ufe0fGAMES\ud83d\udc3b\u200d\u2744\ufe0fSTUFF\ud83d\udc3b\u200d\u2744\ufe0fQUICK\ud83d\udc3b\u200d\u2744\ufe0fLOCK IN\ud83d\udc3b\u200d\u2744\ufe0fCLICK IN\ud83d\udc3b\u200d\u2744\ufe0fWOAH\ud83d\udc3b\u200d\u2744\ufe0f",
+      "duration": 30820,
+      "recorded_at": "2026-01-29T23:40:05+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.755653Z"
+    },
+    {
+      "vod_id": "2682887096",
+      "streamer": "xQc",
+      "title": "\ud83e\uddd4LIVE\ud83e\uddd4NEWS\ud83e\uddd4DRAMA\ud83e\uddd4THINGS\ud83e\uddd4GAMES\ud83e\uddd4VIDEOS\ud83e\uddd4REACTS\ud83e\uddd4THINGS\ud83e\uddd4STUFF\ud83e\uddd4IMPORTANT DAY\ud83e\uddd4WOAH\ud83e\uddd4SO FUN\ud83e\uddd4LOCK IN\ud83e\uddd4WOAHWOAH\ud83e\uddd4",
+      "duration": 36976,
+      "recorded_at": "2026-01-28T22:21:49+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.756939Z"
+    },
+    {
+      "vod_id": "2681109052",
+      "streamer": "xQc",
+      "title": "\ud83d\udeb5LIVE\ud83d\udeb5DRAMA\ud83d\udeb5NEWS\ud83d\udeb5GAMES\ud83d\udeb5VIDEOS\ud83d\udeb5REACTS\ud83d\udeb5IMPORTANT\ud83d\udeb5ALERT\ud83d\udeb5RECORD TODAY\ud83d\udeb5DONT MISS IT\ud83d\udeb51111111111111111111111111111111111111\ud83d\udeb5",
+      "duration": 34205,
+      "recorded_at": "2026-01-26T22:18:53+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.758151Z"
+    },
+    {
+      "vod_id": "2680129596",
+      "streamer": "xQc",
+      "title": "\ud83e\uddd1\u200d\ud83c\udf93LIVE\ud83e\uddd1\u200d\ud83c\udf93CLICK\ud83e\uddd1\u200d\ud83c\udf93DRAMA\ud83e\uddd1\u200d\ud83c\udf93NEWS\ud83e\uddd1\u200d\ud83c\udf93CLIPS\ud83e\uddd1\u200d\ud83c\udf93VIDEOS\ud83e\uddd1\u200d\ud83c\udf93STUFF\ud83e\uddd1\u200d\ud83c\udf93IMPORTANT\ud83e\uddd1\u200d\ud83c\udf93RECORD TODAY\ud83e\uddd1\u200d\ud83c\udf93STUFF\ud83e\uddd1\u200d\ud83c\udf93JUST PULL UP\ud83e\uddd1\u200d\ud83c\udf93",
+      "duration": 42661,
+      "recorded_at": "2026-01-25T20:29:08+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.759413Z"
+    },
+    {
+      "vod_id": "2678218387",
+      "streamer": "xQc",
+      "title": "\ud83e\udd15LIVE\ud83e\udd15CLICK\ud83e\udd15DRAMA\ud83e\udd15NEWS\ud83e\udd15GAMES\ud83e\udd15STUFF\ud83e\udd15IDK\ud83e\udd15RUNS\ud83e\udd15TODAY IS THE DAY\ud83e\udd15WOW\ud83e\udd15",
+      "duration": 36339,
+      "recorded_at": "2026-01-23T22:40:37+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.760672Z"
+    },
+    {
+      "vod_id": "2677380486",
+      "streamer": "xQc",
+      "title": "\u261d\ufe0fLIVE\u261d\ufe0fCLICK\u261d\ufe0fDRAMA\u261d\ufe0fNEWS\u261d\ufe0fTHINGS\u261d\ufe0fGAMES\u261d\ufe0fREACTS\u261d\ufe0fVIDEOS\u261d\ufe0fTHINGS HAPPENING\u261d\ufe0fMEGA REACORD BEING ACQUIRED\u261d\ufe0fYAY\u261d\ufe0f",
+      "duration": 32603,
+      "recorded_at": "2026-01-23T00:03:54+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.761943Z"
+    },
+    {
+      "vod_id": "2676422867",
+      "streamer": "xQc",
+      "title": "\ud83e\udde1LIVE\ud83e\udde1DRAMA\ud83e\udde1NEWS\ud83e\udde1REACTS\ud83e\udde1VIDEOS\ud83e\udde1RUNS\ud83e\udde1STUFF\ud83e\udde1LOCK IN\ud83e\udde1TODAY IS THE DAY\ud83e\udde1AHHHHH\ud83e\udde1IM WRITING THIS TITLE\ud83e\udde1NO ONE READS THIS\ud83e\udde1AHHHH\ud83e\udde1",
+      "duration": 34864,
+      "recorded_at": "2026-01-21T22:28:59+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.763179Z"
+    },
+    {
+      "vod_id": "2675593043",
+      "streamer": "xQc",
+      "title": "\ud83d\ude4b\u200d\u2642\ufe0fLIVE\ud83d\ude4b\u200d\u2642\ufe0fCLICK\ud83d\ude4b\u200d\u2642\ufe0fHERE\ud83d\ude4b\u200d\u2642\ufe0fLOCK IN\ud83d\ude4b\u200d\u2642\ufe0fDRAMA\ud83d\ude4b\u200d\u2642\ufe0fNEWS\ud83d\ude4b\u200d\u2642\ufe0fVIDEOS\ud83d\ude4b\u200d\u2642\ufe0fGAMES\ud83d\ude4b\u200d\u2642\ufe0fSTUFF\ud83d\ude4b\u200d\u2642\ufe0fWOW\ud83d\ude4b\u200d\u2642\ufe0f",
+      "duration": 31831,
+      "recorded_at": "2026-01-20T23:17:10+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.764442Z"
+    },
+    {
+      "vod_id": "2674651359",
+      "streamer": "xQc",
+      "title": "\ud83c\udf40LIVE\ud83c\udf40CLICK\ud83c\udf40HERE\ud83c\udf40DRAMA\ud83c\udf40NEWS\ud83c\udf40VIDEOS\ud83c\udf40CLIPS\ud83c\udf40REACTS\ud83c\udf40STUFF\ud83c\udf40PULL UP\ud83c\udf40AYY\ud83c\udf40YIPEE\ud83c\udf40LETS HAVE FUN\ud83c\udf401010101\ud83c\udf40",
+      "duration": 39043,
+      "recorded_at": "2026-01-19T21:22:26+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.765745Z"
+    },
+    {
+      "vod_id": "2674598326",
+      "streamer": "xQc",
+      "title": "\ud83c\udf40LIVE\ud83c\udf40CLICK\ud83c\udf40HERE\ud83c\udf40DRAMA\ud83c\udf40NEWS\ud83c\udf40VIDEOS\ud83c\udf40CLIPS\ud83c\udf40REACTS\ud83c\udf40STUFF\ud83c\udf40PULL UP\ud83c\udf40AYY\ud83c\udf40YIPEE\ud83c\udf40LETS HAVE FUN\ud83c\udf401010101\ud83c\udf40",
+      "duration": 3801,
+      "recorded_at": "2026-01-19T20:18:06+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.767048Z"
+    },
+    {
+      "vod_id": "2672891212",
+      "streamer": "xQc",
+      "title": "\ud83d\udeb5LIVE\ud83d\udeb5CLICK\ud83d\udeb5HERE\ud83d\udeb5DRAMA\ud83d\udeb5NEWS\ud83d\udeb5THINGS\ud83d\udeb5CLIPS\ud83d\udeb5VIDEOS\ud83d\udeb5REACTS\ud83d\udeb5RUNS\ud83d\udeb5RECORDS\ud83d\udeb5STUFF\ud83d\udeb5LOCK IN\ud83d\udeb510101010837843737\ud83d\udeb5489724892\ud83d\udeb5",
+      "duration": 36041,
+      "recorded_at": "2026-01-17T22:48:48+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.768366Z"
+    },
+    {
+      "vod_id": "2671767674",
+      "streamer": "xQc",
+      "title": "\ud83d\udc20LIVE\ud83d\udc20HERE\ud83d\udc20NOW\ud83d\udc20RIVALS TOURNAMENT\ud83d\udc20ALERT\ud83d\udc20EARLY\ud83d\udc20THEN\ud83d\udc20INTRO\ud83d\udc20DRAMA\ud83d\udc20STUFF\ud83d\udc20RUNS\ud83d\udc20BUT FIRST\ud83d\udc20TOURNY\ud83d\udc20AHHHHH\ud83d\udc20",
+      "duration": 33224,
+      "recorded_at": "2026-01-16T19:54:26+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.769644Z"
+    },
+    {
+      "vod_id": "2671051597",
+      "streamer": "xQc",
+      "title": "\ud83e\uddacLIVE\ud83e\uddacCLICK\ud83e\uddacDRAMA\ud83e\uddacNEWS\ud83e\uddacVIDEOS\ud83e\uddacREACTS\ud83e\uddacCLICK\ud83e\uddacHERE\ud83e\uddacQUICK\ud83e\uddacALLO\ud83e\uddacWELCOME\ud83e\uddacI DONT KNOW\ud83e\uddacRUNS TOO YAY\ud83e\uddac",
+      "duration": 34049,
+      "recorded_at": "2026-01-15T23:31:12+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.771860Z"
+    },
+    {
+      "vod_id": "2670095207",
+      "streamer": "xQc",
+      "title": "\ud83d\udc68\u200d\ud83c\udfedLIVE\ud83d\udc68\u200d\ud83c\udfedCLICK\ud83d\udc68\u200d\ud83c\udfedDRAMA\ud83d\udc68\u200d\ud83c\udfedNEWS\ud83d\udc68\u200d\ud83c\udfedTHINGS\ud83d\udc68\u200d\ud83c\udfedVIDEOS\ud83d\udc68\u200d\ud83c\udfedREACTS\ud83d\udc68\u200d\ud83c\udfedW0W0W0W0W\ud83d\udc68\u200d\ud83c\udfedMARVEL DEADPOOL\ud83d\udc68\u200d\ud83c\udfedWITH SOME PEOLPE\ud83d\udc68\u200d\ud83c\udfedYAY\ud83d\udc68\u200d\ud83c\udfed",
+      "duration": 34476,
+      "recorded_at": "2026-01-14T21:23:20+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.773154Z"
+    },
+    {
+      "vod_id": "2669238549",
+      "streamer": "xQc",
+      "title": "\ud83d\udc45LIVE\ud83d\udc45CLICK\ud83d\udc45HERE\ud83d\udc45RUNS\ud83d\udc45DRAMA\ud83d\udc45WICKED\ud83d\udc45VIDEOS\ud83d\udc45COOL\ud83d\udc45REACXTS\ud83d\udc45OK\ud83d\udc45I DONT EVEN KNOW\ud83d\udc45PLACEHOLDER TEXT\ud83d\udc45NOW WHAT\ud83d\udc450000000\ud83d\udc45",
+      "duration": 36645,
+      "recorded_at": "2026-01-13T21:48:11+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.774522Z"
+    },
+    {
+      "vod_id": "2668379734",
+      "streamer": "xQc",
+      "title": "\ud83d\udc32LIVE\ud83d\udc32CLICK\ud83d\udc32HERE\ud83d\udc32DRAMA\ud83d\udc32NEWS\ud83d\udc32VIDEOS\ud83d\udc32CLIPS\ud83d\udc32REACTS\ud83d\udc32RUNS\ud83d\udc32RECORDS\ud83d\udc32STUFF\ud83d\udc32WOW\ud83d\udc321010101\ud83d\udc32CANT BELIEVE THIS\ud83d\udc32!\ud83d\udc32\ud83d\udc32",
+      "duration": 39533,
+      "recorded_at": "2026-01-12T21:49:39+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.775874Z"
+    },
+    {
+      "vod_id": "2667022231",
+      "streamer": "xQc",
+      "title": "\ud83c\udfc6LIVE\ud83c\udfc6CLICK\ud83c\udfc6NIGHT STREAM\ud83c\udfc6DRAMA\ud83c\udfc6NEWS\ud83c\udfc6ALL NIGHT/DAY\ud83c\udfc6RUNS\ud83c\udfc6WINS\ud83c\udfc6RECORDS\ud83c\udfc6COME BE PRESENT\ud83c\udfc6WHEN IT HAPPENS\ud83c\udfc6WOWIE\ud83c\udfc6",
+      "duration": 69038,
+      "recorded_at": "2026-01-11T08:10:19+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.777268Z"
+    },
+    {
+      "vod_id": "2665841614",
+      "streamer": "xQc",
+      "title": "\ud83d\ude40LIVE\ud83d\ude40CLICK\ud83d\ude40DRAMA\ud83d\ude40NEWS\ud83d\ude40THINGS\ud83d\ude40RUNS\ud83d\ude40CLIPS\ud83d\ude40VIDEOS\ud83d\ude40RECORD\ud83d\ude40YAY\ud83d\ude40438973489248947897894892747893497824897\ud83d\ude40",
+      "duration": 26549,
+      "recorded_at": "2026-01-10T02:01:58+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.778675Z"
+    },
+    {
+      "vod_id": "1199379108",
+      "streamer": "xQc",
+      "title": "xQcOW's Channel Trailer",
+      "duration": 21,
+      "recorded_at": "2021-11-08T03:44:16+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:00.780129Z"
+    },
+    {
+      "vod_id": "2718866835",
+      "streamer": "loltyler1",
+      "title": "SUN CREATEDS HEATER AND POWER WORLD !! JUST BUT SAY GO OUT EVER TIME ??? dear me golly goodness HAPPENS ????? T1 BRIGHT DAY SAVE PLANETS ALL",
+      "duration": 21940,
+      "recorded_at": "2026-03-10T17:17:12+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.362572Z"
+    },
+    {
+      "vod_id": "2717344542",
+      "streamer": "loltyler1",
+      "title": "BEFORES NEVER SEEN PLAYED GAME THROUGH !!!!! PERCENT TOP SPEED ACCOMPLISH ENDER GAME !!!! WOW !!! what legend !! yep that me :D",
+      "duration": 22000,
+      "recorded_at": "2026-03-08T19:26:52+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.364033Z"
+    },
+    {
+      "vod_id": "2716313408",
+      "streamer": "loltyler1",
+      "title": "DAY JOY ! YOUNG 31 BECOMED HAVE ! WHAT NEXT NOW HE FOR BEYOND PROSPER !! JUST GOOD DOES ALL BUD . ALSO JOIN LAND MONSTER DEFEATS EASYS !",
+      "duration": 27190,
+      "recorded_at": "2026-03-07T17:23:28+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.365474Z"
+    },
+    {
+      "vod_id": "2715405406",
+      "streamer": "loltyler1",
+      "title": "LP FIXERED ?? HAHAH RAGE GO RAMPAGE RUN RUSH TOPS !! NUMBER 1 ! STORY TELL FUTURES PRESENT PAST . wow this inspire why GREATNESS GOAT !!",
+      "duration": 31800,
+      "recorded_at": "2026-03-06T17:54:15+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.367132Z"
+    },
+    {
+      "vod_id": "2714650848",
+      "streamer": "loltyler1",
+      "title": "LOST HAPPEN ALL FOR DEICDE WINNER WAY ! ME EXCEPT !!! GO 1V9 BEAST GOKU MAMMOTH MODE !! STOMP STOMP ! oh KIDS BIKE ! BOOOM ! CRUSH ALSO !",
+      "duration": 25890,
+      "recorded_at": "2026-03-05T20:03:44+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.368468Z"
+    },
+    {
+      "vod_id": "2713830197",
+      "streamer": "loltyler1",
+      "title": "ACTION !! ZING ZAM SLAM !!!!! heck dang speeds cool cross back FORWARD CENTRAL !!!! STAND ASIDE LET WORKER HERES !! no TELL WHAT GO DO BUD !",
+      "duration": 24390,
+      "recorded_at": "2026-03-04T20:36:33+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.369896Z"
+    },
+    {
+      "vod_id": "2712637102",
+      "streamer": "loltyler1",
+      "title": "\u2b50\u2b50 TYLER1 ALL-STARS \u2b50\u2b50 KR !! NEW FACE MEANS WINNER ARRIVE NEW ??? COULD MUST BE HAPPEN NOW LIVE !!! NOT WANT MISS !!",
+      "duration": 20012,
+      "recorded_at": "2026-03-03T11:35:29+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.371328Z"
+    },
+    {
+      "vod_id": "2712606371",
+      "streamer": "loltyler1",
+      "title": "Highlight: WIN KEEPS WINNNER !!!!!!!! WHO STRONG STOP ? YOU ? LOOOL BOY ! UNBEAT MEAN MACHINE MONSTER MAMMOTH TRAMPLE CRUSH STOMP ALL PATH F",
+      "duration": 9234,
+      "recorded_at": "2026-03-03T10:04:45+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.372723Z"
+    },
+    {
+      "vod_id": "2712168611",
+      "streamer": "loltyler1",
+      "title": "STANDS TALLS ! HEIGHT DOMINATE POWER STRENGTH ! ALL COMBINE EQUALSED PRODUCT LOOK UPON SCREENS ! show STOPPER CRUSH !! so darns cool",
+      "duration": 31820,
+      "recorded_at": "2026-03-02T21:30:51+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.374167Z"
+    },
+    {
+      "vod_id": "2711257575",
+      "streamer": "loltyler1",
+      "title": "RETURN DAYS AWARD JOURNEY ARRIVE ! wow feel longed time place begone ! ok FEAR NO NOT ! BIG T SAVEDS DAY WEEK YEAR LIFE ! save ! THANK ME :D",
+      "duration": 26910,
+      "recorded_at": "2026-03-01T19:45:43+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.375609Z"
+    },
+    {
+      "vod_id": "2707443643",
+      "streamer": "loltyler1",
+      "title": "COUNT WAY FIND WIN ! IMPOSSIBLE INFINITE NUMBER ARISE SMOKE CLOUD AIR WAY NOT SEES !!! ONE STEP THROUGH !!! STARE SUNNN !! eekkk ME EYE !!!!",
+      "duration": 27410,
+      "recorded_at": "2026-02-25T17:31:08+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.377100Z"
+    },
+    {
+      "vod_id": "2706637778",
+      "streamer": "loltyler1",
+      "title": "\u2b50\u2b50 TYLER1 ALL-STARS \u2b50\u2b50 NA !! GO SHOW WHY MOST TALENT STYLE STRONGEREST REGION ALIVES ! BEST OF BESTS HERE BUD !!!!!",
+      "duration": 20993,
+      "recorded_at": "2026-02-24T18:39:58+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.378597Z"
+    },
+    {
+      "vod_id": "2705795464",
+      "streamer": "loltyler1",
+      "title": "WIN KEEPS WINNNER !!!!!!!! WHO STRONG STOP ? YOU ? LOOOL BOY ! UNBEAT MEAN MACHINE MONSTER MAMMOTH TRAMPLE CRUSH STOMP ALL PATH FORWARD !",
+      "duration": 25780,
+      "recorded_at": "2026-02-23T19:00:38+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.380155Z"
+    },
+    {
+      "vod_id": "2704875778",
+      "streamer": "loltyler1",
+      "title": "NEVER !!! GIVES UP CONQUER ALL LAND SPACE TIME SPEED SWAGGGGGG ! SO COOL ! fresh clean . TRUST KNOW ME BEST THAN SELF DESCRIBE !!! TRUE !!!",
+      "duration": 28620,
+      "recorded_at": "2026-02-22T17:54:27+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.381676Z"
+    },
+    {
+      "vod_id": "2703887895",
+      "streamer": "loltyler1",
+      "title": "NOT BETTER TIME THAN NOW ! that match simple head for write when timer go do the for place happen ! IF STAND WHY CRUMBLE GO FALL BEFORE MAN",
+      "duration": 31590,
+      "recorded_at": "2026-02-21T16:57:33+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.383187Z"
+    },
+    {
+      "vod_id": "2703317217",
+      "streamer": "loltyler1",
+      "title": "TREE FALLS WHO HEAR ! BEAR  LION TIGER ?  ANIMAL GO CRAZYS ! that make plan WORLD take OVER ! use BRAIN STYLE STRENGTH FOR WINNED ! GO GO GO",
+      "duration": 19530,
+      "recorded_at": "2026-02-21T00:36:13+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.384710Z"
+    },
+    {
+      "vod_id": "2702185938",
+      "streamer": "loltyler1",
+      "title": "RETURN KING FALL CHOOSE ! HE STAND ALL ABOVE ! coursed cause 6'5 . TRUE THAT WAY STORY SAYS ! COMIC BOOK CHARACTER IN REAL LIFE ! THAT BIG T",
+      "duration": 28990,
+      "recorded_at": "2026-02-19T19:13:23+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.386636Z"
+    },
+    {
+      "vod_id": "2701641801",
+      "streamer": "loltyler1",
+      "title": "WINDS BLOW AIR AROUND SKY LIMIT FOR PLANE BIRD ! nots ME !! GO SOAR ABOVE BEYOND BREAKED POWER EXCEED ! THEN WHATS !! WHO THINK COULD BETTER",
+      "duration": 8790,
+      "recorded_at": "2026-02-19T01:56:48+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.388160Z"
+    },
+    {
+      "vod_id": "2701462921",
+      "streamer": "loltyler1",
+      "title": "WINDS BLOW AIR AROUND SKY LIMIT FOR PLANE BIRD ! nots ME !! GO SOAR ABOVE BEYOND BREAKED POWER EXCEED ! THEN WHATS !! WHO THINK COULD BETTER",
+      "duration": 4930,
+      "recorded_at": "2026-02-18T22:13:56+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.389737Z"
+    },
+    {
+      "vod_id": "2700383563",
+      "streamer": "loltyler1",
+      "title": "\u2b50\u2b50 TYLER1 ALL-STARS \u2b50\u2b50 EU !! WHO GO TAKES CROWN HOME HIRE HERE FOR BE WINTER CONCLUSION PLACEMENT !!!!!! BUD !!!!!!!",
+      "duration": 22804,
+      "recorded_at": "2026-02-17T17:43:18+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.391278Z"
+    },
+    {
+      "vod_id": "2699652526",
+      "streamer": "loltyler1",
+      "title": "so pretty be :D WEATHER COURSED AND me :D yes true BIG T YOU GREANTESS ALL AURA AROUND ! eek ! SUN BRIGHT ! cover eyes fear happen NOT ! ok",
+      "duration": 25760,
+      "recorded_at": "2026-02-16T20:37:26+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.392789Z"
+    },
+    {
+      "vod_id": "2697886982",
+      "streamer": "loltyler1",
+      "title": "GIFTED ALL WORLD VALENTINE ! so thank and THOUGHTS ! yep what say abouted me :D now focused works and JOB . RAINS DAY BUT NOT SPOIL ALL !!!!",
+      "duration": 24090,
+      "recorded_at": "2026-02-14T21:02:43+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.394335Z"
+    },
+    {
+      "vod_id": "2697018179",
+      "streamer": "loltyler1",
+      "title": "JUST LISTENS WORDS SAY APPEAR PAPER WRITED STORY TELLS ! LOOK FORTUNE COME FOR PRIZE ! that life simple . ADVANCED . BEYOND THINK MODE !!!",
+      "duration": 21540,
+      "recorded_at": "2026-02-13T22:23:27+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.395951Z"
+    },
+    {
+      "vod_id": "2696060659",
+      "streamer": "loltyler1",
+      "title": "new begins . same RESULTED . #1 ! THAT WHERE HEADS FOR TIMER BEING ! ROAD ? THROUGH MISSOURI ! TONKA T RUN OVER OPPONENT WAY !! HONK HONKKKK",
+      "duration": 23790,
+      "recorded_at": "2026-02-12T20:32:18+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.397561Z"
+    },
+    {
+      "vod_id": "2695274394",
+      "streamer": "loltyler1",
+      "title": "DO DANCE THEM !! moves smooth classic style SWAG . YOUNG and prodigy greatness all does . COOKIE CRUMBLE WAY !! yummy and good tum :D",
+      "duration": 18420,
+      "recorded_at": "2026-02-11T22:03:40+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.399147Z"
+    },
+    {
+      "vod_id": "2694022317",
+      "streamer": "loltyler1",
+      "title": "\u2b50\u2b50 TYLER1 ALL-STARS \u2b50\u2b50 KR !! EDITIONS ?? is best they are ?? WELL LOOKED HAPPEN HERE AND SAY THAT DUDES ! ok calms .. NO NOT NEVER !",
+      "duration": 21738,
+      "recorded_at": "2026-02-10T12:53:56+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.400812Z"
+    },
+    {
+      "vod_id": "2693548269",
+      "streamer": "loltyler1",
+      "title": "GIVES UP CANTS DO ... for you ... IMPOSSIBLE COMPLETE NOT TRY .... for yous .. BUT ME ??? AHHAH LAUGH OBSTACLE FORWARD ME ! STOM STOMP SPLAT",
+      "duration": 20000,
+      "recorded_at": "2026-02-09T21:57:42+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.402434Z"
+    },
+    {
+      "vod_id": "2691596200",
+      "streamer": "loltyler1",
+      "title": "stumble ... OK .. fall .. OK ! but THINGED DO ??? GETS UP GO FIGHT AGAINER ! NEVER BEAT ALIVE FOR SITUATION OCCUR ! WHAT ! SPEAK ME ! .. MAN",
+      "duration": 35940,
+      "recorded_at": "2026-02-07T17:16:20+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.404079Z"
+    },
+    {
+      "vod_id": "2690875605",
+      "streamer": "loltyler1",
+      "title": "BUILT OX LIKES ! SIZE STAGGERING SPEED SPLENDOUS AND BRAINS BRILLANTED ! all combine 6'5 GIANT CLOBBER ENEMY WAYS . CARE FEELING ?? l000l",
+      "duration": 14120,
+      "recorded_at": "2026-02-06T21:54:29+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.405697Z"
+    },
+    {
+      "vod_id": "2690571025",
+      "streamer": "loltyler1",
+      "title": "BUILT OX LIKES ! SIZE STAGGERING SPEED SPLENDOUS AND BRAINS BRILLANTED ! all combine 6'5 GIANT CLOBBER ENEMY WAYS . CARE FEELING ?? l000l",
+      "duration": 21610,
+      "recorded_at": "2026-02-06T15:17:39+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.407294Z"
+    },
+    {
+      "vod_id": "2689939669",
+      "streamer": "loltyler1",
+      "title": "CANTS HOLD BACK ! TRY RIOTS AND WATCHED PEFORM ! DONT NOT MATTEER L0L ! FREAK 1 OF 1 ALL TIMER GOATS HAPPEN ! YOU NOT MATTER ME BUD !",
+      "duration": 27190,
+      "recorded_at": "2026-02-05T20:41:59+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.408945Z"
+    },
+    {
+      "vod_id": "2688924807",
+      "streamer": "loltyler1",
+      "title": "DESTROY !! ENEMY ! MAP PERSON LOAD CHAMP ALL ! NO SAFED ME ! RAGE RED see ANGERS ! grr . wow does meaned business TODAYS ! yep lols scare",
+      "duration": 36460,
+      "recorded_at": "2026-02-04T17:21:22+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.410595Z"
+    },
+    {
+      "vod_id": "2688142587",
+      "streamer": "loltyler1",
+      "title": "\u2b50\u2b50 TYLER1 ALL-STARS \u2b50\u2b50 NA HERO ARRIVED DAY . WHO TACKLE FIGHT GO WAY TOP ! LET SEE THIS HAPPENS !!!",
+      "duration": 24067,
+      "recorded_at": "2026-02-03T19:03:26+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.412245Z"
+    },
+    {
+      "vod_id": "2687237751",
+      "streamer": "loltyler1",
+      "title": "ABSENT ... cause GROW AND SHINE ! BE THIS WAY TIMER TICK TICK ! OH NO GOT EXPLODES !! RUNNN !! NEVER ! stand BEHINDS ME COVERS ! BOOM . safe",
+      "duration": 30080,
+      "recorded_at": "2026-02-02T18:07:00+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.413872Z"
+    },
+    {
+      "vod_id": "2684381152",
+      "streamer": "loltyler1",
+      "title": "ANOTHER DAYS ! VICTORY HAVE ! doubts they but say cants task do . FINE ME BUD ! GO SHOCKER WORLD TIME AGAINS PERFORM ! that pressure ALL ME",
+      "duration": 49400,
+      "recorded_at": "2026-01-30T16:45:46+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.415552Z"
+    },
+    {
+      "vod_id": "2683569282",
+      "streamer": "loltyler1",
+      "title": "THINKS THEY ? CAN ME ? YES no YES ! YES ! NO STOP ARRIVE SPOT .  JOURNEY TRAVEL STAGGER WORLD SWIFTLY ! SUPER COOLED swag STAR ! SHINE WAY !",
+      "duration": 43160,
+      "recorded_at": "2026-01-29T18:14:23+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.417222Z"
+    },
+    {
+      "vod_id": "2682730614",
+      "streamer": "loltyler1",
+      "title": "UNSTOPPABLE FREIGHT TRAIN CHUGGA CHOO CHOO ! beep beep car vrroooomm ! what fasts ? TRAIN COURSED ! THAT WHY GO TOPS MOUNTAIN CLIMBED EVER !",
+      "duration": 40750,
+      "recorded_at": "2026-01-28T19:01:36+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.418908Z"
+    },
+    {
+      "vod_id": "2681689603",
+      "streamer": "loltyler1",
+      "title": "\u2b50\u2b50 TYLER1 ALL-STARS \u2b50\u2b50 GREATNESS AWAIT PLAYER ACHIEVE VICTORY AND PROPSER . TALENT ? LET SEE BUD ! maybe mights inspire some COOL !",
+      "duration": 24266,
+      "recorded_at": "2026-01-27T15:50:18+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.420689Z"
+    },
+    {
+      "vod_id": "2680839917",
+      "streamer": "loltyler1",
+      "title": "COLDS !!! outside yes ! INSIDE YES !!!!! THAT WHAT CALLS ME WHEN PLAYED GAME AND LIFE TASK . T SUBZERO 1 DO AGAINS ALWAYS BEFORE . SHOW",
+      "duration": 36140,
+      "recorded_at": "2026-01-26T17:06:01+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.422400Z"
+    },
+    {
+      "vod_id": "2679854016",
+      "streamer": "loltyler1",
+      "title": "MULTI GAME GIGA BEAST DOMINATE ANOTHERS GAMED ! ! ahaha what man not do good well awesome ? NOTHING ! WINNER GO WIN AGAINS AND TALENTED :D",
+      "duration": 15070,
+      "recorded_at": "2026-01-25T15:31:18+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.424134Z"
+    },
+    {
+      "vod_id": "2678849690",
+      "streamer": "loltyler1",
+      "title": "WAR PATH DESTROY ALL WAY FOR ME ! NOT STOP ARRIVE SPACE ACCOMPLISH . GAME YEAR EASY MONTH DAY YEARS HAPPEN . wow knowledge BIG BRAIN ! YES !",
+      "duration": 49620,
+      "recorded_at": "2026-01-24T15:32:57+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.425909Z"
+    },
+    {
+      "vod_id": "2678044374",
+      "streamer": "loltyler1",
+      "title": "brrr cold storm wash CLOUD SNOW !!! cover HIDE ! must DEFEND possible . MAN MIGHTY SHIELD ALL IMPACT HAPPENS ! wow so stun STAGGERING ! nice",
+      "duration": 41100,
+      "recorded_at": "2026-01-23T19:11:53+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.427664Z"
+    },
+    {
+      "vod_id": "2677186298",
+      "streamer": "loltyler1",
+      "title": "ABOUTS ANGER BE ! grrr TALKS ME THIS ? ahaha SHOW REALED POWER BEING . kicky flip roll JUMP ! heck yes impress stunt . MAIN EVENT NOW GO !!!",
+      "duration": 24310,
+      "recorded_at": "2026-01-22T19:52:02+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.429410Z"
+    },
+    {
+      "vod_id": "2676389263",
+      "streamer": "loltyler1",
+      "title": "bads day determine way mood win ACTS ? NO . NOT OTHERS WAY CAUSED STAY UP HAPPY OUT GAME FOR THAT LIFE ! GOTS ??? good . NOW re go AGAINS !",
+      "duration": 36770,
+      "recorded_at": "2026-01-21T21:43:24+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.431179Z"
+    },
+    {
+      "vod_id": "2675336525",
+      "streamer": "loltyler1",
+      "title": "FRESH CLEAN CRISPY CRACKED ! NOT STAND CHANCE GREATEST ALL TIMER !! some thinks arise try me ? LOOOOL good chuckles . now focused WINNER",
+      "duration": 53450,
+      "recorded_at": "2026-01-20T17:45:14+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.432949Z"
+    },
+    {
+      "vod_id": "2674463365",
+      "streamer": "loltyler1",
+      "title": "BOOOM BOOM !! ground shake CONCRETE CRACKING !! no LOOK SKY WHAT ! SWOOOOSH ! what be .. bird ?? PLANE ??  NEVER NO . IT BIG T1  ! yay :D",
+      "duration": 38970,
+      "recorded_at": "2026-01-19T17:47:39+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.434713Z"
+    },
+    {
+      "vod_id": "2673523159",
+      "streamer": "loltyler1",
+      "title": "UNLOCK SECRETS SUCCESS ALL THING FOR HOW BEEN ! can tells ? LOL funny joked kid now RUN HIDE SEEK ! THE TRAIN AND TRACKS !! CHOO CHOO !!!",
+      "duration": 51700,
+      "recorded_at": "2026-01-18T16:21:45+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.436572Z"
+    },
+    {
+      "vod_id": "2673037287",
+      "streamer": "loltyler1",
+      "title": "WEEKEND WARRIOR BELIEVE EYE OF ! MANY NOT UNDERSTOOD THATS WAY LOL . so classic big t just so amaze :D . thank . but time gets work and MORE",
+      "duration": 15860,
+      "recorded_at": "2026-01-18T01:57:27+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.439267Z"
+    },
+    {
+      "vod_id": "2672638784",
+      "streamer": "loltyler1",
+      "title": "WEEKEND WARRIOR BELIEVE EYE OF ! MANY NOT UNDERSTOOD THATS WAY LOL . so classic big t just so amaze :D . thank . but time gets work and MORE",
+      "duration": 10980,
+      "recorded_at": "2026-01-17T18:00:10+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.441158Z"
+    },
+    {
+      "vod_id": "2671601267",
+      "streamer": "loltyler1",
+      "title": "MULTI TALENT CHAMPION DO ! MANY FIELD TALCKLE AND TOP THEY ALL ! any else ? COURSE NOTS CAUSED #1 !!!! GIGA JACKED MOUNTAIN MAMMOTH WINS !",
+      "duration": 31340,
+      "recorded_at": "2026-01-16T16:27:28+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.443216Z"
+    },
+    {
+      "vod_id": "2671202150",
+      "streamer": "loltyler1",
+      "title": "TOLD DO !! NEXT ! one and FINISH STRONGED ! lol easy me cause look already happens ! dude get that but come tell all again . time ! BEHEMOTH",
+      "duration": 8490,
+      "recorded_at": "2026-01-16T02:32:45+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.445027Z"
+    },
+    {
+      "vod_id": "2671056437",
+      "streamer": "loltyler1",
+      "title": "TOLD DO !! NEXT ! one and FINISH STRONGED ! lol easy me cause look already happens ! dude get that but come tell all again . time ! BEHEMOTH",
+      "duration": 4100,
+      "recorded_at": "2026-01-15T23:37:40+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.446835Z"
+    },
+    {
+      "vod_id": "2670810872",
+      "streamer": "loltyler1",
+      "title": "TOLD DO !! NEXT ! one and FINISH STRONGED ! lol easy me cause look already happens ! dude get that but come tell all again . time ! BEHEMOTH",
+      "duration": 15210,
+      "recorded_at": "2026-01-15T18:16:35+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.448774Z"
+    },
+    {
+      "vod_id": "2669897545",
+      "streamer": "loltyler1",
+      "title": "DAY TODAY ! challenger ? LOL COURSED YOU FUN LAUGH ! goal end not here now but ALSO TOPS #1 ! NONE DO LIKES WITH STYLE ! say MUCH . NOW SHOW",
+      "duration": 42170,
+      "recorded_at": "2026-01-14T17:11:25+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.450632Z"
+    },
+    {
+      "vod_id": "2669087511",
+      "streamer": "loltyler1",
+      "title": "just smiles all problem away go bye bye and HELLO HI !! BRACE ! IMPACT !! BOOOOOOM ! oh no happen here . FEAR NOTS ! BIG T1 SAVE DAY ! ALWAY",
+      "duration": 37870,
+      "recorded_at": "2026-01-13T18:36:19+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.452488Z"
+    },
+    {
+      "vod_id": "2668222533",
+      "streamer": "loltyler1",
+      "title": "PAIN TRAIN !! ALL BOARD !! chooo CHOOO ! golly goodness so faster and speed . yep BEST BESTER ALIVE BUD ! looks how play and win time ALL !",
+      "duration": 11980,
+      "recorded_at": "2026-01-12T18:28:01+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.454355Z"
+    },
+    {
+      "vod_id": "2667346237",
+      "streamer": "loltyler1",
+      "title": "TAKE CARES !! of ? PROBLEM CAUSED ME ! AND SOLVES ISSUE ! this 6'5 look and weight heavy STRONG . mammoth . freak NATURE ! mix swag and cool",
+      "duration": 37420,
+      "recorded_at": "2026-01-11T17:43:25+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.456207Z"
+    },
+    {
+      "vod_id": "2666775782",
+      "streamer": "loltyler1",
+      "title": "GO PASS COLLECT !! BUT ahead WALL STOP !! what do .. BLAST THROUGH AND ANOTHER AGAIN ! THINK STOP ? HAHA LAUGH FACE CHALLENGE !! 1V9 ALLS !",
+      "duration": 21540,
+      "recorded_at": "2026-01-11T01:27:38+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.458125Z"
+    },
+    {
+      "vod_id": "2666402831",
+      "streamer": "loltyler1",
+      "title": "GO PASS COLLECT !! BUT ahead WALL STOP !! what do .. BLAST THROUGH AND ANOTHER AGAIN ! THINK STOP ? HAHA LAUGH FACE CHALLENGE !! 1V9 ALLS !",
+      "duration": 17950,
+      "recorded_at": "2026-01-10T18:06:31+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.460048Z"
+    },
+    {
+      "vod_id": "2665516684",
+      "streamer": "loltyler1",
+      "title": "SKYROCKET! DONT STOP !! CANT DEPART PATH FUTURE WAY . BOLD SWIFT MAJESTIC HANDSOME JACKED GIANT DOMINATE RIFT ! so staggering be he . YUP !!",
+      "duration": 41820,
+      "recorded_at": "2026-01-09T19:31:08+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.461987Z"
+    },
+    {
+      "vod_id": "2664682866",
+      "streamer": "loltyler1",
+      "title": "DAY START FIRST NEW ! THAT ALL NEED SAY ME ! GO DO TOUGH JOB WORLD WORK HARD ALL . SPEEDS TOP CLIMB CLIFF ! HIGH MIGHTY LOOKED BELOW ! none",
+      "duration": 32640,
+      "recorded_at": "2026-01-08T20:28:21+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.463940Z"
+    },
+    {
+      "vod_id": "2663982532",
+      "streamer": "loltyler1",
+      "title": "FINALS DAY BEFORE NEW ! goal ?? MUST have ACCOMPLISH ! PATH BURDEN HEAVY BUTS BODY STRONG MIND CRISPY . speak of so taste and yum tum :D",
+      "duration": 23000,
+      "recorded_at": "2026-01-08T00:04:16+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.465835Z"
+    },
+    {
+      "vod_id": "2663619847",
+      "streamer": "loltyler1",
+      "title": "FINALS DAY BEFORE NEW ! goal ?? MUST have ACCOMPLISH ! PATH BURDEN HEAVY BUTS BODY STRONG MIND CRISPY . speak of so taste and yum tum :D",
+      "duration": 24030,
+      "recorded_at": "2026-01-07T15:59:27+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.467829Z"
+    },
+    {
+      "vod_id": "2662753983",
+      "streamer": "loltyler1",
+      "title": "FIGHT WAY OUT ! SWING SWING SWUNG ! DUCK DIVE DIP PICK PUSH THROW ! ONLY WAY GOES OUT !! never take me tell that bud . ONE ONLY MASSIVE MAN",
+      "duration": 24050,
+      "recorded_at": "2026-01-06T15:55:29+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.469767Z"
+    },
+    {
+      "vod_id": "2662188912",
+      "streamer": "loltyler1",
+      "title": "over . done . finish . complete ... UNLESS ! MAYBE PERHAPS POSSIBLE COULD BE DO !!! WINNABLE !!!!!!! LET GO #1 ALL ! GO HEAR ROUND WORLD !",
+      "duration": 26710,
+      "recorded_at": "2026-01-05T22:34:52+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.471723Z"
+    },
+    {
+      "vod_id": "2662060807",
+      "streamer": "loltyler1",
+      "title": "over . done . finish . complete ... UNLESS ! MAYBE PERHAPS POSSIBLE COULD BE DO !!! WINNABLE !!!!!!! LET GO #1 ALL ! GO HEAR ROUND WORLD !",
+      "duration": 9950,
+      "recorded_at": "2026-01-05T19:48:41+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.473621Z"
+    },
+    {
+      "vod_id": "2661362938",
+      "streamer": "loltyler1",
+      "title": "RACE TIME !! can DO ?? OPTION ONLY MAKE ! NO CHOICE HAVE WINNER ! BEFORE ME AFTER DURING ! inspire . enjoy SHOWED ! CAUSE MOVIE MAKE BUD !!!",
+      "duration": 5020,
+      "recorded_at": "2026-01-04T22:39:03+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.475571Z"
+    },
+    {
+      "vod_id": "2661101372",
+      "streamer": "loltyler1",
+      "title": "RACE TIME !! can DO ?? OPTION ONLY MAKE ! NO CHOICE HAVE WINNER ! BEFORE ME AFTER DURING ! inspire . enjoy SHOWED ! CAUSE MOVIE MAKE BUD !!!",
+      "duration": 13480,
+      "recorded_at": "2026-01-04T17:15:53+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.477545Z"
+    },
+    {
+      "vod_id": "2660188308",
+      "streamer": "loltyler1",
+      "title": "SHOCK WORLD ! INVOLVE EPIC ! THE RUN ! ROAD RANKED RUN HERE !! HAHAHA GET WAY ? GET CLOBBER ! EASY !! go calm now down .. DONT TELL ME WHAT",
+      "duration": 44430,
+      "recorded_at": "2026-01-03T17:24:20+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.479525Z"
+    },
+    {
+      "vod_id": "2659243569",
+      "streamer": "loltyler1",
+      "title": "FLAWLESS EVERY DAYS ! NO OPTION OTHER ! PERFECT PLAYER !!!! WHO ATHLETE ? TALL ? AND GOOD LOOK ? T1 !!!!!!!!!! GO JOB DONE BUD !! GOOOO !",
+      "duration": 29120,
+      "recorded_at": "2026-01-02T16:27:17+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.481497Z"
+    },
+    {
+      "vod_id": "2658500099",
+      "streamer": "loltyler1",
+      "title": "NEW YEAR SAMED ME !!!!! ONE WEEKS LEFT DREAM GOAL BIG ! HE GO MAKE ! HE ALWAY GO MAKES ! so freak true cause BONKERS ! guy craziness cool",
+      "duration": 22110,
+      "recorded_at": "2026-01-01T18:47:50+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.483483Z"
+    },
+    {
+      "vod_id": "2657720386",
+      "streamer": "loltyler1",
+      "title": "DO BESTS ! ALL HOPE FOR YOU ! BUT I DO BE BETTER BUD ! IMAGINE HE FLY SKY AND TRICK AIR !!! wow . THIS GUY JAW DROPPING GREATNESS ACHIEVE !",
+      "duration": 22320,
+      "recorded_at": "2025-12-31T18:05:18+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.485484Z"
+    },
+    {
+      "vod_id": "2656912191",
+      "streamer": "loltyler1",
+      "title": "BACK WITHS VENEGENCES ! NO STAND WAY ME MIGHT ! SMACK SLAP CRUSH ! DO JOB ASSIGNED !! ok now go eat pie cake cookie :D ah yes tasty good :)",
+      "duration": 19550,
+      "recorded_at": "2025-12-30T18:50:19+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.487776Z"
+    },
+    {
+      "vod_id": "2651344483",
+      "streamer": "loltyler1",
+      "title": "still HERED !! NEVER LEFT GO ANYWHERED PLACE BUT NOW ! EXIT MY WAY OR TRAMPLE OVER POW POW !! this guy AGGRESSIVE ! yes and handsome swag :D",
+      "duration": 31690,
+      "recorded_at": "2025-12-23T19:20:24+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.489776Z"
+    },
+    {
+      "vod_id": "2650477976",
+      "streamer": "loltyler1",
+      "title": "tick tick BOOOM ! BIG MAN BLAST THROUGH !!! GO HIGHER NUMBER AND POSITIVE ! just winner win thing . SWING TREE WEEEE play outside fun :D",
+      "duration": 28020,
+      "recorded_at": "2025-12-22T18:15:29+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.491935Z"
+    },
+    {
+      "vod_id": "2649555629",
+      "streamer": "loltyler1",
+      "title": "\u2b50\u2b50 TYLER1 ALL-STARS \u2b50\u2b50 NORTH AMERICA BEST !!!  BATTLE !! FIND WHO BETTER THAN DID ALL !!!!!!!!!!!",
+      "duration": 21702,
+      "recorded_at": "2025-12-21T15:40:01+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.494006Z"
+    },
+    {
+      "vod_id": "2648803429",
+      "streamer": "loltyler1",
+      "title": "works HARDER THAN HARD HAVE ! NOT UNDERSTOOD ME BOY ??? I SAY AGAINS YOU FACE THEN !!!!!! ya go make mad keep up . ENOUGH . relax peace nice",
+      "duration": 19580,
+      "recorded_at": "2025-12-20T18:05:51+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.496259Z"
+    },
+    {
+      "vod_id": "2647938442",
+      "streamer": "loltyler1",
+      "title": "BUILDED DIFFERENTS !!!!!! THEY SAY FOR YEAR AND YEARS SHOW OVERCOME OBSTACLE STOP WAY ! yep STEP TIME BUT GO DO ! WAY OF WARRIOR !!! ROAR !!",
+      "duration": 19480,
+      "recorded_at": "2025-12-19T18:09:41+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.498294Z"
+    },
+    {
+      "vod_id": "2647248978",
+      "streamer": "loltyler1",
+      "title": "GO OVER WITH !! NO COME HELPS JUST ALONE FOR TIME BE ! LEFT RIGHT LEFT RIGHT L000000000L 1 STEP AHEADS !!!! PURE POWER AGGRESSION !!!",
+      "duration": 9931,
+      "recorded_at": "2025-12-18T21:02:49+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.500344Z"
+    },
+    {
+      "vod_id": "2645480355",
+      "streamer": "loltyler1",
+      "title": "PUSH THROUGH !! NOT END FINSIH BEGIN START ! THIS BEAST ONE OF ONES BUD !!!!!!! HAHAHA FREAK NATURE GIGA JACKED GOD BEAST MOD SWAGGGG woop !",
+      "duration": 19034,
+      "recorded_at": "2025-12-16T18:06:09+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.502438Z"
+    },
+    {
+      "vod_id": "2642836953",
+      "streamer": "loltyler1",
+      "title": "\u2b50\u2b50 TYLER1 ALL-STARS \u2b50\u2b50 WHO TAKE HOMES CROWN ? GO FIND OUT REAL ABOUT IT BUD !! LIGHT CAMERA ACTIONED !!!!!!!!",
+      "duration": 39977,
+      "recorded_at": "2025-12-13T15:05:51+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.505127Z"
+    },
+    {
+      "vod_id": "2642261838",
+      "streamer": "loltyler1",
+      "title": "THE SUNS SHINE BUT NOT CONQUEST CONCLUSION . JOURNEY LONG SWIFT . SHORT SPREAD HIGH ! know place BOY ! who talk ? NOTHING ME ! MANLY MAN !!!",
+      "duration": 13347,
+      "recorded_at": "2025-12-12T22:24:48+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.507328Z"
+    },
+    {
+      "vod_id": "2641370090",
+      "streamer": "loltyler1",
+      "title": "NOT MOODS DAY BUD DONT TEST PATIENT ON ME HAHAHAH LAST WARN SIMPLE AND FIRST . GO SNAP REAL QUICK JUST GO WAY ! anwyay let job done TODAY",
+      "duration": 18543,
+      "recorded_at": "2025-12-11T21:20:35+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.509456Z"
+    },
+    {
+      "vod_id": "2640322838",
+      "streamer": "loltyler1",
+      "title": "ATHLETIC ! TALL ! HANDOSME ! STRONG ! AMAZING ! all word describe what witnessed here on today . NONE LIKE ! just cause call NUMBER 1 ! woot",
+      "duration": 22827,
+      "recorded_at": "2025-12-10T16:09:57+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.511689Z"
+    },
+    {
+      "vod_id": "2639517178",
+      "streamer": "loltyler1",
+      "title": "PRODIGY CHILD STUNT ON ALL ! lol what a classic jokes have he so fun funny awesome . THANK YOU ! appreciate . but timer lock in and OVERCOME",
+      "duration": 21002,
+      "recorded_at": "2025-12-09T16:51:06+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.513809Z"
+    },
+    {
+      "vod_id": "2638867112",
+      "streamer": "loltyler1",
+      "title": "begin agains .. YOUNG man tackle all task COME WAY ! 360 QUICKY SCOPE NO HAND DELXUE ! holy cow goodness ! this guy do be CRAZY CRACKED! yes",
+      "duration": 19465,
+      "recorded_at": "2025-12-08T20:30:41+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.516093Z"
+    },
+    {
+      "vod_id": "2636890168",
+      "streamer": "loltyler1",
+      "title": "WILL COULD RECLAIM THRONE ... king ? YES OF WORLD .. but wants ? not indeed inspire for do . patience equal win . understooded . NOW FIGHT !",
+      "duration": 12521,
+      "recorded_at": "2025-12-06T14:33:17+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.518326Z"
+    },
+    {
+      "vod_id": "2636227288",
+      "streamer": "loltyler1",
+      "title": "fun enjoy time laugh . all smile here NO SALTY ! just bright look life :DDDDD assdfnRAGE MONSTER STOMP BOOM CRUSH AHAHAH DARE NOT MESS ME",
+      "duration": 19181,
+      "recorded_at": "2025-12-05T20:09:54+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.521821Z"
+    },
+    {
+      "vod_id": "2635255013",
+      "streamer": "loltyler1",
+      "title": "dont listen hate ... just do crush competition .  STILL GOT SHOT PLAY ! CAN DO !! WILL DO !! ONLY CHOICE MATTER ! MAKER ALL PAY PRICE !!! GO",
+      "duration": 19370,
+      "recorded_at": "2025-12-04T17:27:03+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.525319Z"
+    },
+    {
+      "vod_id": "2634308576",
+      "streamer": "loltyler1",
+      "title": "CHESS PRODIGY COME OUT RETIREMENT WIN ALL THING SHOCK WORLD ! boy he still gots ! LIKE NEVER LEFTED LOL ! what beast ! DOMINATE",
+      "duration": 19141,
+      "recorded_at": "2025-12-03T14:15:35+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.528151Z"
+    },
+    {
+      "vod_id": "2633747243",
+      "streamer": "loltyler1",
+      "title": "LOOK SNOW GROUND ! ah so soft COLD ! BUT LOOK FOR WHEN summer sun shine BRIGHTS AND CLEAR PATH ALL AROUND ! that mean joy life and spring go",
+      "duration": 14864,
+      "recorded_at": "2025-12-02T20:59:24+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.530392Z"
+    },
+    {
+      "vod_id": "2632871054",
+      "streamer": "loltyler1",
+      "title": "end it HOLY !!!!! beat game BEAT GAME BEAT BEAT GAME GAME DIE DIE DIE DIE DIE DIE AHHAHAHA JUST END SUFFER ! EASY GAME ALL TIME DONT CARE !!",
+      "duration": 19749,
+      "recorded_at": "2025-12-01T19:39:38+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.532644Z"
+    },
+    {
+      "vod_id": "2631130336",
+      "streamer": "loltyler1",
+      "title": "JUST PAIN OVER GO WITH ! COME ON !!!! READY !! SET !!! LAUNCH !! GOOOOO !!!! hey you calm down nows and prosper . got ? TELL TWICE ! NO !!!!",
+      "duration": 25684,
+      "recorded_at": "2025-11-29T18:49:00+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.534902Z"
+    },
+    {
+      "vod_id": "2630135933",
+      "streamer": "loltyler1",
+      "title": "speed .. quickyness ... and ... brain power deluxe super combo 360 flippy action ! wow .. that sure impress one all around . DO ALL TIME BUD",
+      "duration": 18105,
+      "recorded_at": "2025-11-28T16:33:23+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.537203Z"
+    },
+    {
+      "vod_id": "2628560763",
+      "streamer": "loltyler1",
+      "title": "COLLECT STAR !!! well yes am but not mean .. GETS ALL STARS available !!!!!! wow never see before different build BONKERS ! yep TONKA T WOW",
+      "duration": 12658,
+      "recorded_at": "2025-11-26T16:17:44+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.539449Z"
+    },
+    {
+      "vod_id": "2627826485",
+      "streamer": "loltyler1",
+      "title": "WELL HERE GO ALL ! BOOOM BOOOM ! BIG MAN BEAST RUN OVER ! RUN HIDE ! BUT STILL FIND ! SMART CALCULATE actions . smooth . steady . DOMINATE !",
+      "duration": 19120,
+      "recorded_at": "2025-11-25T18:37:24+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.541707Z"
+    },
+    {
+      "vod_id": "2627147365",
+      "streamer": "loltyler1",
+      "title": "YES HE HERES ! GAMING GOD TACKLE ALL CHALLENGE PATH WAY ! no do better . what inspire youth elder old young . this guy cool . THANK !  :D",
+      "duration": 19885,
+      "recorded_at": "2025-11-24T21:40:21+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.544008Z"
+    },
+    {
+      "vod_id": "2624324484",
+      "streamer": "loltyler1",
+      "title": "STEPS ALL TAKED FOR MOMENT HERE ! ONE ! HERO LEGEND BEAST . WE GO SHOCKS WORLD !!! NEVER SEE HOW OVERCOME PROBLEM SOLVER !! SWEEET ! yay",
+      "duration": 17836,
+      "recorded_at": "2025-11-21T17:26:52+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.546314Z"
+    },
+    {
+      "vod_id": "2623516042",
+      "streamer": "loltyler1",
+      "title": "win go WINNER . that simpled . STOPS !!! PATIENT !!! BIG T GOOO BELIEVED ! thank you . now . SUPER DELUXE KICK FLIPPY COMBO !!! WOOOOT !!",
+      "duration": 31054,
+      "recorded_at": "2025-11-20T18:07:58+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-11T07:41:01.548619Z"
     }
   ]
 }
