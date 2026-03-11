@@ -67,8 +67,13 @@ class TwitchClient:
             return users[0]
         return None
 
-    def get_vods_by_user(self, user_id: str, first: int = 20) -> list[dict]:
-        """Get VODs for a Twitch user"""
+    def get_vods_by_user(self, user_id: str, first: int = 100) -> list[dict]:
+        """Get VODs for a Twitch user
+
+        Args:
+            user_id: Twitch user ID
+            first: Number of VODs to fetch (max 100 per API limit)
+        """
         response = self._client.get(
             f"{self.BASE_URL}/videos",
             headers=self._get_headers(),

@@ -1,0 +1,49 @@
+name: Add VODs to Queue
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'Max VODs to fetch per streamer (default: no limit)'
+        required: false
+        type: number
+        default: 100
+
+jobs:
+  add-to-queue:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          python-version: "3.13"
+
+      - name: Set up environment
+        run: uv venv
+
+      - name: Install dependencies
+        run: uv pip install -e .
+
+      - name: Create .env file
+        run: |
+          cat > .env << EOF
+          TWITCH_CLIENT_ID=${{ secrets.TWITCH_CLIENT_ID }}
+          TWITCH_CLIENT_SECRET=${{ secrets.TWITCH_CLIENT_SECRET }}
+          OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
+          LOG_LEVEL=INFO
+          STATE_FILE_DIR=./state
+          TRANSCRIPT_DIR=./transcripts
+          EOF
+
+      - name: Check for new VODs
+        run: uv run python -m src.monitor
+
+      - name: Commit state changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: add VODs to queue"
+          file_pattern: state/*

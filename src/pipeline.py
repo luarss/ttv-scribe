@@ -11,11 +11,12 @@ logger = logging.getLogger(__name__)
 STREAMERS_TO_CHECK = ["cooksux", "peeguutv"]
 
 
-def run_pipeline(max_duration_minutes: int = 60):
+def run_pipeline(max_duration_minutes: int | None = None, max_vods: int | None = None):
     """Run the full processing pipeline
 
     Args:
-        max_duration_minutes: Only process VODs shorter than this duration (default: 60)
+        max_duration_minutes: Only process VODs shorter than this duration (None = no limit)
+        max_vods: Maximum number of VODs to process from queue (None = no limit)
     """
     logger.info("Starting TTV-Scribe pipeline")
 
@@ -35,7 +36,7 @@ def run_pipeline(max_duration_minutes: int = 60):
 
     # Step 2: Download pending VODs
     try:
-        downloaded = process_pending_vods()
+        downloaded = process_pending_vods(max_vods=max_vods)
         logger.info(f"Downloaded {downloaded} VODs")
     except Exception as e:
         logger.error(f"Error in download step: {e}")
