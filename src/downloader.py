@@ -73,8 +73,11 @@ class Downloader:
             logger.warning(f"Failed to cleanup {filepath}: {e}")
 
 
-def process_pending_vods() -> int:
-    """Process all pending VODs
+def process_pending_vods(max_vods: int | None = None) -> int:
+    """Process pending VODs
+
+    Args:
+        max_vods: Maximum number of VODs to process (None = no limit)
 
     Returns:
         Number of VODs processed
@@ -85,6 +88,10 @@ def process_pending_vods() -> int:
 
     # Get all pending VODs
     pending_vods = get_pending_vods()
+
+    # Limit to max_vods if specified
+    if max_vods is not None:
+        pending_vods = pending_vods[:max_vods]
 
     for vod_data in pending_vods:
         vod_id = vod_data["vod_id"]
