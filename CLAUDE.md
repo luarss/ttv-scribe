@@ -86,4 +86,3 @@ Copy `.env.example` to `.env`:
 - **No database**: JSON files are the source of truth. Git-friendly and stateless deployment via GitHub Actions.
 - **Local transcription**: Uses faster-whisper for free, local transcription.
 - **Search is simple substring match**: `src/search.py` walks transcript JSON files — no indexing.
-- **Streamers to monitor** are hardcoded in `src/pipeline.py` as `STREAMERS_TO_CHECK`.

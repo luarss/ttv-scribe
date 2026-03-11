@@ -7,9 +7,6 @@ from .transcriber_local import process_downloaded_vods
 
 logger = logging.getLogger(__name__)
 
-# Streamers to track - modify this list as needed
-STREAMERS_TO_CHECK = ["cooksux", "peeguutv"]
-
 
 def run_pipeline(max_duration_minutes: int | None = None, max_vods: int | None = None):
     """Run the full processing pipeline
@@ -19,12 +16,6 @@ def run_pipeline(max_duration_minutes: int | None = None, max_vods: int | None =
         max_vods: Maximum number of VODs to process from queue (None = no limit)
     """
     logger.info("Starting TTV-Scribe pipeline")
-
-    # Step 0: Initialize streamers from constant
-    if STREAMERS_TO_CHECK:
-        added = add_streamers_to_track(STREAMERS_TO_CHECK)
-        if added > 0:
-            logger.info(f"Initialized {added} streamers")
 
     # Step 1: Check for new VODs
     try:
