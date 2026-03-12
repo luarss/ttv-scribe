@@ -57,20 +57,17 @@ GitHub Actions cron → src/pipeline.py
   "title": "...",
   "text": "full transcript text",
   "transcript_metadata": {},
-  "recorded_at": "ISO datetime",
-  "cost": 0.0
+  "recorded_at": "ISO datetime"
 }
 ```
 
 ### API (FastAPI, port 8000)
-- `GET/POST /api/streamers` — list/add streamers
-- `GET /api/streamers/{username}/recent` — recent VODs
-- `GET /api/vods` — list all VODs (filterable by streamer/status)
+- `GET /` — health check
+- `GET /api/vods` — list all VODs (filterable by `streamer` or `status` query params)
 - `GET /api/vods/{vod_id}/transcript` — full transcript JSON
-- `GET /api/search?q=...` — substring full-text search across transcript files
 
 ### Frontend (React + Vite, port 5173)
-3 routes: `/` (streamer list + VOD status), `/search` (keyword search), `/transcript/:vodId` (viewer). API base URL is hardcoded to `http://localhost:8000`.
+2 routes: `/` (VOD list), `/transcript/:vodId` (transcript viewer). API base URL is hardcoded to `http://localhost:8000`.
 
 ### CI/CD
 - `.github/workflows/cron.yml` — runs `src/pipeline.py` daily, auto-commits new transcripts
@@ -85,4 +82,3 @@ Copy `.env.example` to `.env`:
 ## Key Design Decisions
 - **No database**: JSON files are the source of truth. Git-friendly and stateless deployment via GitHub Actions.
 - **Local transcription**: Uses faster-whisper for free, local transcription.
-- **Search is simple substring match**: `src/search.py` walks transcript JSON files — no indexing.

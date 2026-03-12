@@ -2,15 +2,15 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 
 interface Transcript {
-  id: number;
-  vod_id: number;
+  vod_id: string;
+  streamer: string;
+  title: string | null;
   text: string;
   transcript_metadata: {
     segments_count: number;
     key_moments: Array<{ time: number; text: string }>;
   } | null;
-  cost: number | null;
-  created_at: string;
+  recorded_at: string | null;
 }
 
 const API_BASE = 'http://localhost:8000';
@@ -78,19 +78,17 @@ export default function TranscriptPage() {
       {/* Metadata */}
       <div className="bg-white rounded-lg shadow-md p-6 mb-6">
         <div className="flex gap-6 text-sm text-gray-600">
-          {transcript.cost !== null && (
-            <div>
-              <span className="font-medium">Cost:</span> ${transcript.cost.toFixed(4)}
-            </div>
-          )}
+          <div>
+            <span className="font-medium">Streamer:</span> {transcript.streamer}
+          </div>
           {transcript.transcript_metadata?.segments_count && (
             <div>
               <span className="font-medium">Segments:</span> {transcript.transcript_metadata.segments_count}
             </div>
           )}
           <div>
-            <span className="font-medium">Created:</span>{' '}
-            {new Date(transcript.created_at).toLocaleString()}
+            <span className="font-medium">Recorded:</span>{' '}
+            {transcript.recorded_at && new Date(transcript.recorded_at).toLocaleString()}
           </div>
         </div>
 

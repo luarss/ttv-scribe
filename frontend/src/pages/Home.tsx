@@ -23,7 +23,7 @@ export default function Home() {
 
   const fetchVods = async () => {
     try {
-      const res = await fetch(`${API_BASE}/api/vods?status=COMPLETED`);
+      const res = await fetch(`${API_BASE}/api/vods?status=completed`);
       if (!res.ok) throw new Error('Failed to fetch transcripts');
       const data = await res.json();
       setVods(data);
