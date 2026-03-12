@@ -48,11 +48,10 @@ jobs:
           EOF
 
       - name: Process queue
-        run: uv run python -c "from src.pipeline import run_pipeline; run_pipeline(max_vods=${{ github.event.inputs.count }}, max_transcription_minutes=60)"
+        run: uv run python -c "from src.pipeline import run_pipeline; run_pipeline(max_vods=${{ github.event.inputs.count }})"
 
       - name: Commit and push transcripts
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "feat: process VODs from queue"
           file_pattern: transcripts/* state/*
-          pull_strategy: merge
