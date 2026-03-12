@@ -4,12 +4,9 @@ version = "0.1.0"
 description = "Twitch transcript intelligence database"
 requires-python = ">=3.10"
 dependencies = [
-    "fastapi>=0.104.0",
-    "uvicorn>=0.24.0",
     "python-dotenv>=1.0.0",
     "yt-dlp>=2023.10.0",
     "faster-whisper>=1.0.0",
-    "pydantic>=2.0.0",
     "pydantic-settings>=2.0.0",
     "filelock>=3.13.0",
 ]

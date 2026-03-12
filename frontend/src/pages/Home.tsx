@@ -10,8 +10,6 @@ interface Vod {
   status: string;
 }
 
-const API_BASE = 'http://localhost:8000';
-
 export default function Home() {
   const [vods, setVods] = useState<Vod[]>([]);
   const [loading, setLoading] = useState(true);
@@ -23,10 +21,15 @@ export default function Home() {
 
   const fetchVods = async () => {
     try {
-      const res = await fetch(`${API_BASE}/api/vods?status=completed`);
+      const res = await fetch('/api/vods');
       if (!res.ok) throw new Error('Failed to fetch transcripts');
       const data = await res.json();
-      setVods(data);
+      // Handle wrapper {vods: [...]} and map metadata -> transcript_metadata
+      const allVods = (Array.isArray(data) ? data : data.vods || []).map((v: Record<string, unknown>) => ({
+        ...v,
+        transcript_metadata: v.metadata,
+      }));
+      setVods(allVods.filter((v: Vod) => v.status === 'completed'));
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load transcripts');
     } finally {

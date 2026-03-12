@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**ttv-scribe** is a Twitch VOD transcription pipeline with a React frontend. It monitors streamers, downloads VOD audio via yt-dlp, transcribes with local faster-whisper, and stores transcripts as JSON files. State is persisted in JSON files — no database.
+**ttv-scribe** is a Twitch VOD transcription pipeline with a React frontend. It monitors streamers, downloads VOD audio via yt-dlp, transcribes with local faster-whisper, and stores transcripts as JSON files. State is persisted in JSON files — no database, no API server.
 
 ## Commands
 
@@ -12,9 +12,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```bash
 # Install dependencies
 uv sync
-
-# Run the API server
-uv run uvicorn src.api.main:app --reload
 
 # Run the full pipeline (monitor → download → transcribe)
 uv run python -m src.pipeline
@@ -61,13 +58,8 @@ GitHub Actions cron → src/pipeline.py
 }
 ```
 
-### API (FastAPI, port 8000)
-- `GET /` — health check
-- `GET /api/vods` — list all VODs (filterable by `streamer` or `status` query params)
-- `GET /api/vods/{vod_id}/transcript` — full transcript JSON
-
 ### Frontend (React + Vite, port 5173)
-2 routes: `/` (VOD list), `/transcript/:vodId` (transcript viewer). API base URL is hardcoded to `http://localhost:8000`.
+2 routes: `/` (VOD list), `/transcript/:vodId` (transcript viewer). Uses Vite proxy to serve JSON files from backend directories.
 
 ### CI/CD
 - `.github/workflows/cron.yml` — runs `src/pipeline.py` daily, auto-commits new transcripts

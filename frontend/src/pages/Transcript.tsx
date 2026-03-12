@@ -13,8 +13,6 @@ interface Transcript {
   recorded_at: string | null;
 }
 
-const API_BASE = 'http://localhost:8000';
-
 export default function TranscriptPage() {
   const { vodId } = useParams<{ vodId: string }>();
   const [transcript, setTranscript] = useState<Transcript | null>(null);
@@ -24,14 +22,29 @@ export default function TranscriptPage() {
   useEffect(() => {
     if (!vodId) return;
 
-    fetch(`${API_BASE}/api/vods/${vodId}/transcript`)
+    // First fetch vods to find the streamer
+    fetch('/api/vods')
+      .then((res) => res.json())
+      .then((vods) => {
+        const vod = vods.find((v: { vod_id: string }) => v.vod_id === vodId);
+        if (!vod) throw new Error('VOD not found');
+        // Fetch transcript from /transcripts/{streamer}/{vodId}.json
+        return fetch(`/transcripts/${vod.streamer}/${vodId}.json`);
+      })
       .then((res) => {
-        if (!res.ok) {
-          throw new Error(res.status === 404 ? 'Transcript not found' : 'Failed to fetch');
-        }
+        if (!res) return;
+        if (!res.ok) throw new Error(res.status === 404 ? 'Transcript not found' : 'Failed to fetch');
         return res.json();
       })
-      .then(setTranscript)
+      .then((data) => {
+        // Map metadata -> transcript_metadata
+        if (data) {
+          setTranscript({
+            ...data,
+            transcript_metadata: data.metadata,
+          });
+        }
+      })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
   }, [vodId]);
