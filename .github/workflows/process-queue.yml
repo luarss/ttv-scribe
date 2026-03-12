@@ -55,3 +55,4 @@ jobs:
         with:
           commit_message: "feat: process VODs from queue"
           file_pattern: transcripts/* state/*
+          pull_strategy: merge
