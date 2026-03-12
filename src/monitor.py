@@ -1,4 +1,5 @@
 """Monitor for checking new VODs from tracked streamers"""
+
 import logging
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
@@ -127,7 +128,9 @@ def _check_streamer_vods(
                 now = datetime.now(timezone.utc)
                 age_days = (now - vod_time).total_seconds() / 86400
                 if age_days < min_days_old:
-                    logger.debug(f"Skipping VOD {vod_id} - too recent ({age_days:.1f} days old)")
+                    logger.debug(
+                        f"Skipping VOD {vod_id} - too recent ({age_days:.1f} days old)"
+                    )
                     continue
             except (ValueError, OSError):
                 pass
@@ -142,13 +145,13 @@ def _check_streamer_vods(
                 for char in duration:
                     if char.isdigit():
                         current_num += char
-                    elif char == 'h':
+                    elif char == "h":
                         total_seconds += int(current_num) * 3600
                         current_num = ""
-                    elif char == 'm':
+                    elif char == "m":
                         total_seconds += int(current_num) * 60
                         current_num = ""
-                    elif char == 's':
+                    elif char == "s":
                         total_seconds += int(current_num)
                         current_num = ""
                 duration = total_seconds if total_seconds > 0 else None
@@ -156,12 +159,18 @@ def _check_streamer_vods(
                 duration = None
 
         # Filter by max duration (skip if max_duration_minutes is None)
-        if max_duration_minutes is not None and duration is not None and duration > max_duration_minutes * 60:
+        if (
+            max_duration_minutes is not None
+            and duration is not None
+            and duration > max_duration_minutes * 60
+        ):
             logger.debug(f"Skipping VOD {vod_id} - too long ({duration}s)")
             continue
 
         if duration is not None:
-            logger.debug(f"VOD {vod_id} duration: {duration}s ({duration/60:.1f} min)")
+            logger.debug(
+                f"VOD {vod_id} duration: {duration}s ({duration / 60:.1f} min)"
+            )
 
         # Add new VOD to state
         vod = VodRecord(
@@ -208,6 +217,7 @@ def get_streamer(username: str) -> dict | None:
         Streamer data as dict if found, None otherwise
     """
     from .state import get_state_manager
+
     manager = get_state_manager()
     streamer = manager.get_streamer(username)
     return streamer.to_dict() if streamer else None

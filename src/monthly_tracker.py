@@ -1,4 +1,5 @@
 """Monthly usage tracker for transcription minutes"""
+
 import json
 import logging
 import subprocess
@@ -68,7 +69,9 @@ def check_month_rollover() -> bool:
             "github_minutes_used": 0,
         }
         _save_usage(new_usage)
-        logger.info(f"New month detected ({current_year}-{current_month:02d}), resetting monthly usage")
+        logger.info(
+            f"New month detected ({current_year}-{current_month:02d}), resetting monthly usage"
+        )
         return True
 
     return False
@@ -100,7 +103,9 @@ def add_minutes_used(minutes: float):
     usage = _load_usage()
     usage["minutes_used"] += minutes
 
-    logger.info(f"Added {minutes:.2f} minutes to monthly usage (total: {usage['minutes_used']:.2f})")
+    logger.info(
+        f"Added {minutes:.2f} minutes to monthly usage (total: {usage['minutes_used']:.2f})"
+    )
     _save_usage(usage)
 
 
@@ -142,7 +147,15 @@ def fetch_github_actions_minutes() -> float:
         if not repo:
             # Try to get from gh CLI
             result = subprocess.run(
-                ["gh", "repo", "view", "--json", "owner,name", "-q", ".owner.login + \"/\" + .name"],
+                [
+                    "gh",
+                    "repo",
+                    "view",
+                    "--json",
+                    "owner,name",
+                    "-q",
+                    '.owner.login + "/" + .name',
+                ],
                 capture_output=True,
                 text=True,
                 check=True,
@@ -162,10 +175,7 @@ def fetch_github_actions_minutes() -> float:
 
         # Query successful runs since start of month
         jq_filter = f'.workflow_runs[] | select(.created_at >= "{month_start_str}" and .conclusion == "success") | .id'
-        cmd = [
-            "gh", "api", f"repos/{owner}/{name}/actions/runs",
-            "--jq", jq_filter
-        ]
+        cmd = ["gh", "api", f"repos/{owner}/{name}/actions/runs", "--jq", jq_filter]
 
         result = subprocess.run(cmd, capture_output=True, text=True, check=True)
         run_ids = result.stdout.strip().split("\n") if result.stdout.strip() else []
@@ -179,10 +189,15 @@ def fetch_github_actions_minutes() -> float:
                 continue
 
             # Get job timing info
-            jobs_jq = ".jobs[] | \"\\(.started_at)\\t\\(.completed_at)\""
+            jobs_jq = '.jobs[] | "\\(.started_at)\\t\\(.completed_at)"'
             jobs_result = subprocess.run(
-                ["gh", "api", f"repos/{owner}/{name}/actions/runs/{run_id}/jobs",
-                 "--jq", jobs_jq],
+                [
+                    "gh",
+                    "api",
+                    f"repos/{owner}/{name}/actions/runs/{run_id}/jobs",
+                    "--jq",
+                    jobs_jq,
+                ],
                 capture_output=True,
                 text=True,
                 check=True,
@@ -200,8 +215,12 @@ def fetch_github_actions_minutes() -> float:
                 start_str, end_str = parts
 
                 # Parse timestamps
-                start = datetime.strptime(start_str[:-1], "%Y-%m-%dT%H:%M:%S").replace(tzinfo=timezone.utc)
-                end = datetime.strptime(end_str[:-1], "%Y-%m-%dT%H:%M:%S").replace(tzinfo=timezone.utc)
+                start = datetime.strptime(start_str[:-1], "%Y-%m-%dT%H:%M:%S").replace(
+                    tzinfo=timezone.utc
+                )
+                end = datetime.strptime(end_str[:-1], "%Y-%m-%dT%H:%M:%S").replace(
+                    tzinfo=timezone.utc
+                )
                 total_seconds += (end - start).total_seconds()
 
         minutes = total_seconds / 60

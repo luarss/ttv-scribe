@@ -1,4 +1,5 @@
 """Audio utilities for splitting long audio files into chunks"""
+
 import logging
 import os
 import subprocess
@@ -30,35 +31,43 @@ def split_audio_chunks(
 
     # Get audio duration using ffprobe
     duration = get_audio_duration(audio_path)
-    logger.info(f"Audio duration: {duration:.2f}s, splitting into {chunk_duration_seconds}s chunks")
+    logger.info(
+        f"Audio duration: {duration:.2f}s, splitting into {chunk_duration_seconds}s chunks"
+    )
 
     if duration <= chunk_duration_seconds:
         # No splitting needed, return original file
         return [audio_path]
 
     # Calculate number of chunks
-    num_chunks = int(duration // chunk_duration_seconds) + (1 if duration % chunk_duration_seconds > 0 else 0)
+    num_chunks = int(duration // chunk_duration_seconds) + (
+        1 if duration % chunk_duration_seconds > 0 else 0
+    )
 
     chunk_paths = []
     base_name = Path(audio_path).stem
 
     for i in range(num_chunks):
         start_time = i * chunk_duration_seconds
-        chunk_filename = f"{base_name}_chunk_{i+1:03d}.mp3"
+        chunk_filename = f"{base_name}_chunk_{i + 1:03d}.mp3"
         chunk_path = os.path.join(output_dir, chunk_filename)
 
         # Use ffmpeg to extract chunk
         cmd = [
             "ffmpeg",
             "-y",  # Overwrite output
-            "-i", audio_path,
-            "-ss", str(start_time),
-            "-t", str(chunk_duration_seconds),
-            "-acodec", "copy",  # Copy audio without re-encoding for speed
+            "-i",
+            audio_path,
+            "-ss",
+            str(start_time),
+            "-t",
+            str(chunk_duration_seconds),
+            "-acodec",
+            "copy",  # Copy audio without re-encoding for speed
             chunk_path,
         ]
 
-        logger.debug(f"Creating chunk {i+1}/{num_chunks}: {chunk_path}")
+        logger.debug(f"Creating chunk {i + 1}/{num_chunks}: {chunk_path}")
         result = subprocess.run(
             cmd,
             capture_output=True,
@@ -66,26 +75,35 @@ def split_audio_chunks(
         )
 
         if result.returncode != 0:
-            logger.warning(f"ffmpeg failed for chunk {i+1}, trying with re-encoding: {result.stderr}")
+            logger.warning(
+                f"ffmpeg failed for chunk {i + 1}, trying with re-encoding: {result.stderr}"
+            )
             # Fallback: re-encode the chunk
             cmd = [
                 "ffmpeg",
                 "-y",
-                "-i", audio_path,
-                "-ss", str(start_time),
-                "-t", str(chunk_duration_seconds),
-                "-acodec", "libmp3lame",
-                "-ab", "192k",
+                "-i",
+                audio_path,
+                "-ss",
+                str(start_time),
+                "-t",
+                str(chunk_duration_seconds),
+                "-acodec",
+                "libmp3lame",
+                "-ab",
+                "192k",
                 chunk_path,
             ]
             result = subprocess.run(cmd, capture_output=True, text=True)
             if result.returncode != 0:
-                logger.error(f"Failed to create chunk {i+1}: {result.stderr}")
+                logger.error(f"Failed to create chunk {i + 1}: {result.stderr}")
                 continue
 
         if os.path.exists(chunk_path):
             chunk_paths.append(chunk_path)
-            logger.info(f"Created chunk {i+1}/{num_chunks}: {os.path.getsize(chunk_path) / 1024 / 1024:.2f}MB")
+            logger.info(
+                f"Created chunk {i + 1}/{num_chunks}: {os.path.getsize(chunk_path) / 1024 / 1024:.2f}MB"
+            )
 
     logger.info(f"Created {len(chunk_paths)} audio chunks")
     return chunk_paths
@@ -102,9 +120,12 @@ def get_audio_duration(audio_path: str) -> float:
     """
     cmd = [
         "ffprobe",
-        "-v", "error",
-        "-show_entries", "format=duration",
-        "-of", "default=noprint_wrappers=1:nokey=1",
+        "-v",
+        "error",
+        "-show_entries",
+        "format=duration",
+        "-of",
+        "default=noprint_wrappers=1:nokey=1",
         audio_path,
     ]
 
@@ -115,7 +136,9 @@ def get_audio_duration(audio_path: str) -> float:
     try:
         return float(result.stdout.strip())
     except ValueError:
-        raise RuntimeError(f"Could not parse duration from ffprobe output: {result.stdout}")
+        raise RuntimeError(
+            f"Could not parse duration from ffprobe output: {result.stdout}"
+        )
 
 
 def cleanup_chunks(chunk_paths: list[str], original_path: str | None = None):

@@ -4,6 +4,7 @@ Uses JSON files to persist VOD and streamer records.
 - Streamers = subdirectories in transcripts/ (for discovery) + vods.json (for metadata)
 - VODs = vods.json (for in-progress) + .txt files in transcripts/ (for completed)
 """
+
 import enum
 import json
 import logging
@@ -19,6 +20,7 @@ logger = logging.getLogger(__name__)
 
 class VodStatus(str, enum.Enum):
     """Status of a VOD in the pipeline"""
+
     PENDING = "pending"
     DOWNLOADING = "downloading"
     TRANSCRIBING = "transcribing"
@@ -29,9 +31,14 @@ class VodStatus(str, enum.Enum):
 @dataclass
 class StreamerRecord:
     """Record for a streamer being tracked (inferred from transcripts directory)"""
+
     username: str
     twitch_id: str | None = None
-    created_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"))
+    created_at: str = field(
+        default_factory=lambda: (
+            datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+        )
+    )
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -44,6 +51,7 @@ class StreamerRecord:
 @dataclass
 class VodRecord:
     """Record for a VOD in the state file"""
+
     vod_id: str
     streamer: str
     title: str | None = None
@@ -51,7 +59,11 @@ class VodRecord:
     recorded_at: str | None = None  # ISO format datetime string
     status: str = VodStatus.PENDING.value
     transcript_path: str | None = None
-    created_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"))
+    created_at: str = field(
+        default_factory=lambda: (
+            datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+        )
+    )
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -90,7 +102,9 @@ class StateManager:
         self.state_dir = Path(state_dir) if state_dir else Path("./state")
         self.state_dir.mkdir(parents=True, exist_ok=True)
 
-        self.transcript_dir = Path(transcript_dir) if transcript_dir else Path("./transcripts")
+        self.transcript_dir = (
+            Path(transcript_dir) if transcript_dir else Path("./transcripts")
+        )
         self.transcript_dir.mkdir(parents=True, exist_ok=True)
 
         # In-memory cache
@@ -127,18 +141,14 @@ class StateManager:
     def _save_vods(self):
         """Save vods cache to JSON file"""
         vods_file = self.state_dir / self.VODS_FILE
-        data = {
-            "vods": [vod.to_dict() for vod in self._vods_cache.values()]
-        }
+        data = {"vods": [vod.to_dict() for vod in self._vods_cache.values()]}
         with open(vods_file, "w") as f:
             json.dump(data, f, indent=2)
 
     def _save_streamers(self):
         """Save streamers cache to JSON file"""
         streamers_file = self.state_dir / self.STREAMERS_FILE
-        data = {
-            "streamers": [s.to_dict() for s in self._streamers_cache.values()]
-        }
+        data = {"streamers": [s.to_dict() for s in self._streamers_cache.values()]}
         with open(streamers_file, "w") as f:
             json.dump(data, f, indent=2)
 
@@ -483,6 +493,7 @@ def get_downloading_vods() -> list[dict[str, Any]]:
 
 
 # Streamer convenience functions
+
 
 def get_streamers() -> list[dict[str, Any]]:
     """Get all tracked streamers

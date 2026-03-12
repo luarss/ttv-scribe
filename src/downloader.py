@@ -1,4 +1,5 @@
 """Downloader for Twitch VODs using yt-dlp"""
+
 import logging
 import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -42,11 +43,13 @@ class Downloader:
         ydl_opts = {
             "format": "bestaudio/best",
             "outtmpl": output_template,
-            "postprocessors": [{
-                "key": "FFmpegExtractAudio",
-                "preferredcodec": "mp3",
-                "preferredquality": "64",  # 64 kbps - sufficient for speech transcription
-            }],
+            "postprocessors": [
+                {
+                    "key": "FFmpegExtractAudio",
+                    "preferredcodec": "mp3",
+                    "preferredquality": "64",  # 64 kbps - sufficient for speech transcription
+                }
+            ],
             "quiet": True,
             "no_warnings": True,
             "extract_flat": False,
@@ -95,7 +98,9 @@ def process_pending_vods(max_vods: int | None = None, max_workers: int = 3) -> i
     pending_vods = get_pending_vods()
 
     # Sort by duration, shortest first; VODs without duration go to the end
-    pending_vods.sort(key=lambda v: v.get("duration") if v.get("duration") else float("inf"))
+    pending_vods.sort(
+        key=lambda v: v.get("duration") if v.get("duration") else float("inf")
+    )
 
     # Limit to max_vods if specified
     if max_vods is not None:

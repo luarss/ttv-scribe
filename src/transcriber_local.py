@@ -1,4 +1,5 @@
 """Local transcriber for VOD audio using faster-whisper"""
+
 import json
 import logging
 import os
@@ -63,7 +64,6 @@ class LocalTranscriber:
         Raises:
             Exception: If transcription fails
         """
-        vod_id = vod_data.get("vod_id", "unknown")
         logger.info(f"Transcribing audio file: {audio_path}")
 
         # Check if we need to chunk the audio
@@ -74,7 +74,9 @@ class LocalTranscriber:
         try:
             if audio_duration > max_chunk_duration:
                 # Split into chunks
-                logger.info(f"Audio duration {audio_duration:.0f}s exceeds {max_chunk_duration}s, splitting into chunks")
+                logger.info(
+                    f"Audio duration {audio_duration:.0f}s exceeds {max_chunk_duration}s, splitting into chunks"
+                )
                 chunk_dir = tempfile.mkdtemp(prefix="whisper_chunks_")
                 chunk_paths = split_audio_chunks(
                     audio_path,
@@ -91,7 +93,9 @@ class LocalTranscriber:
 
                 for chunk_path in chunk_paths:
                     chunk_num += 1
-                    logger.info(f"Transcribing chunk {chunk_num}/{len(chunk_paths)}: {chunk_path}")
+                    logger.info(
+                        f"Transcribing chunk {chunk_num}/{len(chunk_paths)}: {chunk_path}"
+                    )
 
                     segments, info = self.model.transcribe(
                         chunk_path,
@@ -104,11 +108,13 @@ class LocalTranscriber:
                     for segment in segments:
                         # Adjust timestamps by adding offset from chunk start
                         offset = (chunk_num - 1) * max_chunk_duration
-                        all_segments.append({
-                            "start": segment.start + offset,
-                            "end": segment.end + offset,
-                            "text": segment.text,
-                        })
+                        all_segments.append(
+                            {
+                                "start": segment.start + offset,
+                                "end": segment.end + offset,
+                                "text": segment.text,
+                            }
+                        )
                         chunk_text_parts.append(segment.text)
 
                     all_text_parts.extend(chunk_text_parts)
@@ -139,11 +145,13 @@ class LocalTranscriber:
                 segment_list = []
                 for segment in segments:
                     text_parts.append(segment.text)
-                    segment_list.append({
-                        "start": segment.start,
-                        "end": segment.end,
-                        "text": segment.text,
-                    })
+                    segment_list.append(
+                        {
+                            "start": segment.start,
+                            "end": segment.end,
+                            "text": segment.text,
+                        }
+                    )
 
                 full_text = "".join(text_parts).strip()
                 metadata = self._extract_metadata(segment_list)
@@ -182,10 +190,12 @@ class LocalTranscriber:
             start = segment.get("start", 0)
             # Add key moment at 5-minute intervals
             if start > 0 and start % 300 < 5:
-                key_moments.append({
-                    "time": int(start),
-                    "text": segment.get("text", "").strip()[:200],
-                })
+                key_moments.append(
+                    {
+                        "time": int(start),
+                        "text": segment.get("text", "").strip()[:200],
+                    }
+                )
 
         return {
             "segments_count": len(segments),
@@ -338,7 +348,9 @@ def process_downloaded_vods() -> int:
             export_transcript_to_text(vod_data, text)
 
             # Track minutes used
-            actual_duration = metadata.get("total_duration_seconds", duration_seconds or 0)
+            actual_duration = metadata.get(
+                "total_duration_seconds", duration_seconds or 0
+            )
             if actual_duration:
                 add_minutes_used(actual_duration / 60)
 

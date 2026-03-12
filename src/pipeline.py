@@ -1,4 +1,5 @@
 """Processing pipeline for TTV-Scribe"""
+
 import logging
 import queue
 import threading
@@ -11,7 +12,9 @@ from .monthly_tracker import get_usage_info, update_github_minutes
 logger = logging.getLogger(__name__)
 
 
-def run_pipeline(max_duration_minutes: Optional[int] = None, max_vods: Optional[int] = None):
+def run_pipeline(
+    max_duration_minutes: Optional[int] = None, max_vods: Optional[int] = None
+):
     """Run the full processing pipeline
 
     Args:
@@ -29,7 +32,9 @@ def run_pipeline(max_duration_minutes: Optional[int] = None, max_vods: Optional[
         f"Monthly usage: {usage['minutes_used']:.1f}/{usage['limit']} minutes "
         f"({usage['remaining']:.1f} remaining for {usage['year']}-{usage['month']:02d})"
     )
-    logger.info(f"GitHub Actions minutes used: {usage.get('github_minutes_used', 0):.1f}")
+    logger.info(
+        f"GitHub Actions minutes used: {usage.get('github_minutes_used', 0):.1f}"
+    )
 
     # Step 1: Check for new VODs
     try:
@@ -49,7 +54,9 @@ def run_pipeline(max_duration_minutes: Optional[int] = None, max_vods: Optional[
         downloaded = 0
         transcribed = 0
 
-    logger.info(f"Pipeline complete: {new_vods} new, {downloaded} downloaded, {transcribed} transcribed")
+    logger.info(
+        f"Pipeline complete: {new_vods} new, {downloaded} downloaded, {transcribed} transcribed"
+    )
 
 
 def run_streaming_pipeline(max_vods: Optional[int] = None, max_workers: int = 3):
@@ -87,9 +94,7 @@ def run_streaming_pipeline(max_vods: Optional[int] = None, max_workers: int = 3)
         pending_vods = get_pending_vods()
 
         # Sort by duration (shortest first)
-        pending_vods.sort(
-            key=lambda v: v.get("duration") or float("inf")
-        )
+        pending_vods.sort(key=lambda v: v.get("duration") or float("inf"))
 
         if max_vods is not None:
             pending_vods = pending_vods[:max_vods]
@@ -132,8 +137,15 @@ def run_streaming_pipeline(max_vods: Optional[int] = None, max_workers: int = 3)
 
     def transcribe_worker() -> int:
         """Transcribe VODs from the queue"""
-        from .transcriber_local import save_transcript_to_json, export_transcript_to_text
-        from .transcriber_local import LocalTranscriber, get_remaining_minutes, add_minutes_used
+        from .transcriber_local import (
+            save_transcript_to_json,
+            export_transcript_to_text,
+        )
+        from .transcriber_local import (
+            LocalTranscriber,
+            get_remaining_minutes,
+            add_minutes_used,
+        )
 
         transcriber = LocalTranscriber()
         count = 0
@@ -162,14 +174,20 @@ def run_streaming_pipeline(max_vods: Optional[int] = None, max_workers: int = 3)
                     manager.update_vod(vod_id, status=VodStatus.TRANSCRIBING.value)
 
                     # Transcribe
-                    text, metadata, cost = transcriber.transcribe_vod(vod_data, audio_path)
+                    text, metadata, cost = transcriber.transcribe_vod(
+                        vod_data, audio_path
+                    )
 
                     # Save transcript
-                    transcript_path = save_transcript_to_json(vod_data, text, metadata, cost)
+                    transcript_path = save_transcript_to_json(
+                        vod_data, text, metadata, cost
+                    )
                     export_transcript_to_text(vod_data, text)
 
                     # Track minutes
-                    actual_duration = metadata.get("total_duration_seconds", duration_seconds or 0)
+                    actual_duration = metadata.get(
+                        "total_duration_seconds", duration_seconds or 0
+                    )
                     if actual_duration:
                         add_minutes_used(actual_duration / 60)
 
@@ -190,6 +208,7 @@ def run_streaming_pipeline(max_vods: Optional[int] = None, max_workers: int = 3)
                 finally:
                     # Cleanup audio
                     from .downloader import Downloader
+
                     downloader = Downloader()
                     downloader.cleanup_audio(audio_path)
                     download_queue.task_done()
@@ -204,7 +223,9 @@ def run_streaming_pipeline(max_vods: Optional[int] = None, max_workers: int = 3)
 
     # Start download worker in thread (producer)
     download_thread = threading.Thread(
-        target=lambda: downloaded_count.__setitem__(0, download_worker(max_vods, max_workers))
+        target=lambda: downloaded_count.__setitem__(
+            0, download_worker(max_vods, max_workers)
+        )
     )
     download_thread.start()
 
@@ -227,6 +248,6 @@ def run_streaming_pipeline(max_vods: Optional[int] = None, max_workers: int = 3)
 if __name__ == "__main__":
     logging.basicConfig(
         level=logging.INFO,
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
     run_pipeline()
