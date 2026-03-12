@@ -45,6 +45,7 @@ class Downloader:
             "postprocessors": [{
                 "key": "FFmpegExtractAudio",
                 "preferredcodec": "mp3",
+                "preferredquality": "64",  # 64 kbps - sufficient for speech transcription
             }],
             "quiet": True,
             "no_warnings": True,
