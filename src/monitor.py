@@ -1,6 +1,6 @@
 """Monitor for checking new VODs from tracked streamers"""
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 
 from .state import (
     get_streamers,
@@ -15,11 +15,12 @@ from .twitch.client import TwitchClient
 logger = logging.getLogger(__name__)
 
 
-def check_for_new_vods(max_duration_minutes: int | None = None) -> int:
+def check_for_new_vods(max_duration_minutes: int | None = None, min_days_old: int = 3) -> int:
     """Check for new VODs from all tracked streamers
 
     Args:
         max_duration_minutes: Only include VODs shorter than this duration (None = no limit)
+        min_days_old: Only include VODs older than this many days (to avoid live/in-progress VODs)
 
     Returns:
         Number of new VODs found
@@ -38,6 +39,7 @@ def check_for_new_vods(max_duration_minutes: int | None = None) -> int:
                 streamer_data["username"],
                 streamer_data.get("twitch_id"),
                 max_duration_minutes,
+                min_days_old,
             )
             new_vod_count += new_count
         except Exception as e:
@@ -50,6 +52,7 @@ def _check_streamer_vods(
     username: str,
     twitch_id: str | None,
     max_duration_minutes: int | None = None,
+    min_days_old: int = 3,
 ) -> int:
     """Check for new VODs for a specific streamer
 
@@ -57,6 +60,7 @@ def _check_streamer_vods(
         username: The streamer's username
         twitch_id: Optional Twitch user ID
         max_duration_minutes: Only include VODs shorter than this duration (None = no limit)
+        min_days_old: Only include VODs older than this many days (to avoid live/in-progress VODs)
 
     Returns:
         Number of new VODs added
@@ -92,6 +96,17 @@ def _check_streamer_vods(
         if recorded_at:
             # Convert to ISO format
             recorded_at = recorded_at.replace("Z", "+00:00")
+
+            # Filter by age (skip VODs that are too recent to avoid live/in-progress)
+            try:
+                vod_time = datetime.fromisoformat(recorded_at)
+                now = datetime.now(timezone.utc)
+                age_days = (now - vod_time).total_seconds() / 86400
+                if age_days < min_days_old:
+                    logger.debug(f"Skipping VOD {vod_id} - too recent ({age_days:.1f} days old)")
+                    continue
+            except (ValueError, OSError):
+                pass
 
         # Parse duration (Twitch returns "2h3m10s" or "45m30s" format)
         duration = vod_data.get("duration")
