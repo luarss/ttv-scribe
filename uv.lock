@@ -993,7 +993,6 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "faster-whisper" },
-    { name = "filelock" },
     { name = "pydantic-settings" },
     { name = "python-dotenv" },
     { name = "yt-dlp" },
@@ -1009,7 +1008,6 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "faster-whisper", specifier = ">=1.0.0" },
-    { name = "filelock", specifier = ">=3.13.0" },
     { name = "httpx", marker = "extra == 'dev'", specifier = ">=0.25.0" },
     { name = "pydantic-settings", specifier = ">=2.0.0" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=7.4.0" },
