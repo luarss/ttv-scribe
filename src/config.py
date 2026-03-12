@@ -24,6 +24,9 @@ class Settings(BaseSettings):
     whisper_device: str = "cpu"  # cpu or cuda (for GPU)
     whisper_compute_type: str = "int8"  # int8, float16, float32
 
+    # Monthly limits
+    monthly_minutes_limit: int = 1000  # Max transcription minutes per month
+
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"

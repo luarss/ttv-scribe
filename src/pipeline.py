@@ -2,6 +2,7 @@
 import logging
 
 from .monitor import check_for_new_vods, add_streamers_to_track
+from .monthly_tracker import get_usage_info, update_github_minutes
 from .downloader import process_pending_vods
 from .transcriber_local import process_downloaded_vods
 
@@ -16,6 +17,17 @@ def run_pipeline(max_duration_minutes: int | None = None, max_vods: int | None =
         max_vods: Maximum number of VODs to process from queue (None = no limit)
     """
     logger.info("Starting TTV-Scribe pipeline")
+
+    # Update GitHub Actions minutes from API
+    update_github_minutes()
+
+    # Log monthly usage
+    usage = get_usage_info()
+    logger.info(
+        f"Monthly usage: {usage['minutes_used']:.1f}/{usage['limit']} minutes "
+        f"({usage['remaining']:.1f} remaining for {usage['year']}-{usage['month']:02d})"
+    )
+    logger.info(f"GitHub Actions minutes used: {usage.get('github_minutes_used', 0):.1f}")
 
     # Step 1: Check for new VODs
     try:

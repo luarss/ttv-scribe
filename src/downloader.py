@@ -86,8 +86,11 @@ def process_pending_vods(max_vods: int | None = None) -> int:
     downloader = Downloader()
     manager = get_state_manager()
 
-    # Get all pending VODs
+    # Get all pending VODs and sort by duration (shortest first)
     pending_vods = get_pending_vods()
+
+    # Sort by duration, shortest first; VODs without duration go to the end
+    pending_vods.sort(key=lambda v: v.get("duration") if v.get("duration") else float("inf"))
 
     # Limit to max_vods if specified
     if max_vods is not None:
