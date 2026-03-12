@@ -1,6 +1,8 @@
 """Monitor for checking new VODs from tracked streamers"""
 import logging
-from datetime import datetime, timedelta, timezone
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import datetime, timezone
+from typing import Optional
 
 from .state import (
     get_streamers,
@@ -15,35 +17,57 @@ from .twitch.client import TwitchClient
 logger = logging.getLogger(__name__)
 
 
-def check_for_new_vods(max_duration_minutes: int | None = None, min_days_old: int = 3) -> int:
+def check_for_new_vods(
+    max_duration_minutes: Optional[int] = None,
+    min_days_old: int = 3,
+    max_workers: int = 5,
+) -> int:
     """Check for new VODs from all tracked streamers
 
     Args:
         max_duration_minutes: Only include VODs shorter than this duration (None = no limit)
         min_days_old: Only include VODs older than this many days (to avoid live/in-progress VODs)
+        max_workers: Maximum number of concurrent API calls
 
     Returns:
         Number of new VODs found
     """
-    new_vod_count = 0
-
     # Get all tracked streamers
     streamers = get_streamers()
 
     if not streamers:
         logger.warning("No streamers to monitor. Add streamers first.")
+        return 0
 
-    for streamer_data in streamers:
+    new_vod_count = 0
+
+    def check_single_streamer(streamer_data: dict) -> int:
+        """Check VODs for a single streamer (runs in thread pool)"""
         try:
-            new_count = _check_streamer_vods(
+            return _check_streamer_vods(
                 streamer_data["username"],
                 streamer_data.get("twitch_id"),
                 max_duration_minutes,
                 min_days_old,
             )
-            new_vod_count += new_count
         except Exception as e:
             logger.error(f"Error checking VODs for {streamer_data['username']}: {e}")
+            return 0
+
+    # Process streamers in parallel
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        future_to_streamer = {
+            executor.submit(check_single_streamer, streamer): streamer
+            for streamer in streamers
+        }
+
+        for future in as_completed(future_to_streamer):
+            try:
+                count = future.result()
+                new_vod_count += count
+            except Exception as e:
+                streamer = future_to_streamer[future]
+                logger.error(f"Failed to check {streamer['username']}: {e}")
 
     return new_vod_count
 
