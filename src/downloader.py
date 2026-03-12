@@ -41,7 +41,9 @@ class Downloader:
         output_template = os.path.join(self.output_dir, f"{vod_id}.%(ext)s")
 
         ydl_opts = {
-            "format": "bestaudio/best",
+            # Limit source audio to 128k to avoid huge downloads before conversion
+            # Twitch typically offers audio-only streams at various qualities
+            "format": "bestaudio[abr<=128k]/bestaudio",
             "outtmpl": output_template,
             "postprocessors": [
                 {
