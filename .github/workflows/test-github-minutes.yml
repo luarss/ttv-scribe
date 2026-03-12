@@ -1,0 +1,35 @@
+name: Test GitHub Minutes
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-github-minutes:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          python-version: "3.13"
+
+      - name: Set up environment
+        run: uv venv
+
+      - name: Install dependencies
+        run: uv pip install -e .
+
+      - name: Test GitHub minutes fetch
+        run: |
+          uv run python -c "
+          from src.monthly_tracker import update_github_minutes, get_usage_info
+          import logging
+          logging.basicConfig(level=logging.DEBUG)
+          update_github_minutes()
+          info = get_usage_info()
+          print(f'RESULT: github_minutes_used = {info.get(\"github_minutes_used\", 0)}')
+          "
