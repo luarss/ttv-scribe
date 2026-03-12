@@ -49,7 +49,7 @@ def split_audio_chunks(
 
     for i in range(num_chunks):
         start_time = i * chunk_duration_seconds
-        chunk_filename = f"{base_name}_chunk_{i + 1:03d}.mp3"
+        chunk_filename = f"{base_name}_chunk_{i + 1:03d}.opus"
         chunk_path = os.path.join(output_dir, chunk_filename)
 
         # Use ffmpeg to extract chunk
@@ -78,7 +78,7 @@ def split_audio_chunks(
             logger.warning(
                 f"ffmpeg failed for chunk {i + 1}, trying with re-encoding: {result.stderr}"
             )
-            # Fallback: re-encode the chunk
+            # Fallback: re-encode the chunk with opus
             cmd = [
                 "ffmpeg",
                 "-y",
@@ -89,9 +89,13 @@ def split_audio_chunks(
                 "-t",
                 str(chunk_duration_seconds),
                 "-acodec",
-                "libmp3lame",
+                "libopus",
                 "-ab",
-                "192k",
+                "24k",
+                "-ar",
+                "16000",
+                "-ac",
+                "1",
                 chunk_path,
             ]
             result = subprocess.run(cmd, capture_output=True, text=True)

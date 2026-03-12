@@ -46,10 +46,13 @@ class Downloader:
             "postprocessors": [
                 {
                     "key": "FFmpegExtractAudio",
-                    "preferredcodec": "mp3",
-                    "preferredquality": "64",  # 64 kbps - sufficient for speech transcription
+                    "preferredcodec": "opus",
+                    "preferredquality": "24",  # 24 kbps Opus - excellent for speech
                 }
             ],
+            "postprocessor_args": {
+                "ExtractAudio": ["-ar", "16000", "-ac", "1"]  # 16kHz mono
+            },
             "quiet": True,
             "no_warnings": True,
             "extract_flat": False,
@@ -61,13 +64,13 @@ class Downloader:
             ydl.download([twitch_url])
 
         # Find the downloaded file
-        mp3_path = os.path.join(self.output_dir, f"{vod_id}.mp3")
+        opus_path = os.path.join(self.output_dir, f"{vod_id}.opus")
 
-        if not os.path.exists(mp3_path):
-            raise FileNotFoundError(f"Expected output file not found: {mp3_path}")
+        if not os.path.exists(opus_path):
+            raise FileNotFoundError(f"Expected output file not found: {opus_path}")
 
-        logger.info(f"Downloaded VOD {vod_id} to {mp3_path}")
-        return mp3_path
+        logger.info(f"Downloaded VOD {vod_id} to {opus_path}")
+        return opus_path
 
     def cleanup_audio(self, filepath: str):
         """Remove downloaded audio file"""
