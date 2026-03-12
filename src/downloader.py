@@ -1,10 +1,12 @@
 """Downloader for Twitch VODs using yt-dlp"""
 import logging
 import os
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
 import yt_dlp
 
 from .config import get_settings
-from .state import get_pending_vods, get_state_manager, VodStatus
+from .state import StateManager, VodStatus
 
 logger = logging.getLogger(__name__)
 
@@ -73,18 +75,20 @@ class Downloader:
             logger.warning(f"Failed to cleanup {filepath}: {e}")
 
 
-def process_pending_vods(max_vods: int | None = None) -> int:
-    """Process pending VODs
+def process_pending_vods(max_vods: int | None = None, max_workers: int = 3) -> int:
+    """Process pending VODs in parallel
 
     Args:
         max_vods: Maximum number of VODs to process (None = no limit)
+        max_workers: Maximum number of concurrent downloads
 
     Returns:
         Number of VODs processed
     """
+    from .state import get_pending_vods
+
     processed = 0
     downloader = Downloader()
-    manager = get_state_manager()
 
     # Get all pending VODs and sort by duration (shortest first)
     pending_vods = get_pending_vods()
@@ -96,8 +100,20 @@ def process_pending_vods(max_vods: int | None = None) -> int:
     if max_vods is not None:
         pending_vods = pending_vods[:max_vods]
 
-    for vod_data in pending_vods:
+    if not pending_vods:
+        return 0
+
+    # Create a thread-safe wrapper for downloading a single VOD
+    def download_single_vod(vod_data: dict) -> tuple[bool, str]:
+        """Download a single VOD with its own state manager
+
+        Returns:
+            Tuple of (success, vod_id)
+        """
+        # Each thread gets its own StateManager to avoid race conditions
+        manager = StateManager()
         vod_id = vod_data["vod_id"]
+
         try:
             # Update status to DOWNLOADING
             manager.update_vod(vod_id, status=VodStatus.DOWNLOADING.value)
@@ -105,11 +121,26 @@ def process_pending_vods(max_vods: int | None = None) -> int:
             # Download audio
             downloader.download_vod_audio(vod_data)
 
-            processed += 1
             logger.info(f"Downloaded VOD {vod_id}")
+            return (True, vod_id)
         except Exception as e:
             logger.error(f"Failed to download VOD {vod_id}: {e}")
             manager.update_vod(vod_id, status=VodStatus.FAILED.value)
+            return (False, vod_id)
+
+    # Process VODs in parallel using ThreadPoolExecutor
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        # Submit all download tasks
+        future_to_vod = {
+            executor.submit(download_single_vod, vod_data): vod_data
+            for vod_data in pending_vods
+        }
+
+        # Collect results as they complete
+        for future in as_completed(future_to_vod):
+            success, vod_id = future.result()
+            if success:
+                processed += 1
 
     return processed
 
