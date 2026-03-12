@@ -16,9 +16,6 @@ uv sync
 # Run the full pipeline (monitor → download → transcribe)
 uv run python -m src.pipeline
 
-# Manually transcribe a specific VOD
-uv run python scripts/transcribe_vod.py <username> <vod_id>
-
 # Run tests
 uv run pytest
 ```
