@@ -50,11 +50,7 @@ class Downloader:
                 }
             ],
             "postprocessor_args": {
-                "FFmpegExtractAudio": [
-                    "-ar", "16000",  # 16kHz sample rate
-                    "-ac", "1",       # mono
-                    "-b:a", "24k",    # 24 kbps bitrate
-                ]
+                "FFmpegExtractAudio": ["-b:a", "24k", "-ar", "16000", "-ac", "1"]
             },
             "quiet": True,
             "no_warnings": True,
