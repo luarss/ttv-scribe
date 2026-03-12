@@ -47,11 +47,14 @@ class Downloader:
                 {
                     "key": "FFmpegExtractAudio",
                     "preferredcodec": "opus",
-                    "preferredquality": "24",  # 24 kbps Opus - excellent for speech
                 }
             ],
             "postprocessor_args": {
-                "ExtractAudio": ["-ar", "16000", "-ac", "1"]  # 16kHz mono
+                "FFmpegExtractAudio": [
+                    "-ar", "16000",  # 16kHz sample rate
+                    "-ac", "1",       # mono
+                    "-b:a", "24k",    # 24 kbps bitrate
+                ]
             },
             "quiet": True,
             "no_warnings": True,
