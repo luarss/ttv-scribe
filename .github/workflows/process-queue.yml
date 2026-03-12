@@ -48,7 +48,7 @@ jobs:
           EOF
 
       - name: Process queue
-        run: uv run python -c "from src.pipeline import run_pipeline; run_pipeline(max_vods=${{ github.event.inputs.count }})"
+        run: uv run python -c "from src.pipeline import run_pipeline; run_pipeline(max_vods=${{ github.event.inputs.count }}, max_transcription_minutes=60)"
 
       - name: Commit and push transcripts
         uses: stefanzweifel/git-auto-commit-action@v5
