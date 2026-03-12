@@ -3,6 +3,7 @@ import json
 import logging
 import os
 import tempfile
+from concurrent.futures import ProcessPoolExecutor, as_completed
 from datetime import datetime, timezone
 
 from faster_whisper import WhisperModel
@@ -20,6 +21,72 @@ logger = logging.getLogger(__name__)
 
 # Maximum chunk duration in seconds (30 minutes)
 DEFAULT_CHUNK_DURATION = 30 * 60
+
+
+def _transcribe_single_chunk(args: tuple) -> dict:
+    """Transcribe a single chunk (worker function for ProcessPoolExecutor)
+
+    Args:
+        args: Tuple of (chunk_path, chunk_num, max_chunk_duration,
+                        model_name, device, compute_type)
+
+    Returns:
+        Dictionary with text_parts, segments, and duration
+    """
+    (
+        chunk_path,
+        chunk_num,
+        max_chunk_duration,
+        model_name,
+        device,
+        compute_type,
+    ) = args
+
+    # Load model in this process (per-worker to avoid serialization issues)
+    model = WhisperModel(model_name, device=device, compute_type=compute_type)
+
+    segments, info = model.transcribe(
+        chunk_path,
+        beam_size=5,
+        vad_filter=True,
+        vad_parameters=dict(min_silence_duration_ms=500),
+    )
+
+    # Calculate offset for this chunk
+    offset = (chunk_num - 1) * max_chunk_duration
+    chunk_segments = []
+    chunk_text_parts = []
+    for segment in segments:
+        chunk_segments.append({
+            "start": segment.start + offset,
+            "end": segment.end + offset,
+            "text": segment.text,
+        })
+        chunk_text_parts.append(segment.text)
+
+    return {
+        "text_parts": chunk_text_parts,
+        "segments": chunk_segments,
+        "duration": info.duration if info.duration else 0,
+    }
+
+
+def _get_num_workers(num_chunks: int, max_workers_setting: int) -> int:
+    """Determine the number of workers for parallel transcription
+
+    Args:
+        num_chunks: Number of audio chunks to transcribe
+        max_workers_setting: User-configured max workers (0 = auto)
+
+    Returns:
+        Number of workers to use
+    """
+    if max_workers_setting > 0:
+        return min(num_chunks, max_workers_setting)
+
+    # Auto-determine: min of CPU cores, 4, and chunk count
+    cpu_count = os.cpu_count() or 2
+    return min(num_chunks, cpu_count, 4)
 
 
 class LocalTranscriber:
@@ -83,36 +150,52 @@ class LocalTranscriber:
                 )
                 logger.info(f"Split into {len(chunk_paths)} chunks")
 
-                # Transcribe each chunk and combine results
+                # Transcribe chunks in parallel
                 all_text_parts = []
                 all_segments = []
                 total_duration = 0.0
-                chunk_num = 0
 
-                for chunk_path in chunk_paths:
-                    chunk_num += 1
-                    logger.info(f"Transcribing chunk {chunk_num}/{len(chunk_paths)}: {chunk_path}")
+                num_workers = _get_num_workers(
+                    len(chunk_paths),
+                    self.settings.max_transcription_workers,
+                )
+                logger.info(f"Using {num_workers} workers for parallel transcription")
 
-                    segments, info = self.model.transcribe(
+                # Prepare arguments for each chunk
+                args_list = [
+                    (
                         chunk_path,
-                        beam_size=5,
-                        vad_filter=True,
-                        vad_parameters=dict(min_silence_duration_ms=500),
+                        i + 1,
+                        max_chunk_duration,
+                        self.settings.whisper_model,
+                        self.settings.whisper_device,
+                        self.settings.whisper_compute_type,
                     )
+                    for i, chunk_path in enumerate(chunk_paths)
+                ]
 
-                    chunk_text_parts = []
-                    for segment in segments:
-                        # Adjust timestamps by adding offset from chunk start
-                        offset = (chunk_num - 1) * max_chunk_duration
-                        all_segments.append({
-                            "start": segment.start + offset,
-                            "end": segment.end + offset,
-                            "text": segment.text,
-                        })
-                        chunk_text_parts.append(segment.text)
+                # Use ProcessPoolExecutor for parallel transcription
+                with ProcessPoolExecutor(max_workers=num_workers) as executor:
+                    futures = {
+                        executor.submit(_transcribe_single_chunk, args): args[1]
+                        for args in args_list
+                    }
 
-                    all_text_parts.extend(chunk_text_parts)
-                    total_duration += info.duration if info.duration else 0
+                    # Collect results as they complete
+                    for future in as_completed(futures):
+                        chunk_num = futures[future]
+                        try:
+                            result = future.result()
+                            all_text_parts.extend(result["text_parts"])
+                            all_segments.extend(result["segments"])
+                            total_duration += result["duration"]
+                            logger.info(f"Completed chunk {chunk_num}/{len(chunk_paths)}")
+                        except Exception as e:
+                            logger.error(f"Failed to transcribe chunk {chunk_num}: {e}")
+                            raise
+
+                # Sort segments by start time to ensure correct order
+                all_segments.sort(key=lambda s: s["start"])
 
                 full_text = "".join(all_text_parts).strip()
 
@@ -120,6 +203,8 @@ class LocalTranscriber:
                 metadata = self._extract_metadata(all_segments)
                 metadata["chunks"] = len(chunk_paths)
                 metadata["total_duration_seconds"] = audio_duration
+                metadata["parallel"] = num_workers > 1
+                metadata["workers"] = num_workers
 
                 # Log combined results
                 logger.info(

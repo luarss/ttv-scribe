@@ -11,12 +11,17 @@ from .monthly_tracker import get_usage_info, update_github_minutes
 logger = logging.getLogger(__name__)
 
 
-def run_pipeline(max_duration_minutes: Optional[int] = None, max_vods: Optional[int] = None):
+def run_pipeline(
+    max_duration_minutes: Optional[int] = None,
+    max_vods: Optional[int] = None,
+    max_transcription_minutes: Optional[int] = None,
+):
     """Run the full processing pipeline
 
     Args:
         max_duration_minutes: Only process VODs shorter than this duration (None = no limit)
         max_vods: Maximum number of VODs to process from queue (None = no limit)
+        max_transcription_minutes: Stop after this many minutes of transcription (None = no limit)
     """
     logger.info("Starting TTV-Scribe pipeline")
 
@@ -42,7 +47,10 @@ def run_pipeline(max_duration_minutes: Optional[int] = None, max_vods: Optional[
     # Step 2 & 3: Download and transcribe in streaming fashion
     # Downloads produce completed VODs that transcription consumes in parallel
     try:
-        downloaded, transcribed = run_streaming_pipeline(max_vods=max_vods)
+        downloaded, transcribed = run_streaming_pipeline(
+            max_vods=max_vods,
+            max_transcription_minutes=max_transcription_minutes,
+        )
         logger.info(f"Downloaded {downloaded} VODs, transcribed {transcribed}")
     except Exception as e:
         logger.error(f"Error in streaming pipeline: {e}")
@@ -52,7 +60,11 @@ def run_pipeline(max_duration_minutes: Optional[int] = None, max_vods: Optional[
     logger.info(f"Pipeline complete: {new_vods} new, {downloaded} downloaded, {transcribed} transcribed")
 
 
-def run_streaming_pipeline(max_vods: Optional[int] = None, max_workers: int = 3):
+def run_streaming_pipeline(
+    max_vods: Optional[int] = None,
+    max_workers: int = 3,
+    max_transcription_minutes: Optional[int] = None,
+):
     """Run download and transcription in streaming fashion
 
     Downloads and transcriptions run in parallel - as each VOD finishes
@@ -61,6 +73,7 @@ def run_streaming_pipeline(max_vods: Optional[int] = None, max_workers: int = 3)
     Args:
         max_vods: Maximum number of VODs to process
         max_workers: Maximum concurrent downloads
+        max_transcription_minutes: Stop after this many minutes of transcription (None = no limit)
 
     Returns:
         Tuple of (downloaded_count, transcribed_count)
@@ -130,16 +143,25 @@ def run_streaming_pipeline(max_vods: Optional[int] = None, max_workers: int = 3)
 
         return count
 
-    def transcribe_worker() -> int:
+    def transcribe_worker(max_transcription_minutes: Optional[int]) -> int:
         """Transcribe VODs from the queue"""
+        import time as time_module
+
         from .transcriber_local import save_transcript_to_json, export_transcript_to_text
         from .transcriber_local import LocalTranscriber, get_remaining_minutes, add_minutes_used
 
         transcriber = LocalTranscriber()
         count = 0
         manager = get_state_manager()
+        total_transcription_seconds = 0.0
+        start_time = time_module.time()
 
         while not transcription_done.is_set() or not download_queue.empty():
+            # Check if we've exceeded the max transcription time
+            if max_transcription_minutes and total_transcription_seconds >= max_transcription_minutes * 60:
+                logger.info(f"Reached max transcription time ({max_transcription_minutes} minutes), stopping")
+                break
+
             try:
                 # Wait for next item with timeout
                 vod_data, audio_path = download_queue.get(timeout=5)
@@ -172,6 +194,7 @@ def run_streaming_pipeline(max_vods: Optional[int] = None, max_workers: int = 3)
                     actual_duration = metadata.get("total_duration_seconds", duration_seconds or 0)
                     if actual_duration:
                         add_minutes_used(actual_duration / 60)
+                        total_transcription_seconds += actual_duration
 
                     # Mark complete
                     manager.update_vod(
@@ -210,7 +233,7 @@ def run_streaming_pipeline(max_vods: Optional[int] = None, max_workers: int = 3)
 
     # Start transcription worker (consumer)
     transcription_thread = threading.Thread(
-        target=lambda: transcribed_count.__setitem__(0, transcribe_worker())
+        target=lambda: transcribed_count.__setitem__(0, transcribe_worker(max_transcription_minutes))
     )
     transcription_thread.start()
 
