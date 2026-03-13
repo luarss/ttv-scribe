@@ -23,10 +23,7 @@ def run_pipeline(
     """
     logger.info("Starting TTV-Scribe pipeline")
 
-    # Update GitHub Actions minutes from API
-    update_github_minutes()
-
-    # Log monthly usage
+    # Log monthly usage (github minutes updated at end to capture current run)
     usage = get_usage_info()
     logger.info(
         f"Monthly usage: {usage['minutes_used']:.1f}/{usage['limit']} minutes "
@@ -53,6 +50,9 @@ def run_pipeline(
         logger.error(f"Error in streaming pipeline: {e}")
         downloaded = 0
         transcribed = 0
+
+    # Update GitHub Actions minutes at the end to include current run
+    update_github_minutes()
 
     logger.info(
         f"Pipeline complete: {new_vods} new, {downloaded} downloaded, {transcribed} transcribed"

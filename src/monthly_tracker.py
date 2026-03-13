@@ -173,9 +173,16 @@ def fetch_github_actions_minutes() -> float:
         month_start = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
         month_start_str = month_start.strftime("%Y-%m-%d")
 
-        # Query successful runs since start of month
+        # Query successful runs since start of month (with pagination for >30 runs)
         jq_filter = f'.workflow_runs[] | select(.created_at >= "{month_start_str}" and .conclusion == "success") | .id'
-        cmd = ["gh", "api", f"repos/{owner}/{name}/actions/runs", "--jq", jq_filter]
+        cmd = [
+            "gh",
+            "api",
+            f"repos/{owner}/{name}/actions/runs",
+            "--paginate",
+            "--jq",
+            jq_filter,
+        ]
 
         result = subprocess.run(cmd, capture_output=True, text=True, check=True)
         run_ids = result.stdout.strip().split("\n") if result.stdout.strip() else []
