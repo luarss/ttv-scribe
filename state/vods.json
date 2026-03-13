@@ -21,16 +21,6 @@
       "created_at": "2026-03-11T07:40:59.647115Z"
     },
     {
-      "vod_id": "2719389884",
-      "streamer": "peeguutv",
-      "title": "10 subs to !spin \ud83d\udc51 Bangkok IRL \ud83d\udc51 i freaking hate heights. but i love food   \ud83d\udc51 !spw !shoey",
-      "duration": 7158,
-      "recorded_at": "2026-03-11T05:41:42+00:00",
-      "status": "pending",
-      "transcript_path": null,
-      "created_at": "2026-03-11T07:41:00.142402Z"
-    },
-    {
       "vod_id": "2715123543",
       "streamer": "peeguutv",
       "title": "\ud83d\udc51BANGKOK IRL \ud83d\udc51 FOOD TOUR w/ StudyTme \ud83d\udc51 MALAYSIA 14th x THE STANS 16th \ud83d\udc51 !seal !shoey",
@@ -339,16 +329,6 @@
       "status": "completed",
       "transcript_path": "./transcripts/jinnytty/2720156281.json",
       "created_at": "2026-03-12T05:18:52.087812Z"
-    },
-    {
-      "vod_id": "2719375580",
-      "streamer": "jinnytty",
-      "title": "PREPPING FOR 8 DAYS LONG EPIC BIKE TRIP IN VIETNAM !subs | !vods for past streams  | @Jinnytty !socials",
-      "duration": 35563,
-      "recorded_at": "2026-03-11T05:03:55+00:00",
-      "status": "pending",
-      "transcript_path": null,
-      "created_at": "2026-03-12T05:18:52.088649Z"
     },
     {
       "vod_id": "2717850589",
@@ -969,26 +949,6 @@
       "status": "pending",
       "transcript_path": null,
       "created_at": "2026-03-12T05:18:52.159059Z"
-    },
-    {
-      "vod_id": "2720135972",
-      "streamer": "robcdee",
-      "title": "Tokyo | F1 / Pokemon / Kirby / Digimon | !esim !vpn !yt",
-      "duration": 8339,
-      "recorded_at": "2026-03-12T02:59:53+00:00",
-      "status": "pending",
-      "transcript_path": null,
-      "created_at": "2026-03-12T05:18:52.787402Z"
-    },
-    {
-      "vod_id": "2718497877",
-      "streamer": "robcdee",
-      "title": "Tokyo | BEYBLADE \ud83d\ude0e| !esim !vpn !yt",
-      "duration": 33391,
-      "recorded_at": "2026-03-10T03:02:13+00:00",
-      "status": "pending",
-      "transcript_path": null,
-      "created_at": "2026-03-12T05:18:52.788959Z"
     },
     {
       "vod_id": "2715876685",
