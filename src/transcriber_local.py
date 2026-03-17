@@ -25,6 +25,9 @@ logger = logging.getLogger(__name__)
 # Maximum chunk duration in seconds (30 minutes)
 DEFAULT_CHUNK_DURATION = 30 * 60
 
+# Number of parallel workers for chunk transcription (matches GH Actions 2 vCPUs)
+NUM_CHUNK_WORKERS = 2
+
 
 def _transcribe_chunk_worker(args: tuple) -> dict:
     """Worker function for parallel chunk transcription
@@ -226,7 +229,7 @@ class LocalTranscriber:
     def _transcribe_chunks(
         self, chunk_paths: list[str], chunk_duration: int
     ) -> tuple[list[dict], float, list[float]]:
-        """Transcribe multiple chunks, using parallel processing if configured
+        """Transcribe multiple chunks, using parallel processing
 
         Args:
             chunk_paths: List of paths to audio chunks
@@ -235,11 +238,9 @@ class LocalTranscriber:
         Returns:
             Tuple of (all_segments, total_duration, chunk_times)
         """
-        num_workers = self.settings.whisper_num_workers
-
-        if num_workers > 1 and len(chunk_paths) > 1:
+        if NUM_CHUNK_WORKERS > 1 and len(chunk_paths) > 1:
             return self._transcribe_chunks_parallel(
-                chunk_paths, chunk_duration, num_workers
+                chunk_paths, chunk_duration, NUM_CHUNK_WORKERS
             )
         else:
             return self._transcribe_chunks_sequential(chunk_paths, chunk_duration)

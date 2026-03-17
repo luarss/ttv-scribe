@@ -27,7 +27,6 @@ class Settings(BaseSettings):
 
     # Transcription optimization settings
     whisper_beam_size: int = 5  # Beam size for decoding (lower = faster)
-    whisper_num_workers: int = 2  # Number of parallel workers for chunk processing (matches GH Actions 2 vCPUs)
     whisper_vad_min_silence_ms: int = 500  # VAD min silence duration in ms
 
     # Monthly limits

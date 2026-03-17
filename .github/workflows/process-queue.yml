@@ -13,11 +13,6 @@ on:
         required: false
         type: number
         default: 5
-      num_workers:
-        description: 'Parallel chunk workers (1-4)'
-        required: false
-        type: number
-        default: 2
 
 jobs:
   process-queue:
@@ -61,7 +56,6 @@ jobs:
           WHISPER_DEVICE=cpu
           WHISPER_COMPUTE_TYPE=int8
           WHISPER_BEAM_SIZE=${{ github.event.inputs.beam_size || '5' }}
-          WHISPER_NUM_WORKERS=${{ github.event.inputs.num_workers || '2' }}
           WHISPER_VAD_MIN_SILENCE_MS=500
           LOG_LEVEL=INFO
           STATE_FILE_DIR=./state

@@ -31,8 +31,7 @@ def run_pipeline(
     logger.info(
         f"Transcription config: model={settings.whisper_model}, "
         f"device={settings.whisper_device}, compute_type={settings.whisper_compute_type}, "
-        f"beam_size={settings.whisper_beam_size}, num_workers={settings.whisper_num_workers}, "
-        f"vad_min_silence_ms={settings.whisper_vad_min_silence_ms}"
+        f"beam_size={settings.whisper_beam_size}, vad_min_silence_ms={settings.whisper_vad_min_silence_ms}"
     )
 
     # Log monthly usage (github minutes updated at end to capture current run)

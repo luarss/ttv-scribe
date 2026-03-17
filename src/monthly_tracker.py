@@ -78,7 +78,7 @@ def check_month_rollover() -> bool:
 
 
 def get_remaining_minutes() -> int:
-    """Get remaining transcription minutes for the current month
+    """Get remaining GitHub Actions minutes for the current month
 
     Returns:
         Remaining minutes (can be negative if over limit)
@@ -88,7 +88,7 @@ def get_remaining_minutes() -> int:
     settings = get_settings()
     usage = _load_usage()
 
-    remaining = settings.monthly_minutes_limit - usage["minutes_used"]
+    remaining = settings.monthly_minutes_limit - usage.get("github_minutes_used", 0)
     return max(remaining, 0)
 
 
