@@ -3,9 +3,11 @@
 import logging
 import queue
 import threading
+import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Optional
 
+from .config import get_settings
 from .monitor import check_for_new_vods
 from .monthly_tracker import get_usage_info, update_github_minutes
 
@@ -21,7 +23,17 @@ def run_pipeline(
         max_duration_minutes: Only process VODs shorter than this duration (None = no limit)
         max_vods: Maximum number of VODs to process from queue (None = no limit)
     """
+    pipeline_start = time.time()
     logger.info("Starting TTV-Scribe pipeline")
+
+    # Log configuration
+    settings = get_settings()
+    logger.info(
+        f"Transcription config: model={settings.whisper_model}, "
+        f"device={settings.whisper_device}, compute_type={settings.whisper_compute_type}, "
+        f"beam_size={settings.whisper_beam_size}, num_workers={settings.whisper_num_workers}, "
+        f"vad_min_silence_ms={settings.whisper_vad_min_silence_ms}"
+    )
 
     # Log monthly usage (github minutes updated at end to capture current run)
     usage = get_usage_info()
@@ -34,18 +46,23 @@ def run_pipeline(
     )
 
     # Step 1: Check for new VODs
+    monitor_start = time.time()
     try:
         new_vods = check_for_new_vods(max_duration_minutes=max_duration_minutes)
-        logger.info(f"Found {new_vods} new VODs")
+        logger.info(f"Found {new_vods} new VODs in {time.time() - monitor_start:.1f}s")
     except Exception as e:
         logger.error(f"Error in monitor step: {e}")
         new_vods = 0
 
     # Step 2 & 3: Download and transcribe in streaming fashion
     # Downloads produce completed VODs that transcription consumes in parallel
+    process_start = time.time()
     try:
         downloaded, transcribed = run_streaming_pipeline(max_vods=max_vods)
-        logger.info(f"Downloaded {downloaded} VODs, transcribed {transcribed}")
+        logger.info(
+            f"Downloaded {downloaded} VODs, transcribed {transcribed} "
+            f"in {time.time() - process_start:.1f}s"
+        )
     except Exception as e:
         logger.error(f"Error in streaming pipeline: {e}")
         downloaded = 0
@@ -54,8 +71,10 @@ def run_pipeline(
     # Update GitHub Actions minutes at the end to include current run
     update_github_minutes()
 
+    pipeline_elapsed = time.time() - pipeline_start
     logger.info(
-        f"Pipeline complete: {new_vods} new, {downloaded} downloaded, {transcribed} transcribed"
+        f"Pipeline complete in {pipeline_elapsed:.1f}s: "
+        f"{new_vods} new, {downloaded} downloaded, {transcribed} transcribed"
     )
 
 

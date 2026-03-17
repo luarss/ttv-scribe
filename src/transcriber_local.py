@@ -4,7 +4,10 @@ import json
 import logging
 import os
 import tempfile
+import time
 from datetime import datetime, timezone
+from multiprocessing import Pool
+from pathlib import Path
 
 from faster_whisper import WhisperModel
 
@@ -21,6 +24,65 @@ logger = logging.getLogger(__name__)
 
 # Maximum chunk duration in seconds (30 minutes)
 DEFAULT_CHUNK_DURATION = 30 * 60
+
+
+def _transcribe_chunk_worker(args: tuple) -> dict:
+    """Worker function for parallel chunk transcription
+
+    This must be a module-level function to be picklable for multiprocessing.
+
+    Args:
+        args: Tuple of (chunk_path, chunk_num, model_name, device, compute_type,
+                      beam_size, vad_min_silence_ms, chunk_duration)
+
+    Returns:
+        Dict with chunk transcription results
+    """
+    (
+        chunk_path,
+        chunk_num,
+        model_name,
+        device,
+        compute_type,
+        beam_size,
+        vad_min_silence_ms,
+        chunk_duration,
+    ) = args
+
+    # Load model in this process (can't share across processes)
+    model = WhisperModel(model_name, device=device, compute_type=compute_type)
+
+    start_time = time.time()
+    segments, info = model.transcribe(
+        chunk_path,
+        beam_size=beam_size,
+        vad_filter=True,
+        vad_parameters=dict(min_silence_duration_ms=vad_min_silence_ms),
+    )
+
+    # Collect segments with offset adjustment
+    offset = (chunk_num - 1) * chunk_duration
+    segment_list = []
+    text_parts = []
+
+    for segment in segments:
+        segment_list.append(
+            {
+                "start": segment.start + offset,
+                "end": segment.end + offset,
+                "text": segment.text,
+            }
+        )
+        text_parts.append(segment.text)
+
+    elapsed = time.time() - start_time
+    return {
+        "chunk_num": chunk_num,
+        "segments": segment_list,
+        "text_parts": text_parts,
+        "duration": info.duration if info.duration else 0,
+        "elapsed": elapsed,
+    }
 
 
 class LocalTranscriber:
@@ -64,6 +126,7 @@ class LocalTranscriber:
         Raises:
             Exception: If transcription fails
         """
+        start_time = time.time()
         logger.info(f"Transcribing audio file: {audio_path}")
 
         # Check if we need to chunk the audio
@@ -85,47 +148,20 @@ class LocalTranscriber:
                 )
                 logger.info(f"Split into {len(chunk_paths)} chunks")
 
-                # Transcribe each chunk and combine results
-                all_text_parts = []
-                all_segments = []
-                total_duration = 0.0
-                chunk_num = 0
+                # Transcribe chunks (parallel or sequential based on num_workers)
+                all_segments, total_duration, chunk_times = self._transcribe_chunks(
+                    chunk_paths, max_chunk_duration
+                )
 
-                for chunk_path in chunk_paths:
-                    chunk_num += 1
-                    logger.info(
-                        f"Transcribing chunk {chunk_num}/{len(chunk_paths)}: {chunk_path}"
-                    )
-
-                    segments, info = self.model.transcribe(
-                        chunk_path,
-                        beam_size=5,
-                        vad_filter=True,
-                        vad_parameters=dict(min_silence_duration_ms=500),
-                    )
-
-                    chunk_text_parts = []
-                    for segment in segments:
-                        # Adjust timestamps by adding offset from chunk start
-                        offset = (chunk_num - 1) * max_chunk_duration
-                        all_segments.append(
-                            {
-                                "start": segment.start + offset,
-                                "end": segment.end + offset,
-                                "text": segment.text,
-                            }
-                        )
-                        chunk_text_parts.append(segment.text)
-
-                    all_text_parts.extend(chunk_text_parts)
-                    total_duration += info.duration if info.duration else 0
-
+                # Combine text from all segments
+                all_text_parts = [seg["text"] for seg in all_segments]
                 full_text = "".join(all_text_parts).strip()
 
                 # Use combined segments for metadata
                 metadata = self._extract_metadata(all_segments)
                 metadata["chunks"] = len(chunk_paths)
                 metadata["total_duration_seconds"] = audio_duration
+                metadata["chunk_transcription_times"] = chunk_times
 
                 # Log combined results
                 logger.info(
@@ -135,9 +171,11 @@ class LocalTranscriber:
                 # Direct transcription for short audio
                 segments, info = self.model.transcribe(
                     audio_path,
-                    beam_size=5,
+                    beam_size=self.settings.whisper_beam_size,
                     vad_filter=True,
-                    vad_parameters=dict(min_silence_duration_ms=500),
+                    vad_parameters=dict(
+                        min_silence_duration_ms=self.settings.whisper_vad_min_silence_ms
+                    ),
                 )
 
                 # Collect all text
@@ -165,6 +203,12 @@ class LocalTranscriber:
             # Local transcription is free
             cost = 0.0
 
+            elapsed = time.time() - start_time
+            logger.info(
+                f"Transcription completed in {elapsed:.1f}s "
+                f"(audio: {audio_duration:.0f}s, ratio: {elapsed / audio_duration:.2f}x)"
+            )
+
             return full_text, metadata, cost
 
         finally:
@@ -178,6 +222,111 @@ class LocalTranscriber:
                             os.rmdir(chunk_dir)
                     except Exception as e:
                         logger.warning(f"Failed to cleanup chunk directory: {e}")
+
+    def _transcribe_chunks(
+        self, chunk_paths: list[str], chunk_duration: int
+    ) -> tuple[list[dict], float, list[float]]:
+        """Transcribe multiple chunks, using parallel processing if configured
+
+        Args:
+            chunk_paths: List of paths to audio chunks
+            chunk_duration: Duration of each chunk in seconds
+
+        Returns:
+            Tuple of (all_segments, total_duration, chunk_times)
+        """
+        num_workers = self.settings.whisper_num_workers
+
+        if num_workers > 1 and len(chunk_paths) > 1:
+            return self._transcribe_chunks_parallel(
+                chunk_paths, chunk_duration, num_workers
+            )
+        else:
+            return self._transcribe_chunks_sequential(chunk_paths, chunk_duration)
+
+    def _transcribe_chunks_sequential(
+        self, chunk_paths: list[str], chunk_duration: int
+    ) -> tuple[list[dict], float, list[float]]:
+        """Transcribe chunks sequentially (original behavior)"""
+        all_segments = []
+        total_duration = 0.0
+        chunk_times = []
+
+        for chunk_num, chunk_path in enumerate(chunk_paths, 1):
+            chunk_start = time.time()
+            logger.info(f"Transcribing chunk {chunk_num}/{len(chunk_paths)}")
+
+            segments, info = self.model.transcribe(
+                chunk_path,
+                beam_size=self.settings.whisper_beam_size,
+                vad_filter=True,
+                vad_parameters=dict(
+                    min_silence_duration_ms=self.settings.whisper_vad_min_silence_ms
+                ),
+            )
+
+            # Adjust timestamps by adding offset from chunk start
+            offset = (chunk_num - 1) * chunk_duration
+            for segment in segments:
+                all_segments.append(
+                    {
+                        "start": segment.start + offset,
+                        "end": segment.end + offset,
+                        "text": segment.text,
+                    }
+                )
+
+            total_duration += info.duration if info.duration else 0
+            chunk_elapsed = time.time() - chunk_start
+            chunk_times.append(chunk_elapsed)
+            logger.info(
+                f"Chunk {chunk_num}/{len(chunk_paths)} done in {chunk_elapsed:.1f}s"
+            )
+
+        return all_segments, total_duration, chunk_times
+
+    def _transcribe_chunks_parallel(
+        self, chunk_paths: list[str], chunk_duration: int, num_workers: int
+    ) -> tuple[list[dict], float, list[float]]:
+        """Transcribe chunks in parallel using multiprocessing"""
+        logger.info(
+            f"Transcribing {len(chunk_paths)} chunks with {num_workers} workers"
+        )
+
+        # Prepare arguments for workers
+        worker_args = [
+            (
+                chunk_path,
+                chunk_num,
+                self.settings.whisper_model,
+                self.settings.whisper_device,
+                self.settings.whisper_compute_type,
+                self.settings.whisper_beam_size,
+                self.settings.whisper_vad_min_silence_ms,
+                chunk_duration,
+            )
+            for chunk_num, chunk_path in enumerate(chunk_paths, 1)
+        ]
+
+        # Process chunks in parallel
+        all_segments = []
+        total_duration = 0.0
+        chunk_times = []
+
+        with Pool(processes=min(num_workers, len(chunk_paths))) as pool:
+            results = pool.map(_transcribe_chunk_worker, worker_args)
+
+        # Sort results by chunk number and combine
+        results.sort(key=lambda x: x["chunk_num"])
+        for result in results:
+            all_segments.extend(result["segments"])
+            total_duration += result["duration"]
+            chunk_times.append(result["elapsed"])
+            logger.info(
+                f"Chunk {result['chunk_num']}/{len(chunk_paths)} done in {result['elapsed']:.1f}s"
+            )
+
+        return all_segments, total_duration, chunk_times
 
     def _extract_metadata(self, segments: list[dict]) -> dict:
         """Extract useful metadata from transcription segments"""

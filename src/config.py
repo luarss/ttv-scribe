@@ -25,8 +25,13 @@ class Settings(BaseSettings):
     whisper_device: str = "cpu"  # cpu or cuda (for GPU)
     whisper_compute_type: str = "int8"  # int8, float16, float32
 
+    # Transcription optimization settings
+    whisper_beam_size: int = 5  # Beam size for decoding (lower = faster)
+    whisper_num_workers: int = 2  # Number of parallel workers for chunk processing (matches GH Actions 2 vCPUs)
+    whisper_vad_min_silence_ms: int = 500  # VAD min silence duration in ms
+
     # Monthly limits
-    monthly_minutes_limit: int = 1000  # Max transcription minutes per month
+    monthly_minutes_limit: int = 1250  # Max transcription minutes per month
 
     class Config:
         env_file = ".env"

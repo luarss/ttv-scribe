@@ -8,6 +8,16 @@ on:
         required: true
         type: number
         default: 5
+      beam_size:
+        description: 'Whisper beam size (lower = faster, 1-5)'
+        required: false
+        type: number
+        default: 5
+      num_workers:
+        description: 'Parallel chunk workers (1-4)'
+        required: false
+        type: number
+        default: 2
 
 jobs:
   process-queue:
@@ -34,6 +44,14 @@ jobs:
       - name: Install dependencies
         run: uv pip install -e .
 
+      - name: Cache Whisper model
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface/hub
+          key: whisper-model-${{ runner.os }}-${{ hashFiles('**/pyproject.toml') }}
+          restore-keys: |
+            whisper-model-${{ runner.os }}-
+
       - name: Create .env file
         run: |
           cat > .env << EOF
@@ -42,6 +60,9 @@ jobs:
           WHISPER_MODEL=small
           WHISPER_DEVICE=cpu
           WHISPER_COMPUTE_TYPE=int8
+          WHISPER_BEAM_SIZE=${{ github.event.inputs.beam_size || '5' }}
+          WHISPER_NUM_WORKERS=${{ github.event.inputs.num_workers || '2' }}
+          WHISPER_VAD_MIN_SILENCE_MS=500
           LOG_LEVEL=INFO
           STATE_FILE_DIR=./state
           TRANSCRIPT_DIR=./transcripts
