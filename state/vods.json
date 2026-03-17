@@ -926,8 +926,8 @@
       "title": "Interesting packages",
       "duration": 9279,
       "recorded_at": "2020-12-06T13:49:59+00:00",
-      "status": "pending",
-      "transcript_path": null,
+      "status": "completed",
+      "transcript_path": "./transcripts/jinnytty/827758013.json",
       "created_at": "2026-03-12T05:18:52.156346Z"
     },
     {
@@ -1459,6 +1459,26 @@
       "status": "pending",
       "transcript_path": null,
       "created_at": "2026-03-16T07:48:29.572570Z"
+    },
+    {
+      "vod_id": "2721826560",
+      "streamer": "robcdee",
+      "title": "Tokyo | PORSCHE / HOTDOG / POKEMON / FRIEREN / HUUUUUUUB| !esim !vpn !yt",
+      "duration": 46312,
+      "recorded_at": "2026-03-14T03:03:58+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-17T07:01:58.450180Z"
+    },
+    {
+      "vod_id": "2721844675",
+      "streamer": "jinnytty",
+      "title": "\ud83c\udfcd \ud83c\uddfb\ud83c\uddf3DAY 3 OF EPIC MOTORBIKE TRIP IN VIETNAM [MAI CHAU TO MOC CHAU]  !subs | !vods for past streams | @Jinnytty !socials",
+      "duration": 34140,
+      "recorded_at": "2026-03-14T03:29:44+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-17T07:01:58.451776Z"
     }
   ]
 }
