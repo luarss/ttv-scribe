@@ -103,7 +103,7 @@ def add_minutes_used(minutes: float):
     usage = _load_usage()
     usage["minutes_used"] += minutes
 
-    logger.info(
+    logger.debug(
         f"Added {minutes:.2f} minutes to monthly usage (total: {usage['minutes_used']:.2f})"
     )
     _save_usage(usage)
@@ -251,5 +251,5 @@ def update_github_minutes():
     usage = _load_usage()
     usage["github_minutes_used"] = round(minutes, 2)
 
-    logger.info(f"Updated GitHub Actions minutes: {usage['github_minutes_used']:.2f}")
+    logger.debug(f"Updated GitHub Actions minutes: {usage['github_minutes_used']:.2f}")
     _save_usage(usage)

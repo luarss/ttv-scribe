@@ -183,7 +183,10 @@ def _check_streamer_vods(
         )
         manager.add_vod(vod)
         new_count += 1
-        logger.info(f"Added new VOD {vod_id} for {username}: {vod_data.get('title')}")
+        logger.debug(f"Added new VOD {vod_id} for {username}: {vod_data.get('title')}")
+
+    if new_count > 0:
+        logger.info(f"{username}: {new_count} new VODs queued")
 
     return new_count
 

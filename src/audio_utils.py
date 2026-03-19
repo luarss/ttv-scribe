@@ -31,7 +31,7 @@ def split_audio_chunks(
 
     # Get audio duration using ffprobe
     duration = get_audio_duration(audio_path)
-    logger.info(
+    logger.debug(
         f"Audio duration: {duration:.2f}s, splitting into {chunk_duration_seconds}s chunks"
     )
 
@@ -105,7 +105,7 @@ def split_audio_chunks(
 
         if os.path.exists(chunk_path):
             chunk_paths.append(chunk_path)
-            logger.info(
+            logger.debug(
                 f"Created chunk {i + 1}/{num_chunks}: {os.path.getsize(chunk_path) / 1024 / 1024:.2f}MB"
             )
 

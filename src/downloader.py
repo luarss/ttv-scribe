@@ -59,7 +59,8 @@ class Downloader:
             "extract_flat": False,
         }
 
-        logger.info(f"Downloading VOD {vod_id}: {title}")
+        duration_min = vod_data.get("duration", 0) / 60 if vod_data.get("duration") else 0
+        logger.info(f"Downloading VOD {vod_id} ({title}, {duration_min:.0f}min)")
 
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([twitch_url])
@@ -70,7 +71,7 @@ class Downloader:
         if not os.path.exists(opus_path):
             raise FileNotFoundError(f"Expected output file not found: {opus_path}")
 
-        logger.info(f"Downloaded VOD {vod_id} to {opus_path}")
+        logger.debug(f"Downloaded VOD {vod_id} to {opus_path}")
         return opus_path
 
     def cleanup_audio(self, filepath: str):
@@ -78,7 +79,7 @@ class Downloader:
         try:
             if os.path.exists(filepath):
                 os.remove(filepath)
-                logger.info(f"Cleaned up audio file: {filepath}")
+                logger.debug(f"Cleaned up audio file: {filepath}")
         except Exception as e:
             logger.warning(f"Failed to cleanup {filepath}: {e}")
 
@@ -131,7 +132,7 @@ def process_pending_vods(max_vods: int | None = None, max_workers: int = 3) -> i
             # Download audio
             downloader.download_vod_audio(vod_data)
 
-            logger.info(f"Downloaded VOD {vod_id}")
+            logger.debug(f"Downloaded VOD {vod_id}")
             return (True, vod_id)
         except Exception as e:
             logger.error(f"Failed to download VOD {vod_id}: {e}")

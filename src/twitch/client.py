@@ -43,7 +43,7 @@ class TwitchClient:
         # Set expiry 60 seconds before actual expiry to be safe
         self._token_expires_at = time.time() + data["expires_in"] - 60
 
-        logger.info("Obtained new Twitch access token")
+        logger.debug("Obtained new Twitch access token")
         return self._access_token
 
     def _get_headers(self) -> dict:

@@ -130,26 +130,26 @@ class LocalTranscriber:
             Exception: If transcription fails
         """
         start_time = time.time()
-        logger.info(f"Transcribing audio file: {audio_path}")
+        vod_id = vod_data.get("vod_id", "unknown")
 
         # Check if we need to chunk the audio
         audio_duration = get_audio_duration(audio_path)
+        logger.info(f"Transcribing VOD {vod_id} ({audio_duration:.0f}s)")
         chunk_paths = []
         chunk_dir = None
 
         try:
             if audio_duration > max_chunk_duration:
                 # Split into chunks
-                logger.info(
-                    f"Audio duration {audio_duration:.0f}s exceeds {max_chunk_duration}s, splitting into chunks"
-                )
                 chunk_dir = tempfile.mkdtemp(prefix="whisper_chunks_")
                 chunk_paths = split_audio_chunks(
                     audio_path,
                     chunk_duration_seconds=max_chunk_duration,
                     output_dir=chunk_dir,
                 )
-                logger.info(f"Split into {len(chunk_paths)} chunks")
+                logger.info(
+                    f"Splitting {audio_duration:.0f}s audio into {len(chunk_paths)} chunks"
+                )
 
                 # Transcribe chunks (parallel or sequential based on num_workers)
                 all_segments, total_duration, chunk_times = self._transcribe_chunks(
@@ -255,7 +255,7 @@ class LocalTranscriber:
 
         for chunk_num, chunk_path in enumerate(chunk_paths, 1):
             chunk_start = time.time()
-            logger.info(f"Transcribing chunk {chunk_num}/{len(chunk_paths)}")
+            logger.debug(f"Transcribing chunk {chunk_num}/{len(chunk_paths)}")
 
             segments, info = self.model.transcribe(
                 chunk_path,
@@ -280,7 +280,7 @@ class LocalTranscriber:
             total_duration += info.duration if info.duration else 0
             chunk_elapsed = time.time() - chunk_start
             chunk_times.append(chunk_elapsed)
-            logger.info(
+            logger.debug(
                 f"Chunk {chunk_num}/{len(chunk_paths)} done in {chunk_elapsed:.1f}s"
             )
 
@@ -323,7 +323,7 @@ class LocalTranscriber:
             all_segments.extend(result["segments"])
             total_duration += result["duration"]
             chunk_times.append(result["elapsed"])
-            logger.info(
+            logger.debug(
                 f"Chunk {result['chunk_num']}/{len(chunk_paths)} done in {result['elapsed']:.1f}s"
             )
 
@@ -399,7 +399,7 @@ def save_transcript_to_json(
     with open(filepath, "w", encoding="utf-8") as f:
         json.dump(transcript_data, f, indent=2, ensure_ascii=False)
 
-    logger.info(f"Saved transcript to {filepath}")
+    logger.debug(f"Saved transcript to {filepath}")
     return filepath
 
 
@@ -440,7 +440,7 @@ def export_transcript_to_text(
     with open(filepath, "w", encoding="utf-8") as f:
         f.write(text)
 
-    logger.info(f"Exported transcript to {filepath}")
+    logger.debug(f"Exported transcript to {filepath}")
     return filepath
 
 
@@ -515,7 +515,8 @@ def process_downloaded_vods() -> int:
             downloader.cleanup_audio(audio_path)
 
             processed += 1
-            logger.info(f"Completed transcription for VOD {vod_id}")
+            title = vod_data.get("title", "Unknown")
+            logger.info(f"Completed VOD {vod_id} ({title})")
 
         except Exception as e:
             logger.error(f"Failed to transcribe VOD {vod_id}: {e}")
@@ -530,5 +531,4 @@ def create_transcriber():
     Returns:
         LocalTranscriber instance
     """
-    logger.info("Using local Whisper transcriber")
     return LocalTranscriber()

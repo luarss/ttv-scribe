@@ -129,7 +129,7 @@ def run_streaming_pipeline(max_vods: Optional[int] = None, max_workers: int = 3)
             try:
                 manager.update_vod(vod_id, status=VodStatus.DOWNLOADING.value)
                 audio_path = downloader.download_vod_audio(vod_data)
-                logger.info(f"Downloaded VOD {vod_id}")
+                logger.debug(f"Downloaded VOD {vod_id}")
                 return (True, vod_id, audio_path)
             except Exception as e:
                 logger.error(f"Failed to download VOD {vod_id}: {e}")
@@ -217,7 +217,8 @@ def run_streaming_pipeline(max_vods: Optional[int] = None, max_workers: int = 3)
                     )
 
                     count += 1
-                    logger.info(f"Completed transcription for VOD {vod_id}")
+                    title = vod_data.get("title", "Unknown")
+                    logger.info(f"Completed VOD {vod_id} ({title})")
 
                 except Exception as e:
                     logger.error(f"Failed to transcribe VOD {vod_id}: {e}")
