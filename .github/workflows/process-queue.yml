@@ -65,10 +65,17 @@ jobs:
           EOF
 
       - name: Process queue
-        run: uv run python -c "from src.pipeline import run_pipeline; run_pipeline(max_vods=${{ github.event.inputs.count || '1' }})"
+        run: uv run python -c "from src.pipeline import run_pipeline; run_pipeline(max_vods=${{ github.event.inputs.count }})"
 
       - name: Commit and push transcripts
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "feat: process VODs from queue"
-          file_pattern: transcripts/* state/*
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add transcripts/ state/
+          if git diff --cached --quiet; then
+            echo "No changes to commit, skipping."
+            exit 0
+          fi
+          git commit -m "feat: process VODs from queue"
+          git pull --rebase origin ${{ github.ref_name }}
+          git push origin ${{ github.ref_name }}
