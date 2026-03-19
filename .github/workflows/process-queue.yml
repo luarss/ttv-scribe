@@ -1,6 +1,8 @@
 name: Process VOD Queue
 
 on:
+  schedule:
+    - cron: '0 6 * * *'  # Daily at 6 AM UTC
   workflow_dispatch:
     inputs:
       count:
@@ -63,7 +65,7 @@ jobs:
           EOF
 
       - name: Process queue
-        run: uv run python -c "from src.pipeline import run_pipeline; run_pipeline(max_vods=${{ github.event.inputs.count }})"
+        run: uv run python -c "from src.pipeline import run_pipeline; run_pipeline(max_vods=${{ github.event.inputs.count || '1' }})"
 
       - name: Commit and push transcripts
         uses: stefanzweifel/git-auto-commit-action@v5
