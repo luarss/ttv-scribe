@@ -66,7 +66,7 @@ jobs:
 
       - name: Process queue
         env:
-          MAX_VODS: ${{ github.event.inputs.count }}
+          MAX_VODS: ${{ github.event.inputs.count || '5' }}
         run: |
           if ! [[ "$MAX_VODS" =~ ^[0-9]+$ ]]; then
             echo "Error: count must be a non-negative integer" && exit 1
