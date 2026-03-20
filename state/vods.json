@@ -296,7 +296,7 @@
       "title": "[DAY 6] CIGFREE \ud83d\udd34Back & Biceps \ud83d\udd34 We can actually go out later \ud83d\udd34  // !seal !shoey",
       "duration": 19543,
       "recorded_at": "2026-01-16T06:54:49+00:00",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-03-11T07:41:00.164216Z"
     },
@@ -806,8 +806,8 @@
       "title": "RENAISSANCE FAIRE WITH ALINITY & YUGGIE",
       "duration": 22128,
       "recorded_at": "2022-04-04T15:08:00+00:00",
-      "status": "pending",
-      "transcript_path": null,
+      "status": "completed",
+      "transcript_path": "./transcripts/jinnytty/1446159960.json",
       "created_at": "2026-03-12T05:18:52.140667Z"
     },
     {
@@ -906,8 +906,8 @@
       "title": "Hanging out w/ EsfandTV ",
       "duration": 22260,
       "recorded_at": "2020-12-24T14:17:28+00:00",
-      "status": "pending",
-      "transcript_path": null,
+      "status": "completed",
+      "transcript_path": "./transcripts/jinnytty/848525785.json",
       "created_at": "2026-03-12T05:18:52.153690Z"
     },
     {
@@ -936,8 +936,8 @@
       "title": "Freedom",
       "duration": 20899,
       "recorded_at": "2020-12-01T22:58:35+00:00",
-      "status": "pending",
-      "transcript_path": null,
+      "status": "completed",
+      "transcript_path": "./transcripts/jinnytty/822477265.json",
       "created_at": "2026-03-12T05:18:52.157722Z"
     },
     {
@@ -1256,7 +1256,7 @@
       "title": "Tokyo | supertf marvel rivals tournament! | !esim !vpn !yt",
       "duration": 19615,
       "recorded_at": "2026-01-16T19:58:34+00:00",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-03-12T05:18:52.837101Z"
     },
@@ -1396,8 +1396,8 @@
       "title": " Tokyo, Jpn | urban explorer: rooftop hunter",
       "duration": 21268,
       "recorded_at": "2020-02-11T01:55:16+00:00",
-      "status": "pending",
-      "transcript_path": null,
+      "status": "completed",
+      "transcript_path": "./transcripts/robcdee/550130909.json",
       "created_at": "2026-03-12T05:18:52.862665Z"
     },
     {
@@ -1516,9 +1516,19 @@
       "title": "\ud83c\udfcd \ud83c\uddfb\ud83c\uddf3DAY 4 OF EPIC MOTORBIKE TRIP IN VIETNAM [STUCK]   !subs | !vods for past streams | @Jinnytty !socials",
       "duration": 22007,
       "recorded_at": "2026-03-15T06:59:11+00:00",
+      "status": "completed",
+      "transcript_path": "./transcripts/jinnytty/2722841828.json",
+      "created_at": "2026-03-19T06:05:24.386247Z"
+    },
+    {
+      "vod_id": "2724405430",
+      "streamer": "jinnytty",
+      "title": "\ud83c\udfcd \ud83c\uddfb\ud83c\uddf3DAY 6 OF EPIC MOTORBIKE TRIP IN VIETNAM [MU CANG CHAI TO SAPA]   !subs | !vods for past streams | @Jinnytty !socials",
+      "duration": 41295,
+      "recorded_at": "2026-03-17T02:33:07+00:00",
       "status": "pending",
       "transcript_path": null,
-      "created_at": "2026-03-19T06:05:24.386247Z"
+      "created_at": "2026-03-20T03:42:49.044047Z"
     }
   ]
 }
