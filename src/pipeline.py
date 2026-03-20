@@ -104,6 +104,7 @@ def run_streaming_pipeline(max_vods: Optional[int] = None, max_workers: int = 3)
         """Download VODs and put completed ones in queue"""
         from .downloader import Downloader
         from .state import StateManager
+        from .twitch.client import TwitchClient
 
         downloader = Downloader()
         count = 0
@@ -114,11 +115,37 @@ def run_streaming_pipeline(max_vods: Optional[int] = None, max_workers: int = 3)
         # Sort by duration (shortest first)
         pending_vods.sort(key=lambda v: v.get("duration") or float("inf"))
 
-        if max_vods is not None:
-            pending_vods = pending_vods[:max_vods]
-
         if not pending_vods:
             return 0
+
+        # Filter out unavailable VODs (deleted/expired from Twitch)
+        # Check availability BEFORE slicing to max_vods so we fill the quota
+        manager = get_state_manager()
+        available_vods = []
+        checked_count = 0
+
+        with TwitchClient() as twitch:
+            for vod_data in pending_vods:
+                # Stop if we have enough available VODs
+                if max_vods is not None and len(available_vods) >= max_vods:
+                    break
+
+                vod_id = vod_data["vod_id"]
+                checked_count += 1
+                video = twitch.get_video_by_id(vod_id)
+                if video is None:
+                    logger.info(f"VOD {vod_id} no longer available on Twitch, marking as failed")
+                    manager.update_vod(vod_id, status=VodStatus.FAILED.value)
+                else:
+                    available_vods.append(vod_data)
+
+        logger.info(f"Checked {checked_count} VODs, {len(available_vods)} available")
+
+        if not available_vods:
+            logger.info("No available VODs to process")
+            return 0
+
+        pending_vods = available_vods
 
         def download_single_vod(vod_data: dict) -> tuple[bool, str, Optional[str]]:
             """Download a single VOD, return (success, vod_id, audio_path)"""
