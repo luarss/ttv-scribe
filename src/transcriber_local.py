@@ -13,7 +13,7 @@ from faster_whisper import WhisperModel
 
 from .audio_utils import split_audio_chunks, cleanup_chunks, get_audio_duration
 from .config import get_settings
-from .monthly_tracker import get_remaining_minutes, add_minutes_used
+# Monthly tracking removed - unlimited GitHub minutes
 from .state import (
     get_downloading_vods,
     get_state_manager,
@@ -463,24 +463,6 @@ def process_downloaded_vods() -> int:
     for vod_data in downloading_vods:
         vod_id = vod_data["vod_id"]
 
-        # Check monthly limit before processing
-        duration_seconds = vod_data.get("duration")
-        if duration_seconds:
-            estimated_minutes = duration_seconds / 60
-            remaining = get_remaining_minutes()
-
-            if remaining < estimated_minutes:
-                logger.warning(
-                    f"Skipping VOD {vod_id} - not enough monthly minutes "
-                    f"(need {estimated_minutes:.1f}, have {remaining:.1f})"
-                )
-                continue
-        else:
-            # If no duration info, check if we have any minutes left
-            if get_remaining_minutes() <= 0:
-                logger.warning(f"Skipping VOD {vod_id} - no monthly minutes remaining")
-                continue
-
         try:
             # Update status to TRANSCRIBING
             manager.update_vod(vod_id, status=VodStatus.TRANSCRIBING.value)
@@ -496,13 +478,6 @@ def process_downloaded_vods() -> int:
 
             # Also export to text file for compatibility
             export_transcript_to_text(vod_data, text)
-
-            # Track minutes used
-            actual_duration = metadata.get(
-                "total_duration_seconds", duration_seconds or 0
-            )
-            if actual_duration:
-                add_minutes_used(actual_duration / 60)
 
             # Update VOD record with transcript path and mark as completed
             manager.update_vod(

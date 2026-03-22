@@ -29,9 +29,6 @@ class Settings(BaseSettings):
     whisper_beam_size: int = 5  # Beam size for decoding (lower = faster)
     whisper_vad_min_silence_ms: int = 500  # VAD min silence duration in ms
 
-    # Monthly limits
-    monthly_minutes_limit: int = 1250  # Max transcription minutes per month
-
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"

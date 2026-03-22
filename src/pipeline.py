@@ -9,7 +9,6 @@ from typing import Optional
 
 from .config import get_settings
 from .monitor import check_for_new_vods
-from .monthly_tracker import get_usage_info, update_github_minutes
 
 logger = logging.getLogger(__name__)
 
@@ -34,16 +33,6 @@ def run_pipeline(
         f"beam_size={settings.whisper_beam_size}, vad_min_silence_ms={settings.whisper_vad_min_silence_ms}"
     )
 
-    # Log monthly usage (github minutes updated at end to capture current run)
-    usage = get_usage_info()
-    logger.info(
-        f"Monthly usage: {usage['minutes_used']:.1f}/{usage['limit']} minutes "
-        f"({usage['remaining']:.1f} remaining for {usage['year']}-{usage['month']:02d})"
-    )
-    logger.info(
-        f"GitHub Actions minutes used: {usage.get('github_minutes_used', 0):.1f}"
-    )
-
     # Step 1: Check for new VODs
     monitor_start = time.time()
     try:
@@ -66,9 +55,6 @@ def run_pipeline(
         logger.error(f"Error in streaming pipeline: {e}")
         downloaded = 0
         transcribed = 0
-
-    # Update GitHub Actions minutes at the end to include current run
-    update_github_minutes()
 
     pipeline_elapsed = time.time() - pipeline_start
     logger.info(
@@ -185,11 +171,7 @@ def run_streaming_pipeline(max_vods: Optional[int] = None, max_workers: int = 3)
         from .transcriber_local import (
             save_transcript_to_json,
             export_transcript_to_text,
-        )
-        from .transcriber_local import (
             LocalTranscriber,
-            get_remaining_minutes,
-            add_minutes_used,
         )
 
         transcriber = LocalTranscriber()
@@ -201,19 +183,6 @@ def run_streaming_pipeline(max_vods: Optional[int] = None, max_workers: int = 3)
                 # Wait for next item with timeout
                 vod_data, audio_path = download_queue.get(timeout=5)
                 vod_id = vod_data["vod_id"]
-
-                # Check monthly limit
-                duration_seconds = vod_data.get("duration")
-                if duration_seconds:
-                    estimated_minutes = duration_seconds / 60
-                    remaining = get_remaining_minutes()
-                    if remaining < estimated_minutes:
-                        logger.warning(
-                            f"Skipping VOD {vod_id} - not enough monthly minutes"
-                        )
-                        manager.update_vod(vod_id, status=VodStatus.FAILED.value)
-                        download_queue.task_done()
-                        continue
 
                 try:
                     manager.update_vod(vod_id, status=VodStatus.TRANSCRIBING.value)
@@ -228,13 +197,6 @@ def run_streaming_pipeline(max_vods: Optional[int] = None, max_workers: int = 3)
                         vod_data, text, metadata, cost
                     )
                     export_transcript_to_text(vod_data, text)
-
-                    # Track minutes
-                    actual_duration = metadata.get(
-                        "total_duration_seconds", duration_seconds or 0
-                    )
-                    if actual_duration:
-                        add_minutes_used(actual_duration / 60)
 
                     # Mark complete
                     manager.update_vod(
