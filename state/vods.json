@@ -756,7 +756,7 @@
       "title": "HOW TO SURVIVE IN COLD KOREA AT NIGHT ! !merch | !vods for past streams  | @Jinnytty !socials !vod",
       "duration": 29053,
       "recorded_at": "2026-01-11T15:55:51+00:00",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-03-12T05:18:52.134468Z"
     },
@@ -856,7 +856,7 @@
       "title": "DVa climbing a mountain",
       "duration": 28249,
       "recorded_at": "2021-03-25T15:46:01+00:00",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-03-12T05:18:52.147070Z"
     },
@@ -1136,7 +1136,7 @@
       "title": "Tokyo | JAPAN'S HIGHEST RATED KEBAB | !esim !vpn !yt",
       "duration": 28166,
       "recorded_at": "2026-02-04T03:57:52+00:00",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-03-12T05:18:52.817314Z"
     },
@@ -1146,7 +1146,7 @@
       "title": "Tokyo | AMERICAN BUFFET | !esim !vpn !yt",
       "duration": 28243,
       "recorded_at": "2026-02-02T03:28:16+00:00",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-03-12T05:18:52.818908Z"
     },
@@ -1246,7 +1246,7 @@
       "title": "Tokyo | A day of BUSINESS | !esim !vpn !yt",
       "duration": 29200,
       "recorded_at": "2026-01-18T03:29:11+00:00",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-03-12T05:18:52.835421Z"
     },
@@ -1456,7 +1456,7 @@
       "title": "Tokyo | F1 / Pokemon / Kirby / Digimon | !esim !vpn !yt",
       "duration": 29268,
       "recorded_at": "2026-03-12T02:59:53+00:00",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-03-16T07:48:29.572570Z"
     },
@@ -1549,6 +1549,26 @@
       "status": "pending",
       "transcript_path": null,
       "created_at": "2026-03-21T06:20:53.634342Z"
+    },
+    {
+      "vod_id": "2725871745",
+      "streamer": "cooksux",
+      "title": "Help Me Beat Jetlag | @cooksux | $2 TTS/Tangia | LA",
+      "duration": 20784,
+      "recorded_at": "2026-03-18T22:59:44+00:00",
+      "status": "failed",
+      "transcript_path": null,
+      "created_at": "2026-03-22T03:52:25.195727Z"
+    },
+    {
+      "vod_id": "2726067257",
+      "streamer": "jinnytty",
+      "title": "\ud83c\udfcd \ud83c\uddfb\ud83c\uddf3LAST DAY OF EPIC MOTORBIKE TRIP IN VIETNAM [THAC BA TO HANOI]   !subs | !vods for past streams | @Jinnytty !socials",
+      "duration": 40723,
+      "recorded_at": "2026-03-19T03:15:16+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-22T03:52:25.212595Z"
     }
   ]
 }
