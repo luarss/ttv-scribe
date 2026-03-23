@@ -966,8 +966,8 @@
       "title": "Tokyo | DITTO TRAIN | !esim !vpn !yt !map",
       "duration": 29533,
       "recorded_at": "2026-03-06T03:00:36+00:00",
-      "status": "pending",
-      "transcript_path": null,
+      "status": "completed",
+      "transcript_path": "./transcripts/robcdee/2714971421.json",
       "created_at": "2026-03-12T05:18:52.791830Z"
     },
     {
@@ -1026,8 +1026,8 @@
       "title": "Tokyo | BI BI GO | !esim !vpn !yt",
       "duration": 29358,
       "recorded_at": "2026-02-23T03:03:55+00:00",
-      "status": "pending",
-      "transcript_path": null,
+      "status": "completed",
+      "transcript_path": "./transcripts/robcdee/2705321689.json",
       "created_at": "2026-03-12T05:18:52.800494Z"
     },
     {
@@ -1126,8 +1126,8 @@
       "title": "Tokyo | \ud83c\uddec\ud83c\udde7 GOOD OL BRITISH GRUB INNIT \ud83c\uddec\ud83c\udde7  | !esim !vpn !yt",
       "duration": 29439,
       "recorded_at": "2026-02-05T03:57:54+00:00",
-      "status": "pending",
-      "transcript_path": null,
+      "status": "completed",
+      "transcript_path": "./transcripts/robcdee/2689415835.json",
       "created_at": "2026-03-12T05:18:52.815747Z"
     },
     {
@@ -1166,8 +1166,8 @@
       "title": "Tokyo | OLD PEOPLE IN | !esim !vpn !yt",
       "duration": 29826,
       "recorded_at": "2026-01-31T03:30:38+00:00",
-      "status": "pending",
-      "transcript_path": null,
+      "status": "completed",
+      "transcript_path": "./transcripts/robcdee/2684915088.json",
       "created_at": "2026-03-12T05:18:52.822101Z"
     },
     {
@@ -1226,8 +1226,8 @@
       "title": "Tokyo | FRIED GREEN | !esim !vpn !yt",
       "duration": 29398,
       "recorded_at": "2026-01-22T03:00:06+00:00",
-      "status": "pending",
-      "transcript_path": null,
+      "status": "completed",
+      "transcript_path": "./transcripts/robcdee/2676645604.json",
       "created_at": "2026-03-12T05:18:52.831810Z"
     },
     {
@@ -1236,7 +1236,7 @@
       "title": "Tokyo | BREAD THIEVING RAT | !esim !vpn !yt",
       "duration": 29764,
       "recorded_at": "2026-01-21T02:59:42+00:00",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-03-12T05:18:52.833460Z"
     },
@@ -1599,6 +1599,16 @@
       "status": "pending",
       "transcript_path": null,
       "created_at": "2026-03-23T00:58:40.947249Z"
+    },
+    {
+      "vod_id": "2726910454",
+      "streamer": "robcdee",
+      "title": "Tokyo | PUSHPOP x SUSHI ??? | !esim !vpn !yt",
+      "duration": 35912,
+      "recorded_at": "2026-03-20T03:29:10+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-23T04:44:19.188843Z"
     }
   ]
 }
