@@ -486,8 +486,8 @@
       "title": "\ud83e\udde7\ud83c\udf86 YELLOW MOUNTAIN : HAPPY LUNAR NEW YEAR EVENT & HIDDEN GEMS CHASING ADVENTURE DAY 5 | !vods for past streams  | @Jinnytty !socials",
       "duration": 28144,
       "recorded_at": "2026-02-17T04:18:13+00:00",
-      "status": "pending",
-      "transcript_path": null,
+      "status": "completed",
+      "transcript_path": "./transcripts/jinnytty/2700010140.json",
       "created_at": "2026-03-12T05:18:52.104670Z"
     },
     {
@@ -976,8 +976,8 @@
       "title": "Tokyo | FAR AWAY DESTINATION | !esim !vpn !yt",
       "duration": 29295,
       "recorded_at": "2026-03-04T02:55:41+00:00",
-      "status": "pending",
-      "transcript_path": null,
+      "status": "completed",
+      "transcript_path": "./transcripts/robcdee/2713276973.json",
       "created_at": "2026-03-12T05:18:52.793274Z"
     },
     {
@@ -1356,8 +1356,8 @@
       "title": "Japan | CYCLEATHON day 2 - today's goal is Shin-Fuji station! | 1 sub = 200m / 100 bits = 40m / $1 = 40m",
       "duration": 29327,
       "recorded_at": "2022-05-09T09:35:11+00:00",
-      "status": "pending",
-      "transcript_path": null,
+      "status": "completed",
+      "transcript_path": "./transcripts/robcdee/1479155142.json",
       "created_at": "2026-03-12T05:18:52.855454Z"
     },
     {
@@ -1579,6 +1579,26 @@
       "status": "pending",
       "transcript_path": null,
       "created_at": "2026-03-22T06:25:31.971357Z"
+    },
+    {
+      "vod_id": "2726417916",
+      "streamer": "cooksux",
+      "title": "Help Me Beat Jetlag | @cooksux | $2 TTS/Tangia | LA",
+      "duration": 39933,
+      "recorded_at": "2026-03-19T16:55:44+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-23T00:58:40.938868Z"
+    },
+    {
+      "vod_id": "2726302668",
+      "streamer": "robcdee",
+      "title": "Tokyo | SALARYMAN / NIER / POKEMON / CINNAMONROLL | !esim !vpn !yt",
+      "duration": 37292,
+      "recorded_at": "2026-03-19T13:38:07+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-23T00:58:40.947249Z"
     }
   ]
 }
