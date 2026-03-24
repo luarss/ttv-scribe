@@ -84,7 +84,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        chunk: ${{ fromJson(needs.prepare.outputs.matrix) }}
+        include: ${{ fromJson(needs.prepare.outputs.matrix) }}
       max-parallel: ${{ github.event.inputs.max_parallel || 10 }}
       fail-fast: true
 
@@ -127,11 +127,11 @@ jobs:
           name: chunks
           path: chunks/
 
-      - name: Transcribe chunk ${{ matrix.chunk.index }}
+      - name: Transcribe chunk ${{ matrix.index }}
         id: transcribe
         run: |
           # Find the chunk file (naming: chunk_001.opus, chunk_002.opus, etc.)
-          CHUNK_INDEX=${{ matrix.chunk.index }}
+          CHUNK_INDEX=${{ matrix.index }}
           CHUNK_FILE=$(ls chunks/chunk_$(printf '%03d' $((CHUNK_INDEX + 1))).* 2>/dev/null | head -1)
 
           if [ -z "$CHUNK_FILE" ]; then
@@ -149,8 +149,8 @@ jobs:
       - name: Upload chunk result
         uses: actions/upload-artifact@v4
         with:
-          name: result-${{ matrix.chunk.index }}
-          path: result-${{ matrix.chunk.index }}.json
+          name: result-${{ matrix.index }}
+          path: result-${{ matrix.index }}.json
           retention-days: 1
 
   # Job 3: Assemble results into final transcript
