@@ -27,7 +27,7 @@ on:
 
 concurrency:
   group: transcribe-distributed
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   # Job 1: Download VOD and split into chunks
