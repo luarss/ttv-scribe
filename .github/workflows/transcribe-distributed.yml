@@ -136,7 +136,6 @@ jobs:
 
           if [ -z "$CHUNK_FILE" ]; then
             echo "Chunk file not found for index $CHUNK_INDEX"
-            ls -la chunks/ || echo "chunks directory not found"
             exit 1
           fi
 
