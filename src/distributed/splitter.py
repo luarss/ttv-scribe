@@ -147,6 +147,8 @@ def main():
     """CLI entry point for splitter job"""
     import argparse
 
+    import yt_dlp
+
     parser = argparse.ArgumentParser(description="Split VOD into chunks")
     parser.add_argument("vod_id", help="Twitch VOD ID")
     parser.add_argument("--chunk-duration", type=int, default=DEFAULT_CHUNK_DURATION,
@@ -156,7 +158,21 @@ def main():
     args = parser.parse_args()
 
     # Download VOD
-    audio_path, vod_data = download_vod_audio(args.vod_id)
+    try:
+        audio_path, vod_data = download_vod_audio(args.vod_id)
+    except yt_dlp.utils.DownloadError as e:
+        # VOD no longer exists on Twitch
+        logger.error(f"VOD {args.vod_id} not available on Twitch: {e}")
+        manager = get_state_manager()
+        manager.update_vod(args.vod_id, status=VodStatus.FAILED.value)
+        # Output empty matrix so downstream jobs skip gracefully
+        github_output = os.environ.get("GITHUB_OUTPUT")
+        if github_output:
+            with open(github_output, "a") as f:
+                f.write("num_chunks=0\n")
+                f.write("matrix={\"include\": []}\n")
+        print(f"VOD {args.vod_id} not available, skipping")
+        return
 
     # Split into chunks
     manifest = prepare_vod_chunks(
