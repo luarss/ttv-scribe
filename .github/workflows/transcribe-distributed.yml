@@ -83,8 +83,7 @@ jobs:
     needs: prepare
     runs-on: ubuntu-latest
     strategy:
-      matrix:
-        include: ${{ fromJson(needs.prepare.outputs.matrix) }}
+      matrix: ${{ fromJson(needs.prepare.outputs.matrix) }}
       max-parallel: ${{ github.event.inputs.max_parallel || 10 }}
       fail-fast: true
 

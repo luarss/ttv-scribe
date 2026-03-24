@@ -187,7 +187,8 @@ def main():
     delimiter = "ghadelimiter"
 
     # Outputs that can use simple format (no special characters)
-    matrix_json = json.dumps(matrix)
+    # Wrap matrix in {"include": [...]} for GitHub Actions matrix syntax
+    matrix_json = json.dumps({"include": matrix})
     title = manifest["title"] or ""
     recorded_at = manifest["recorded_at"] or ""
 
