@@ -1,0 +1,81 @@
+name: Cleanup Old Workflows
+
+on:
+  schedule:
+    - cron: '0 3 * * 0'  # Weekly on Sunday at 3 AM UTC
+  workflow_dispatch:
+    inputs:
+      days:
+        description: 'Delete runs older than this many days'
+        required: true
+        type: number
+        default: 7
+      keep_min:
+        description: 'Minimum runs to keep per workflow'
+        required: true
+        type: number
+        default: 5
+
+permissions:
+  actions: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete old workflow runs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DAYS: ${{ github.event.inputs.days || '7' }}
+          KEEP_MIN: ${{ github.event.inputs.keep_min || '5' }}
+        run: |
+          echo "Cleaning up workflow runs older than $DAYS days (keeping min $KEEP_MIN per workflow)"
+
+          # Get all workflows
+          workflows=$(gh workflow list --repo ${{ github.repository }} --json id,name -q '.[] | "\(.id) \(.name)"')
+
+          while IFS= read -r line; do
+            workflow_id=$(echo "$line" | awk '{print $1}')
+            workflow_name=$(echo "$line" | cut -d' ' -f2-)
+
+            echo "Processing workflow: $workflow_name ($workflow_id)"
+
+            # Get completed and failed runs older than N days
+            runs=$(gh run list \
+              --repo ${{ github.repository }} \
+              --workflow "$workflow_id" \
+              --status completed \
+              --json databaseId,conclusion,createdAt \
+              --jq ".[] | select(.conclusion == \"success\" or .conclusion == \"failure\") | select(.createdAt < (now - ($DAYS * 86400)) | strftime(\"%Y-%m-%dT%H:%M:%SZ\")) | .databaseId")
+
+            # Count total runs for this workflow
+            total_runs=$(gh run list \
+              --repo ${{ github.repository }} \
+              --workflow "$workflow_id" \
+              --json databaseId \
+              --jq 'length')
+
+            # Calculate how many we can delete (keep at least KEEP_MIN)
+            deletable=$((total_runs - KEEP_MIN))
+
+            if [ -z "$runs" ]; then
+              echo "  No old runs to delete"
+              continue
+            fi
+
+            deleted=0
+            for run_id in $runs; do
+              if [ $deleted -ge $deletable ]; then
+                echo "  Reached minimum threshold ($KEEP_MIN runs), stopping"
+                break
+              fi
+
+              echo "  Deleting run $run_id"
+              gh run delete "$run_id" --repo ${{ github.repository }} --yes || true
+              deleted=$((deleted + 1))
+            done
+
+            echo "  Deleted $deleted runs"
+          done <<< "$workflows"
+
+          echo "Cleanup complete"
