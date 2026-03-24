@@ -109,9 +109,24 @@ jobs:
           path: chunks/
           retention-days: 1
 
+      - name: Commit failed VOD status
+        if: steps.split.outputs.num_chunks == '0'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add state/
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "chore: mark VOD ${{ steps.split.outputs.vod_id }} as failed (unavailable)"
+          git pull --rebase origin ${{ github.ref_name }}
+          git push origin ${{ github.ref_name }}
+
   # Job 2: Transcribe chunks in parallel
   transcribe:
     needs: prepare
+    if: needs.prepare.outputs.num_chunks != '0'
     runs-on: ubuntu-latest
     strategy:
       matrix: ${{ fromJson(needs.prepare.outputs.matrix) }}
@@ -187,6 +202,7 @@ jobs:
   # Job 3: Assemble results into final transcript
   assemble:
     needs: [prepare, transcribe]
+    if: needs.prepare.outputs.num_chunks != '0'
     runs-on: ubuntu-latest
     permissions:
       contents: write
