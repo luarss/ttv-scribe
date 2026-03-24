@@ -182,24 +182,38 @@ def main():
     ]
 
     # Output for GitHub Actions (using GITHUB_OUTPUT file)
+    # Use heredoc format for values that may contain special characters
     github_output = os.environ.get("GITHUB_OUTPUT")
-    outputs = {
+    delimiter = "ghadelimiter"
+
+    # Simple outputs (no special characters)
+    simple_outputs = {
         "num_chunks": len(matrix),
-        "matrix": json.dumps(matrix),
         "vod_id": args.vod_id,
         "streamer": manifest["streamer"],
-        "title": manifest["title"] or "",
-        "recorded_at": manifest["recorded_at"] or "",
         "total_duration": manifest["total_duration"],
     }
 
+    # Complex outputs that need heredoc format (may contain special chars)
+    matrix_json = json.dumps(matrix)
+    title = manifest["title"] or ""
+    recorded_at = manifest["recorded_at"] or ""
+
     if github_output:
         with open(github_output, "a") as f:
-            for key, value in outputs.items():
+            # Write simple outputs
+            for key, value in simple_outputs.items():
                 f.write(f"{key}={value}\n")
+            # Write complex outputs using heredoc format
+            f.write(f"matrix<<{delimiter}\n{matrix_json}\n{delimiter}\n")
+            f.write(f"title<<{delimiter}\n{title}\n{delimiter}\n")
+            f.write(f"recorded_at<<{delimiter}\n{recorded_at}\n{delimiter}\n")
     else:
-        for key, value in outputs.items():
+        for key, value in simple_outputs.items():
             print(f"{key}={value}")
+        print(f"matrix={matrix_json}")
+        print(f"title={title}")
+        print(f"recorded_at={recorded_at}")
 
     print(f"Prepared {len(matrix)} chunks for VOD {args.vod_id}")
 
