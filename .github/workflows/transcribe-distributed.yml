@@ -33,6 +33,8 @@ jobs:
   # Job 1: Download VOD and split into chunks
   prepare:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     outputs:
       vod_id: ${{ steps.select-vod.outputs.vod_id || steps.split.outputs.vod_id }}
       streamer: ${{ steps.split.outputs.streamer }}
