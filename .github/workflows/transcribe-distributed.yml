@@ -81,7 +81,7 @@ jobs:
           from src.state import get_state_manager
 
           manager = get_state_manager()
-          pending = [v for v in manager.vods.values() if v.status == 'PENDING']
+          pending = manager.get_pending_vods()
           if pending:
               print(pending[0].vod_id)
           ")
