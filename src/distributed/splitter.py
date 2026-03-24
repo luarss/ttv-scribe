@@ -186,31 +186,28 @@ def main():
     github_output = os.environ.get("GITHUB_OUTPUT")
     delimiter = "ghadelimiter"
 
-    # Simple outputs (no special characters)
-    simple_outputs = {
-        "num_chunks": len(matrix),
-        "vod_id": args.vod_id,
-        "streamer": manifest["streamer"],
-        "total_duration": manifest["total_duration"],
-    }
-
-    # Complex outputs that need heredoc format (may contain special chars)
+    # Outputs that can use simple format (no special characters)
     matrix_json = json.dumps(matrix)
     title = manifest["title"] or ""
     recorded_at = manifest["recorded_at"] or ""
 
     if github_output:
         with open(github_output, "a") as f:
-            # Write simple outputs
-            for key, value in simple_outputs.items():
-                f.write(f"{key}={value}\n")
-            # Write complex outputs using heredoc format
-            f.write(f"matrix<<{delimiter}\n{matrix_json}\n{delimiter}\n")
+            # Simple outputs (single line, no special chars)
+            f.write(f"num_chunks={len(matrix)}\n")
+            f.write(f"vod_id={args.vod_id}\n")
+            f.write(f"streamer={manifest['streamer']}\n")
+            f.write(f"total_duration={manifest['total_duration']}\n")
+            # Matrix uses simple format (JSON has no special chars that break parsing)
+            f.write(f"matrix={matrix_json}\n")
+            # Heredoc format for title/recorded_at (may contain |, !, emojis, etc.)
             f.write(f"title<<{delimiter}\n{title}\n{delimiter}\n")
             f.write(f"recorded_at<<{delimiter}\n{recorded_at}\n{delimiter}\n")
     else:
-        for key, value in simple_outputs.items():
-            print(f"{key}={value}")
+        print(f"num_chunks={len(matrix)}")
+        print(f"vod_id={args.vod_id}")
+        print(f"streamer={manifest['streamer']}")
+        print(f"total_duration={manifest['total_duration']}")
         print(f"matrix={matrix_json}")
         print(f"title={title}")
         print(f"recorded_at={recorded_at}")
