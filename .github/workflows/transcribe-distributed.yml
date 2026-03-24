@@ -129,12 +129,14 @@ jobs:
       - name: Transcribe chunk ${{ matrix.index }}
         id: transcribe
         run: |
-          # Find the chunk file (naming: chunk_001.opus, chunk_002.opus, etc.)
+          # Find the chunk file (naming: {vod_id}_chunk_001.opus, etc.)
           CHUNK_INDEX=${{ matrix.index }}
-          CHUNK_FILE=$(ls chunks/chunk_$(printf '%03d' $((CHUNK_INDEX + 1))).* 2>/dev/null | head -1)
+          VOD_ID="${{ needs.prepare.outputs.vod_id }}"
+          CHUNK_FILE=$(ls chunks/${VOD_ID}_chunk_$(printf '%03d' $((CHUNK_INDEX + 1))).* 2>/dev/null | head -1)
 
           if [ -z "$CHUNK_FILE" ]; then
             echo "Chunk file not found for index $CHUNK_INDEX"
+            ls -la chunks/ || echo "chunks directory not found"
             exit 1
           fi
 
