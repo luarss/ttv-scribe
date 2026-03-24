@@ -1,6 +1,8 @@
 name: Transcribe VOD (Distributed)
 
 on:
+  schedule:
+    - cron: '0 * * * *'  # Hourly
   workflow_dispatch:
     inputs:
       vod_id:
@@ -23,12 +25,16 @@ on:
         type: number
         default: 5
 
+concurrency:
+  group: transcribe-distributed
+  cancel-in-progress: true
+
 jobs:
   # Job 1: Download VOD and split into chunks
   prepare:
     runs-on: ubuntu-latest
     outputs:
-      vod_id: ${{ steps.split.outputs.vod_id }}
+      vod_id: ${{ steps.select-vod.outputs.vod_id || steps.split.outputs.vod_id }}
       streamer: ${{ steps.split.outputs.streamer }}
       title: ${{ steps.split.outputs.title }}
       recorded_at: ${{ steps.split.outputs.recorded_at }}
@@ -63,11 +69,36 @@ jobs:
           LOG_LEVEL=INFO
           EOF
 
+      - name: Select VOD from queue (scheduled)
+        id: select-vod
+        if: github.event_name == 'schedule'
+        run: |
+          VOD_ID=$(uv run python -c "
+          import sys
+          sys.path.insert(0, 'src')
+          from src.state import get_state_manager
+
+          manager = get_state_manager()
+          pending = [v for v in manager.vods.values() if v.status == 'PENDING']
+          if pending:
+              print(pending[0].vod_id)
+          ")
+
+          if [ -z "$VOD_ID" ]; then
+            echo "No pending VODs in queue"
+            exit 0  # Skip rest of workflow gracefully
+          fi
+
+          echo "Selected VOD from queue: $VOD_ID"
+          echo "vod_id=$VOD_ID" >> $GITHUB_OUTPUT
+
       - name: Download and split VOD
         id: split
+        if: steps.select-vod.outputs.vod_id != '' || github.event_name == 'workflow_dispatch'
         run: |
+          VOD_ID="${{ steps.select-vod.outputs.vod_id || github.event.inputs.vod_id }}"
           CHUNK_DURATION=$((${{ github.event.inputs.chunk_duration || '10' }} * 60))
-          uv run python -m src.distributed.splitter "${{ github.event.inputs.vod_id }}" \
+          uv run python -m src.distributed.splitter "$VOD_ID" \
             --chunk-duration $CHUNK_DURATION \
             --output-dir ./chunks
 
