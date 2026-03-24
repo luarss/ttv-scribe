@@ -84,7 +84,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix: ${{ fromJson(needs.prepare.outputs.matrix) }}
-      max-parallel: ${{ github.event.inputs.max_parallel || 10 }}
+      max-parallel: ${{ fromJSON(github.event.inputs.max_parallel) || 10 }}
       fail-fast: true
 
     steps:
