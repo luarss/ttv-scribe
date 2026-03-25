@@ -14,6 +14,8 @@ dependencies = [
 dev = [
     "ruff>=0.1.0",
     "pytest>=8.0.0",
+    "pytest-cov>=4.0.0",
+    "respx>=0.20.0",
 ]
 
 [build-system]
@@ -23,6 +25,17 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["src*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
+markers = [
+    "slow: marks tests as slow",
+    "integration: marks integration tests",
+]
 
 [tool.ruff]
 target-version = "py313"
