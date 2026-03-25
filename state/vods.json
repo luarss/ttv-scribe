@@ -2909,6 +2909,1256 @@
       "status": "pending",
       "transcript_path": null,
       "created_at": "2026-03-25T01:21:46.856197Z"
+    },
+    {
+      "vod_id": "2728609593",
+      "streamer": "geezgiselle",
+      "title": "IRL Southern China! Hangzhou, Zhejiang, China | !plan | !map | !tip",
+      "duration": 24595,
+      "recorded_at": "2026-03-22T02:26:15+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.078279Z"
+    },
+    {
+      "vod_id": "2727970703",
+      "streamer": "studytme",
+      "title": "\ud83c\uddee\ud83c\uddf9 Scavengerhunt in Verona w/ @qoqsik - @studytme !new !ig",
+      "duration": 24820,
+      "recorded_at": "2026-03-21T11:38:13+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.086285Z"
+    },
+    {
+      "vod_id": "2727079198",
+      "streamer": "studytme",
+      "title": "\ud83c\uddee\ud83c\uddf9 Lake Garda w/ @qoqsik - @studytme !new !ig",
+      "duration": 27600,
+      "recorded_at": "2026-03-20T11:06:21+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.089292Z"
+    },
+    {
+      "vod_id": "2726280068",
+      "streamer": "studytme",
+      "title": "ppim toughts on thailand",
+      "duration": 368,
+      "recorded_at": "2026-03-19T12:54:30+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.092037Z"
+    },
+    {
+      "vod_id": "2726236457",
+      "streamer": "studytme",
+      "title": "FOCUS WITH ME - use me as a screensaver \ud83c\uddee\ud83c\uddf9 SOON MEXICO \ud83c\uddf2\ud83c\uddfd | @studytme !ig !new",
+      "duration": 16560,
+      "recorded_at": "2026-03-19T11:11:15+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.094726Z"
+    },
+    {
+      "vod_id": "2727948092",
+      "streamer": "bawnsai",
+      "title": "\u2764\ufe0f Xiamen | IRL China \ud83c\udde8\ud83c\uddf3 \u53a6\u95e8",
+      "duration": 21515,
+      "recorded_at": "2026-03-21T10:43:39+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.100684Z"
+    },
+    {
+      "vod_id": "2725527206",
+      "streamer": "studytme",
+      "title": "thai vintage candies",
+      "duration": 5297,
+      "recorded_at": "2026-03-18T14:58:46+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.101481Z"
+    },
+    {
+      "vod_id": "2726819695",
+      "streamer": "bawnsai",
+      "title": "\u2764\ufe0f Xiamen | IRL China \ud83c\udde8\ud83c\uddf3 \u53a6\u95e8",
+      "duration": 21600,
+      "recorded_at": "2026-03-20T01:19:58+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.106756Z"
+    },
+    {
+      "vod_id": "2725437262",
+      "streamer": "studytme",
+      "title": "FOCUS WITH ME - use me as a screensaver \ud83c\uddee\ud83c\uddf9 SOON MEXICO \ud83c\uddf2\ud83c\uddfd | @studytme !ig !new",
+      "duration": 18650,
+      "recorded_at": "2026-03-18T11:53:16+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.107549Z"
+    },
+    {
+      "vod_id": "2722835640",
+      "streamer": "studytme",
+      "title": "\ud83c\uddf9\ud83c\udded THAILAND - BANGKOK \ud83c\udfd9\ufe0f DAY 21 with @ppim | @studytme !ig !new",
+      "duration": 35670,
+      "recorded_at": "2026-03-15T06:42:16+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.112702Z"
+    },
+    {
+      "vod_id": "2725333834",
+      "streamer": "bawnsai",
+      "title": "\u2764\ufe0f Xiamen | IRL China \ud83c\udde8\ud83c\uddf3 \u53a6\u95e8",
+      "duration": 27517,
+      "recorded_at": "2026-03-18T06:17:14+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.115450Z"
+    },
+    {
+      "vod_id": "2721919936",
+      "streamer": "studytme",
+      "title": "\ud83c\uddf9\ud83c\udded THAILAND - LEAVING KOH TAO \ud83d\udc94 -> BACK TO BANGKOK \ud83c\udfd9\ufe0f DAY 20 | @studytme !ig !new",
+      "duration": 33350,
+      "recorded_at": "2026-03-14T05:46:23+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.118454Z"
+    },
+    {
+      "vod_id": "2722941563",
+      "streamer": "bawnsai",
+      "title": "\u2764\ufe0f Xiamen | IRL China \ud83c\udde8\ud83c\uddf3 \u53a6\u95e8",
+      "duration": 19884,
+      "recorded_at": "2026-03-15T11:33:48+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.121548Z"
+    },
+    {
+      "vod_id": "2721031290",
+      "streamer": "studytme",
+      "title": "\ud83c\uddf9\ud83c\udded THAILAND - SHOULD I MOVE TO KOH TAO ISLAND? \ud83c\udfdd\ufe0f DAY 19 | @studytme !ig !new",
+      "duration": 43280,
+      "recorded_at": "2026-03-13T05:07:41+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.122569Z"
+    },
+    {
+      "vod_id": "2720234856",
+      "streamer": "studytme",
+      "title": "7eleven drink + toast",
+      "duration": 1953,
+      "recorded_at": "2026-03-12T06:38:15+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.127624Z"
+    },
+    {
+      "vod_id": "2722018947",
+      "streamer": "bawnsai",
+      "title": "\u2764\ufe0f Xiamen | IRL China \ud83c\udde8\ud83c\uddf3 \u53a6\u95e8",
+      "duration": 19245,
+      "recorded_at": "2026-03-14T10:25:45+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.128390Z"
+    },
+    {
+      "vod_id": "2720314166",
+      "streamer": "bawnsai",
+      "title": "\u2764\ufe0f Xiamen we back | IRL China \ud83c\udde8\ud83c\uddf3 \u53a6\u95e8",
+      "duration": 17970,
+      "recorded_at": "2026-03-12T11:01:57+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.133589Z"
+    },
+    {
+      "vod_id": "2720233129",
+      "streamer": "studytme",
+      "title": "7eleven cakes",
+      "duration": 1387,
+      "recorded_at": "2026-03-12T06:32:39+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.134366Z"
+    },
+    {
+      "vod_id": "2720200889",
+      "streamer": "studytme",
+      "title": "\ud83c\uddf9\ud83c\udded THAILAND - COWORKING THEN HIKING AROUND PARADISE \ud83e\udd7e KOH TAO ISLAND \ud83c\udfdd\ufe0f DAY 18 | @studytme !ig !new",
+      "duration": 37500,
+      "recorded_at": "2026-03-12T05:02:47+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.139525Z"
+    },
+    {
+      "vod_id": "2719531813",
+      "streamer": "bawnsai",
+      "title": "\u2764\ufe0f Shenzhen short stream :) | IRL China \ud83c\udde8\ud83c\uddf3 \u6df1\u5733",
+      "duration": 26951,
+      "recorded_at": "2026-03-11T12:50:41+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.142481Z"
+    },
+    {
+      "vod_id": "2719430307",
+      "streamer": "studytme",
+      "title": "\ud83c\uddf9\ud83c\udded THAILAND - COWORKING THEN GYM DAY ON KOH TAO ISLAND \ud83c\udfdd\ufe0f DAY 17 | @studytme !ig !new",
+      "duration": 37680,
+      "recorded_at": "2026-03-11T07:53:48+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.145392Z"
+    },
+    {
+      "vod_id": "2718674385",
+      "streamer": "bawnsai",
+      "title": "\u2764\ufe0f Shenzhen Dongmen Pedestrian Street | IRL China \ud83c\udde8\ud83c\uddf3 \u4e1c\u95e8",
+      "duration": 23097,
+      "recorded_at": "2026-03-10T11:09:23+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.148711Z"
+    },
+    {
+      "vod_id": "2718631144",
+      "streamer": "studytme",
+      "title": "\ud83c\uddf9\ud83c\udded THAILAND - KOH TAO ISLAND \ud83c\udfdd\ufe0f DAY 16 | @studytme !ig !new",
+      "duration": 26630,
+      "recorded_at": "2026-03-10T08:50:39+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.149733Z"
+    },
+    {
+      "vod_id": "2716885225",
+      "streamer": "bawnsai",
+      "title": "\u2764\ufe0f Gankeng Ancient Town | IRL China \ud83c\udde8\ud83c\uddf3 \u7518\u5751\u53e4\u9547",
+      "duration": 27845,
+      "recorded_at": "2026-03-08T05:55:45+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.154656Z"
+    },
+    {
+      "vod_id": "2717861198",
+      "streamer": "studytme",
+      "title": "\ud83c\uddf9\ud83c\udded THAILAND - ISLAND GIRL VIBE - DAY 15 | @studytme !ig !new",
+      "duration": 17360,
+      "recorded_at": "2026-03-09T11:06:51+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.157695Z"
+    },
+    {
+      "vod_id": "2715093404",
+      "streamer": "bawnsai",
+      "title": "\ud83d\ude96 Shenzhen Driverless Taxis - OCT Loft - Nantou Ancient City | IRL China \ud83c\udde8\ud83c\uddf3 \u6df1\u5733",
+      "duration": 25739,
+      "recorded_at": "2026-03-06T06:53:11+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.160693Z"
+    },
+    {
+      "vod_id": "2716930537",
+      "streamer": "studytme",
+      "title": "\ud83c\uddf9\ud83c\udded THAILAND - EXPLORING BANGKOK WITH FRIENDS \ud83c\udfd9\ufe0f DAY 14 | @studytme !ig !new",
+      "duration": 37750,
+      "recorded_at": "2026-03-08T07:40:58+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.164058Z"
+    },
+    {
+      "vod_id": "2714256560",
+      "streamer": "bawnsai",
+      "title": "\u2764\ufe0f Shenzhen Oceanside \ud83c\udf0a | IRL China \ud83c\udde8\ud83c\uddf3 \u6df1\u5733",
+      "duration": 26337,
+      "recorded_at": "2026-03-05T07:40:04+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.167030Z"
+    },
+    {
+      "vod_id": "2715967097",
+      "streamer": "studytme",
+      "title": "\ud83c\uddf9\ud83c\udded THAILAND - TRANSFORMATION INTO A BADDIE w/ @hello_kiko \ud83d\udc57 DAY 13 | @studytme !ig !new",
+      "duration": 45160,
+      "recorded_at": "2026-03-07T05:58:50+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.170362Z"
+    },
+    {
+      "vod_id": "2715123526",
+      "streamer": "studytme",
+      "title": "\ud83c\uddf9\ud83c\udded THAILAND - BACK IN BANGKOK \ud83c\udfd9\ufe0f DAY 12 | @studytme !ig !new",
+      "duration": 34270,
+      "recorded_at": "2026-03-06T08:23:43+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.176587Z"
+    },
+    {
+      "vod_id": "2727378044",
+      "streamer": "gpulive",
+      "title": "Highlight: IRL \ud83c\udf38 WELCOMING SPRING TRADITIONS 2026",
+      "duration": 1074,
+      "recorded_at": "2026-03-20T19:16:07+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.177696Z"
+    },
+    {
+      "vod_id": "2712499182",
+      "streamer": "bawnsai",
+      "title": "\u2764\ufe0f Shenzhen | IRL China \ud83c\udde8\ud83c\uddf3 \u6df1\u5733",
+      "duration": 22919,
+      "recorded_at": "2026-03-03T05:01:13+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.183281Z"
+    },
+    {
+      "vod_id": "2725465736",
+      "streamer": "gpulive",
+      "title": "IRL \ud83c\udfd9\ufe0f LOOKOUT, RIVERSIDE & OLD TOWN WALK | Bratislava, Slovakia \ud83c\uddf8\ud83c\uddf0 | travel @GPUlive",
+      "duration": 18585,
+      "recorded_at": "2026-03-18T12:57:11+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.184931Z"
+    },
+    {
+      "vod_id": "2722983221",
+      "streamer": "gpulive",
+      "title": "IRL \ud83c\udff0 CASTLE RUIN ABOVE OLD TOWN | Hainburg, Austria \ud83c\udde6\ud83c\uddf9 | travel @GPUlive",
+      "duration": 17166,
+      "recorded_at": "2026-03-15T12:57:28+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.190405Z"
+    },
+    {
+      "vod_id": "2714250843",
+      "streamer": "studytme",
+      "title": "\ud83c\uddf9\ud83c\udded THAILAND - CHIANG MAI - !WHEEL DAY \ud83d\udede DAY 11 | @studytme !ig !new",
+      "duration": 38970,
+      "recorded_at": "2026-03-05T07:21:38+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.193693Z"
+    },
+    {
+      "vod_id": "2720360851",
+      "streamer": "gpulive",
+      "title": "IRL \ud83d\ude82 ABANDONED RAILWAY ADVENTURE | Radosina railway, Slovakia \ud83c\uddf8\ud83c\uddf0 | travel @GPUlive",
+      "duration": 15817,
+      "recorded_at": "2026-03-12T12:57:13+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.197466Z"
+    },
+    {
+      "vod_id": "2710744523",
+      "streamer": "bawnsai",
+      "title": "Shenzhen  | IRL China \ud83c\udde8\ud83c\uddf3 \u6df1\u5733",
+      "duration": 28364,
+      "recorded_at": "2026-03-01T05:12:48+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.200872Z"
+    },
+    {
+      "vod_id": "2713396488",
+      "streamer": "studytme",
+      "title": "\ud83c\uddf9\ud83c\udded THAILAND - JUNGLE ADVENTURE w/ @justketh \ud83c\udfde\ufe0f DAY 10 | @studytme !ig !new",
+      "duration": 41120,
+      "recorded_at": "2026-03-04T06:43:23+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.204228Z"
+    },
+    {
+      "vod_id": "2718718218",
+      "streamer": "gpulive",
+      "title": "IRL \ud83c\udff0 LEVICE CASTLE & SMALL OLD TOWN | Levice, Slovakia \ud83c\uddf8\ud83c\uddf0 | travel @GPUlive",
+      "duration": 14704,
+      "recorded_at": "2026-03-10T12:57:11+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.207752Z"
+    },
+    {
+      "vod_id": "2712549802",
+      "streamer": "studytme",
+      "title": "\ud83c\uddf9\ud83c\udded THAILAND - EXPLORING CHIANG MAI \ud83c\udfde\ufe0f DAY 9 - LATER MUAY THAI WITH @justketh | @studytme !ig !new",
+      "duration": 30740,
+      "recorded_at": "2026-03-03T07:06:52+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.212047Z"
+    },
+    {
+      "vod_id": "2710801646",
+      "streamer": "studytme",
+      "title": "\ud83c\uddf9\ud83c\udded THAILAND - unseen parts of Bangkok w/ @ppim - DAY 7 | @studytme !ig !new",
+      "duration": 38930,
+      "recorded_at": "2026-03-01T07:09:58+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.216048Z"
+    },
+    {
+      "vod_id": "2708961070",
+      "streamer": "bawnsai",
+      "title": "Shenzhen \u267f\ufe0f | IRL China \ud83c\udde8\ud83c\uddf3 \u6df1\u5733",
+      "duration": 14796,
+      "recorded_at": "2026-02-27T10:52:12+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.219624Z"
+    },
+    {
+      "vod_id": "2717060402",
+      "streamer": "gpulive",
+      "title": "IRL \ud83c\udf36\ufe0f HUNGARIAN BAROQUE OLD TOWN VISIT | Gyor, Hungary \ud83c\udded\ud83c\uddfa | travel @GPUlive",
+      "duration": 19451,
+      "recorded_at": "2026-03-08T12:57:18+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.220520Z"
+    },
+    {
+      "vod_id": "2709783454",
+      "streamer": "studytme",
+      "title": "\ud83c\uddf9\ud83c\udded THAILAND - WORKOUT DAY W/ @hello_kiko - DAY 6 | @studytme !ig !new",
+      "duration": 30540,
+      "recorded_at": "2026-02-28T05:12:09+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.227048Z"
+    },
+    {
+      "vod_id": "2707264108",
+      "streamer": "bawnsai",
+      "title": "Shenzhen \u267f\ufe0f | IRL China \ud83c\udde8\ud83c\uddf3 \u6df1\u5733",
+      "duration": 25804,
+      "recorded_at": "2026-02-25T12:12:51+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.231047Z"
+    },
+    {
+      "vod_id": "2708890318",
+      "streamer": "studytme",
+      "title": "\ud83c\uddf9\ud83c\udded THAILAND - I NEED YOUR HELP - Shopping Day in BangKok and I'm an overthinker - DAY 5 | @studytme !ig !new",
+      "duration": 44110,
+      "recorded_at": "2026-02-27T07:33:36+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.231991Z"
+    },
+    {
+      "vod_id": "2714382590",
+      "streamer": "gpulive",
+      "title": "IRL \u2600\ufe0f CHILL OLD TOWN WALK & SUNSET | Nitra, Slovakia \ud83c\uddf8\ud83c\uddf0 | travel @GPUlive",
+      "duration": 15940,
+      "recorded_at": "2026-03-05T13:27:21+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.237734Z"
+    },
+    {
+      "vod_id": "2708006176",
+      "streamer": "studytme",
+      "title": "\ud83c\uddf9\ud83c\udded THAILAND - ROAMING AROUND BANGKOK - DAY 4 | @studytme !ig !new",
+      "duration": 36480,
+      "recorded_at": "2026-02-26T07:15:19+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.240454Z"
+    },
+    {
+      "vod_id": "2702623994",
+      "streamer": "bawnsai",
+      "title": "\ud83c\udfc2 First Time Snowboarding | IRL China \ud83c\udde8\ud83c\uddf3",
+      "duration": 24829,
+      "recorded_at": "2026-02-20T04:47:01+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.245603Z"
+    },
+    {
+      "vod_id": "2707184574",
+      "streamer": "studytme",
+      "title": "\ud83c\uddf9\ud83c\udded THAILAND - ADVENTURE IN BANGKOK - DAY 3 | @studytme !ig !new",
+      "duration": 36850,
+      "recorded_at": "2026-02-25T08:25:24+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.246622Z"
+    },
+    {
+      "vod_id": "2706310320",
+      "streamer": "studytme",
+      "title": "\ud83c\uddf9\ud83c\udded THAILAND - LOTS OF STUFF - DAY 2 | @studytme !ig !new",
+      "duration": 24280,
+      "recorded_at": "2026-02-24T07:40:34+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.252956Z"
+    },
+    {
+      "vod_id": "2700957344",
+      "streamer": "bawnsai",
+      "title": "\ud83c\udded\ud83c\uddf0 Hong Kong! Bowling \u2764\ufe0f \u9999\u6e2f @tristalivetv",
+      "duration": 19328,
+      "recorded_at": "2026-02-18T07:20:05+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.256299Z"
+    },
+    {
+      "vod_id": "2705439961",
+      "streamer": "studytme",
+      "title": "FIRST DAY \ud83c\uddf9\ud83c\udded THAILAND - chill day getting used to here | @studytme !ig !new",
+      "duration": 29220,
+      "recorded_at": "2026-02-23T07:06:05+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.260210Z"
+    },
+    {
+      "vod_id": "2712686955",
+      "streamer": "gpulive",
+      "title": "IRL \ud83c\udff0 WHITE CASTLE RUIN & OLD TOWN | Svaty Jur, Slovakia \ud83c\uddf8\ud83c\uddf0 | travel @GPUlive",
+      "duration": 15772,
+      "recorded_at": "2026-03-03T13:27:19+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.261376Z"
+    },
+    {
+      "vod_id": "2702692789",
+      "streamer": "studytme",
+      "title": "\ud83c\uddee\ud83c\uddf3 INDIA - EXPLORING KOCHI - tonight fancy dinner in saree - DAY 19 | @studytme !ig !new",
+      "duration": 31700,
+      "recorded_at": "2026-02-20T07:36:16+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.267392Z"
+    },
+    {
+      "vod_id": "2700091036",
+      "streamer": "bawnsai",
+      "title": "\ud83c\udded\ud83c\uddf0 Hong Kong! Happy New Year \u2764\ufe0f \u9999\u6e2f",
+      "duration": 30483,
+      "recorded_at": "2026-02-17T07:29:08+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.271391Z"
+    },
+    {
+      "vod_id": "2710968436",
+      "streamer": "gpulive",
+      "title": "IRL \ud83c\udff0 CASTLES & GOOD VIBES w/ @PoohBearism | Devin-Bratislava, Slovakia \ud83c\uddf8\ud83c\uddf0 | travel @GPUlive",
+      "duration": 15216,
+      "recorded_at": "2026-03-01T13:27:32+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.273732Z"
+    },
+    {
+      "vod_id": "2701824849",
+      "streamer": "studytme",
+      "title": "\ud83c\uddee\ud83c\uddf3 INDIA - KOCHI - SHOPPING A GIFT FOR OUR GUEST - LATER COOKING WITH MARIAM !guest \ud83d\udc69\u200d\ud83c\udf73 DAY 18 | @studytme !ig !new",
+      "duration": 32570,
+      "recorded_at": "2026-02-19T07:25:11+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.274702Z"
+    },
+    {
+      "vod_id": "2700978568",
+      "streamer": "studytme",
+      "title": "\ud83c\uddee\ud83c\uddf3 INDIA - \ud83d\udc59 MARARI BEACH \ud83c\udf0a LATER KOCHI - DAY 17 | @studytme !ig !new",
+      "duration": 22050,
+      "recorded_at": "2026-02-18T08:26:25+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.282507Z"
+    },
+    {
+      "vod_id": "2698278503",
+      "streamer": "bawnsai",
+      "title": "\ud83c\udded\ud83c\uddf0 Hong Kong! \u2600\ufe0f \u9999\u6e2f \u2764\ufe0f",
+      "duration": 29431,
+      "recorded_at": "2026-02-15T07:02:24+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.286452Z"
+    },
+    {
+      "vod_id": "2700087834",
+      "streamer": "studytme",
+      "title": "\ud83c\uddee\ud83c\uddf3 INDIA - Jatayu Earth Center -later Kollam - TOMORROW KOCHI - DAY 16 | @studytme !ig !new",
+      "duration": 28400,
+      "recorded_at": "2026-02-17T07:18:48+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.289948Z"
+    },
+    {
+      "vod_id": "2699335356",
+      "streamer": "studytme",
+      "title": "\ud83c\uddee\ud83c\uddf3 INDIA - SAREE SHOPPING \ud83d\udc57 later festival EXPLORING TRIVANDRUM \ud83c\udfd9\ufe0f - DAY 15 | @studytme !ig !new",
+      "duration": 15200,
+      "recorded_at": "2026-02-16T13:26:14+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.294357Z"
+    },
+    {
+      "vod_id": "2709079305",
+      "streamer": "gpulive",
+      "title": "IRL \u2600\ufe0f SNEAKILY WALKING TO HUNGARY? | Komarno, Slovakia \ud83c\uddf8\ud83c\uddf0 | travel @GPUlive",
+      "duration": 15610,
+      "recorded_at": "2026-02-27T14:40:25+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.295288Z"
+    },
+    {
+      "vod_id": "2697335713",
+      "streamer": "bawnsai",
+      "title": "\ud83c\udded\ud83c\uddf0 Hong Kong! \u2764\ufe0f \u9999\u6e2f",
+      "duration": 31830,
+      "recorded_at": "2026-02-14T05:16:11+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.298818Z"
+    },
+    {
+      "vod_id": "2699211312",
+      "streamer": "studytme",
+      "title": "\ud83c\uddee\ud83c\uddf3 INDIA - \ud83e\uddd1\u200d\ud83c\udf73 CHEF PILLAI RESTAURANT - THEN EXPLORING TRIVANDRUM - DAY 15 | @studytme !ig !new",
+      "duration": 19679,
+      "recorded_at": "2026-02-16T07:56:11+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.305238Z"
+    },
+    {
+      "vod_id": "2694709332",
+      "streamer": "bawnsai",
+      "title": "\ud83c\udde8\ud83c\uddf3 Guiyang! | IRL China \u2764\ufe0f \u8d35\u9633",
+      "duration": 33275,
+      "recorded_at": "2026-02-11T04:38:33+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.306963Z"
+    },
+    {
+      "vod_id": "2709034006",
+      "streamer": "gpulive",
+      "title": "IRL \u2600\ufe0f SNEAKILY WALKING TO HUNGARY? | Komarno, Slovakia \ud83c\uddf8\ud83c\uddf0 | travel @GPUlive",
+      "duration": 4278,
+      "recorded_at": "2026-02-27T13:27:11+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.312588Z"
+    },
+    {
+      "vod_id": "2707299283",
+      "streamer": "gpulive",
+      "title": "IRL \u2600\ufe0f COZY SUNNY OLD TOWN WALK | Bratislava, Slovakia \ud83c\uddf8\ud83c\uddf0 | travel @GPUlive",
+      "duration": 19111,
+      "recorded_at": "2026-02-25T13:27:31+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.317011Z"
+    },
+    {
+      "vod_id": "2692359539",
+      "streamer": "bawnsai",
+      "title": "\ud83c\udde8\ud83c\uddf3 Guiyang! | IRL China \u2764\ufe0f \u8d35\u9633",
+      "duration": 22542,
+      "recorded_at": "2026-02-08T12:36:52+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.317944Z"
+    },
+    {
+      "vod_id": "2698316328",
+      "streamer": "studytme",
+      "title": "\ud83c\uddee\ud83c\uddf3 INDIA - \ud83e\udeb8 OCEAN VIBES \ud83c\udf0a IN VARKALA - DAY 14 | @studytme !ig !new",
+      "duration": 24410,
+      "recorded_at": "2026-02-15T08:43:26+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.324636Z"
+    },
+    {
+      "vod_id": "2705512834",
+      "streamer": "gpulive",
+      "title": "IRL \ud83c\udf37 NEDERLAND w/ @sleinmcawesome | Breda & Eindhoven, Netherlands \ud83c\uddf3\ud83c\uddf1 | travel @GPUlive",
+      "duration": 17086,
+      "recorded_at": "2026-02-23T10:50:19+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.328283Z"
+    },
+    {
+      "vod_id": "2683264045",
+      "streamer": "bawnsai",
+      "title": "\ud83c\udde8\ud83c\uddf3 Guiyang! | IRL China \u2764\ufe0f \u8d35\u9633",
+      "duration": 28166,
+      "recorded_at": "2026-01-29T07:58:23+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.331771Z"
+    },
+    {
+      "vod_id": "2698444856",
+      "streamer": "gpulive",
+      "title": "IRL \ud83c\udff0 EUROPE'S CULTURE CAPITAL 2026 | Trencin, Slovakia \ud83c\uddf8\ud83c\uddf0 | travel @GPUlive",
+      "duration": 17876,
+      "recorded_at": "2026-02-15T13:27:31+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.336060Z"
+    },
+    {
+      "vod_id": "2696509138",
+      "streamer": "studytme",
+      "title": "\ud83c\uddee\ud83c\uddf3 INDIA -  BEACH DAY IN VARKALA \ud83c\udf0a DAY 12 | @studytme !ig !new",
+      "duration": 27150,
+      "recorded_at": "2026-02-13T08:26:21+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.340071Z"
+    },
+    {
+      "vod_id": "2696624513",
+      "streamer": "gpulive",
+      "title": "IRL \u2692\ufe0f COZY OLD MINING TOWN VIEWS | B.Stiavnica, Slovakia \ud83c\uddf8\ud83c\uddf0 | travel @GPUlive",
+      "duration": 18147,
+      "recorded_at": "2026-02-13T13:27:11+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.341090Z"
+    },
+    {
+      "vod_id": "2681535790",
+      "streamer": "bawnsai",
+      "title": "\ud83c\udde8\ud83c\uddf3 Guiyang! | IRL China \u2764\ufe0f \u8d35\u9633",
+      "duration": 19239,
+      "recorded_at": "2026-01-27T10:29:04+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.347481Z"
+    },
+    {
+      "vod_id": "2694023811",
+      "streamer": "gpulive",
+      "title": "IRL \ud83c\udfd4\ufe0f SNOWY WINTER MOUNTAINS DAY 3/3 | Tatra Mountains, Slovakia \ud83c\uddf8\ud83c\uddf0 | travel @GPUlive",
+      "duration": 16224,
+      "recorded_at": "2026-02-10T12:57:10+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.351385Z"
+    },
+    {
+      "vod_id": "2693189551",
+      "streamer": "gpulive",
+      "title": "IRL \ud83c\udfd4\ufe0f SNOWY WINTER MOUNTAINS DAY 2/3 | Kezmarok, Slovakia \ud83c\uddf8\ud83c\uddf0 | travel @GPUlive",
+      "duration": 20402,
+      "recorded_at": "2026-02-09T12:57:20+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.355451Z"
+    },
+    {
+      "vod_id": "2695628262",
+      "streamer": "studytme",
+      "title": "\ud83c\uddee\ud83c\uddf3 INDIA - DAY 10 HOUSE BOAT IN ALEPPY \ud83c\udf0a | @studytme !ig !new",
+      "duration": 32526,
+      "recorded_at": "2026-02-12T07:00:56+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.359006Z"
+    },
+    {
+      "vod_id": "2678311908",
+      "streamer": "bawnsai",
+      "title": "\ud83c\udde8\ud83c\uddf3 Xijiang Qianhu Miao Village - biggest Miao ethnic village | IRL China \u2764\ufe0f \u897f\u6c5f\u5343\u6237\u82d7\u5be8",
+      "duration": 34098,
+      "recorded_at": "2026-01-24T00:32:52+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.362985Z"
+    },
+    {
+      "vod_id": "2692370185",
+      "streamer": "gpulive",
+      "title": "IRL \ud83c\udfd4\ufe0f SNOWY WINTER MOUNTAINS DAY 1/3 | Strbske Pleso, Slovakia \ud83c\uddf8\ud83c\uddf0 | travel @GPUlive",
+      "duration": 21094,
+      "recorded_at": "2026-02-08T12:57:11+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.364352Z"
+    },
+    {
+      "vod_id": "2689639227",
+      "streamer": "gpulive",
+      "title": "IRL \u2602\ufe0f COZY RAINY OLD TOWN WALK | Trnava, Slovakia \ud83c\uddf8\ud83c\uddf0 | travel @GPUlive",
+      "duration": 18971,
+      "recorded_at": "2026-02-05T13:27:11+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.371224Z"
+    },
+    {
+      "vod_id": "2694787123",
+      "streamer": "studytme",
+      "title": "\ud83c\uddee\ud83c\uddf3 INDIA - DAY 10 | @studytme !ig !new",
+      "duration": 25460,
+      "recorded_at": "2026-02-11T07:44:03+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.374839Z"
+    },
+    {
+      "vod_id": "2687907976",
+      "streamer": "gpulive",
+      "title": "IRL \ud83c\udf34 SICILY TRIP DAY 3/3 SEASIDE OLD TOWN w/ @hyperalby | Castellammare del Golfo, Italy \ud83c\uddee\ud83c\uddf9 | travel @GPUlive",
+      "duration": 17145,
+      "recorded_at": "2026-02-03T12:57:13+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.379001Z"
+    },
+    {
+      "vod_id": "2514061577",
+      "streamer": "bawnsai",
+      "title": "bawnsai's Channel Trailer",
+      "duration": 57,
+      "recorded_at": "2025-07-16T15:20:54+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.380010Z"
+    },
+    {
+      "vod_id": "2687049975",
+      "streamer": "gpulive",
+      "title": "IRL \ud83c\udf34 SICILY TRIP DAY 2/3 BEACH & CASTLE w/ @hyperalby | Cefalu, Italy \ud83c\uddee\ud83c\uddf9 | travel @GPUlive",
+      "duration": 21863,
+      "recorded_at": "2026-02-02T12:57:13+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.387032Z"
+    },
+    {
+      "vod_id": "2693907270",
+      "streamer": "studytme",
+      "title": "\ud83c\uddee\ud83c\uddf3 INDIA - DAY 9 - DRIVER SAID WE ARE GOING TO CRAZY PLACE??? | @studytme !ig !new",
+      "duration": 28090,
+      "recorded_at": "2026-02-10T07:21:33+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.390495Z"
+    },
+    {
+      "vod_id": "632350282",
+      "streamer": "bawnsai",
+      "title": "bawnsai's channel trailer",
+      "duration": 57,
+      "recorded_at": "2020-05-26T09:44:14+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.391761Z"
+    },
+    {
+      "vod_id": "2686425609",
+      "streamer": "gpulive",
+      "title": "IRL \ud83c\udf34 SICILY TRIP DAY 1/3 EVENING WALK | Palermo, Italy \ud83c\uddee\ud83c\uddf9 | travel @GPUlive",
+      "duration": 18783,
+      "recorded_at": "2026-02-01T18:57:11+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.398905Z"
+    },
+    {
+      "vod_id": "2693078136",
+      "streamer": "studytme",
+      "title": "\ud83c\uddee\ud83c\uddf3 INDIA - \ud83c\udf38 BOTANICAL GARDEN \ud83c\udf36\ufe0f SPICES FACTORY \ud83d\udd25 MARTIAL ARTS SHOW \ud83d\udcc6 DAY 8  | @studytme !ig !new",
+      "duration": 27110,
+      "recorded_at": "2026-02-09T07:29:37+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.399985Z"
+    },
+    {
+      "vod_id": "2681610842",
+      "streamer": "gpulive",
+      "title": "IRL \u26ea EXPLORING HUNGARY FOR 1 DAY | Esztergom, Hungary \ud83c\udded\ud83c\uddfa | travel @GPUlive",
+      "duration": 17632,
+      "recorded_at": "2026-01-27T13:27:21+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.406376Z"
+    },
+    {
+      "vod_id": "2692303478",
+      "streamer": "studytme",
+      "title": "\ud83c\uddee\ud83c\uddf3 INDIA - staying in a forest - Day 7 | @studytme !ig !new",
+      "duration": 19700,
+      "recorded_at": "2026-02-08T10:37:05+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.407363Z"
+    },
+    {
+      "vod_id": "2680705688",
+      "streamer": "gpulive",
+      "title": "IRL \ud83c\udf07 SUNSET & CAPITAL OLD TOWN STROLL | Bratislava, Slovakia \ud83c\uddf8\ud83c\uddf0 | travel @GPUlive",
+      "duration": 17555,
+      "recorded_at": "2026-01-26T13:27:14+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.413785Z"
+    },
+    {
+      "vod_id": "2691330985",
+      "streamer": "studytme",
+      "title": "\ud83c\uddee\ud83c\uddf3 FIRST TIME INDIA - Food Challenge in Pollachi - Day 6 | @studytme !ig !new",
+      "duration": 19240,
+      "recorded_at": "2026-02-07T09:29:41+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.414785Z"
+    },
+    {
+      "vod_id": "2677802935",
+      "streamer": "gpulive",
+      "title": "IRL \u2744\ufe0f SNOWY VILLAGE & SKI RESORT | Krahule, Slovakia \ud83c\uddf8\ud83c\uddf0 | travel @GPUlive",
+      "duration": 19071,
+      "recorded_at": "2026-01-23T13:27:10+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.421294Z"
+    },
+    {
+      "vod_id": "2691268909",
+      "streamer": "studytme",
+      "title": "\ud83c\uddee\ud83c\uddf3 FIRST TIME INDIA - Valparai - Day 5 | @studytme !ig !new",
+      "duration": 4060,
+      "recorded_at": "2026-02-07T06:46:41+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.422309Z"
+    },
+    {
+      "vod_id": "2665161916",
+      "streamer": "gpulive",
+      "title": "GPUlive's Winter Channel Trailer",
+      "duration": 29,
+      "recorded_at": "2026-01-09T09:15:56+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.428793Z"
+    },
+    {
+      "vod_id": "2690394533",
+      "streamer": "studytme",
+      "title": "\ud83c\uddee\ud83c\uddf3 FIRST TIME INDIA - Cherai Beach - Kerala Tour - Day 5 | @studytme !ig !new",
+      "duration": 32090,
+      "recorded_at": "2026-02-06T08:33:46+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.429795Z"
+    },
+    {
+      "vod_id": "2689464038",
+      "streamer": "studytme",
+      "title": "\ud83c\uddee\ud83c\uddf3 FIRST TIME INDIA - Kerala Tour - Day 4 | @studytme !ig !new",
+      "duration": 34860,
+      "recorded_at": "2026-02-05T05:28:33+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.436178Z"
+    },
+    {
+      "vod_id": "2639744670",
+      "streamer": "gpulive",
+      "title": "GPUlive's Channel Trailer",
+      "duration": 29,
+      "recorded_at": "2025-12-09T21:58:19+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.437178Z"
+    },
+    {
+      "vod_id": "2688650387",
+      "streamer": "studytme",
+      "title": "\ud83c\uddee\ud83c\uddf3 FIRST TIME INDIA - Kerala Tour - Day 3 | @studytme !ig !new",
+      "duration": 27760,
+      "recorded_at": "2026-02-04T07:33:36+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.443506Z"
+    },
+    {
+      "vod_id": "2600375668",
+      "streamer": "gpulive",
+      "title": "Music Highlight from KRAKOW POLAND",
+      "duration": 508,
+      "recorded_at": "2025-10-24T20:36:43+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.446973Z"
+    },
+    {
+      "vod_id": "2514893960",
+      "streamer": "gpulive",
+      "title": "GPUlive's Channel Trailer",
+      "duration": 19,
+      "recorded_at": "2025-07-17T13:44:29+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.450949Z"
+    },
+    {
+      "vod_id": "2687802525",
+      "streamer": "studytme",
+      "title": "\ud83c\uddee\ud83c\uddf3 FIRST TIME INDIA - Kerala | @studytme !ig !new",
+      "duration": 31080,
+      "recorded_at": "2026-02-03T08:01:21+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.451965Z"
+    },
+    {
+      "vod_id": "2434217640",
+      "streamer": "gpulive",
+      "title": "GPUlive's Channel Trailer",
+      "duration": 30,
+      "recorded_at": "2025-04-16T07:02:32+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.458547Z"
+    },
+    {
+      "vod_id": "2686999322",
+      "streamer": "studytme",
+      "title": "\ud83c\uddee\ud83c\uddf3 FIRST TIME INDIA - Kerala | @studytme !ig !new",
+      "duration": 14290,
+      "recorded_at": "2026-02-02T10:50:41+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.462460Z"
+    },
+    {
+      "vod_id": "2399312780",
+      "streamer": "gpulive",
+      "title": "Highlight: \ud83c\udfad MASK PARADE & CARNIVAL",
+      "duration": 4041,
+      "recorded_at": "2025-03-07T08:34:34+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.466249Z"
+    },
+    {
+      "vod_id": "2684234698",
+      "streamer": "studytme",
+      "title": "\ud83c\uddee\ud83c\uddf9 MILAN \ud83d\udd2e enchanted library -> \ud83c\udfa8 gallery -> \ud83e\uddd7 climbing - INDIA IRL SOON | @studytme !ig !new",
+      "duration": 22120,
+      "recorded_at": "2026-01-30T12:31:01+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.470126Z"
+    },
+    {
+      "vod_id": "2295011537",
+      "streamer": "gpulive",
+      "title": "IRL \ud83c\udff0 EXPLORING THE NETHERLANDS \ud83e\udd7e Nov 2nd 2024",
+      "duration": 11624,
+      "recorded_at": "2024-11-06T12:01:51+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.473779Z"
+    },
+    {
+      "vod_id": "2683316291",
+      "streamer": "studytme",
+      "title": "FOCUS WITH ME - use me as a screensaver - INDIA IRL SOON | @studytme !ig !new",
+      "duration": 18230,
+      "recorded_at": "2026-01-29T10:41:28+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.477596Z"
+    },
+    {
+      "vod_id": "2274851142",
+      "streamer": "gpulive",
+      "title": "IRL \ud83c\udff0 HIKING TO CASTLE ON A ROCK \ud83e\udd7e",
+      "duration": 13514,
+      "recorded_at": "2024-10-13T08:14:03+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.481440Z"
+    },
+    {
+      "vod_id": "2682434633",
+      "streamer": "studytme",
+      "title": "FOCUS WITH ME - use me as a screensaver - INDIA IRL SOON | @studytme !ig !new",
+      "duration": 25650,
+      "recorded_at": "2026-01-28T10:39:27+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.485219Z"
+    },
+    {
+      "vod_id": "2065630829",
+      "streamer": "gpulive",
+      "title": "\u2600\ufe0f SNOWY MOUNTAIN VIEWS \u26f0\ufe0f\ud83e\udd73 CELEBRATING AFFILIATE! \ud83c\uddf8\ud83c\uddf0 IRL",
+      "duration": 7568,
+      "recorded_at": "2024-02-17T18:29:53+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.488956Z"
+    },
+    {
+      "vod_id": "2682430268",
+      "streamer": "studytme",
+      "title": "FOCUS WITH ME - use me as a screensaver - INDIA IRL SOON | @studytme !ig !new",
+      "duration": 724,
+      "recorded_at": "2026-01-28T10:26:13+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.492696Z"
+    },
+    {
+      "vod_id": "2032545553",
+      "streamer": "gpulive",
+      "title": "\ud83c\udfd9\ufe0f DISCOVERED A NICE CITY VIEW \ud83c\udff0 @gpulive",
+      "duration": 336,
+      "recorded_at": "2024-01-14T18:41:36+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.496717Z"
+    },
+    {
+      "vod_id": "2681564158",
+      "streamer": "studytme",
+      "title": "FOCUS WITH ME - use me as a screensaver - INDIA IRL SOON | @studytme !ig !new",
+      "duration": 18460,
+      "recorded_at": "2026-01-27T11:47:10+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.500662Z"
+    },
+    {
+      "vod_id": "2020463839",
+      "streamer": "gpulive",
+      "title": "\ud83c\udf872024 NEW YEAR'S PYRO-LIGHT SHOW @gpulive",
+      "duration": 333,
+      "recorded_at": "2024-01-02T09:56:30+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.504658Z"
+    },
+    {
+      "vod_id": "2680626763",
+      "streamer": "studytme",
+      "title": "FOCUS WITH ME - use me as a screensaver - INDIA IRL SOON | @studytme !ig !new",
+      "duration": 22870,
+      "recorded_at": "2026-01-26T10:10:14+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.508389Z"
+    },
+    {
+      "vod_id": "2004675013",
+      "streamer": "gpulive",
+      "title": "TRNAVA \ud83c\udf85 CHRISTMAS MARKET\ud83c\udf84Nice song",
+      "duration": 253,
+      "recorded_at": "2023-12-15T12:19:46+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.512239Z"
+    },
+    {
+      "vod_id": "2680034405",
+      "streamer": "studytme",
+      "title": "CV REVIEW - reviewing your CV/resume live !cvreview | @studytme !ig !new",
+      "duration": 13824,
+      "recorded_at": "2026-01-25T18:56:04+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.517508Z"
+    },
+    {
+      "vod_id": "2677685760",
+      "streamer": "studytme",
+      "title": "LAST DAY SLOVENIA \ud83c\uddf8\ud83c\uddee Ljubljana -> Verona \ud83c\uddee\ud83c\uddf9  COMING SOON INDIA | @studytme !ig !new",
+      "duration": 23280,
+      "recorded_at": "2026-01-23T08:25:47+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.521931Z"
+    },
+    {
+      "vod_id": "2595839142",
+      "streamer": "studytme",
+      "title": "studytme talks about her time in jain in Japan",
+      "duration": 1493,
+      "recorded_at": "2025-10-19T10:38:22+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.525652Z"
+    },
+    {
+      "vod_id": "2590972427",
+      "streamer": "studytme",
+      "title": "the japanese incident",
+      "duration": 9289,
+      "recorded_at": "2025-10-13T18:24:25+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.529403Z"
+    },
+    {
+      "vod_id": "1233404316",
+      "streamer": "studytme",
+      "title": "StudyTme's Channel Trailer",
+      "duration": 33,
+      "recorded_at": "2021-12-14T18:44:19+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.533056Z"
+    },
+    {
+      "vod_id": "859716430",
+      "streamer": "studytme",
+      "title": "StudyTme's Channel Trailer",
+      "duration": 60,
+      "recorded_at": "2021-01-03T11:11:07+00:00",
+      "status": "pending",
+      "transcript_path": null,
+      "created_at": "2026-03-25T02:52:39.536764Z"
     }
   ]
 }
