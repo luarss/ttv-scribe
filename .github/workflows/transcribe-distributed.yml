@@ -104,7 +104,7 @@ jobs:
             --chunk-duration $CHUNK_DURATION \
             --output-dir ./chunks
 
-      - name: Upload chunks
+      - name: Upload chunks artifact
         uses: actions/upload-artifact@v4
         with:
           name: chunks
@@ -168,11 +168,42 @@ jobs:
           LOG_LEVEL=INFO
           EOF
 
-      - name: Download chunks
+      - name: Download chunks with retry
         uses: actions/download-artifact@v4
         with:
           name: chunks
           path: chunks/
+        continue-on-error: true
+        id: download
+
+      - name: Retry download if failed
+        if: steps.download.outcome == 'failure'
+        run: |
+          echo "First download attempt failed, retrying in 30 seconds..."
+          sleep 30
+          gh run download ${{ github.run_id }} \
+            --name "chunks" \
+            --dir chunks/ \
+            || {
+              echo "::error::Failed to download chunks after retry"
+              exit 1
+            }
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Verify chunk file exists
+        run: |
+          CHUNK_INDEX=${{ matrix.index }}
+          VOD_ID="${{ needs.prepare.outputs.vod_id }}"
+          EXPECTED_FILE="chunks/${VOD_ID}_chunk_$(printf '%03d' $((CHUNK_INDEX + 1))).opus"
+
+          if [ ! -f "$EXPECTED_FILE" ]; then
+            echo "::error::Expected chunk file not found: $EXPECTED_FILE"
+            echo "Available files in chunks/:"
+            ls -la chunks/ || echo "chunks/ directory does not exist"
+            exit 1
+          fi
+          echo "Found chunk file: $EXPECTED_FILE"
 
       - name: Transcribe chunk ${{ matrix.index }}
         id: transcribe
