@@ -85,27 +85,27 @@ class TestSplitAudioChunks:
         assert chunks == [audio_path]
 
     def test_splits_long_audio(self, temp_dir):
-        """Test that long audio is split into chunks"""
+        """Test that long audio is split into chunks using segment muxer"""
         # Create a test audio file
         audio_path = os.path.join(temp_dir, "test.opus")
         Path(audio_path).touch()
 
         # Mock subprocess.run to handle both ffprobe and ffmpeg calls
-        call_count = [0]
-
         def mock_subprocess(*args, **kwargs):
-            call_count[0] += 1
             cmd = args[0] if args else kwargs.get("cmd", [])
             cmd_str = " ".join(cmd) if isinstance(cmd, list) else str(cmd)
 
             # ffprobe call (for duration)
             if "ffprobe" in cmd_str:
                 return MagicMock(returncode=0, stdout="7200.0\n", stderr="")
-            # ffmpeg call (for chunking)
-            elif "ffmpeg" in cmd_str:
-                # Extract the output path (last argument)
-                output_path = cmd[-1]
-                Path(output_path).touch()
+            # ffmpeg segment muxer call
+            elif "ffmpeg" in cmd_str and "-segment" in cmd_str:
+                # Extract output pattern and create chunk files
+                # Pattern is last arg, e.g. "test_chunk_%03d.opus"
+                cwd = kwargs.get("cwd", temp_dir)
+                for i in range(4):  # 7200 / 1800 = 4 chunks
+                    chunk_path = os.path.join(cwd, f"test_chunk_{i:03d}.opus")
+                    Path(chunk_path).touch()
                 return MagicMock(returncode=0, stdout="", stderr="")
             else:
                 return MagicMock(returncode=0, stdout="", stderr="")
@@ -144,7 +144,7 @@ class TestSplitAudioChunks:
         assert os.path.exists(new_output_dir)
 
     def test_handles_ffmpeg_failure(self, temp_dir, mock_subprocess):
-        """Test handling of ffmpeg chunk creation failure"""
+        """Test handling of ffmpeg segment muxer failure - falls back to sequential"""
         mock_subprocess.return_value = MagicMock(
             returncode=0,
             stdout="7200.0\n",
@@ -156,28 +156,31 @@ class TestSplitAudioChunks:
 
         call_count = [0]
 
-        def failing_ffmpeg(*args, **kwargs):
+        def failing_segment(*args, **kwargs):
             call_count[0] += 1
             cmd = args[0]
-            if "ffmpeg" in cmd:
-                # First call fails, second (re-encode) succeeds
-                if call_count[0] == 1:
-                    return MagicMock(returncode=1, stdout="", stderr="Error")
-                else:
-                    # Create the file on retry
-                    output_path = cmd[-1]
-                    Path(output_path).touch()
-                    return MagicMock(returncode=0, stdout="", stderr="")
-            return MagicMock(returncode=0, stdout="7200.0", stderr="")
+            cmd_str = " ".join(cmd) if isinstance(cmd, list) else str(cmd)
 
-        with patch("subprocess.run", side_effect=failing_ffmpeg):
+            if "ffprobe" in cmd_str:
+                return MagicMock(returncode=0, stdout="7200.0\n", stderr="")
+            elif "ffmpeg" in cmd_str and "-segment" in cmd_str:
+                # Segment muxer fails - triggers fallback
+                return MagicMock(returncode=1, stdout="", stderr="Segment error")
+            elif "ffmpeg" in cmd_str:
+                # Sequential fallback succeeds
+                output_path = cmd[-1]
+                Path(output_path).touch()
+                return MagicMock(returncode=0, stdout="", stderr="")
+            return MagicMock(returncode=0, stdout="", stderr="")
+
+        with patch("subprocess.run", side_effect=failing_segment):
             chunks = split_audio_chunks(
                 audio_path,
                 chunk_duration_seconds=1800,
                 output_dir=temp_dir
             )
 
-            # Should have created chunks via fallback re-encoding
+            # Should have created chunks via sequential fallback
             assert len(chunks) > 0
 
 

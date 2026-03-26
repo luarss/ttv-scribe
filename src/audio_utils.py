@@ -39,7 +39,58 @@ def split_audio_chunks(
         # No splitting needed, return original file
         return [audio_path]
 
-    # Calculate number of chunks
+    base_name = Path(audio_path).stem
+    chunk_pattern = os.path.join(output_dir, f"{base_name}_chunk_%03d.opus")
+
+    # Use ffmpeg segment muxer for fast single-pass splitting
+    cmd = [
+        "ffmpeg",
+        "-y",
+        "-i", audio_path,
+        "-c", "copy",
+        "-f", "segment",
+        "-segment_time", str(chunk_duration_seconds),
+        "-reset_timestamps", "1",
+        chunk_pattern,
+    ]
+
+    logger.debug(f"Splitting audio with segment muxer: {' '.join(cmd)}")
+    result = subprocess.run(cmd, capture_output=True, text=True, cwd=output_dir)
+
+    if result.returncode != 0:
+        logger.warning(
+            f"Segment muxer failed, falling back to sequential method: {result.stderr}"
+        )
+        return _split_sequential(audio_path, chunk_duration_seconds, output_dir)
+
+    # Collect generated chunks (sorted for consistent ordering)
+    chunk_paths = sorted(Path(output_dir).glob(f"{base_name}_chunk_*.opus"))
+
+    for i, path in enumerate(chunk_paths):
+        logger.debug(
+            f"Created chunk {i + 1}/{len(chunk_paths)}: {os.path.getsize(path) / 1024 / 1024:.2f}MB"
+        )
+
+    logger.info(f"Created {len(chunk_paths)} audio chunks")
+    return [str(p) for p in chunk_paths]
+
+
+def _split_sequential(
+    audio_path: str,
+    chunk_duration_seconds: int,
+    output_dir: str,
+) -> list[str]:
+    """Fallback: split audio sequentially (slower but more compatible)
+
+    Args:
+        audio_path: Path to the input audio file
+        chunk_duration_seconds: Duration of each chunk in seconds
+        output_dir: Directory to store chunk files
+
+    Returns:
+        List of paths to chunk files
+    """
+    duration = get_audio_duration(audio_path)
     num_chunks = int(duration // chunk_duration_seconds) + (
         1 if duration % chunk_duration_seconds > 0 else 0
     )
@@ -49,30 +100,22 @@ def split_audio_chunks(
 
     for i in range(num_chunks):
         start_time = i * chunk_duration_seconds
-        chunk_filename = f"{base_name}_chunk_{i + 1:03d}.opus"
+        chunk_filename = f"{base_name}_chunk_{i:03d}.opus"
         chunk_path = os.path.join(output_dir, chunk_filename)
 
         # Use ffmpeg to extract chunk
         cmd = [
             "ffmpeg",
-            "-y",  # Overwrite output
-            "-i",
-            audio_path,
-            "-ss",
-            str(start_time),
-            "-t",
-            str(chunk_duration_seconds),
-            "-acodec",
-            "copy",  # Copy audio without re-encoding for speed
+            "-y",
+            "-i", audio_path,
+            "-ss", str(start_time),
+            "-t", str(chunk_duration_seconds),
+            "-acodec", "copy",
             chunk_path,
         ]
 
         logger.debug(f"Creating chunk {i + 1}/{num_chunks}: {chunk_path}")
-        result = subprocess.run(
-            cmd,
-            capture_output=True,
-            text=True,
-        )
+        result = subprocess.run(cmd, capture_output=True, text=True)
 
         if result.returncode != 0:
             logger.warning(
@@ -82,20 +125,13 @@ def split_audio_chunks(
             cmd = [
                 "ffmpeg",
                 "-y",
-                "-i",
-                audio_path,
-                "-ss",
-                str(start_time),
-                "-t",
-                str(chunk_duration_seconds),
-                "-acodec",
-                "libopus",
-                "-ab",
-                "24k",
-                "-ar",
-                "16000",
-                "-ac",
-                "1",
+                "-i", audio_path,
+                "-ss", str(start_time),
+                "-t", str(chunk_duration_seconds),
+                "-acodec", "libopus",
+                "-ab", "24k",
+                "-ar", "16000",
+                "-ac", "1",
                 chunk_path,
             ]
             result = subprocess.run(cmd, capture_output=True, text=True)
@@ -109,7 +145,7 @@ def split_audio_chunks(
                 f"Created chunk {i + 1}/{num_chunks}: {os.path.getsize(chunk_path) / 1024 / 1024:.2f}MB"
             )
 
-    logger.info(f"Created {len(chunk_paths)} audio chunks")
+    logger.info(f"Created {len(chunk_paths)} audio chunks (sequential fallback)")
     return chunk_paths
 
 
