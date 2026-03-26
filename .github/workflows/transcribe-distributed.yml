@@ -195,7 +195,7 @@ jobs:
         run: |
           CHUNK_INDEX=${{ matrix.index }}
           VOD_ID="${{ needs.prepare.outputs.vod_id }}"
-          EXPECTED_FILE="chunks/${VOD_ID}_chunk_$(printf '%03d' $((CHUNK_INDEX + 1))).opus"
+          EXPECTED_FILE="chunks/${VOD_ID}_chunk_$(printf '%03d' ${CHUNK_INDEX}).opus"
 
           if [ ! -f "$EXPECTED_FILE" ]; then
             echo "::error::Expected chunk file not found: $EXPECTED_FILE"
@@ -208,10 +208,10 @@ jobs:
       - name: Transcribe chunk ${{ matrix.index }}
         id: transcribe
         run: |
-          # Find the chunk file (naming: {vod_id}_chunk_001.opus, etc.)
+          # Find the chunk file (naming: {vod_id}_chunk_000.opus, etc.)
           CHUNK_INDEX=${{ matrix.index }}
           VOD_ID="${{ needs.prepare.outputs.vod_id }}"
-          CHUNK_FILE=$(ls chunks/${VOD_ID}_chunk_$(printf '%03d' $((CHUNK_INDEX + 1))).* 2>/dev/null | head -1)
+          CHUNK_FILE=$(ls chunks/${VOD_ID}_chunk_$(printf '%03d' ${CHUNK_INDEX}).* 2>/dev/null | head -1)
 
           if [ -z "$CHUNK_FILE" ]; then
             echo "Chunk file not found for index $CHUNK_INDEX"
