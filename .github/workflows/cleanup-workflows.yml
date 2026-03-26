@@ -73,7 +73,7 @@ jobs:
               fi
 
               echo "  Deleting run $run_id"
-              gh run delete "$run_id" --repo ${{ github.repository }} --yes || true
+              yes | gh run delete "$run_id" --repo ${{ github.repository }} || true
               deleted=$((deleted + 1))
             done
 
