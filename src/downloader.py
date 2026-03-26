@@ -45,6 +45,8 @@ class Downloader:
             # Twitch typically offers audio-only streams at various qualities
             "format": "bestaudio[abr<=128k]/bestaudio",
             "outtmpl": output_template,
+            # Speed up HLS fragment downloads
+            "concurrent_fragment_downloads": 8,
             "postprocessors": [
                 {
                     "key": "FFmpegExtractAudio",
@@ -58,6 +60,11 @@ class Downloader:
             "no_warnings": True,
             "extract_flat": False,
         }
+
+        # Use aria2c if available for faster downloads
+        if os.path.exists("/usr/bin/aria2c") or os.path.exists("/usr/local/bin/aria2c"):
+            ydl_opts["external_downloader"] = "aria2c"
+            ydl_opts["external_downloader_args"] = ["-x", "8", "-k", "1M", "-s", "8"]
 
         duration_min = vod_data.get("duration", 0) / 60 if vod_data.get("duration") else 0
         logger.info(f"Downloading VOD {vod_id} ({title}, {duration_min:.0f}min)")
