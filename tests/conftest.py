@@ -63,6 +63,15 @@ def sample_segments():
     ]
 
 
+@pytest.fixture(autouse=True)
+def reset_state_singleton():
+    """Reset global state manager singleton before/after each test"""
+    import src.state as state_module
+    state_module._state_manager = None
+    yield
+    state_module._state_manager = None
+
+
 @pytest.fixture
 def mock_state_manager(temp_dir):
     """Mock StateManager with in-memory state"""
