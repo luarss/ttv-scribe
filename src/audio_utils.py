@@ -55,7 +55,7 @@ def split_audio_chunks(
     ]
 
     logger.debug(f"Splitting audio with segment muxer: {' '.join(cmd)}")
-    result = subprocess.run(cmd, capture_output=True, text=True, cwd=output_dir)
+    result = subprocess.run(cmd, capture_output=True, text=True)
 
     if result.returncode != 0:
         logger.warning(
