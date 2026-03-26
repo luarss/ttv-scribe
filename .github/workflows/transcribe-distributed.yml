@@ -100,7 +100,7 @@ jobs:
         run: |
           VOD_ID="${{ steps.select-vod.outputs.vod_id || github.event.inputs.vod_id }}"
           CHUNK_DURATION=$((${{ github.event.inputs.chunk_duration || '10' }} * 60))
-          uv run python -m src.distributed.splitter "$VOD_ID" \
+          uv run python -m src.cli.split_vod "$VOD_ID" \
             --chunk-duration $CHUNK_DURATION \
             --output-dir ./chunks
 
@@ -220,7 +220,7 @@ jobs:
 
           CHUNK_DURATION=$((${{ github.event.inputs.chunk_duration || '10' }} * 60))
 
-          uv run python -m src.distributed.worker "$CHUNK_FILE" \
+          uv run python -m src.cli.transcribe_chunk "$CHUNK_FILE" \
             --chunk-index $CHUNK_INDEX \
             --chunk-duration $CHUNK_DURATION \
             --output "./result-${CHUNK_INDEX}.json"
@@ -271,7 +271,7 @@ jobs:
 
       - name: Assemble transcript
         run: |
-          uv run python -m src.distributed.assembler \
+          uv run python -m src.cli.assemble_transcript \
             --vod-id "${{ needs.prepare.outputs.vod_id }}" \
             --streamer "${{ needs.prepare.outputs.streamer }}" \
             --title "${{ needs.prepare.outputs.title }}" \
