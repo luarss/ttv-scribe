@@ -2,7 +2,7 @@ name: Transcribe VOD (Distributed)
 
 on:
   schedule:
-    - cron: '0 */2 * * *'  # Every 2 hours
+    - cron: '0 */1 * * *'
   workflow_dispatch:
     inputs:
       vod_id:
