@@ -12,8 +12,10 @@ from .state import (
     get_state_manager,
     VodRecord,
     VodStatus,
+    Platform,
 )
 from .twitch.client import TwitchClient
+from .bilibili.client import BilibiliClient
 
 logger = logging.getLogger(__name__)
 
@@ -47,7 +49,9 @@ def check_for_new_vods(
         try:
             return _check_streamer_vods(
                 streamer_data["username"],
+                streamer_data.get("platform", Platform.TWITCH.value),
                 streamer_data.get("twitch_id"),
+                streamer_data.get("bilibili_mid"),
                 max_duration_minutes,
                 min_days_old,
             )
@@ -75,7 +79,9 @@ def check_for_new_vods(
 
 def _check_streamer_vods(
     username: str,
+    platform: str,
     twitch_id: str | None,
+    bilibili_mid: str | None,
     max_duration_minutes: int | None = None,
     min_days_old: int = 3,
 ) -> int:
@@ -83,13 +89,32 @@ def _check_streamer_vods(
 
     Args:
         username: The streamer's username
+        platform: The platform (twitch or bilibili)
         twitch_id: Optional Twitch user ID
+        bilibili_mid: Optional Bilibili user ID (mid)
         max_duration_minutes: Only include VODs shorter than this duration (None = no limit)
         min_days_old: Only include VODs older than this many days (to avoid live/in-progress VODs)
 
     Returns:
         Number of new VODs added
     """
+    if platform == Platform.BILIBILI.value:
+        return _check_bilibili_vods(
+            username, bilibili_mid, max_duration_minutes, min_days_old
+        )
+    else:
+        return _check_twitch_vods(
+            username, twitch_id, max_duration_minutes, min_days_old
+        )
+
+
+def _check_twitch_vods(
+    username: str,
+    twitch_id: str | None,
+    max_duration_minutes: int | None = None,
+    min_days_old: int = 3,
+) -> int:
+    """Check for new Twitch VODs for a specific streamer"""
     with TwitchClient() as twitch:
         # Get Twitch user info if we don't have it
         if not twitch_id:
@@ -176,6 +201,7 @@ def _check_streamer_vods(
         vod = VodRecord(
             vod_id=vod_id,
             streamer=username,
+            platform=Platform.TWITCH.value,
             title=vod_data.get("title"),
             duration=duration,
             recorded_at=recorded_at,
@@ -184,6 +210,96 @@ def _check_streamer_vods(
         manager.add_vod(vod)
         new_count += 1
         logger.debug(f"Added new VOD {vod_id} for {username}: {vod_data.get('title')}")
+
+    if new_count > 0:
+        logger.info(f"{username}: {new_count} new VODs queued")
+
+    return new_count
+
+
+def _check_bilibili_vods(
+    username: str,
+    bilibili_mid: str | None,
+    max_duration_minutes: int | None = None,
+    min_days_old: int = 3,
+) -> int:
+    """Check for new Bilibili videos for a specific uploader"""
+    with BilibiliClient() as bili:
+        # Get Bilibili user info if we don't have it
+        if not bilibili_mid:
+            user = bili.get_user_by_username(username)
+            if not user:
+                logger.warning(f"Streamer {username} not found on Bilibili")
+                return 0
+            bilibili_mid = user["id"]
+            # Save the bilibili_mid for future use
+            update_streamer(username, bilibili_mid=bilibili_mid)
+
+        # Get videos
+        videos_data = bili.get_videos_by_mid(bilibili_mid)
+
+    # Get state manager to check for existing VODs
+    manager = get_state_manager()
+    new_count = 0
+
+    for video_data in videos_data:
+        # Bilibili uses 'bvid' as video ID
+        vod_id = video_data["bvid"]
+
+        # Check if we already have this VOD
+        existing = manager.get_vod(vod_id)
+        if existing:
+            continue
+
+        # Bilibili duration is already in seconds
+        duration = video_data.get("duration")
+
+        # Filter by max duration
+        if (
+            max_duration_minutes is not None
+            and duration is not None
+            and duration > max_duration_minutes * 60
+        ):
+            logger.debug(f"Skipping VOD {vod_id} - too long ({duration}s)")
+            continue
+
+        # Parse recorded_at (Bilibili uses Unix timestamp)
+        recorded_at = None
+        created_timestamp = video_data.get("created")
+        if created_timestamp:
+            try:
+                vod_time = datetime.fromtimestamp(created_timestamp, timezone.utc)
+                recorded_at = vod_time.isoformat().replace("+00:00", "Z")
+
+                # Filter by age
+                now = datetime.now(timezone.utc)
+                age_days = (now - vod_time).total_seconds() / 86400
+                if age_days < min_days_old:
+                    logger.debug(
+                        f"Skipping VOD {vod_id} - too recent ({age_days:.1f} days old)"
+                    )
+                    continue
+            except (ValueError, OSError):
+                pass
+
+        if duration is not None:
+            logger.debug(
+                f"VOD {vod_id} duration: {duration}s ({duration / 60:.1f} min)"
+            )
+
+        # Add new VOD to state
+        vod = VodRecord(
+            vod_id=vod_id,
+            streamer=username,
+            platform=Platform.BILIBILI.value,
+            title=video_data.get("title"),
+            duration=duration,
+            recorded_at=recorded_at,
+            status=VodStatus.PENDING,
+        )
+        manager.add_vod(vod)
+        new_count += 1
+        logger.debug(f"Added new VOD {vod_id} for {username}: {video_data.get('title')}")
 
     if new_count > 0:
         logger.info(f"{username}: {new_count} new VODs queued")

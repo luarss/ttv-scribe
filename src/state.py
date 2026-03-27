@@ -32,12 +32,21 @@ class VodStatus(str, enum.Enum):
     FAILED = "failed"
 
 
+class Platform(str, enum.Enum):
+    """Supported streaming platforms"""
+
+    TWITCH = "twitch"
+    BILIBILI = "bilibili"
+
+
 @dataclass
 class StreamerRecord:
     """Record for a streamer being tracked (inferred from transcripts directory)"""
 
     username: str
+    platform: str = Platform.TWITCH.value  # Default to twitch for backwards compatibility
     twitch_id: str | None = None
+    bilibili_mid: str | None = None  # Bilibili user ID
     created_at: str = field(
         default_factory=lambda: (
             datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
@@ -58,6 +67,7 @@ class VodRecord:
 
     vod_id: str
     streamer: str
+    platform: str = Platform.TWITCH.value  # Platform the VOD is from
     title: str | None = None
     duration: int | None = None  # Duration in seconds
     recorded_at: str | None = None  # ISO format datetime string
@@ -567,15 +577,27 @@ def get_streamers() -> list[dict[str, Any]]:
     return [s.to_dict() for s in streamers]
 
 
-def add_streamer(username: str, twitch_id: str | None = None):
+def add_streamer(
+    username: str,
+    platform: str = Platform.TWITCH.value,
+    twitch_id: str | None = None,
+    bilibili_mid: str | None = None,
+):
     """Add a new streamer to track
 
     Args:
         username: The streamer's username
+        platform: The platform (twitch or bilibili)
         twitch_id: Optional Twitch user ID
+        bilibili_mid: Optional Bilibili user ID (mid)
     """
     manager = get_state_manager()
-    streamer = StreamerRecord(username=username, twitch_id=twitch_id)
+    streamer = StreamerRecord(
+        username=username,
+        platform=platform,
+        twitch_id=twitch_id,
+        bilibili_mid=bilibili_mid,
+    )
     manager.add_streamer(streamer)
 
 

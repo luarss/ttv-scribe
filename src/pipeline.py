@@ -101,7 +101,7 @@ def run_streaming_pipeline(
     def download_worker(max_vods: Optional[int], max_workers: int) -> int:
         """Download VODs and put completed ones in queue"""
         from .downloader import Downloader
-        from .state import StateManager
+        from .state import StateManager, Platform
         from .twitch.client import TwitchClient
 
         downloader = Downloader()
@@ -116,14 +116,26 @@ def run_streaming_pipeline(
         if not pending_vods:
             return 0
 
-        # Filter out unavailable VODs (deleted/expired from Twitch)
-        # Check availability BEFORE slicing to max_vods so we fill the quota
+        # Filter out unavailable VODs
+        # For Twitch: check availability via API
+        # For Bilibili: skip pre-check, yt-dlp will fail if unavailable
         manager = get_state_manager()
         available_vods = []
         checked_count = 0
 
+        # Separate by platform
+        twitch_vods = [
+            v for v in pending_vods
+            if v.get("platform", Platform.TWITCH.value) == Platform.TWITCH.value
+        ]
+        bilibili_vods = [
+            v for v in pending_vods
+            if v.get("platform") == Platform.BILIBILI.value
+        ]
+
+        # Check Twitch VOD availability
         with TwitchClient() as twitch:
-            for vod_data in pending_vods:
+            for vod_data in twitch_vods:
                 # Stop if we have enough available VODs
                 if max_vods is not None and len(available_vods) >= max_vods:
                     break
@@ -136,6 +148,13 @@ def run_streaming_pipeline(
                     manager.update_vod(vod_id, status=VodStatus.FAILED.value)
                 else:
                     available_vods.append(vod_data)
+
+        # Add Bilibili VODs (no pre-check, just attempt download)
+        for vod_data in bilibili_vods:
+            if max_vods is not None and len(available_vods) >= max_vods:
+                break
+            checked_count += 1
+            available_vods.append(vod_data)
 
         logger.info(f"Checked {checked_count} VODs, {len(available_vods)} available")
 

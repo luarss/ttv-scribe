@@ -34,8 +34,13 @@ class Downloader:
         """
         vod_id = vod_data["vod_id"]
         title = vod_data.get("title", "Unknown")
+        platform = vod_data.get("platform", "twitch")
 
-        twitch_url = f"https://www.twitch.tv/videos/{vod_id}"
+        # Construct URL based on platform
+        if platform == "bilibili":
+            video_url = f"https://www.bilibili.com/video/{vod_id}"
+        else:
+            video_url = f"https://www.twitch.tv/videos/{vod_id}"
 
         # Create temp file for output
         output_template = os.path.join(self.output_dir, f"{vod_id}.%(ext)s")
@@ -70,7 +75,7 @@ class Downloader:
         logger.info(f"Downloading VOD {vod_id} ({title}, {duration_min:.0f}min)")
 
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            ydl.download([twitch_url])
+            ydl.download([video_url])
 
         # Find the downloaded file
         opus_path = os.path.join(self.output_dir, f"{vod_id}.opus")
