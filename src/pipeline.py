@@ -1,6 +1,7 @@
 """Processing pipeline for TTV-Scribe"""
 
 import logging
+import os
 import queue
 import threading
 import time
@@ -11,6 +12,9 @@ from .config import get_settings
 from .monitor import check_for_new_vods
 
 logger = logging.getLogger(__name__)
+
+# Default to CPU count - 1 for transcription workers (leave 1 core for downloads)
+DEFAULT_NUM_TRANSCRIPTION_WORKERS = max(1, (os.cpu_count() or 4) - 1)
 
 
 def run_pipeline(
@@ -63,7 +67,11 @@ def run_pipeline(
     )
 
 
-def run_streaming_pipeline(max_vods: Optional[int] = None, max_workers: int = 3):
+def run_streaming_pipeline(
+    max_vods: Optional[int] = None,
+    max_workers: int = 3,
+    num_transcription_workers: Optional[int] = None,
+):
     """Run download and transcription in streaming fashion
 
     Downloads and transcriptions run in parallel - as each VOD finishes
@@ -72,11 +80,15 @@ def run_streaming_pipeline(max_vods: Optional[int] = None, max_workers: int = 3)
     Args:
         max_vods: Maximum number of VODs to process
         max_workers: Maximum concurrent downloads
+        num_transcription_workers: Number of transcription workers (default: CPU count - 1)
 
     Returns:
         Tuple of (downloaded_count, transcribed_count)
     """
     from .state import get_state_manager, VodStatus, get_pending_vods
+
+    if num_transcription_workers is None:
+        num_transcription_workers = DEFAULT_NUM_TRANSCRIPTION_WORKERS
 
     # Queue to pass completed downloads to transcription worker
     download_queue: queue.Queue = queue.Queue()
@@ -166,8 +178,12 @@ def run_streaming_pipeline(max_vods: Optional[int] = None, max_workers: int = 3)
 
         return count
 
-    def transcribe_worker() -> int:
-        """Transcribe VODs from the queue"""
+    def transcribe_worker(downloader: "Downloader") -> int:
+        """Transcribe VODs from the queue
+
+        Args:
+            downloader: Shared Downloader instance for audio cleanup
+        """
         from .transcriber_local import (
             save_transcript_to_json,
             export_transcript_to_text,
@@ -214,10 +230,7 @@ def run_streaming_pipeline(max_vods: Optional[int] = None, max_workers: int = 3)
                     manager.update_vod(vod_id, status=VodStatus.FAILED.value)
 
                 finally:
-                    # Cleanup audio
-                    from .downloader import Downloader
-
-                    downloader = Downloader()
+                    # Cleanup audio using shared downloader
                     downloader.cleanup_audio(audio_path)
                     download_queue.task_done()
 
@@ -237,18 +250,30 @@ def run_streaming_pipeline(max_vods: Optional[int] = None, max_workers: int = 3)
     )
     download_thread.start()
 
-    # Start transcription worker (consumer)
-    transcription_thread = threading.Thread(
-        target=lambda: transcribed_count.__setitem__(0, transcribe_worker())
-    )
-    transcription_thread.start()
+    # Create shared downloader for transcription workers (for audio cleanup)
+    from .downloader import Downloader
+
+    shared_downloader = Downloader()
+
+    # Start multiple transcription workers (consumers)
+    transcription_threads = []
+    for _ in range(num_transcription_workers):
+        t = threading.Thread(
+            target=lambda: transcribed_count.__setitem__(
+                0, transcribed_count[0] + transcribe_worker(shared_downloader)
+            )
+        )
+        t.start()
+        transcription_threads.append(t)
+    logger.info(f"Started {num_transcription_workers} transcription workers")
 
     # Wait for download worker to finish
     download_thread.join()
 
-    # Signal transcription worker to stop and wait for it
+    # Signal transcription workers to stop and wait for them
     transcription_done.set()
-    transcription_thread.join()
+    for t in transcription_threads:
+        t.join()
 
     return downloaded_count[0], transcribed_count[0]
 

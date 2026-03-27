@@ -6,8 +6,12 @@ Uses JSON files to persist VOD and streamer records.
 """
 
 import enum
+import fcntl
 import json
 import logging
+import os
+import threading
+import time
 from dataclasses import dataclass, field, asdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -139,18 +143,54 @@ class StateManager:
                 logger.warning(f"Failed to load streamers.json: {e}")
 
     def _save_vods(self):
-        """Save vods cache to JSON file"""
+        """Save vods cache to JSON file with atomic write and file locking."""
         vods_file = self.state_dir / self.VODS_FILE
+        temp_file = self.state_dir / f"{self.VODS_FILE}.tmp"
         data = {"vods": [vod.to_dict() for vod in self._vods_cache.values()]}
-        with open(vods_file, "w") as f:
+
+        # Write to temp file first (atomic write pattern)
+        with open(temp_file, "w") as f:
             json.dump(data, f, indent=2)
 
+        # Lock the target file before rename to prevent concurrent writes
+        lock_file = self.state_dir / f"{self.VODS_FILE}.lock"
+        with open(lock_file, "w") as lockf:
+            fcntl.flock(lockf.fileno(), fcntl.LOCK_EX)
+            try:
+                os.replace(temp_file, vods_file)  # Atomic on POSIX
+            finally:
+                fcntl.flock(lockf.fileno(), fcntl.LOCK_UN)
+
+        # Clean up lock file (optional, safe to leave)
+        try:
+            lock_file.unlink()
+        except OSError:
+            pass
+
     def _save_streamers(self):
-        """Save streamers cache to JSON file"""
+        """Save streamers cache to JSON file with atomic write and file locking."""
         streamers_file = self.state_dir / self.STREAMERS_FILE
+        temp_file = self.state_dir / f"{self.STREAMERS_FILE}.tmp"
         data = {"streamers": [s.to_dict() for s in self._streamers_cache.values()]}
-        with open(streamers_file, "w") as f:
+
+        # Write to temp file first (atomic write pattern)
+        with open(temp_file, "w") as f:
             json.dump(data, f, indent=2)
+
+        # Lock the target file before rename to prevent concurrent writes
+        lock_file = self.state_dir / f"{self.STREAMERS_FILE}.lock"
+        with open(lock_file, "w") as lockf:
+            fcntl.flock(lockf.fileno(), fcntl.LOCK_EX)
+            try:
+                os.replace(temp_file, streamers_file)  # Atomic on POSIX
+            finally:
+                fcntl.flock(lockf.fileno(), fcntl.LOCK_UN)
+
+        # Clean up lock file (optional, safe to leave)
+        try:
+            lock_file.unlink()
+        except OSError:
+            pass
 
     def _scan_completed_vods(self) -> dict[str, VodRecord]:
         """Scan transcripts directory for completed VODs.
@@ -402,20 +442,41 @@ class StateManager:
         return list(self._get_all_vods().values())
 
 
-# Global state manager instance
+# Global state manager instance with thread-safe caching
+import threading
+
 _state_manager: StateManager | None = None
+_state_manager_lock = threading.Lock()
+_state_manager_timestamp: float = 0
+STATE_CACHE_TTL_SECONDS = 60  # Refresh cache after 60 seconds
 
 
 def get_state_manager() -> StateManager:
-    """Get the global state manager instance
+    """Get the global state manager instance with TTL-based cache refresh.
+
+    Thread-safe singleton that refreshes the cache after TTL expires.
+    This avoids redundant file reads while ensuring state stays fresh.
 
     Returns:
         The StateManager instance
     """
-    global _state_manager
-    if _state_manager is None:
-        _state_manager = StateManager()
-    return _state_manager
+    global _state_manager, _state_manager_timestamp
+
+    current_time = time.time()
+
+    with _state_manager_lock:
+        if _state_manager is None or (current_time - _state_manager_timestamp) > STATE_CACHE_TTL_SECONDS:
+            _state_manager = StateManager()
+            _state_manager_timestamp = current_time
+        return _state_manager
+
+
+def reset_state_manager():
+    """Reset the state manager singleton (useful for testing or forced refresh)."""
+    global _state_manager, _state_manager_timestamp
+    with _state_manager_lock:
+        _state_manager = None
+        _state_manager_timestamp = 0
 
 
 # Convenience functions that use the global state manager

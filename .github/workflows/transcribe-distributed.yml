@@ -33,6 +33,7 @@ jobs:
   # Job 1: Download VOD and split into chunks
   prepare:
     runs-on: ubuntu-latest
+    timeout-minutes: 120
     permissions:
       contents: write
     outputs:
@@ -104,12 +105,17 @@ jobs:
             --chunk-duration $CHUNK_DURATION \
             --output-dir ./chunks
 
-      - name: Upload chunks artifact
+      - name: Upload chunks artifact (all chunks)
+        # NOTE: We upload all chunks as a single artifact for simplicity.
+        # Each transcribe worker downloads only what it needs using the download-artifact
+        # action, but the full artifact is still transferred.
+        # Alternative: Use a separate upload job with matrix to create per-chunk artifacts.
         uses: actions/upload-artifact@v4
         with:
           name: chunks
           path: chunks/
           retention-days: 1
+          if-no-files-found: error
 
       - name: Commit failed VOD status
         if: steps.split.outputs.num_chunks == '0'
@@ -130,10 +136,11 @@ jobs:
     needs: prepare
     if: needs.prepare.outputs.num_chunks != '0'
     runs-on: ubuntu-latest
+    timeout-minutes: 180
     strategy:
       matrix: ${{ fromJson(needs.prepare.outputs.matrix) }}
       max-parallel: ${{ github.event.inputs.max_parallel && fromJSON(github.event.inputs.max_parallel) || 10 }}
-      fail-fast: true
+      fail-fast: false
 
     steps:
       - uses: actions/checkout@v4
@@ -142,6 +149,16 @@ jobs:
         uses: astral-sh/setup-uv@v7
         with:
           python-version: "3.13"
+
+      - name: Cache uv dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.local/share/uv
+            .venv
+          key: uv-${{ runner.os }}-${{ hashFiles('**/pyproject.toml', '**/uv.lock') }}
+          restore-keys: |
+            uv-${{ runner.os }}-
 
       - name: Set up environment
         run: uv venv
@@ -153,7 +170,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.cache/huggingface/hub
-          key: whisper-model-${{ runner.os }}-${{ hashFiles('**/pyproject.toml') }}
+          key: whisper-model-${{ runner.os }}-small
           restore-keys: |
             whisper-model-${{ runner.os }}-
 
@@ -237,6 +254,7 @@ jobs:
     needs: [prepare, transcribe]
     if: needs.prepare.outputs.num_chunks != '0'
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     permissions:
       contents: write
 

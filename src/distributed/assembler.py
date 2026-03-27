@@ -158,11 +158,12 @@ def update_vod_status(vod_id: str, transcript_path: str, status: str = "complete
     logger.info(f"Updated VOD {vod_id} status to {status}")
 
 
-def load_chunk_results_from_dir(results_dir: str) -> list[dict]:
+def load_chunk_results_from_dir(results_dir: str, expected_chunks: Optional[int] = None) -> list[dict]:
     """Load all chunk results from a directory
 
     Args:
         results_dir: Directory containing result-*.json files
+        expected_chunks: Expected number of chunks (for validation warning)
 
     Returns:
         List of chunk result dicts
@@ -171,9 +172,20 @@ def load_chunk_results_from_dir(results_dir: str) -> list[dict]:
     results_path = Path(results_dir)
 
     for result_file in sorted(results_path.glob("result-*.json")):
-        result = load_chunk_result(str(result_file))
-        chunk_results.append(result)
-        logger.info(f"Loaded chunk {result['chunk_index']} result")
+        try:
+            result = load_chunk_result(str(result_file))
+            chunk_results.append(result)
+            logger.info(f"Loaded chunk {result['chunk_index']} result")
+        except (json.JSONDecodeError, KeyError) as e:
+            logger.warning(f"Failed to load {result_file}: {e}")
+
+    # Warn if we got fewer chunks than expected
+    if expected_chunks is not None and len(chunk_results) < expected_chunks:
+        missing = expected_chunks - len(chunk_results)
+        logger.warning(
+            f"Missing {missing} chunk results (got {len(chunk_results)} of {expected_chunks}). "
+            "Transcript may have gaps."
+        )
 
     return chunk_results
 
