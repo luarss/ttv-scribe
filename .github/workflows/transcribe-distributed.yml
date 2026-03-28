@@ -72,9 +72,9 @@ jobs:
           LOG_LEVEL=INFO
           EOF
 
-      - name: Select VOD from queue (scheduled)
+      - name: Select VOD from queue
         id: select-vod
-        if: github.event_name == 'schedule'
+        if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.vod_id == '')
         run: |
           VOD_ID=$(uv run python -c "
           import sys
@@ -97,7 +97,7 @@ jobs:
 
       - name: Download and split VOD
         id: split
-        if: steps.select-vod.outputs.vod_id != '' || github.event_name == 'workflow_dispatch'
+        if: steps.select-vod.outputs.vod_id != '' || inputs.vod_id != ''
         run: |
           VOD_ID="${{ steps.select-vod.outputs.vod_id || github.event.inputs.vod_id }}"
           CHUNK_DURATION=$((${{ github.event.inputs.chunk_duration || '10' }} * 60))
