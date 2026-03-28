@@ -110,6 +110,7 @@ jobs:
         # Each transcribe worker downloads only what it needs using the download-artifact
         # action, but the full artifact is still transferred.
         # Alternative: Use a separate upload job with matrix to create per-chunk artifacts.
+        if: steps.split.outcome == 'success' && steps.split.outputs.num_chunks != '0'
         uses: actions/upload-artifact@v4
         with:
           name: chunks
