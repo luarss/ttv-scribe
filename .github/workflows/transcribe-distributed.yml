@@ -7,7 +7,7 @@ on:
     inputs:
       vod_id:
         description: 'Twitch VOD ID to transcribe'
-        required: true
+        required: false
         type: string
       chunk_duration:
         description: 'Chunk duration in minutes (default: 10)'
