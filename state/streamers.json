@@ -1,16 +1,46 @@
 {
   "streamers": [
     {
-      "username": "哲哲哲Shao",
+      "username": "\u54f2\u54f2\u54f2Shao",
       "platform": "bilibili",
+      "twitch_id": null,
       "bilibili_mid": "110532277",
       "created_at": "2026-03-30T00:00:00.000000Z"
     },
     {
-      "username": "一块肉winn",
+      "username": "\u4e00\u5757\u8089winn",
       "platform": "bilibili",
+      "twitch_id": null,
       "bilibili_mid": "41291971",
       "created_at": "2026-03-30T00:00:00.000000Z"
+    },
+    {
+      "username": "robcdee",
+      "platform": "twitch",
+      "twitch_id": "169185650",
+      "bilibili_mid": null,
+      "created_at": "2026-03-30T03:20:02.853413Z"
+    },
+    {
+      "username": "peeguutv",
+      "platform": "twitch",
+      "twitch_id": "41908566",
+      "bilibili_mid": null,
+      "created_at": "2026-03-30T03:20:02.856549Z"
+    },
+    {
+      "username": "jinnytty",
+      "platform": "twitch",
+      "twitch_id": "159498717",
+      "bilibili_mid": null,
+      "created_at": "2026-03-30T03:20:02.866599Z"
+    },
+    {
+      "username": "cooksux",
+      "platform": "twitch",
+      "twitch_id": "59016177",
+      "bilibili_mid": null,
+      "created_at": "2026-03-30T03:20:03.403016Z"
     }
   ]
 }
