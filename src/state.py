@@ -160,7 +160,7 @@ class StateManager:
 
         # Write to temp file first (atomic write pattern)
         with open(temp_file, "w") as f:
-            json.dump(data, f, indent=2)
+            json.dump(data, f, indent=2, ensure_ascii=False)
 
         # Lock the target file before rename to prevent concurrent writes
         lock_file = self.state_dir / f"{self.VODS_FILE}.lock"
@@ -185,7 +185,7 @@ class StateManager:
 
         # Write to temp file first (atomic write pattern)
         with open(temp_file, "w") as f:
-            json.dump(data, f, indent=2)
+            json.dump(data, f, indent=2, ensure_ascii=False)
 
         # Lock the target file before rename to prevent concurrent writes
         lock_file = self.state_dir / f"{self.STREAMERS_FILE}.lock"

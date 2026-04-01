@@ -114,7 +114,7 @@ def save_chunk_result(result: dict, output_path: str) -> str:
         Path to the saved result file
     """
     with open(output_path, "w") as f:
-        json.dump(result, f, indent=2)
+        json.dump(result, f, indent=2, ensure_ascii=False)
 
     logger.info(f"Saved chunk result to {output_path}")
     return output_path

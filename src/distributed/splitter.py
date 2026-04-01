@@ -137,7 +137,7 @@ def save_chunk_manifest(manifest: dict, output_path: str) -> str:
     }
 
     with open(output_path, "w") as f:
-        json.dump(serializable, f, indent=2)
+        json.dump(serializable, f, indent=2, ensure_ascii=False)
 
     logger.info(f"Saved chunk manifest to {output_path}")
     return output_path

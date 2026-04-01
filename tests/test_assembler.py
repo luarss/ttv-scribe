@@ -29,7 +29,7 @@ class TestLoadChunkResult:
 
         result_path = os.path.join(temp_dir, "result-0.json")
         with open(result_path, "w") as f:
-            json.dump(result, f)
+            json.dump(result, f, ensure_ascii=False)
 
         loaded = load_chunk_result(result_path)
         assert loaded == result
@@ -48,11 +48,11 @@ class TestLoadChunkResultsFromDir:
                 "text": f"Chunk {i}.",
             }
             with open(os.path.join(temp_dir, f"result-{i}.json"), "w") as f:
-                json.dump(result, f)
+                json.dump(result, f, ensure_ascii=False)
 
         # Also create a non-result file to ensure it's ignored
         with open(os.path.join(temp_dir, "other.json"), "w") as f:
-            json.dump({"foo": "bar"}, f)
+            json.dump({"foo": "bar"}, f, ensure_ascii=False)
 
         results = load_chunk_results_from_dir(temp_dir)
 
