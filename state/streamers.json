@@ -41,6 +41,48 @@
       "twitch_id": "59016177",
       "bilibili_mid": null,
       "created_at": "2026-03-30T03:20:03.403016Z"
+    },
+    {
+      "username": "jakenbakelive",
+      "platform": "twitch",
+      "twitch_id": "11249217",
+      "bilibili_mid": null,
+      "created_at": "2026-03-30T04:40:24.649180Z"
+    },
+    {
+      "username": "bawnsai",
+      "platform": "twitch",
+      "twitch_id": "44991151",
+      "bilibili_mid": null,
+      "created_at": "2026-03-30T04:40:24.870215Z"
+    },
+    {
+      "username": "studytme",
+      "platform": "twitch",
+      "twitch_id": "601213281",
+      "bilibili_mid": null,
+      "created_at": "2026-03-30T04:40:24.882374Z"
+    },
+    {
+      "username": "geezgiselle",
+      "platform": "twitch",
+      "twitch_id": "557590551",
+      "bilibili_mid": null,
+      "created_at": "2026-03-30T04:40:24.990686Z"
+    },
+    {
+      "username": "gpulive",
+      "platform": "twitch",
+      "twitch_id": "124569929",
+      "bilibili_mid": null,
+      "created_at": "2026-03-30T04:40:25.900083Z"
+    },
+    {
+      "username": "testuser",
+      "platform": "twitch",
+      "twitch_id": "123",
+      "bilibili_mid": null,
+      "created_at": "2026-03-30T04:47:34.315361Z"
     }
   ]
 }

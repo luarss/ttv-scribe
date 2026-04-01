@@ -251,8 +251,18 @@ def _check_bilibili_vods(
         if existing:
             continue
 
-        # Bilibili duration is already in seconds
-        duration = video_data.get("duration")
+        # Parse duration: Bilibili returns 'length' as "HH:MM:SS" or "MM:SS"
+        duration = None
+        length_str = video_data.get("length")
+        if length_str:
+            try:
+                parts = length_str.split(":")
+                if len(parts) == 3:
+                    duration = int(parts[0]) * 3600 + int(parts[1]) * 60 + int(parts[2])
+                elif len(parts) == 2:
+                    duration = int(parts[0]) * 60 + int(parts[1])
+            except (ValueError, IndexError):
+                pass
 
         # Filter by max duration
         if (
