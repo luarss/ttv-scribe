@@ -39,6 +39,8 @@ class Downloader:
         # Construct URL based on platform
         if platform == "bilibili":
             video_url = f"https://www.bilibili.com/video/{vod_id}"
+        elif platform == "youtube":
+            video_url = f"https://www.youtube.com/watch?v={vod_id}"
         else:
             video_url = f"https://www.twitch.tv/videos/{vod_id}"
 
