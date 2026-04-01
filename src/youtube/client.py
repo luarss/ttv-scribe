@@ -51,6 +51,19 @@ class YouTubeClient:
         )
         return total if total > 0 else 0
 
+    def _parse_channel_item(self, item: dict) -> dict:
+        """Extract channel info from a YouTube API channel item"""
+        uploads_playlist_id = (
+            item.get("contentDetails", {})
+            .get("relatedPlaylists", {})
+            .get("uploads")
+        )
+        return {
+            "id": item["id"],
+            "uploads_playlist_id": uploads_playlist_id,
+            "title": item.get("snippet", {}).get("title", ""),
+        }
+
     def get_channel_by_handle(self, handle: str) -> Optional[dict]:
         """Look up a YouTube channel by its handle (e.g., 'karlrock' for @karlrock)
 
@@ -74,18 +87,7 @@ class YouTubeClient:
         if not items:
             return None
 
-        item = items[0]
-        uploads_playlist_id = (
-            item.get("contentDetails", {})
-            .get("relatedPlaylists", {})
-            .get("uploads")
-        )
-
-        return {
-            "id": item["id"],
-            "uploads_playlist_id": uploads_playlist_id,
-            "title": item.get("snippet", {}).get("title", ""),
-        }
+        return self._parse_channel_item(items[0])
 
     def get_channel_by_id(self, channel_id: str) -> Optional[dict]:
         """Look up a YouTube channel by its channel ID
@@ -110,18 +112,7 @@ class YouTubeClient:
         if not items:
             return None
 
-        item = items[0]
-        uploads_playlist_id = (
-            item.get("contentDetails", {})
-            .get("relatedPlaylists", {})
-            .get("uploads")
-        )
-
-        return {
-            "id": item["id"],
-            "uploads_playlist_id": uploads_playlist_id,
-            "title": item.get("snippet", {}).get("title", ""),
-        }
+        return self._parse_channel_item(items[0])
 
     def get_recent_videos(
         self, playlist_id: str, max_results: int = 50
