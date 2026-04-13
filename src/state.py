@@ -47,6 +47,7 @@ class StreamerRecord:
     platform: str = Platform.TWITCH.value  # Default to twitch for backwards compatibility
     twitch_id: str | None = None
     bilibili_mid: str | None = None  # Bilibili user ID
+    youtube_channel_id: str | None = None  # YouTube channel ID
     created_at: str = field(
         default_factory=lambda: (
             datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
