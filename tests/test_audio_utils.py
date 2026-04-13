@@ -64,8 +64,8 @@ class TestGetAudioDuration:
 class TestSplitAudioChunks:
     """Tests for split_audio_chunks function"""
 
-    def test_returns_original_if_short(self, temp_dir, mock_subprocess):
-        """Test that original file is returned if shorter than chunk duration"""
+    def test_returns_chunk_copy_if_short(self, temp_dir, mock_subprocess):
+        """Test that a properly-named chunk copy is returned if audio is shorter than chunk duration"""
         mock_subprocess.return_value = MagicMock(
             returncode=0,
             stdout="600.0\n",  # 10 minutes
@@ -82,7 +82,9 @@ class TestSplitAudioChunks:
             output_dir=temp_dir
         )
 
-        assert chunks == [audio_path]
+        expected_chunk = os.path.join(temp_dir, "test_chunk_000.opus")
+        assert chunks == [expected_chunk]
+        assert os.path.exists(expected_chunk)
 
     def test_splits_long_audio(self, temp_dir):
         """Test that long audio is split into chunks using segment muxer"""

@@ -2,6 +2,7 @@
 
 import logging
 import os
+import shutil
 import subprocess
 import tempfile
 from pathlib import Path
@@ -36,8 +37,12 @@ def split_audio_chunks(
     )
 
     if duration <= chunk_duration_seconds:
-        # No splitting needed, return original file
-        return [audio_path]
+        # No splitting needed — copy to output dir with expected chunk naming
+        base_name = Path(audio_path).stem
+        chunk_path = os.path.join(output_dir, f"{base_name}_chunk_000.opus")
+        shutil.copy2(audio_path, chunk_path)
+        logger.debug(f"Short audio, copied as single chunk: {chunk_path}")
+        return [chunk_path]
 
     base_name = Path(audio_path).stem
     chunk_pattern = os.path.join(output_dir, f"{base_name}_chunk_%03d.opus")
