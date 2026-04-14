@@ -1,0 +1,53 @@
+{
+  "vod_id": "2020463839",
+  "streamer": "gpulive",
+  "title": "🎇2024 NEW YEAR'S PYRO-LIGHT SHOW @gpulive",
+  "recorded_at": "2024-01-02T09:56:30+00:00",
+  "text": "Now it's starting, fast fireworks, getting banned. They're starting to get banned since tomorrow, so that's why they did this. Continuing chess, it's not over yet, of course they have to play. The biotech sick chess, it's hard to breathe here. It's quite decent, chap.",
+  "metadata": {
+    "segments_count": 5,
+    "total_duration_seconds": 332.980646,
+    "chunks": 1,
+    "chunk_transcription_times": [
+      7.896554231643677
+    ],
+    "languages": [
+      "en"
+    ],
+    "key_moments": [
+      {
+        "time": 8,
+        "text": "Now it's starting, fast fireworks, getting banned."
+      }
+    ]
+  },
+  "segments": [
+    {
+      "start": 8.82,
+      "end": 33.14,
+      "text": " Now it's starting, fast fireworks, getting banned."
+    },
+    {
+      "start": 33.14,
+      "end": 167.99,
+      "text": " They're starting to get banned since tomorrow, so that's why they did this."
+    },
+    {
+      "start": 167.99,
+      "end": 207.22,
+      "text": " Continuing chess, it's not over yet, of course they have to play."
+    },
+    {
+      "start": 207.22,
+      "end": 278.74,
+      "text": " The biotech sick chess, it's hard to breathe here."
+    },
+    {
+      "start": 278.74,
+      "end": 332.86,
+      "text": " It's quite decent, chap."
+    }
+  ],
+  "cost": 0.0,
+  "created_at": "2026-04-14T23:22:53.013225Z"
+}
