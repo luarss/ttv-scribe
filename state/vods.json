@@ -4352,8 +4352,8 @@
       "title": "GPUlive's Channel Trailer",
       "duration": 30,
       "recorded_at": "2025-04-16T07:02:32+00:00",
-      "status": "pending",
-      "transcript_path": null,
+      "status": "completed",
+      "transcript_path": "./transcripts/gpulive/2434217640.json",
       "created_at": "2026-03-25T02:52:39.458547Z"
     },
     {
