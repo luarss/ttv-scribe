@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     # Required settings
     twitch_client_id: str = ""
     twitch_client_secret: str = ""
+    youtube_api_key: str = ""
 
     # Optional settings
     log_level: str = "INFO"

@@ -132,6 +132,10 @@ def run_streaming_pipeline(
             v for v in pending_vods
             if v.get("platform") == Platform.BILIBILI.value
         ]
+        youtube_vods = [
+            v for v in pending_vods
+            if v.get("platform") == Platform.YOUTUBE.value
+        ]
 
         # Check Twitch VOD availability
         with TwitchClient() as twitch:
@@ -151,6 +155,13 @@ def run_streaming_pipeline(
 
         # Add Bilibili VODs (no pre-check, just attempt download)
         for vod_data in bilibili_vods:
+            if max_vods is not None and len(available_vods) >= max_vods:
+                break
+            checked_count += 1
+            available_vods.append(vod_data)
+
+        # Add YouTube VODs (no pre-check, yt-dlp handles unavailability)
+        for vod_data in youtube_vods:
             if max_vods is not None and len(available_vods) >= max_vods:
                 break
             checked_count += 1

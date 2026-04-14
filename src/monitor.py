@@ -16,6 +16,7 @@ from .state import (
 )
 from .twitch.client import TwitchClient
 from .bilibili.client import BilibiliClient
+from .youtube.client import YouTubeClient
 
 logger = logging.getLogger(__name__)
 
@@ -52,6 +53,7 @@ def check_for_new_vods(
                 streamer_data.get("platform", Platform.TWITCH.value),
                 streamer_data.get("twitch_id"),
                 streamer_data.get("bilibili_mid"),
+                streamer_data.get("youtube_channel_id"),
                 max_duration_minutes,
                 min_days_old,
             )
@@ -82,6 +84,7 @@ def _check_streamer_vods(
     platform: str,
     twitch_id: str | None,
     bilibili_mid: str | None,
+    youtube_channel_id: str | None,
     max_duration_minutes: int | None = None,
     min_days_old: int = 3,
 ) -> int:
@@ -89,16 +92,21 @@ def _check_streamer_vods(
 
     Args:
         username: The streamer's username
-        platform: The platform (twitch or bilibili)
+        platform: The platform (twitch, bilibili, or youtube)
         twitch_id: Optional Twitch user ID
         bilibili_mid: Optional Bilibili user ID (mid)
+        youtube_channel_id: Optional YouTube channel ID
         max_duration_minutes: Only include VODs shorter than this duration (None = no limit)
         min_days_old: Only include VODs older than this many days (to avoid live/in-progress VODs)
 
     Returns:
         Number of new VODs added
     """
-    if platform == Platform.BILIBILI.value:
+    if platform == Platform.YOUTUBE.value:
+        return _check_youtube_vods(
+            username, youtube_channel_id, max_duration_minutes, min_days_old
+        )
+    elif platform == Platform.BILIBILI.value:
         return _check_bilibili_vods(
             username, bilibili_mid, max_duration_minutes, min_days_old
         )
@@ -310,6 +318,118 @@ def _check_bilibili_vods(
         manager.add_vod(vod)
         new_count += 1
         logger.debug(f"Added new VOD {vod_id} for {username}: {video_data.get('title')}")
+
+    if new_count > 0:
+        logger.info(f"{username}: {new_count} new VODs queued")
+
+    return new_count
+
+
+def _check_youtube_vods(
+    username: str,
+    youtube_channel_id: str | None,
+    max_duration_minutes: int | None = None,
+    min_days_old: int = 3,
+) -> int:
+    """Check for new YouTube videos for a specific channel"""
+    with YouTubeClient() as yt:
+        # Get channel info if we don't have it
+        uploads_playlist_id = None
+        if not youtube_channel_id:
+            channel = yt.get_channel_by_handle(username)
+            if not channel:
+                logger.warning(f"Channel {username} not found on YouTube")
+                return 0
+            youtube_channel_id = channel["id"]
+            uploads_playlist_id = channel.get("uploads_playlist_id")
+            # Save the channel ID for future use
+            update_streamer(username, youtube_channel_id=youtube_channel_id)
+        else:
+            # Get uploads playlist ID from channel ID
+            channel = yt.get_channel_by_id(youtube_channel_id)
+            if channel:
+                uploads_playlist_id = channel.get("uploads_playlist_id")
+
+        if not uploads_playlist_id:
+            logger.warning(f"Could not get uploads playlist for {username}")
+            return 0
+
+        # Get recent videos from uploads playlist
+        recent_videos = yt.get_recent_videos(uploads_playlist_id)
+
+        if not recent_videos:
+            logger.debug(f"No recent videos found for {username}")
+            return 0
+
+        # Get video details (durations) in batch
+        video_ids = [v["video_id"] for v in recent_videos]
+        video_details = yt.get_videos_details(video_ids)
+
+        # Build lookup by video ID
+        details_by_id = {v["id"]: v for v in video_details}
+
+    # Get state manager to check for existing VODs
+    manager = get_state_manager()
+    new_count = 0
+
+    for video in recent_videos:
+        vod_id = video["video_id"]
+
+        # Check if we already have this VOD
+        existing = manager.get_vod(vod_id)
+        if existing:
+            continue
+
+        # Get duration from details lookup
+        details = details_by_id.get(vod_id, {})
+        duration = details.get("duration")
+
+        # Filter by max duration
+        if (
+            max_duration_minutes is not None
+            and duration is not None
+            and duration > max_duration_minutes * 60
+        ):
+            logger.debug(f"Skipping VOD {vod_id} - too long ({duration}s)")
+            continue
+
+        # Parse recorded_at (YouTube uses ISO 8601 format)
+        recorded_at = details.get("published_at") or video.get("published_at")
+        if recorded_at:
+            try:
+                vod_time = datetime.fromisoformat(
+                    recorded_at.replace("Z", "+00:00")
+                )
+                now = datetime.now(timezone.utc)
+                age_days = (now - vod_time).total_seconds() / 86400
+                if age_days < min_days_old:
+                    logger.debug(
+                        f"Skipping VOD {vod_id} - too recent ({age_days:.1f} days old)"
+                    )
+                    continue
+            except (ValueError, OSError):
+                pass
+        else:
+            recorded_at = None
+
+        if duration is not None:
+            logger.debug(
+                f"VOD {vod_id} duration: {duration}s ({duration / 60:.1f} min)"
+            )
+
+        # Add new VOD to state
+        vod = VodRecord(
+            vod_id=vod_id,
+            streamer=username,
+            platform=Platform.YOUTUBE.value,
+            title=details.get("title") or video.get("title"),
+            duration=duration,
+            recorded_at=recorded_at,
+            status=VodStatus.PENDING,
+        )
+        manager.add_vod(vod)
+        new_count += 1
+        logger.debug(f"Added new VOD {vod_id} for {username}: {video.get('title')}")
 
     if new_count > 0:
         logger.info(f"{username}: {new_count} new VODs queued")
