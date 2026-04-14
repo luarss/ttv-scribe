@@ -1,0 +1,38 @@
+{
+  "vod_id": "2514893960",
+  "streamer": "gpulive",
+  "title": "GPUlive's Channel Trailer",
+  "recorded_at": "2025-07-17T13:44:29+00:00",
+  "text": "Look from up here. It's much safer and you get the best you get the same view I'm gonna have a sip of water here chat to be sir. Oh my god. This is this is a cool hideout spot",
+  "metadata": {
+    "segments_count": 2,
+    "total_duration_seconds": 19.418396,
+    "chunks": 1,
+    "chunk_transcription_times": [
+      5.5000035762786865
+    ],
+    "languages": [
+      "en"
+    ],
+    "key_moments": [
+      {
+        "time": 0,
+        "text": "Look from up here. It's much safer and you get the best you get the same view"
+      }
+    ]
+  },
+  "segments": [
+    {
+      "start": 0.94,
+      "end": 6.46,
+      "text": " Look from up here. It's much safer and you get the best you get the same view"
+    },
+    {
+      "start": 6.46,
+      "end": 18.29,
+      "text": " I'm gonna have a sip of water here chat to be sir. Oh my god. This is this is a cool hideout spot"
+    }
+  ],
+  "cost": 0.0,
+  "created_at": "2026-04-14T09:34:38.704426Z"
+}
