@@ -1,0 +1,58 @@
+{
+  "vod_id": "2665161916",
+  "streamer": "gpulive",
+  "title": "GPUlive's Winter Channel Trailer",
+  "recorded_at": "2026-01-09T09:15:56+00:00",
+  "text": "Welcome in, welcome in. Klitschko, welcome back in. Oh my gosh, and I'm literally freezing here I hope you are coaxing up at home, right? I'm literally suffering here as you can see This is how suffering looks like in Slovakia Right, I wish I can go there one day. So beautiful Ho ho, welcome in indeed indeed. Well, sometimes when you are in Europe, feel free to wander",
+  "metadata": {
+    "segments_count": 6,
+    "total_duration_seconds": 30.006688,
+    "chunks": 1,
+    "chunk_transcription_times": [
+      7.466128826141357
+    ],
+    "languages": [
+      "en"
+    ],
+    "key_moments": [
+      {
+        "time": 3,
+        "text": "Welcome in, welcome in. Klitschko, welcome back in. Oh my gosh, and I'm literally freezing here"
+      }
+    ]
+  },
+  "segments": [
+    {
+      "start": 3.09,
+      "end": 9.96,
+      "text": " Welcome in, welcome in. Klitschko, welcome back in. Oh my gosh, and I'm literally freezing here"
+    },
+    {
+      "start": 9.96,
+      "end": 12.4,
+      "text": " I hope you are coaxing up at home, right?"
+    },
+    {
+      "start": 12.92,
+      "end": 16.1,
+      "text": " I'm literally suffering here as you can see"
+    },
+    {
+      "start": 16.58,
+      "end": 19.04,
+      "text": " This is how suffering looks like in Slovakia"
+    },
+    {
+      "start": 19.92,
+      "end": 23.21,
+      "text": " Right, I wish I can go there one day. So beautiful"
+    },
+    {
+      "start": 24.28,
+      "end": 30.04,
+      "text": " Ho ho, welcome in indeed indeed. Well, sometimes when you are in Europe, feel free to wander"
+    }
+  ],
+  "cost": 0.0,
+  "created_at": "2026-04-14T03:05:00.289291Z"
+}
