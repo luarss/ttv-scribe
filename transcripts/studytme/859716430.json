@@ -1,0 +1,63 @@
+{
+  "vod_id": "859716430",
+  "streamer": "studytme",
+  "title": "StudyTme's Channel Trailer",
+  "recorded_at": "2021-01-03T11:11:07+00:00",
+  "text": "Ciao, I'm Giulia. I'm a study streamer, so the majority of my time on Twitch is spent working on my project and well, studying. I stream every day 9am to 7pm French time, apart from Saturdays. When I'm not studying or working on my thesis, I love having fun with the viewers. We have our fair share of technical difficulties, guest appearances and trolls. While I take pride in helping my viewers keeping away distractions, here's what can happen when focus isn't a priority. James Bond, you're not killing me this time. Thanks for stopping by. Please consider following to join the CIO gang.",
+  "metadata": {
+    "segments_count": 7,
+    "total_duration_seconds": 60.030083,
+    "chunks": 1,
+    "chunk_transcription_times": [
+      12.09658432006836
+    ],
+    "languages": [
+      "en"
+    ],
+    "key_moments": [
+      {
+        "time": 9,
+        "text": "I stream every day 9am to 7pm French time, apart from Saturdays."
+      }
+    ]
+  },
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 8.0,
+      "text": " Ciao, I'm Giulia. I'm a study streamer, so the majority of my time on Twitch is spent working on my project and well, studying."
+    },
+    {
+      "start": 9.03,
+      "end": 14.03,
+      "text": " I stream every day 9am to 7pm French time, apart from Saturdays."
+    },
+    {
+      "start": 14.03,
+      "end": 18.03,
+      "text": " When I'm not studying or working on my thesis, I love having fun with the viewers."
+    },
+    {
+      "start": 18.03,
+      "end": 27.47,
+      "text": " We have our fair share of technical difficulties, guest appearances and trolls."
+    },
+    {
+      "start": 27.47,
+      "end": 34.47,
+      "text": " While I take pride in helping my viewers keeping away distractions, here's what can happen when focus isn't a priority."
+    },
+    {
+      "start": 35.47,
+      "end": 37.47,
+      "text": " James Bond, you're not killing me this time."
+    },
+    {
+      "start": 51.31,
+      "end": 55.31,
+      "text": " Thanks for stopping by. Please consider following to join the CIO gang."
+    }
+  ],
+  "cost": 0.0,
+  "created_at": "2026-04-15T08:35:39.293893Z"
+}
