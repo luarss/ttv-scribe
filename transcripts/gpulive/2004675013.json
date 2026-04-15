@@ -1,0 +1,58 @@
+{
+  "vod_id": "2004675013",
+  "streamer": "gpulive",
+  "title": "TRNAVA 🎅 CHRISTMAS MARKET🎄Nice song",
+  "recorded_at": "2023-12-15T12:19:46+00:00",
+  "text": "Now they say this is like their song These people are still coming, you know, they're playing it everywhere for the speakers, you know So you can't even tell where the stages Yeah, I guess we go for the walk chat Back to the... yeah, back towards my car Because of the batteries and stuff",
+  "metadata": {
+    "segments_count": 6,
+    "total_duration_seconds": 253.011146,
+    "chunks": 1,
+    "chunk_transcription_times": [
+      7.1876513957977295
+    ],
+    "languages": [
+      "en"
+    ],
+    "key_moments": [
+      {
+        "time": 0,
+        "text": "Now they say this is like their song"
+      }
+    ]
+  },
+  "segments": [
+    {
+      "start": 0.34,
+      "end": 2.58,
+      "text": " Now they say this is like their song"
+    },
+    {
+      "start": 19.18,
+      "end": 214.97,
+      "text": " These people are still coming, you know, they're playing it everywhere for the speakers, you know"
+    },
+    {
+      "start": 214.97,
+      "end": 218.88,
+      "text": " So you can't even tell where the stages"
+    },
+    {
+      "start": 219.12,
+      "end": 224.59,
+      "text": " Yeah, I guess we go for the walk chat"
+    },
+    {
+      "start": 225.11,
+      "end": 229.46,
+      "text": " Back to the... yeah, back towards my car"
+    },
+    {
+      "start": 230.1,
+      "end": 232.26,
+      "text": " Because of the batteries and stuff"
+    }
+  ],
+  "cost": 0.0,
+  "created_at": "2026-04-15T01:36:00.904606Z"
+}
