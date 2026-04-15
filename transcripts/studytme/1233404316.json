@@ -1,0 +1,58 @@
+{
+  "vod_id": "1233404316",
+  "streamer": "studytme",
+  "title": "StudyTme's Channel Trailer",
+  "recorded_at": "2021-12-14T18:44:19+00:00",
+  "text": "Hi I'm G, welcome to study time. On study time you can find a group of people that will study with you but also will empower you. Okay, they troll sometimes and sometimes I scum them back. This is a space for everyone that needs to find their focus. I'm live almost every day. Remember to check the schedule. You can also join us on Discord where you can find virtual study rooms, to-do lists, bots and many other productivity tools. I hope you will find yourself cozy enough.",
+  "metadata": {
+    "segments_count": 6,
+    "total_duration_seconds": 33.884417,
+    "chunks": 1,
+    "chunk_transcription_times": [
+      10.21859073638916
+    ],
+    "languages": [
+      "en"
+    ],
+    "key_moments": [
+      {
+        "time": 5,
+        "text": "but also will empower you. Okay, they troll sometimes and sometimes I scum them back."
+      }
+    ]
+  },
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 5.76,
+      "text": " Hi I'm G, welcome to study time. On study time you can find a group of people that will study with you"
+    },
+    {
+      "start": 5.76,
+      "end": 12.4,
+      "text": " but also will empower you. Okay, they troll sometimes and sometimes I scum them back."
+    },
+    {
+      "start": 12.4,
+      "end": 17.92,
+      "text": " This is a space for everyone that needs to find their focus. I'm live almost every day."
+    },
+    {
+      "start": 17.92,
+      "end": 21.68,
+      "text": " Remember to check the schedule. You can also join us on Discord where you can find"
+    },
+    {
+      "start": 21.68,
+      "end": 26.8,
+      "text": " virtual study rooms, to-do lists, bots and many other productivity tools. I hope you"
+    },
+    {
+      "start": 26.8,
+      "end": 30.24,
+      "text": " will find yourself cozy enough."
+    }
+  ],
+  "cost": 0.0,
+  "created_at": "2026-04-15T07:34:50.798822Z"
+}
