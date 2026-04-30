@@ -6992,7 +6992,7 @@
       "title": "hi 👋",
       "duration": 19785,
       "recorded_at": "2026-04-12T03:00:56+00:00",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-04-29T02:42:33.817630Z"
     },
