@@ -7465,8 +7465,8 @@
       "title": "Tokyo | I want to ride my bicycle | !esim !vpn !yt",
       "duration": 29485,
       "recorded_at": "2026-04-28T03:01:09+00:00",
-      "status": "pending",
-      "transcript_path": null,
+      "status": "completed",
+      "transcript_path": "./transcripts/robcdee/2758851108.json",
       "created_at": "2026-05-04T00:49:25.695537Z"
     },
     {
