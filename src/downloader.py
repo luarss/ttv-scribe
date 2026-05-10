@@ -5,11 +5,23 @@ import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import yt_dlp
+from yt_dlp.networking.impersonate import ImpersonateTarget
 
 from .config import get_settings
 from .state import StateManager, VodStatus
 
 logger = logging.getLogger(__name__)
+
+
+def _impersonation_available() -> bool:
+    """Check if curl_cffi browser impersonation is available."""
+    try:
+        import curl_cffi  # noqa: F401
+        version = tuple(int(p) for p in curl_cffi.__version__.split(".")[:3])
+        # yt-dlp supports 0.5.10 and 0.10.x–0.14.x
+        return version == (0, 5, 10) or (0, 10) <= version < (0, 15)
+    except ImportError:
+        return False
 
 
 class Downloader:
@@ -66,15 +78,15 @@ class Downloader:
             "extract_flat": False,
         }
 
-        # Bilibili anti-bot measures (HTTP 412 without proper headers)
+        # Bilibili anti-bot measures (HTTP 412 without proper headers/TLS fingerprint)
         if platform == "bilibili":
-            ydl_opts.update({
-                "http_headers": {
-                    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
-                    "Referer": "https://www.bilibili.com",
-                },
-                "sleep_interval_requests": 2,
-            })
+            ydl_opts["sleep_interval_requests"] = 2
+            ydl_opts["http_headers"] = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+                "Referer": "https://www.bilibili.com",
+            }
+            if _impersonation_available():
+                ydl_opts["impersonate"] = ImpersonateTarget.from_str("chrome-131")
 
         # Use aria2c if available for faster downloads
         if os.path.exists("/usr/bin/aria2c") or os.path.exists("/usr/local/bin/aria2c"):

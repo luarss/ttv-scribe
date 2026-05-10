@@ -112,11 +112,8 @@ jobs:
           STREAMER="${{ steps.select-vod.outputs.streamer || github.event.inputs.streamer }}"
           CHUNK_DURATION=$((${{ github.event.inputs.chunk_duration || '10' }} * 60))
 
-          PLATFORM_FLAG=""
+          PLATFORM_FLAG="--platform bilibili"
           STREAMER_FLAG=""
-          if [ -n "${{ github.event.inputs.bvid }}" ]; then
-            PLATFORM_FLAG="--platform bilibili"
-          fi
           if [ -n "$STREAMER" ] && [ -n "${{ github.event.inputs.bvid }}" ]; then
             STREAMER_FLAG="--streamer \"$STREAMER\""
           fi
