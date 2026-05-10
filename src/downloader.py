@@ -5,23 +5,29 @@ import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import yt_dlp
-from yt_dlp.networking.impersonate import ImpersonateTarget
 
+from .bilibili_patch import apply_patch
 from .config import get_settings
 from .state import StateManager, VodStatus
+
+# Apply the Bilibili HTTP 412 challenge solver patch at import time
+apply_patch()
 
 logger = logging.getLogger(__name__)
 
 
-def _impersonation_available() -> bool:
-    """Check if curl_cffi browser impersonation is available."""
+def _bilibili_impersonation_target():
+    """Return an ImpersonateTarget if curl_cffi is available, else None."""
     try:
         import curl_cffi  # noqa: F401
+        from yt_dlp.networking.impersonate import ImpersonateTarget
+
         version = tuple(int(p) for p in curl_cffi.__version__.split(".")[:3])
-        # yt-dlp supports 0.5.10 and 0.10.x–0.14.x
-        return version == (0, 5, 10) or (0, 10) <= version < (0, 15)
-    except ImportError:
-        return False
+        if version == (0, 5, 10) or (0, 10) <= version < (0, 15):
+            return ImpersonateTarget.from_str("chrome-131")
+    except (ImportError, ValueError):
+        pass
+    return None
 
 
 class Downloader:
@@ -78,21 +84,16 @@ class Downloader:
             "extract_flat": False,
         }
 
-        # Bilibili anti-bot measures (HTTP 412 without proper headers/TLS fingerprint)
+        # Bilibili anti-bot measures (challenge solver patches HTTP 412 at extractor level;
+        # these options reduce the chance of being challenged in the first place)
         if platform == "bilibili":
             ydl_opts["sleep_interval_requests"] = 2
             ydl_opts["http_headers"] = {
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
                 "Referer": "https://www.bilibili.com",
             }
-            if _impersonation_available():
-                target = ImpersonateTarget.from_str("chrome-131")
+            if target := _bilibili_impersonation_target():
                 ydl_opts["impersonate"] = target
-                ydl_opts["verbose"] = True
-                ydl_opts["quiet"] = False
-                logger.info(f"Bilibili impersonation enabled: {target}")
-            else:
-                logger.warning("Bilibili impersonation NOT available (curl-cffi missing or unsupported)")
 
         # Use aria2c if available for faster downloads
         if os.path.exists("/usr/bin/aria2c") or os.path.exists("/usr/local/bin/aria2c"):
