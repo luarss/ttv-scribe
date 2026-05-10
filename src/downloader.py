@@ -66,6 +66,16 @@ class Downloader:
             "extract_flat": False,
         }
 
+        # Bilibili anti-bot measures (HTTP 412 without proper headers)
+        if platform == "bilibili":
+            ydl_opts.update({
+                "http_headers": {
+                    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+                    "Referer": "https://www.bilibili.com",
+                },
+                "sleep_interval_requests": 2,
+            })
+
         # Use aria2c if available for faster downloads
         if os.path.exists("/usr/bin/aria2c") or os.path.exists("/usr/local/bin/aria2c"):
             ydl_opts["external_downloader"] = "aria2c"
