@@ -1,0 +1,281 @@
+name: Transcribe Bilibili Video (Distributed)
+
+on:
+  workflow_dispatch:
+    inputs:
+      bvid:
+        description: 'Bilibili BVID (e.g. BV1xx411c7mD)'
+        required: true
+        type: string
+      streamer:
+        description: 'Streamer/uploader name (used to organise transcripts)'
+        required: true
+        type: string
+      chunk_duration:
+        description: 'Chunk duration in minutes (default: 10)'
+        required: false
+        type: number
+        default: 10
+      max_parallel:
+        description: 'Max parallel workers (default: 10)'
+        required: false
+        type: number
+        default: 10
+      beam_size:
+        description: 'Whisper beam size (lower = faster, 1-5)'
+        required: false
+        type: number
+        default: 5
+
+concurrency:
+  group: bilibili-transcribe-distributed
+  cancel-in-progress: false
+
+jobs:
+  # Job 1: Download video and split into chunks
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    permissions:
+      contents: write
+    outputs:
+      vod_id: ${{ steps.split.outputs.vod_id }}
+      streamer: ${{ steps.split.outputs.streamer }}
+      title: ${{ steps.split.outputs.title }}
+      recorded_at: ${{ steps.split.outputs.recorded_at }}
+      total_duration: ${{ steps.split.outputs.total_duration }}
+      num_chunks: ${{ steps.split.outputs.num_chunks }}
+      matrix: ${{ steps.split.outputs.matrix }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install ffmpeg and aria2
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg aria2
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          python-version: "3.13"
+
+      - name: Set up environment
+        run: uv venv
+
+      - name: Install dependencies
+        run: uv pip install -e .
+
+      - name: Create .env file
+        run: |
+          cat > .env << EOF
+          STATE_FILE_DIR=./state
+          TRANSCRIPT_DIR=./transcripts
+          LOG_LEVEL=INFO
+          EOF
+
+      - name: Download and split video
+        id: split
+        run: |
+          CHUNK_DURATION=$((${{ github.event.inputs.chunk_duration || '10' }} * 60))
+          uv run python -m src.cli.split_vod "${{ github.event.inputs.bvid }}" \
+            --platform bilibili \
+            --streamer "${{ github.event.inputs.streamer }}" \
+            --chunk-duration $CHUNK_DURATION \
+            --output-dir ./chunks
+
+      - name: Upload chunks artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: chunks
+          path: chunks/
+          retention-days: 1
+          if-no-files-found: error
+
+      - name: Commit failed video status
+        if: steps.split.outputs.num_chunks == '0'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add state/
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "chore: mark Bilibili video ${{ github.event.inputs.bvid }} as failed (unavailable)"
+          git pull --rebase origin ${{ github.ref_name }}
+          git push origin ${{ github.ref_name }}
+
+  # Job 2: Transcribe chunks in parallel
+  transcribe:
+    needs: prepare
+    if: needs.prepare.outputs.num_chunks != '0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    strategy:
+      matrix: ${{ fromJson(needs.prepare.outputs.matrix) }}
+      max-parallel: ${{ github.event.inputs.max_parallel && fromJSON(github.event.inputs.max_parallel) || 10 }}
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          python-version: "3.13"
+
+      - name: Cache uv dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/share/uv
+          key: uv-${{ runner.os }}-${{ hashFiles('**/pyproject.toml', '**/uv.lock') }}
+          restore-keys: |
+            uv-${{ runner.os }}-
+
+      - name: Set up environment
+        run: uv venv
+
+      - name: Install dependencies
+        run: uv pip install -e .
+
+      - name: Cache Whisper model
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface/hub
+          key: whisper-model-${{ runner.os }}-small
+          restore-keys: |
+            whisper-model-${{ runner.os }}-
+
+      - name: Create .env file
+        run: |
+          cat > .env << EOF
+          WHISPER_MODEL=small
+          WHISPER_DEVICE=cpu
+          WHISPER_COMPUTE_TYPE=int8
+          WHISPER_BEAM_SIZE=${{ github.event.inputs.beam_size || '5' }}
+          WHISPER_VAD_MIN_SILENCE_MS=500
+          LOG_LEVEL=INFO
+          EOF
+
+      - name: Download chunks with retry
+        uses: actions/download-artifact@v4
+        with:
+          name: chunks
+          path: chunks/
+        continue-on-error: true
+        id: download
+
+      - name: Retry download if failed
+        if: steps.download.outcome == 'failure'
+        run: |
+          echo "First download attempt failed, retrying in 30 seconds..."
+          sleep 30
+          gh run download ${{ github.run_id }} \
+            --name "chunks" \
+            --dir chunks/ \
+            || {
+              echo "::error::Failed to download chunks after retry"
+              exit 1
+            }
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Verify chunk file exists
+        run: |
+          CHUNK_INDEX=${{ matrix.index }}
+          VOD_ID="${{ needs.prepare.outputs.vod_id }}"
+          EXPECTED_FILE="chunks/${VOD_ID}_chunk_$(printf '%03d' ${CHUNK_INDEX}).opus"
+
+          if [ ! -f "$EXPECTED_FILE" ]; then
+            echo "::error::Expected chunk file not found: $EXPECTED_FILE"
+            echo "Available files in chunks/:"
+            ls -la chunks/ || echo "chunks/ directory does not exist"
+            exit 1
+          fi
+          echo "Found chunk file: $EXPECTED_FILE"
+
+      - name: Transcribe chunk ${{ matrix.index }}
+        id: transcribe
+        run: |
+          CHUNK_INDEX=${{ matrix.index }}
+          VOD_ID="${{ needs.prepare.outputs.vod_id }}"
+          CHUNK_FILE=$(ls chunks/${VOD_ID}_chunk_$(printf '%03d' ${CHUNK_INDEX}).* 2>/dev/null | head -1)
+
+          if [ -z "$CHUNK_FILE" ]; then
+            echo "Chunk file not found for index $CHUNK_INDEX"
+            exit 1
+          fi
+
+          CHUNK_DURATION=$((${{ github.event.inputs.chunk_duration || '10' }} * 60))
+
+          uv run python -m src.cli.transcribe_chunk "$CHUNK_FILE" \
+            --chunk-index $CHUNK_INDEX \
+            --chunk-duration $CHUNK_DURATION \
+            --output "./result-${CHUNK_INDEX}.json"
+
+      - name: Upload chunk result
+        uses: actions/upload-artifact@v4
+        with:
+          name: result-${{ matrix.index }}
+          path: result-${{ matrix.index }}.json
+          retention-days: 1
+
+  # Job 3: Assemble results into final transcript
+  assemble:
+    needs: [prepare, transcribe]
+    if: needs.prepare.outputs.num_chunks != '0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          python-version: "3.13"
+
+      - name: Set up environment
+        run: uv venv
+
+      - name: Install dependencies
+        run: uv pip install -e .
+
+      - name: Create .env file
+        run: |
+          cat > .env << EOF
+          STATE_FILE_DIR=./state
+          TRANSCRIPT_DIR=./transcripts
+          LOG_LEVEL=INFO
+          EOF
+
+      - name: Download all chunk results
+        uses: actions/download-artifact@v4
+        with:
+          pattern: result-*
+          path: results/
+          merge-multiple: true
+
+      - name: Assemble transcript
+        run: |
+          uv run python -m src.cli.assemble_transcript \
+            --vod-id "${{ needs.prepare.outputs.vod_id }}" \
+            --streamer "${{ needs.prepare.outputs.streamer }}" \
+            --title "${{ needs.prepare.outputs.title }}" \
+            --recorded-at "${{ needs.prepare.outputs.recorded_at }}" \
+            --total-duration ${{ needs.prepare.outputs.total_duration }} \
+            --results-dir ./results
+
+      - name: Commit and push transcript
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add transcripts/ state/
+          if git diff --cached --quiet; then
+            echo "No changes to commit, skipping."
+            exit 0
+          fi
+          git commit -m "feat: transcribe Bilibili video ${{ needs.prepare.outputs.vod_id }} (distributed)"
+          git pull --rebase origin ${{ github.ref_name }}
+          git push origin ${{ github.ref_name }}

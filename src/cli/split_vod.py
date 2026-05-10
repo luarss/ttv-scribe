@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 def main():
     parser = argparse.ArgumentParser(description="Split VOD into chunks")
-    parser.add_argument("vod_id", help="Twitch VOD ID")
+    parser.add_argument("vod_id", help="VOD ID (Twitch numeric ID or Bilibili BVID)")
     parser.add_argument(
         "--chunk-duration",
         type=int,
@@ -28,14 +28,17 @@ def main():
         help="Chunk duration in seconds (default: 600)",
     )
     parser.add_argument("--output-dir", default="./chunks", help="Output directory for chunks")
+    parser.add_argument("--platform", default=None, choices=["twitch", "bilibili"],
+                        help="Platform — required when VOD is not already in state")
+    parser.add_argument("--streamer", default=None,
+                        help="Streamer name — used when creating a new state entry")
     args = parser.parse_args()
 
     # Download VOD
     try:
-        audio_path, vod_data = download_vod_audio(args.vod_id)
-    except yt_dlp.utils.DownloadError as e:
-        # VOD no longer exists on Twitch
-        logger.error(f"VOD {args.vod_id} not available on Twitch: {e}")
+        audio_path, vod_data = download_vod_audio(args.vod_id, platform=args.platform, streamer=args.streamer)
+    except (yt_dlp.utils.DownloadError, ValueError) as e:
+        logger.error(f"VOD {args.vod_id} not available: {e}")
         manager = get_state_manager()
         manager.update_vod(args.vod_id, status=VodStatus.FAILED.value)
         # Output empty matrix so downstream jobs skip gracefully

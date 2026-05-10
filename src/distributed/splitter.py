@@ -16,24 +16,35 @@ logger = logging.getLogger(__name__)
 DEFAULT_CHUNK_DURATION = 600
 
 
-def download_vod_audio(vod_id: str) -> tuple[str, dict[str, Any]]:
+def download_vod_audio(
+    vod_id: str,
+    platform: Optional[str] = None,
+    streamer: Optional[str] = None,
+) -> tuple[str, dict[str, Any]]:
     """Download VOD audio and return path + VOD metadata
 
     Args:
-        vod_id: The Twitch VOD ID
+        vod_id: The VOD ID (Twitch numeric ID or Bilibili BVID)
+        platform: Platform override — required when VOD is not already in state
+        streamer: Streamer name — used when creating a new state entry
 
     Returns:
         Tuple of (audio_path, vod_data)
 
     Raises:
-        ValueError: If VOD not found in state
+        ValueError: If VOD not found in state and no platform provided
         RuntimeError: If download fails
     """
+    from ..state import VodRecord
+
     manager = get_state_manager()
     vod_record = manager.get_vod(vod_id)
 
     if not vod_record:
-        raise ValueError(f"VOD {vod_id} not found in state")
+        if platform is None:
+            raise ValueError(f"VOD {vod_id} not found in state")
+        vod_record = VodRecord(vod_id=vod_id, streamer=streamer or "unknown", platform=platform)
+        manager.add_vod(vod_record)
 
     # Convert VodRecord to dict
     vod_data = vod_record.to_dict()
