@@ -17,6 +17,9 @@ dev = [
     "pytest-cov>=4.0.0",
     "respx>=0.20.0",
 ]
+scrape = [
+    "playwright>=1.45.0",
+]
 
 [build-system]
 requires = ["setuptools>=68.0"]

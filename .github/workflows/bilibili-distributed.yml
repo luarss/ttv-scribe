@@ -4,13 +4,15 @@ on:
   workflow_dispatch:
     inputs:
       bvid:
-        description: 'Bilibili BVID (e.g. BV1xx411c7mD)'
-        required: true
+        description: 'Bilibili BVID (leave empty to auto-select from queue)'
+        required: false
         type: string
+        default: ''
       streamer:
-        description: 'Streamer/uploader name (used to organise transcripts)'
-        required: true
+        description: 'Streamer/uploader name (leave empty to auto-select from queue)'
+        required: false
         type: string
+        default: ''
       chunk_duration:
         description: 'Chunk duration in minutes (default: 10)'
         required: false
@@ -39,13 +41,13 @@ jobs:
     permissions:
       contents: write
     outputs:
-      vod_id: ${{ steps.split.outputs.vod_id }}
-      streamer: ${{ steps.split.outputs.streamer }}
+      vod_id: ${{ steps.select-vod.outputs.vod_id || steps.split.outputs.vod_id }}
+      streamer: ${{ steps.select-vod.outputs.streamer || steps.split.outputs.streamer }}
       title: ${{ steps.split.outputs.title }}
       recorded_at: ${{ steps.split.outputs.recorded_at }}
       total_duration: ${{ steps.split.outputs.total_duration }}
-      num_chunks: ${{ steps.split.outputs.num_chunks }}
-      matrix: ${{ steps.split.outputs.matrix }}
+      num_chunks: ${{ steps.select-vod.outputs.num_chunks || steps.split.outputs.num_chunks }}
+      matrix: ${{ steps.select-vod.outputs.matrix || steps.split.outputs.matrix }}
 
     steps:
       - uses: actions/checkout@v4
@@ -72,13 +74,56 @@ jobs:
           LOG_LEVEL=INFO
           EOF
 
+      - name: Select Bilibili VOD from queue
+        id: select-vod
+        if: github.event_name == 'workflow_dispatch' && inputs.bvid == ''
+        run: |
+          VOD_INFO=$(uv run python -c "
+          import sys
+          sys.path.insert(0, 'src')
+          from src.state import get_state_manager, Platform
+
+          manager = get_state_manager()
+          all_pending = manager.get_pending_vods()
+          bili_pending = [v for v in all_pending if v.platform == Platform.BILIBILI.value]
+          if bili_pending:
+              vod = bili_pending[0]
+              print(f'{vod.vod_id}|{vod.streamer}')
+          ")
+
+          if [ -z "$VOD_INFO" ]; then
+            echo "No pending Bilibili VODs in queue"
+            echo "num_chunks=0" >> $GITHUB_OUTPUT
+            echo 'matrix={"include": []}' >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          SELECTED_BVID="${VOD_INFO%%|*}"
+          SELECTED_STREAMER="${VOD_INFO##*|}"
+          echo "Selected Bilibili VOD from queue: $SELECTED_BVID (streamer: $SELECTED_STREAMER)"
+          echo "vod_id=$SELECTED_BVID" >> $GITHUB_OUTPUT
+          echo "streamer=$SELECTED_STREAMER" >> $GITHUB_OUTPUT
+
       - name: Download and split video
         id: split
+        if: steps.select-vod.outputs.vod_id != '' || inputs.bvid != ''
         run: |
+          VOD_ID="${{ steps.select-vod.outputs.vod_id || github.event.inputs.bvid }}"
+          STREAMER="${{ steps.select-vod.outputs.streamer || github.event.inputs.streamer }}"
           CHUNK_DURATION=$((${{ github.event.inputs.chunk_duration || '10' }} * 60))
-          uv run python -m src.cli.split_vod "${{ github.event.inputs.bvid }}" \
-            --platform bilibili \
-            --streamer "${{ github.event.inputs.streamer }}" \
+
+          PLATFORM_FLAG=""
+          STREAMER_FLAG=""
+          if [ -n "${{ github.event.inputs.bvid }}" ]; then
+            PLATFORM_FLAG="--platform bilibili"
+          fi
+          if [ -n "$STREAMER" ] && [ -n "${{ github.event.inputs.bvid }}" ]; then
+            STREAMER_FLAG="--streamer \"$STREAMER\""
+          fi
+
+          uv run python -m src.cli.split_vod "$VOD_ID" \
+            $PLATFORM_FLAG \
+            $STREAMER_FLAG \
             --chunk-duration $CHUNK_DURATION \
             --output-dir ./chunks
 
@@ -100,7 +145,7 @@ jobs:
             echo "No changes to commit"
             exit 0
           fi
-          git commit -m "chore: mark Bilibili video ${{ github.event.inputs.bvid }} as failed (unavailable)"
+          git commit -m "chore: mark Bilibili video ${{ steps.split.outputs.vod_id }} as failed (unavailable)"
           git pull --rebase origin ${{ github.ref_name }}
           git push origin ${{ github.ref_name }}
 
