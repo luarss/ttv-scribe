@@ -6,9 +6,14 @@ on:
   workflow_dispatch:
     inputs:
       vod_id:
-        description: 'Twitch VOD ID to transcribe'
+        description: 'VOD ID to transcribe (Twitch or Bilibili)'
         required: false
         type: string
+      platform:
+        description: 'Platform (leave empty to auto-detect from queue)'
+        required: false
+        type: string
+        default: ''
       chunk_duration:
         description: 'Chunk duration in minutes (default: 10)'
         required: false
@@ -38,6 +43,7 @@ jobs:
       contents: write
     outputs:
       vod_id: ${{ steps.select-vod.outputs.vod_id || steps.split.outputs.vod_id }}
+      platform: ${{ steps.select-vod.outputs.platform || steps.split.outputs.platform }}
       streamer: ${{ steps.split.outputs.streamer }}
       title: ${{ steps.split.outputs.title }}
       recorded_at: ${{ steps.split.outputs.recorded_at }}
@@ -65,8 +71,6 @@ jobs:
       - name: Create .env file
         run: |
           cat > .env << EOF
-          TWITCH_CLIENT_ID=${{ secrets.TWITCH_CLIENT_ID }}
-          TWITCH_CLIENT_SECRET=${{ secrets.TWITCH_CLIENT_SECRET }}
           STATE_FILE_DIR=./state
           TRANSCRIPT_DIR=./transcripts
           LOG_LEVEL=INFO
@@ -76,7 +80,7 @@ jobs:
         id: select-vod
         if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.vod_id == '')
         run: |
-          VOD_ID=$(uv run python -c "
+          VOD_INFO=$(uv run python -c "
           import sys
           sys.path.insert(0, 'src')
           from src.state import get_state_manager
@@ -84,32 +88,51 @@ jobs:
           manager = get_state_manager()
           pending = manager.get_pending_vods()
           if pending:
-              print(pending[0].vod_id)
+              vod = pending[0]
+              print(f'{vod.vod_id}|{vod.platform}')
           ")
 
-          if [ -z "$VOD_ID" ]; then
+          if [ -z "$VOD_INFO" ]; then
             echo "No pending VODs in queue"
-            exit 0  # Skip rest of workflow gracefully
+            exit 0
           fi
 
-          echo "Selected VOD from queue: $VOD_ID"
-          echo "vod_id=$VOD_ID" >> $GITHUB_OUTPUT
+          SELECTED_VOD_ID="${VOD_INFO%%|*}"
+          SELECTED_PLATFORM="${VOD_INFO##*|}"
+          echo "Selected VOD from queue: $SELECTED_VOD_ID (platform: $SELECTED_PLATFORM)"
+          echo "vod_id=$SELECTED_VOD_ID" >> $GITHUB_OUTPUT
+          echo "platform=$SELECTED_PLATFORM" >> $GITHUB_OUTPUT
+
+      - name: Set platform-specific secrets
+        if: steps.select-vod.outputs.vod_id != '' || inputs.vod_id != ''
+        run: |
+          PLATFORM="${{ steps.select-vod.outputs.platform || inputs.platform || 'twitch' }}"
+          if [ "$PLATFORM" = "twitch" ]; then
+            cat >> .env << EOF
+          TWITCH_CLIENT_ID=${{ secrets.TWITCH_CLIENT_ID }}
+          TWITCH_CLIENT_SECRET=${{ secrets.TWITCH_CLIENT_SECRET }}
+          EOF
+            echo "Added Twitch secrets for platform: $PLATFORM"
+          else
+            echo "Platform is $PLATFORM, skipping Twitch secrets"
+          fi
 
       - name: Download and split VOD
         id: split
         if: steps.select-vod.outputs.vod_id != '' || inputs.vod_id != ''
         run: |
           VOD_ID="${{ steps.select-vod.outputs.vod_id || github.event.inputs.vod_id }}"
+          PLATFORM="${{ steps.select-vod.outputs.platform || inputs.platform || 'twitch' }}"
           CHUNK_DURATION=$((${{ github.event.inputs.chunk_duration || '10' }} * 60))
+
           uv run python -m src.cli.split_vod "$VOD_ID" \
+            --platform "$PLATFORM" \
             --chunk-duration $CHUNK_DURATION \
             --output-dir ./chunks
 
-      - name: Upload chunks artifact (all chunks)
-        # NOTE: We upload all chunks as a single artifact for simplicity.
-        # Each transcribe worker downloads only what it needs using the download-artifact
-        # action, but the full artifact is still transferred.
-        # Alternative: Use a separate upload job with matrix to create per-chunk artifacts.
+          echo "platform=$PLATFORM" >> $GITHUB_OUTPUT
+
+      - name: Upload chunks artifact
         if: steps.split.outcome == 'success' && steps.split.outputs.num_chunks != '0'
         uses: actions/upload-artifact@v4
         with:
@@ -121,6 +144,14 @@ jobs:
       - name: Commit failed VOD status
         if: steps.split.outputs.num_chunks == '0'
         run: |
+          VOD_ID="${{ steps.select-vod.outputs.vod_id || github.event.inputs.vod_id }}"
+          PLATFORM="${{ steps.select-vod.outputs.platform || inputs.platform || 'twitch' }}"
+          if [ "$PLATFORM" = "bilibili" ]; then
+            PREFIX="chore: mark Bilibili video"
+          else
+            PREFIX="chore: mark VOD"
+          fi
+
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add state/
@@ -128,7 +159,7 @@ jobs:
             echo "No changes to commit"
             exit 0
           fi
-          git commit -m "chore: mark VOD ${{ steps.split.outputs.vod_id }} as failed (unavailable)"
+          git commit -m "$PREFIX $VOD_ID as failed (unavailable)"
           git pull --rebase origin ${{ github.ref_name }}
           git push origin ${{ github.ref_name }}
 
@@ -224,7 +255,6 @@ jobs:
       - name: Transcribe chunk ${{ matrix.index }}
         id: transcribe
         run: |
-          # Find the chunk file (naming: {vod_id}_chunk_000.opus, etc.)
           CHUNK_INDEX=${{ matrix.index }}
           VOD_ID="${{ needs.prepare.outputs.vod_id }}"
           CHUNK_FILE=$(ls chunks/${VOD_ID}_chunk_$(printf '%03d' ${CHUNK_INDEX}).* 2>/dev/null | head -1)
@@ -298,6 +328,13 @@ jobs:
 
       - name: Commit and push transcript
         run: |
+          PLATFORM="${{ needs.prepare.outputs.platform }}"
+          if [ "$PLATFORM" = "bilibili" ]; then
+            PREFIX="feat: transcribe Bilibili video"
+          else
+            PREFIX="feat: transcribe VOD"
+          fi
+
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add transcripts/ state/
@@ -305,6 +342,6 @@ jobs:
             echo "No changes to commit, skipping."
             exit 0
           fi
-          git commit -m "feat: transcribe VOD ${{ needs.prepare.outputs.vod_id }} (distributed)"
+          git commit -m "$PREFIX ${{ needs.prepare.outputs.vod_id }} (distributed)"
           git pull --rebase origin ${{ github.ref_name }}
           git push origin ${{ github.ref_name }}
