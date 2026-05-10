@@ -86,7 +86,13 @@ class Downloader:
                 "Referer": "https://www.bilibili.com",
             }
             if _impersonation_available():
-                ydl_opts["impersonate"] = ImpersonateTarget.from_str("chrome-131")
+                target = ImpersonateTarget.from_str("chrome-131")
+                ydl_opts["impersonate"] = target
+                ydl_opts["verbose"] = True
+                ydl_opts["quiet"] = False
+                logger.info(f"Bilibili impersonation enabled: {target}")
+            else:
+                logger.warning("Bilibili impersonation NOT available (curl-cffi missing or unsupported)")
 
         # Use aria2c if available for faster downloads
         if os.path.exists("/usr/bin/aria2c") or os.path.exists("/usr/local/bin/aria2c"):
