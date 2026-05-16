@@ -22,6 +22,7 @@ def mock_settings(temp_dir):
     settings.audio_output_dir = temp_dir
     settings.twitch_client_id = "test_client_id"
     settings.twitch_client_secret = "test_client_secret"
+    settings.youtube_api_key = "test_youtube_api_key"
     settings.whisper_model = "tiny"
     settings.whisper_device = "cpu"
     settings.whisper_compute_type = "int8"
@@ -156,6 +157,77 @@ def mock_twitch_response():
             "language": "en",
             "type": "archive",
             "duration": "1h30m45s",
+        },
+    }
+
+
+@pytest.fixture
+def mock_youtube_response():
+    """Sample YouTube Data API v3 responses"""
+    return {
+        "channel_by_handle": {
+            "items": [
+                {
+                    "id": "UCtestChannelId123",
+                    "snippet": {"title": "Test Channel"},
+                    "contentDetails": {
+                        "relatedPlaylists": {
+                            "uploads": "UUtestChannelId123"
+                        }
+                    },
+                }
+            ]
+        },
+        "channel_by_id": {
+            "items": [
+                {
+                    "id": "UCtestChannelId123",
+                    "snippet": {"title": "Test Channel"},
+                    "contentDetails": {
+                        "relatedPlaylists": {
+                            "uploads": "UUtestChannelId123"
+                        }
+                    },
+                }
+            ]
+        },
+        "playlist_items": {
+            "items": [
+                {
+                    "snippet": {
+                        "title": "India Travel Day 1",
+                        "publishedAt": "2024-01-15T12:00:00Z",
+                        "resourceId": {"videoId": "dQw4w9WgXcQ"},
+                    }
+                },
+                {
+                    "snippet": {
+                        "title": "India Travel Day 2",
+                        "publishedAt": "2024-01-14T10:00:00Z",
+                        "resourceId": {"videoId": "abc123def45"},
+                    }
+                },
+            ]
+        },
+        "videos_details": {
+            "items": [
+                {
+                    "id": "dQw4w9WgXcQ",
+                    "snippet": {
+                        "title": "India Travel Day 1",
+                        "publishedAt": "2024-01-15T12:00:00Z",
+                    },
+                    "contentDetails": {"duration": "PT2H30M15S"},
+                },
+                {
+                    "id": "abc123def45",
+                    "snippet": {
+                        "title": "India Travel Day 2",
+                        "publishedAt": "2024-01-14T10:00:00Z",
+                    },
+                    "contentDetails": {"duration": "PT45M"},
+                },
+            ]
         },
     }
 
