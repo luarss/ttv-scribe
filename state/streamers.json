@@ -103,6 +103,46 @@
       "bilibili_mid": null,
       "youtube_channel_id": null,
       "created_at": "2026-05-06T00:00:00.000000Z"
+    },
+    {
+      "username": "karlrock",
+      "platform": "youtube",
+      "twitch_id": null,
+      "bilibili_mid": null,
+      "youtube_channel_id": "UCtfXgNnA-QcxjHJjk5wXLFg",
+      "created_at": "2026-05-16T08:04:13.039510Z"
+    },
+    {
+      "username": "HaraldBaldr",
+      "platform": "youtube",
+      "twitch_id": null,
+      "bilibili_mid": null,
+      "youtube_channel_id": "UCKr68ZJ4vv6VloNdnS2hjhA",
+      "created_at": "2026-05-16T08:04:13.041925Z"
+    },
+    {
+      "username": "baldandbankrupt",
+      "platform": "youtube",
+      "twitch_id": null,
+      "bilibili_mid": null,
+      "youtube_channel_id": "UCxDZs_ltFFvn0FDHT6kmoXA",
+      "created_at": "2026-05-16T08:04:13.042251Z"
+    },
+    {
+      "username": "GabrielTravelerVideos",
+      "platform": "youtube",
+      "twitch_id": null,
+      "bilibili_mid": null,
+      "youtube_channel_id": "UCgZM50Ig7STDS0l6f_QnrXw",
+      "created_at": "2026-05-16T08:04:13.042558Z"
+    },
+    {
+      "username": "itchyboots",
+      "platform": "youtube",
+      "twitch_id": null,
+      "bilibili_mid": null,
+      "youtube_channel_id": "UCEIs9nkveW9WmYtsOcJBwTg",
+      "created_at": "2026-05-16T08:04:13.042843Z"
     }
   ]
 }
