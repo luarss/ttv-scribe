@@ -25,7 +25,7 @@ def main():
         "--chunk-duration",
         type=int,
         default=DEFAULT_CHUNK_DURATION,
-        help="Chunk duration in seconds (default: 600)",
+        help="Chunk duration in seconds (default: 1800)",
     )
     parser.add_argument("--output-dir", default="./chunks", help="Output directory for chunks")
     parser.add_argument("--platform", default=None, choices=["twitch", "bilibili"],

@@ -12,8 +12,8 @@ from ..state import get_state_manager, VodStatus
 
 logger = logging.getLogger(__name__)
 
-# Default chunk duration: 10 minutes
-DEFAULT_CHUNK_DURATION = 600
+# Default chunk duration: 30 minutes
+DEFAULT_CHUNK_DURATION = 30 * 60
 
 
 def download_vod_audio(
@@ -71,7 +71,7 @@ def prepare_vod_chunks(
         vod_id: The Twitch VOD ID
         audio_path: Path to the downloaded audio file
         vod_data: VOD metadata dict
-        chunk_duration: Duration of each chunk in seconds (default: 600 = 10 min)
+        chunk_duration: Duration of each chunk in seconds (default: 1800 = 30 min)
         output_dir: Directory to store chunks. If None, uses temp directory.
 
     Returns:

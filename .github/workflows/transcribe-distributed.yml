@@ -2,7 +2,7 @@ name: Transcribe VOD (Distributed)
 
 on:
   schedule:
-    - cron: '0 */1 * * *'
+    - cron: '0 */2 * * *'
   workflow_dispatch:
     inputs:
       vod_id:
@@ -15,10 +15,10 @@ on:
         type: string
         default: ''
       chunk_duration:
-        description: 'Chunk duration in minutes (default: 10)'
+        description: 'Chunk duration in minutes (default: 30)'
         required: false
         type: number
-        default: 10
+        default: 30
       max_parallel:
         description: 'Max parallel workers (default: 10)'
         required: false
@@ -123,7 +123,7 @@ jobs:
         run: |
           VOD_ID="${{ steps.select-vod.outputs.vod_id || github.event.inputs.vod_id }}"
           PLATFORM="${{ steps.select-vod.outputs.platform || inputs.platform || 'twitch' }}"
-          CHUNK_DURATION=$((${{ github.event.inputs.chunk_duration || '10' }} * 60))
+          CHUNK_DURATION=$((${{ github.event.inputs.chunk_duration || '30' }} * 60))
 
           uv run python -m src.cli.split_vod "$VOD_ID" \
             --platform "$PLATFORM" \
@@ -264,7 +264,7 @@ jobs:
             exit 1
           fi
 
-          CHUNK_DURATION=$((${{ github.event.inputs.chunk_duration || '10' }} * 60))
+          CHUNK_DURATION=$((${{ github.event.inputs.chunk_duration || '30' }} * 60))
 
           uv run python -m src.cli.transcribe_chunk "$CHUNK_FILE" \
             --chunk-index $CHUNK_INDEX \
