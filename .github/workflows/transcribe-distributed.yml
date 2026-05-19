@@ -14,11 +14,6 @@ on:
         required: false
         type: string
         default: ''
-      chunk_duration:
-        description: 'Chunk duration in minutes (default: 30)'
-        required: false
-        type: number
-        default: 30
       max_parallel:
         description: 'Max parallel workers (default: 10)'
         required: false
@@ -48,6 +43,7 @@ jobs:
       title: ${{ steps.split.outputs.title }}
       recorded_at: ${{ steps.split.outputs.recorded_at }}
       total_duration: ${{ steps.split.outputs.total_duration }}
+      chunk_duration: ${{ steps.split.outputs.chunk_duration }}
       num_chunks: ${{ steps.split.outputs.num_chunks }}
       matrix: ${{ steps.split.outputs.matrix }}
 
@@ -123,11 +119,9 @@ jobs:
         run: |
           VOD_ID="${{ steps.select-vod.outputs.vod_id || github.event.inputs.vod_id }}"
           PLATFORM="${{ steps.select-vod.outputs.platform || inputs.platform || 'twitch' }}"
-          CHUNK_DURATION=$((${{ github.event.inputs.chunk_duration || '30' }} * 60))
 
           uv run python -m src.cli.split_vod "$VOD_ID" \
             --platform "$PLATFORM" \
-            --chunk-duration $CHUNK_DURATION \
             --output-dir ./chunks
 
           echo "platform=$PLATFORM" >> $GITHUB_OUTPUT
@@ -264,7 +258,7 @@ jobs:
             exit 1
           fi
 
-          CHUNK_DURATION=$((${{ github.event.inputs.chunk_duration || '30' }} * 60))
+          CHUNK_DURATION="${{ needs.prepare.outputs.chunk_duration }}"
 
           uv run python -m src.cli.transcribe_chunk "$CHUNK_FILE" \
             --chunk-index $CHUNK_INDEX \

@@ -8,7 +8,6 @@ import os
 import yt_dlp
 
 from src.distributed.splitter import (
-    DEFAULT_CHUNK_DURATION,
     download_vod_audio,
     prepare_vod_chunks,
     save_chunk_manifest,
@@ -24,8 +23,8 @@ def main():
     parser.add_argument(
         "--chunk-duration",
         type=int,
-        default=DEFAULT_CHUNK_DURATION,
-        help="Chunk duration in seconds (default: 1800)",
+        default=None,
+        help="Chunk duration in seconds (default: auto-calculate based on VOD length)",
     )
     parser.add_argument("--output-dir", default="./chunks", help="Output directory for chunks")
     parser.add_argument("--platform", default=None, choices=["twitch", "bilibili"],
@@ -91,6 +90,7 @@ def main():
             f.write(f"vod_id={args.vod_id}\n")
             f.write(f"streamer={manifest['streamer']}\n")
             f.write(f"total_duration={manifest['total_duration']}\n")
+            f.write(f"chunk_duration={manifest['chunk_duration']}\n")
             # Matrix uses simple format (JSON has no special chars that break parsing)
             f.write(f"matrix={matrix_json}\n")
             # Heredoc format for title/recorded_at (may contain |, !, emojis, etc.)
@@ -101,6 +101,7 @@ def main():
         print(f"vod_id={args.vod_id}")
         print(f"streamer={manifest['streamer']}")
         print(f"total_duration={manifest['total_duration']}")
+        print(f"chunk_duration={manifest['chunk_duration']}")
         print(f"matrix={matrix_json}")
         print(f"title={title}")
         print(f"recorded_at={recorded_at}")

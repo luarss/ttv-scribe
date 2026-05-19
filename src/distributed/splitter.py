@@ -2,6 +2,7 @@
 
 import json
 import logging
+import math
 import os
 import tempfile
 from typing import Any, Optional
@@ -12,8 +13,25 @@ from ..state import get_state_manager, VodStatus
 
 logger = logging.getLogger(__name__)
 
-# Default chunk duration: 30 minutes
-DEFAULT_CHUNK_DURATION = 30 * 60
+MIN_CHUNK_SECONDS = 10 * 60
+MAX_CHUNK_SECONDS = 30 * 60
+MAX_DISTRIBUTED_WORKERS = 256
+
+
+def calculate_chunk_duration(total_duration_seconds: float) -> int:
+    if total_duration_seconds <= MAX_CHUNK_SECONDS:
+        return int(total_duration_seconds)
+
+    min_chunks = math.ceil(total_duration_seconds / MAX_CHUNK_SECONDS)
+    target_chunks = max(min_chunks, int(total_duration_seconds / (15 * 60)))
+    target_chunks = min(target_chunks, MAX_DISTRIBUTED_WORKERS)
+
+    chunk_duration = total_duration_seconds / target_chunks
+
+    if chunk_duration < MIN_CHUNK_SECONDS:
+        chunk_duration = MIN_CHUNK_SECONDS
+
+    return math.ceil(chunk_duration)
 
 
 def download_vod_audio(
@@ -62,7 +80,7 @@ def prepare_vod_chunks(
     vod_id: str,
     audio_path: str,
     vod_data: dict,
-    chunk_duration: int = DEFAULT_CHUNK_DURATION,
+    chunk_duration: Optional[int] = None,
     output_dir: Optional[str] = None,
 ) -> dict[str, Any]:
     """Split VOD audio into chunks for distributed transcription
@@ -71,7 +89,8 @@ def prepare_vod_chunks(
         vod_id: The Twitch VOD ID
         audio_path: Path to the downloaded audio file
         vod_data: VOD metadata dict
-        chunk_duration: Duration of each chunk in seconds (default: 1800 = 30 min)
+        chunk_duration: Duration of each chunk in seconds. If None, auto-calculated
+            based on total audio duration for optimal parallelism.
         output_dir: Directory to store chunks. If None, uses temp directory.
 
     Returns:
@@ -92,6 +111,13 @@ def prepare_vod_chunks(
     # Get total audio duration
     total_duration = get_audio_duration(audio_path)
     logger.info(f"VOD {vod_id} duration: {total_duration:.0f}s ({total_duration/60:.1f} min)")
+
+    if chunk_duration is None:
+        chunk_duration = calculate_chunk_duration(total_duration)
+        logger.info(
+            f"Auto-calculated chunk duration: {chunk_duration}s "
+            f"({chunk_duration/60:.1f} min, ~{math.ceil(total_duration/chunk_duration)} workers)"
+        )
 
     # Split into chunks
     chunk_paths = split_audio_chunks(
