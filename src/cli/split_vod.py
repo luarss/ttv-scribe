@@ -27,7 +27,7 @@ def main():
         help="Chunk duration in seconds (default: auto-calculate based on VOD length)",
     )
     parser.add_argument("--output-dir", default="./chunks", help="Output directory for chunks")
-    parser.add_argument("--platform", default=None, choices=["twitch", "bilibili"],
+    parser.add_argument("--platform", default=None, choices=["twitch", "bilibili", "youtube"],
                         help="Platform — required when VOD is not already in state")
     parser.add_argument("--streamer", default=None,
                         help="Streamer name — used when creating a new state entry")
@@ -36,7 +36,7 @@ def main():
     # Download VOD
     try:
         audio_path, vod_data = download_vod_audio(args.vod_id, platform=args.platform, streamer=args.streamer)
-    except (yt_dlp.utils.DownloadError, ValueError) as e:
+    except (yt_dlp.utils.DownloadError, ValueError, FileNotFoundError) as e:
         logger.error(f"VOD {args.vod_id} not available: {e}")
         manager = get_state_manager()
         manager.update_vod(args.vod_id, status=VodStatus.FAILED.value)
