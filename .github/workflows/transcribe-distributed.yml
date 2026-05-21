@@ -72,6 +72,11 @@ jobs:
           LOG_LEVEL=INFO
           EOF
 
+      - name: Fetch YouTube transcripts
+        id: youtube-transcripts
+        run: |
+          uv run python -c "from src.pipeline import fetch_youtube_transcripts; print(f'Fetched {fetch_youtube_transcripts(max_vods=1)} YouTube transcript')"
+
       - name: Select VOD from queue
         id: select-vod
         if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.vod_id == '')
@@ -79,12 +84,14 @@ jobs:
           VOD_INFO=$(uv run python -c "
           import sys
           sys.path.insert(0, 'src')
-          from src.state import get_state_manager
+          from src.state import get_state_manager, Platform
 
           manager = get_state_manager()
           pending = manager.get_pending_vods()
-          if pending:
-              vod = pending[0]
+          # Skip YouTube VODs — they are handled by the main pipeline via youtube-transcript-api
+          non_yt = [v for v in pending if v.platform != Platform.YOUTUBE.value]
+          if non_yt:
+              vod = non_yt[0]
               print(f'{vod.vod_id}|{vod.platform}')
           ")
 
@@ -120,7 +127,7 @@ jobs:
           VOD_ID="${{ steps.select-vod.outputs.vod_id || github.event.inputs.vod_id }}"
           PLATFORM="${{ steps.select-vod.outputs.platform || inputs.platform || 'twitch' }}"
 
-          uv run python -m src.cli.split_vod "$VOD_ID" \
+          uv run python -m src.cli.split_vod -- "$VOD_ID" \
             --platform "$PLATFORM" \
             --output-dir ./chunks
 

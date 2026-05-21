@@ -81,11 +81,14 @@ def run_pipeline(
     )
 
 
-def fetch_youtube_transcripts() -> int:
+def fetch_youtube_transcripts(max_vods: Optional[int] = None) -> int:
     """Fetch transcripts for PENDING YouTube VODs via youtube-transcript-api
 
     Bypasses yt-dlp entirely — gets YouTube's own captions directly.
     No auth, no cookies, no bot detection issues.
+
+    Args:
+        max_vods: Maximum number of YouTube VODs to process (None = no limit)
 
     Returns:
         Number of transcripts successfully fetched
@@ -104,7 +107,14 @@ def fetch_youtube_transcripts() -> int:
     if not yt_vods:
         return 0
 
-    logger.info(f"Fetching transcripts for {len(yt_vods)} YouTube VODs")
+    total_yt = len(yt_vods)
+    if max_vods is not None and len(yt_vods) > max_vods:
+        yt_vods = yt_vods[:max_vods]
+        logger.info(
+            f"Fetching transcripts for {max_vods} of {total_yt} YouTube VODs (capped)"
+        )
+    else:
+        logger.info(f"Fetching transcripts for {total_yt} YouTube VODs")
 
     from youtube_transcript_api import YouTubeTranscriptApi
 
