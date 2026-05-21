@@ -127,9 +127,10 @@ jobs:
           VOD_ID="${{ steps.select-vod.outputs.vod_id || github.event.inputs.vod_id }}"
           PLATFORM="${{ steps.select-vod.outputs.platform || inputs.platform || 'twitch' }}"
 
-          uv run python -m src.cli.split_vod -- "$VOD_ID" \
+          uv run python -m src.cli.split_vod \
             --platform "$PLATFORM" \
-            --output-dir ./chunks
+            --output-dir ./chunks \
+            -- "$VOD_ID"
 
           echo "platform=$PLATFORM" >> $GITHUB_OUTPUT
 
