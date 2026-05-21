@@ -46,7 +46,20 @@ def run_pipeline(
         logger.error(f"Error in monitor step: {e}")
         new_vods = 0
 
-    # Step 2 & 3: Download and transcribe in streaming fashion
+    # Step 2: Fetch YouTube transcripts directly (no download needed)
+    yt_start = time.time()
+    youtube_transcribed = 0
+    try:
+        youtube_transcribed = fetch_youtube_transcripts()
+        if youtube_transcribed > 0:
+            logger.info(
+                f"YouTube transcripts: {youtube_transcribed} fetched "
+                f"in {time.time() - yt_start:.1f}s"
+            )
+    except Exception as e:
+        logger.error(f"Error fetching YouTube transcripts: {e}")
+
+    # Step 3 & 4: Download and transcribe in streaming fashion
     # Downloads produce completed VODs that transcription consumes in parallel
     process_start = time.time()
     try:
@@ -63,8 +76,77 @@ def run_pipeline(
     pipeline_elapsed = time.time() - pipeline_start
     logger.info(
         f"Pipeline complete in {pipeline_elapsed:.1f}s: "
-        f"{new_vods} new, {downloaded} downloaded, {transcribed} transcribed"
+        f"{new_vods} new, {youtube_transcribed} youtube, "
+        f"{downloaded} downloaded, {transcribed} transcribed"
     )
+
+
+def fetch_youtube_transcripts() -> int:
+    """Fetch transcripts for PENDING YouTube VODs via youtube-transcript-api
+
+    Bypasses yt-dlp entirely — gets YouTube's own captions directly.
+    No auth, no cookies, no bot detection issues.
+
+    Returns:
+        Number of transcripts successfully fetched
+    """
+    from .state import get_state_manager, VodStatus, Platform
+    from .transcriber_local import save_transcript_to_json, export_transcript_to_text
+
+    manager = get_state_manager()
+    pending = manager.get_pending_vods()
+
+    yt_vods = [
+        v for v in pending
+        if v.platform == Platform.YOUTUBE.value
+    ]
+
+    if not yt_vods:
+        return 0
+
+    logger.info(f"Fetching transcripts for {len(yt_vods)} YouTube VODs")
+
+    from youtube_transcript_api import YouTubeTranscriptApi
+
+    api = YouTubeTranscriptApi()
+    completed = 0
+
+    for vod in yt_vods:
+        vod_id = vod.vod_id
+        vod_data = vod.to_dict()
+        title = vod.title or "Unknown"
+
+        try:
+            transcript = api.fetch(vod_id)
+            lines = list(transcript)
+            if not lines:
+                raise ValueError("Empty transcript (no captions available)")
+
+            text = " ".join(line.text for line in lines)
+
+            metadata = {
+                "segments_count": len(lines),
+                "source": "youtube_captions",
+            }
+
+            save_transcript_to_json(vod_data, text, metadata, cost=0.0)
+            export_transcript_to_text(vod_data, text)
+
+            manager.update_vod(
+                vod_id,
+                status=VodStatus.COMPLETED.value,
+            )
+
+            completed += 1
+            logger.info(
+                f"YouTube transcript OK: {vod_id} ({title[:60]}) — {len(lines)} segments, {len(text)} chars"
+            )
+
+        except Exception as e:
+            logger.error(f"YouTube transcript failed: {vod_id} ({title[:60]}): {e}")
+            manager.update_vod(vod_id, status=VodStatus.FAILED.value)
+
+    return completed
 
 
 def run_streaming_pipeline(
@@ -132,10 +214,6 @@ def run_streaming_pipeline(
             v for v in pending_vods
             if v.get("platform") == Platform.BILIBILI.value
         ]
-        youtube_vods = [
-            v for v in pending_vods
-            if v.get("platform") == Platform.YOUTUBE.value
-        ]
 
         # Check Twitch VOD availability
         with TwitchClient() as twitch:
@@ -160,12 +238,7 @@ def run_streaming_pipeline(
             checked_count += 1
             available_vods.append(vod_data)
 
-        # Add YouTube VODs (no pre-check, yt-dlp handles unavailability)
-        for vod_data in youtube_vods:
-            if max_vods is not None and len(available_vods) >= max_vods:
-                break
-            checked_count += 1
-            available_vods.append(vod_data)
+        # YouTube VODs are handled by fetch_youtube_transcripts() — skip here
 
         logger.info(f"Checked {checked_count} VODs, {len(available_vods)} available")
 

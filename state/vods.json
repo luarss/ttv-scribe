@@ -9500,8 +9500,8 @@
       "title": "$0.75 Cambodia Beer Hunt: Last Man Standing 🍺",
       "duration": 5310,
       "recorded_at": "2026-04-09T09:58:19Z",
-      "status": "failed",
-      "transcript_path": null,
+      "status": "completed",
+      "transcript_path": "transcripts/HaraldBaldr/y11JyouVn68.json",
       "created_at": "2026-05-16T08:04:38.177436Z"
     },
     {
@@ -9511,8 +9511,8 @@
       "title": "Khmer Empire Jungle Ruins: Cambodia Rural Adventure 🇰🇭",
       "duration": 4233,
       "recorded_at": "2026-04-04T19:34:23Z",
-      "status": "failed",
-      "transcript_path": null,
+      "status": "completed",
+      "transcript_path": "transcripts/HaraldBaldr/mDniLzi4JJw.json",
       "created_at": "2026-05-16T08:04:38.184610Z"
     },
     {
@@ -9522,8 +9522,8 @@
       "title": "Cambodia Market Quest: $100 Outrage Bonus  💵",
       "duration": 5890,
       "recorded_at": "2026-03-26T11:53:32Z",
-      "status": "failed",
-      "transcript_path": null,
+      "status": "completed",
+      "transcript_path": "transcripts/HaraldBaldr/_d51mIoLqkQ.json",
       "created_at": "2026-05-16T08:04:38.192236Z"
     },
     {
@@ -9533,7 +9533,7 @@
       "title": "This Cambodian Town is Criminally Underrated 🇰🇭",
       "duration": 6433,
       "recorded_at": "2026-03-20T15:05:51Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.201688Z"
     },
@@ -9544,7 +9544,7 @@
       "title": "$800 Shopping Challenge: Saigon Market Hunt IV 🇻🇳",
       "duration": 5519,
       "recorded_at": "2026-03-13T03:15:14Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.209222Z"
     },
@@ -9555,7 +9555,7 @@
       "title": "Japan Pub Crawl: Hiroshima Gongo Overloado 🇯🇵",
       "duration": 5858,
       "recorded_at": "2026-01-30T12:51:52Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.219498Z"
     },
@@ -9566,7 +9566,7 @@
       "title": "Tokyo Market Hunt: The Hagoita Wife Discipliner 🇯🇵",
       "duration": 4168,
       "recorded_at": "2026-01-27T12:33:25Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.232396Z"
     },
@@ -9577,7 +9577,7 @@
       "title": "Japan's last surviving wooden town 🇯🇵",
       "duration": 6595,
       "recorded_at": "2026-01-21T10:21:00Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.241084Z"
     },
@@ -9588,7 +9588,7 @@
       "title": "I get a Japanese makeover in Osaka 🇯🇵",
       "duration": 5830,
       "recorded_at": "2026-01-17T05:13:44Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.272695Z"
     },
@@ -9599,7 +9599,7 @@
       "title": "I Visited The Strangest Country On Earth",
       "duration": 2975,
       "recorded_at": "2026-04-03T13:35:40Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.276444Z"
     },
@@ -9610,7 +9610,7 @@
       "title": "How I Survived Being Thrown In A Russian Prison",
       "duration": 1816,
       "recorded_at": "2026-02-21T17:55:44Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.289076Z"
     },
@@ -9621,7 +9621,7 @@
       "title": "I Investigated The Dark Side Of Japanese Nightlife🇯🇵",
       "duration": 1606,
       "recorded_at": "2026-02-08T07:16:17Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.298599Z"
     },
@@ -9632,7 +9632,7 @@
       "title": "Solo In The Philippine's Most Monstrous Slum",
       "duration": 1470,
       "recorded_at": "2026-01-16T18:56:39Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.306019Z"
     },
@@ -9643,7 +9643,7 @@
       "title": "Solo Through Romania's Glorious Past 🇷🇴",
       "duration": 2029,
       "recorded_at": "2026-01-09T13:06:30Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.316244Z"
     },
@@ -9654,7 +9654,7 @@
       "title": "I Investigated The Brutal Reality Of LIfe Along Europe's Eastern Edge",
       "duration": 1699,
       "recorded_at": "2025-12-03T18:51:44Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.322811Z"
     },
@@ -9665,7 +9665,7 @@
       "title": "India...Nobody Should Live Like This",
       "duration": 2201,
       "recorded_at": "2025-11-14T20:25:25Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.330942Z"
     },
@@ -9676,7 +9676,7 @@
       "title": "I Returned To The World's Most Polluted Country ( And Instantly Regretted It )",
       "duration": 2200,
       "recorded_at": "2025-11-11T09:24:12Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.341992Z"
     },
@@ -9687,7 +9687,7 @@
       "title": "I Crossed The Ocean On A 1-Star Rated Ferry",
       "duration": 1896,
       "recorded_at": "2025-10-03T18:30:33Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.349049Z"
     },
@@ -9698,7 +9698,7 @@
       "title": "Under Attack On Ukraine's Eastern Front 🇺🇦",
       "duration": 1849,
       "recorded_at": "2025-09-20T20:45:30Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.355394Z"
     },
@@ -9709,7 +9709,7 @@
       "title": "I Investigated TIBET: China's Forbidden Province",
       "duration": 2577,
       "recorded_at": "2025-06-11T14:36:26Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.365274Z"
     },
@@ -9720,7 +9720,7 @@
       "title": "I Investigated The China Western Media Won't Show",
       "duration": 2490,
       "recorded_at": "2025-05-19T14:43:03Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.372655Z"
     },
@@ -9731,7 +9731,7 @@
       "title": "Pakistan’s Outdoor Food Courts",
       "duration": 38,
       "recorded_at": "2026-05-12T06:30:08Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.379408Z"
     },
@@ -9742,7 +9742,7 @@
       "title": "Solo On Ukraine's Eastern Front",
       "duration": 3750,
       "recorded_at": "2025-04-17T14:22:48Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.381949Z"
     },
@@ -9753,7 +9753,7 @@
       "title": "I Am Pakistan’s Complaint Dept.",
       "duration": 17,
       "recorded_at": "2026-05-11T14:00:47Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.391598Z"
     },
@@ -9764,7 +9764,7 @@
       "title": "Karachi’s Hidden Secret 🤫",
       "duration": 18,
       "recorded_at": "2026-05-10T06:30:08Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.397989Z"
     },
@@ -9775,7 +9775,7 @@
       "title": "I Found Indian Languages in Pakistan!",
       "duration": 18,
       "recorded_at": "2026-05-09T15:15:23Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.404122Z"
     },
@@ -9786,7 +9786,7 @@
       "title": "Why Aren’t Pakistani Streets Like This?",
       "duration": 407,
       "recorded_at": "2026-05-09T10:51:09Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.410730Z"
     },
@@ -9797,7 +9797,7 @@
       "title": "Should Festival Sets Be Longer?",
       "duration": 21,
       "recorded_at": "2026-05-01T16:30:31Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.416703Z"
     },
@@ -9808,7 +9808,7 @@
       "title": "Best Festival Entrance Ever?",
       "duration": 27,
       "recorded_at": "2026-04-30T16:30:07Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.425939Z"
     },
@@ -9819,7 +9819,7 @@
       "title": "Would you buy this?",
       "duration": 14,
       "recorded_at": "2026-04-30T04:30:15Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.432342Z"
     },
@@ -9830,7 +9830,7 @@
       "title": "I Saw Tony Hawk at...",
       "duration": 13,
       "recorded_at": "2026-04-29T14:30:55Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.438433Z"
     },
@@ -9841,7 +9841,7 @@
       "title": "Sick New World Security Fail",
       "duration": 19,
       "recorded_at": "2026-04-29T04:30:09Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.446300Z"
     },
@@ -9852,7 +9852,7 @@
       "title": "Is this too much for a beer?",
       "duration": 13,
       "recorded_at": "2026-04-28T17:20:09Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.452438Z"
     },
@@ -9863,7 +9863,7 @@
       "title": "$369 to $1,800 Tickets… Is Sick New World Worth It?",
       "duration": 1159,
       "recorded_at": "2026-04-28T03:00:06Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.458985Z"
     },
@@ -9874,7 +9874,7 @@
       "title": "Rickshaws in Pakistan Made Easy",
       "duration": 71,
       "recorded_at": "2026-04-27T15:30:29Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.465174Z"
     },
@@ -9885,7 +9885,7 @@
       "title": "Rickshaw Urdu Phrases 🇵🇰",
       "duration": 80,
       "recorded_at": "2026-04-26T15:30:07Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.470916Z"
     },
@@ -9896,7 +9896,7 @@
       "title": "This Is NOT How India Eats Biryani 😳",
       "duration": 27,
       "recorded_at": "2026-04-25T15:30:10Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.477872Z"
     },
@@ -9907,7 +9907,7 @@
       "title": "Is Pakistani food too oily?",
       "duration": 10,
       "recorded_at": "2026-04-24T15:30:18Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.484886Z"
     },
@@ -9929,7 +9929,7 @@
       "title": "Ordering Chai in Urdu… or Hindi? 🇵🇰",
       "duration": 16,
       "recorded_at": "2026-04-24T03:30:25Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.496652Z"
     },
@@ -9940,7 +9940,7 @@
       "title": "Foreigner Tries Pakistani Food 🇵🇰",
       "duration": 125,
       "recorded_at": "2026-04-23T15:30:25Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.502439Z"
     },
@@ -9951,7 +9951,7 @@
       "title": "Would You Drink From This Cup? 😳",
       "duration": 20,
       "recorded_at": "2026-04-21T15:30:13Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.508457Z"
     },
@@ -9962,7 +9962,7 @@
       "title": "Bengali Biryani vs. Hyderabadi",
       "duration": 20,
       "recorded_at": "2026-04-19T15:30:09Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.514178Z"
     },
@@ -9973,7 +9973,7 @@
       "title": "I Tried Sindhi Biryani in Karachi… It Shocked Me",
       "duration": 527,
       "recorded_at": "2026-04-18T16:00:52Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.520014Z"
     },
@@ -9984,7 +9984,7 @@
       "title": "I Got Yelled At for This in Pakistan 😳",
       "duration": 54,
       "recorded_at": "2026-04-16T14:00:26Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.525921Z"
     },
@@ -9995,7 +9995,7 @@
       "title": "Make It Make Sense 😂",
       "duration": 8,
       "recorded_at": "2026-04-13T14:00:29Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.532358Z"
     },
@@ -10006,7 +10006,7 @@
       "title": "Would You Drink Here? 🇵🇰",
       "duration": 19,
       "recorded_at": "2026-04-12T14:00:11Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.538401Z"
     },
@@ -10017,7 +10017,7 @@
       "title": "Alcohol Is Banned in Pakistan… Right?",
       "duration": 179,
       "recorded_at": "2026-04-11T06:30:30Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.544504Z"
     },
@@ -10028,7 +10028,7 @@
       "title": "Alcohol Is Banned in Pakistan… So How Is This Open?",
       "duration": 195,
       "recorded_at": "2026-04-10T14:01:49Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.550463Z"
     },
@@ -10039,7 +10039,7 @@
       "title": "Indian Sweet Shops in Pakistan?",
       "duration": 175,
       "recorded_at": "2026-04-04T06:30:00Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.556249Z"
     },
@@ -10050,7 +10050,7 @@
       "title": "Indian Sweets in Pakistan?! Why?",
       "duration": 175,
       "recorded_at": "2026-04-03T14:00:00Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.562158Z"
     },
@@ -10061,7 +10061,7 @@
       "title": "The World’s Most Unique Mosque?",
       "duration": 22,
       "recorded_at": "2026-04-02T14:00:00Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.567935Z"
     },
@@ -10072,7 +10072,7 @@
       "title": "I Found Him on a Poster @AWBFilms",
       "duration": 82,
       "recorded_at": "2026-04-01T13:30:00Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.573996Z"
     },
@@ -10083,7 +10083,7 @@
       "title": "Honest Work Is Worship in Pakistan",
       "duration": 19,
       "recorded_at": "2026-03-30T06:30:12Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.579725Z"
     },
@@ -10094,7 +10094,7 @@
       "title": "Offered Lunch by a Stranger in 🇵🇰",
       "duration": 27,
       "recorded_at": "2026-03-29T14:00:23Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.586701Z"
     },
@@ -10105,7 +10105,7 @@
       "title": "Why Is This DSLR Only $90?",
       "duration": 19,
       "recorded_at": "2026-03-29T06:30:06Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.593076Z"
     },
@@ -10116,7 +10116,7 @@
       "title": "Buying Used Cameras? Beware ⚠️",
       "duration": 32,
       "recorded_at": "2026-03-28T14:00:29Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.598836Z"
     },
@@ -10127,7 +10127,7 @@
       "title": "The Camera That Made Me!",
       "duration": 20,
       "recorded_at": "2026-03-28T06:30:16Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.604575Z"
     },
@@ -10138,7 +10138,7 @@
       "title": "Pakistan’s Self-Taught Camera Genius",
       "duration": 24,
       "recorded_at": "2026-03-27T11:30:00Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.610941Z"
     },
@@ -10149,7 +10149,7 @@
       "title": "He Learned Camera Repair Himself 😳",
       "duration": 19,
       "recorded_at": "2026-03-27T06:30:19Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.617059Z"
     },
@@ -10160,7 +10160,7 @@
       "title": "Rare Rolleiflex in Pakistan?!",
       "duration": 10,
       "recorded_at": "2026-03-26T14:01:32Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.624191Z"
     },
@@ -10171,7 +10171,7 @@
       "title": "Telling Pakistanis My Wife Is Indian",
       "duration": 12,
       "recorded_at": "2026-03-26T06:30:03Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.631468Z"
     },
@@ -10182,7 +10182,7 @@
       "title": "I Met the Shopkeeper’s Son 🥹",
       "duration": 33,
       "recorded_at": "2026-03-25T14:01:06Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.637594Z"
     },
@@ -10193,7 +10193,7 @@
       "title": "How Crashed Drones Get Resold",
       "duration": 28,
       "recorded_at": "2026-03-25T06:30:05Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.644669Z"
     },
@@ -10204,7 +10204,7 @@
       "title": "Pakistan’s First 102MP Camera",
       "duration": 13,
       "recorded_at": "2026-03-24T14:01:21Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.665790Z"
     },
@@ -10215,7 +10215,7 @@
       "title": "This Old Camera Shoots 180° Photos 😳",
       "duration": 21,
       "recorded_at": "2026-03-24T06:30:18Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.679837Z"
     },
@@ -10226,7 +10226,7 @@
       "title": "They Gift Cameras at Weddings?!",
       "duration": 21,
       "recorded_at": "2026-03-23T06:30:06Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.687204Z"
     },
@@ -10237,7 +10237,7 @@
       "title": "$125 Vintage Soviet Camera?!",
       "duration": 21,
       "recorded_at": "2026-03-22T14:01:06Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.697487Z"
     },
@@ -10248,7 +10248,7 @@
       "title": "This Camera Market is INCREDIBLE! 💯",
       "duration": 65,
       "recorded_at": "2026-03-21T06:30:12Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.704060Z"
     },
@@ -10259,7 +10259,7 @@
       "title": "The Wildest Camera Market I’ve Ever Seen (Pakistan)",
       "duration": 1813,
       "recorded_at": "2026-03-20T14:00:07Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.729602Z"
     },
@@ -10270,7 +10270,7 @@
       "title": "This Dish Makes You 🥵",
       "duration": 15,
       "recorded_at": "2026-03-17T14:01:29Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.740744Z"
     },
@@ -10281,7 +10281,7 @@
       "title": "Helicopter Naan in Pakistan 🚁",
       "duration": 10,
       "recorded_at": "2026-03-15T06:30:36Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.758093Z"
     },
@@ -10292,7 +10292,7 @@
       "title": "I Took a Boat to Africa, But Something is Very Wrong",
       "duration": 2673,
       "recorded_at": "2026-05-11T13:10:03Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.823343Z"
     },
@@ -10303,7 +10303,7 @@
       "title": "Adventures on the Spanish Island of FUERTEVENTURA",
       "duration": 1985,
       "recorded_at": "2026-05-09T18:02:16Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.831420Z"
     },
@@ -10314,7 +10314,7 @@
       "title": "This Isn't the Most Beautiful Island, But it Has a Cool Vibe",
       "duration": 2049,
       "recorded_at": "2026-05-08T12:58:58Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.837918Z"
     },
@@ -10325,7 +10325,7 @@
       "title": "Traveling the Canary Islands | Lanzarote to Fuerteventura",
       "duration": 1839,
       "recorded_at": "2026-05-06T20:16:15Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.844436Z"
     },
@@ -10336,7 +10336,7 @@
       "title": "It Was a Pretty Dang Epic Day on the CANARY ISLANDS",
       "duration": 2341,
       "recorded_at": "2026-05-05T16:29:50Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.850640Z"
     },
@@ -10347,7 +10347,7 @@
       "title": "The Canary Islands of Spain | A Tour of Lanzarote Island",
       "duration": 2557,
       "recorded_at": "2026-05-04T16:30:37Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.861090Z"
     },
@@ -10358,7 +10358,7 @@
       "title": "PART 2 | Injured on a Plane & Lost in a Ghost Town",
       "duration": 1887,
       "recorded_at": "2026-05-03T16:50:15Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.867841Z"
     },
@@ -10369,7 +10369,7 @@
       "title": "I LEFT THAILAND & Injured Myself on an Airplane",
       "duration": 1712,
       "recorded_at": "2026-05-02T18:02:43Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.875105Z"
     },
@@ -10380,7 +10380,7 @@
       "title": "Thailand's Ultimate Nightlife City | Tourist Heaven or Hell?",
       "duration": 1559,
       "recorded_at": "2026-05-01T14:55:14Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.883754Z"
     },
@@ -10391,7 +10391,7 @@
       "title": "Ko Sichang | The Closest Island to Bangkok, Thailand",
       "duration": 2120,
       "recorded_at": "2026-04-25T16:48:22Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.891228Z"
     },
@@ -10402,7 +10402,7 @@
       "title": "Backpacking Thailand | The Journey to a Mystery Island",
       "duration": 1133,
       "recorded_at": "2026-04-23T13:16:20Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.900723Z"
     },
@@ -10413,7 +10413,7 @@
       "title": "Thailand Fancy Resort Tour + My $55 Haircut Experience",
       "duration": 2050,
       "recorded_at": "2026-04-21T15:07:10Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.908239Z"
     },
@@ -10424,7 +10424,7 @@
       "title": "Travel Can Be Risky | Killer Fish, Thieves & Evil Women",
       "duration": 1585,
       "recorded_at": "2026-04-19T12:05:16Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.914502Z"
     },
@@ -10435,7 +10435,7 @@
       "title": "The Songkran Nightlife Scene in Pattaya, Thailand",
       "duration": 1235,
       "recorded_at": "2026-04-16T14:20:00Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.922608Z"
     },
@@ -10446,7 +10446,7 @@
       "title": "We're Playing with Fire in Iran",
       "duration": 1344,
       "recorded_at": "2026-04-14T13:31:28Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.930169Z"
     },
@@ -10457,7 +10457,7 @@
       "title": "Why I'm Back in THAILAND + Another Taxi Scam??",
       "duration": 2069,
       "recorded_at": "2026-04-13T14:32:22Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.937323Z"
     },
@@ -10468,7 +10468,7 @@
       "title": "This is NOT the Taj Mahal | Have You Heard of This City?",
       "duration": 2291,
       "recorded_at": "2026-04-11T11:55:57Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.944808Z"
     },
@@ -10479,7 +10479,7 @@
       "title": "Amazing Places in INDIA That You Never Hear About",
       "duration": 2149,
       "recorded_at": "2026-04-07T14:48:25Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.953153Z"
     },
@@ -10490,7 +10490,7 @@
       "title": "ELLORA CAVES | More Incredible Than the Taj Mahal",
       "duration": 2266,
       "recorded_at": "2026-04-06T12:08:00Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.963159Z"
     },
@@ -10501,7 +10501,7 @@
       "title": "Traveling India Crazy Cheap | 3 Local Buses for $1.50",
       "duration": 1732,
       "recorded_at": "2026-04-01T17:01:39Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.971943Z"
     },
@@ -10512,7 +10512,7 @@
       "title": "I Was in India For the End of the World (Twice)",
       "duration": 1841,
       "recorded_at": "2026-03-28T12:49:59Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.979697Z"
     },
@@ -10523,7 +10523,7 @@
       "title": "Itchy Boots LIVE update",
       "duration": 4150,
       "recorded_at": "2026-05-10T15:16:57Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.988116Z"
     },
@@ -10534,7 +10534,7 @@
       "title": "I'm Back in One of My Favorite Places in India",
       "duration": 3010,
       "recorded_at": "2026-03-27T15:27:51Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.991271Z"
     },
@@ -10545,7 +10545,7 @@
       "title": "Palolem & Patnem | The Best Beaches in Goa, India?",
       "duration": 1285,
       "recorded_at": "2026-03-26T11:20:53Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:39.002282Z"
     },
@@ -10556,7 +10556,7 @@
       "title": "It's Always a Good Idea to Go Back to GOA, INDIA",
       "duration": 1744,
       "recorded_at": "2026-03-24T14:49:15Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:39.011952Z"
     },
@@ -10567,7 +10567,7 @@
       "title": "AUROVILLE | Experimental City Near Pondicherry, India",
       "duration": 1645,
       "recorded_at": "2026-03-22T14:52:08Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:39.019989Z"
     },
@@ -10578,7 +10578,7 @@
       "title": "How to Travel INDIA on $30 a Day | Budget Travel Tips",
       "duration": 1692,
       "recorded_at": "2026-03-19T12:18:54Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:39.028825Z"
     },
@@ -10589,7 +10589,7 @@
       "title": "TIRUVANNAMALAI | A Desert Paradise in South India",
       "duration": 2000,
       "recorded_at": "2026-03-17T12:47:11Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:39.036348Z"
     },
@@ -10600,7 +10600,7 @@
       "title": "It's Always Great to Meet Up with Friends While Traveling",
       "duration": 2151,
       "recorded_at": "2026-03-15T13:51:16Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:39.046025Z"
     },
@@ -10611,7 +10611,7 @@
       "title": "Why Are There NO Foreign Travelers in This Indian City?",
       "duration": 1683,
       "recorded_at": "2026-03-13T16:27:39Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:39.068145Z"
     },
@@ -10622,7 +10622,7 @@
       "title": "Less Talk, More Travel | A Perfect Day in South India",
       "duration": 2055,
       "recorded_at": "2026-03-11T19:19:51Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:39.092062Z"
     },
@@ -10633,7 +10633,7 @@
       "title": "Why Does Everyone Seem to Dislike India Now?",
       "duration": 1777,
       "recorded_at": "2026-03-10T16:13:32Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:39.103269Z"
     },
@@ -10644,7 +10644,7 @@
       "title": "I've Never Been So Happy to Be Back in INDIA",
       "duration": 2313,
       "recorded_at": "2026-03-10T01:58:52Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:39.117895Z"
     },
@@ -10655,7 +10655,7 @@
       "title": "My Honest Thoughts About the War in Iran",
       "duration": 1002,
       "recorded_at": "2026-03-09T21:24:03Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:39.135930Z"
     },
@@ -10666,7 +10666,7 @@
       "title": "I Got Way Too Close to Being in a Middle Eastern Prison",
       "duration": 927,
       "recorded_at": "2026-03-09T10:05:29Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:39.155780Z"
     },
@@ -10677,7 +10677,7 @@
       "title": "Info For Travelers Who Are Stranded in the Middle East",
       "duration": 1736,
       "recorded_at": "2026-03-08T17:33:10Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:39.162447Z"
     },
@@ -10688,7 +10688,7 @@
       "title": "The Moment of Truth | Will I Get Out of the Middle East?",
       "duration": 1481,
       "recorded_at": "2026-03-08T11:38:27Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:39.172817Z"
     },
@@ -10699,7 +10699,7 @@
       "title": "We Crossed the Border Into Oman in the Dead of Night",
       "duration": 1363,
       "recorded_at": "2026-03-07T13:02:26Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:39.179704Z"
     },
@@ -10710,7 +10710,7 @@
       "title": "DAY 6 of the War | An Oasis of Peace in the Chaos",
       "duration": 1699,
       "recorded_at": "2026-03-06T13:53:42Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:39.187222Z"
     },
@@ -10721,7 +10721,7 @@
       "title": "The Full Story of My Escape Across the Arabian Desert",
       "duration": 1986,
       "recorded_at": "2026-03-05T13:27:00Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:39.194821Z"
     },
@@ -10732,7 +10732,7 @@
       "title": "DAY 4 of the War | Escaping by Land Across the Desert",
       "duration": 1134,
       "recorded_at": "2026-03-04T18:06:52Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:39.201897Z"
     },
@@ -10743,7 +10743,7 @@
       "title": "If the Interceptor Missiles Run Out, It's Game Over",
       "duration": 594,
       "recorded_at": "2026-03-03T20:36:09Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:39.210697Z"
     },
@@ -10754,7 +10754,7 @@
       "title": "DAY 3 of the War | Can the Embassy Help Get Me Out?",
       "duration": 1932,
       "recorded_at": "2026-03-02T21:14:16Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:39.218652Z"
     },
@@ -10765,7 +10765,7 @@
       "title": "DAY 2 | Trapped in the Middle East During the War",
       "duration": 1623,
       "recorded_at": "2026-03-01T23:02:34Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:39.226323Z"
     },
@@ -10776,7 +10776,7 @@
       "title": "DAY 1 | Trapped in the Middle East During the War",
       "duration": 1294,
       "recorded_at": "2026-03-01T16:44:06Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:39.233698Z"
     },
@@ -10787,7 +10787,7 @@
       "title": "BUDAPEST | One of the Most Incredible Cities in Europe",
       "duration": 1203,
       "recorded_at": "2026-02-28T23:34:46Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:39.240529Z"
     },
@@ -10798,7 +10798,7 @@
       "title": "The US Attacked Iran...I'm Stuck in Qatar",
       "duration": 602,
       "recorded_at": "2026-02-28T15:39:29Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:39.247238Z"
     },
@@ -10809,7 +10809,7 @@
       "title": "How Expensive is Budapest? The Capital of Hungary",
       "duration": 1575,
       "recorded_at": "2026-02-27T17:30:07Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:39.254769Z"
     },
@@ -10820,7 +10820,7 @@
       "title": "Exploring the Beautiful City of Gdansk, Poland with a Local",
       "duration": 1210,
       "recorded_at": "2026-02-26T15:24:59Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:39.264488Z"
     },
@@ -10974,7 +10974,7 @@
       "title": "$2 Skechers in Pakistan",
       "duration": 17,
       "recorded_at": "2026-05-13T14:00:33Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:14.549450Z"
     },
@@ -10985,7 +10985,7 @@
       "title": "I Investigated China's Forbidden Border With North Korea 🇰🇵",
       "duration": 2511,
       "recorded_at": "2025-03-17T14:06:47Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:14.688860Z"
     },
@@ -10996,7 +10996,7 @@
       "title": "bald and bankrupt Live Stream",
       "duration": 0,
       "recorded_at": "2025-03-01T03:01:16Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:14.699037Z"
     },
@@ -11007,7 +11007,7 @@
       "title": "Every Man Should Visit This Country…Find Out Why",
       "duration": 3182,
       "recorded_at": "2025-01-16T11:23:26Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:14.708842Z"
     },
@@ -11018,7 +11018,7 @@
       "title": "I Investigated Assad's Torture Prison ( Hell On Earth )",
       "duration": 1643,
       "recorded_at": "2024-12-27T13:47:26Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:14.718614Z"
     },
@@ -11029,7 +11029,7 @@
       "title": "Undercover Inside Syria's Billion Dollar Narco Empire",
       "duration": 1933,
       "recorded_at": "2024-12-21T17:42:31Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:14.728269Z"
     },
@@ -11040,7 +11040,7 @@
       "title": "China: Utopia or Dystopia? I Investigated",
       "duration": 2506,
       "recorded_at": "2024-11-01T07:11:49Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:14.737981Z"
     },
@@ -11051,7 +11051,7 @@
       "title": "Hunting For Pot In Cambodia 🇰🇭",
       "duration": 2071,
       "recorded_at": "2024-10-02T11:16:46Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:14.747673Z"
     },
@@ -11062,7 +11062,7 @@
       "title": "I Visited India So You Don't Have To ( And offended 1 billion people ) 🇮🇳",
       "duration": 3033,
       "recorded_at": "2024-09-18T15:27:27Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:14.757388Z"
     },
@@ -11073,7 +11073,7 @@
       "title": "Inside Rwanda: Where Britain Sends Its Illegal Migrants 🇷🇼",
       "duration": 1573,
       "recorded_at": "2024-07-22T09:25:25Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:14.767190Z"
     },
@@ -11084,7 +11084,7 @@
       "title": "Investigating Uganda’s Bride Market 🇺🇬",
       "duration": 2374,
       "recorded_at": "2024-07-15T09:31:09Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:14.778570Z"
     },
@@ -11095,7 +11095,7 @@
       "title": "I Investigated Africa's Dodgiest Ghetto🇺🇬",
       "duration": 1534,
       "recorded_at": "2024-07-08T19:26:07Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:14.793654Z"
     },
@@ -11106,7 +11106,7 @@
       "title": "Holidaying In Scotland's Wildest Town 🏴󠁧󠁢󠁳󠁣󠁴󠁿",
       "duration": 2652,
       "recorded_at": "2024-05-31T12:50:21Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:14.811187Z"
     },
@@ -11117,7 +11117,7 @@
       "title": "Tajikistan: This Country Tried To Ban Me! I Went Anyway 🇹🇯",
       "duration": 2784,
       "recorded_at": "2024-04-27T05:57:51Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:14.825691Z"
     },
@@ -11128,7 +11128,7 @@
       "title": "WHAT IS GIBRALTAR? A Strange European City",
       "duration": 2146,
       "recorded_at": "2026-05-14T20:08:20Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:14.838126Z"
     },
@@ -11139,7 +11139,7 @@
       "title": "I Gave A Gypsy A Ride ( It ended in disaster ) 🇧🇬",
       "duration": 2890,
       "recorded_at": "2024-04-01T13:12:16Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:14.852240Z"
     },
@@ -11150,7 +11150,7 @@
       "title": "Offered Business On England's Worst Street 🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "duration": 2257,
       "recorded_at": "2024-02-25T10:31:04Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:14.874082Z"
     },
@@ -11161,7 +11161,7 @@
       "title": "My secret EXPOSED- Behind the Scenes of Itchy Boots |S8, EP 133",
       "duration": 1096,
       "recorded_at": "2026-05-03T14:00:00Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:14.893392Z"
     },
@@ -11172,7 +11172,7 @@
       "title": "Solo In Pakistan's Dodgiest Hood 🇵🇰",
       "duration": 2712,
       "recorded_at": "2024-01-22T15:49:16Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:14.903296Z"
     },
@@ -11183,7 +11183,7 @@
       "title": "Why are people in Mongolia 🇲🇳 so obsessed with this?? |S8, EP 132",
       "duration": 1147,
       "recorded_at": "2026-04-26T14:00:00Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:14.919536Z"
     },
@@ -11194,7 +11194,7 @@
       "title": "Am I cursed? No end to my streak of BAD LUCK in Mongolia |S8, EP131",
       "duration": 1271,
       "recorded_at": "2026-04-19T14:00:00Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:14.932970Z"
     },
@@ -11205,7 +11205,7 @@
       "title": "Totally misjudged this, and now I'm paying the price 🇲🇳 |S8, EP130",
       "duration": 1363,
       "recorded_at": "2026-04-12T14:00:00Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:14.946361Z"
     },
@@ -11216,7 +11216,7 @@
       "title": "Mongolia's BAD FUEL problem 🇲🇳 |S8, EP129",
       "duration": 1170,
       "recorded_at": "2026-04-05T14:00:00Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:14.959540Z"
     },
@@ -11227,7 +11227,7 @@
       "title": "Loneliness hits different in Mongolia 🇲🇳 |S8, EP128",
       "duration": 1439,
       "recorded_at": "2026-03-29T14:00:00Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:14.972801Z"
     },
@@ -11238,7 +11238,7 @@
       "title": "Mongolia is much harder than I thought |S8, EP127",
       "duration": 1695,
       "recorded_at": "2026-03-22T15:00:00Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:14.985788Z"
     },
@@ -11249,7 +11249,7 @@
       "title": "Crossing the CHINA 🇨🇳- MONGOLIA 🇲🇳 border |S8, EP126",
       "duration": 1365,
       "recorded_at": "2026-03-15T15:00:00Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:14.999943Z"
     },
@@ -11260,7 +11260,7 @@
       "title": "I got stopped by Chinese Border Police 🇨🇳 |S8, EP125",
       "duration": 1574,
       "recorded_at": "2026-03-08T15:00:00Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.012858Z"
     },
@@ -11271,7 +11271,7 @@
       "title": "Heading deeper into the land of the DRAGON (unseen China) |S8, EP124",
       "duration": 1564,
       "recorded_at": "2026-03-01T15:00:33Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.026488Z"
     },
@@ -11282,7 +11282,7 @@
       "title": "I am riding on MARS (finally found it!) 🇨🇳 |S8, EP123",
       "duration": 1302,
       "recorded_at": "2026-02-25T15:01:36Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.040984Z"
     },
@@ -11293,7 +11293,7 @@
       "title": "I'm bored so flying to Tokyo 🇯🇵",
       "duration": 5129,
       "recorded_at": "2026-01-08T18:08:24Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.043623Z"
     },
@@ -11304,7 +11304,7 @@
       "title": "FORGOTTEN BUDDHA's in CHINA 🇨🇳 |S8, EP122",
       "duration": 1550,
       "recorded_at": "2026-02-22T15:00:37Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.064358Z"
     },
@@ -11315,7 +11315,7 @@
       "title": "The SECRET TUNNELS of CHINA 🇨🇳 |S8, EP121",
       "duration": 1856,
       "recorded_at": "2026-02-18T15:00:18Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.075979Z"
     },
@@ -11326,7 +11326,7 @@
       "title": "Avoid this motorcycle shop in CHINA! 🇨🇳 |S8, EP120",
       "duration": 1331,
       "recorded_at": "2026-02-15T15:00:39Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.087862Z"
     },
@@ -11337,7 +11337,7 @@
       "title": "I need an ALIEN TRAVEL PERMIT for this road in CHINA 🇨🇳 |S8, EP119",
       "duration": 1336,
       "recorded_at": "2026-02-11T15:00:15Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.099633Z"
     },
@@ -11348,7 +11348,7 @@
       "title": "A SANDSTORM hit the largest desert of CHINA and I'm in it |S8, EP118",
       "duration": 1286,
       "recorded_at": "2026-02-08T15:00:25Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.111262Z"
     },
@@ -11359,7 +11359,7 @@
       "title": "🇨🇳 Chinese police escort to enter SANDDUNE DESERT |S8, EP117",
       "duration": 1622,
       "recorded_at": "2026-02-04T15:00:03Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.122697Z"
     },
@@ -11370,7 +11370,7 @@
       "title": "Heading deeper into CHINA, uncovering its secrets 🇨🇳 |S8, EP116",
       "duration": 1634,
       "recorded_at": "2026-02-01T15:01:46Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.134129Z"
     },
@@ -11381,7 +11381,7 @@
       "title": "Heavily guarded petrol stations in Xinjiang province, China 🇨🇳 |S8, EP115",
       "duration": 1568,
       "recorded_at": "2026-01-28T15:00:35Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.145889Z"
     },
@@ -11392,7 +11392,7 @@
       "title": "This is China's MOST RESTRICTED province: Xinjiang 🇨🇳 | S8, EP114",
       "duration": 1845,
       "recorded_at": "2026-01-25T15:01:24Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.159216Z"
     },
@@ -11403,7 +11403,7 @@
       "title": "I entered WESTERN CHINA 🇨🇳 | S8, EP113",
       "duration": 1245,
       "recorded_at": "2026-01-21T15:01:49Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.171865Z"
     },
@@ -11414,7 +11414,7 @@
       "title": "I am crossing the border into CHINA 🇨🇳(leaving KYRGYZSTAN 🇰🇬 ) |S8, EP112",
       "duration": 1286,
       "recorded_at": "2026-01-18T15:00:50Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.184191Z"
     },
@@ -11425,7 +11425,7 @@
       "title": "Unpredictable weather on the SILK ROAD to CHINA 🇨🇳 |S8, EP111",
       "duration": 1200,
       "recorded_at": "2026-01-14T15:00:06Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.196672Z"
     },
@@ -11436,7 +11436,7 @@
       "title": "I lost 39 horsepower in KYRGYZSTAN 🇰🇬 | S8, EP110",
       "duration": 1886,
       "recorded_at": "2026-01-11T15:00:40Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.209339Z"
     },
@@ -11447,7 +11447,7 @@
       "title": "CANYON of FORGOTTEN RIVERS  (never seen before in Kyrgyzstan) | S8, EP109",
       "duration": 1335,
       "recorded_at": "2026-01-07T15:00:00Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.221723Z"
     },
@@ -11458,7 +11458,7 @@
       "title": "I found the EAGLE HUNTERS of KYRGYZSTAN 🇰🇬 | S8, EP108",
       "duration": 1427,
       "recorded_at": "2026-01-04T15:00:11Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.234511Z"
     },
@@ -11469,7 +11469,7 @@
       "title": "The final push to the top of ARABEL PASS (High altitude POWERLOSS!) |S8, EP107",
       "duration": 1296,
       "recorded_at": "2025-12-31T15:00:13Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.247245Z"
     },
@@ -11480,7 +11480,7 @@
       "title": "They told me this mountain was impossible on a classic motorcycle, KYRGYZSTAN 🇰🇬 | S8, EP106",
       "duration": 1409,
       "recorded_at": "2025-12-28T15:01:01Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.259639Z"
     },
@@ -11491,7 +11491,7 @@
       "title": "This is getting dangerous (exploding fuel in Kyrgyzstan 🇰🇬) |S8, EP105",
       "duration": 1569,
       "recorded_at": "2025-12-24T15:01:51Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.272200Z"
     },
@@ -11502,7 +11502,7 @@
       "title": "RURAL KYRGYZSTAN 🇰🇬 is taking me completely by surprise | S8, EP104",
       "duration": 1209,
       "recorded_at": "2025-12-21T15:01:07Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.284509Z"
     },
@@ -11513,7 +11513,7 @@
       "title": "My SECOND CHANCE at KYRGYZSTAN 🇰🇬- do I regret it already? |S8, EP103",
       "duration": 1262,
       "recorded_at": "2025-12-17T15:01:20Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.297503Z"
     },
@@ -11524,7 +11524,7 @@
       "title": "I got stranded while crossing into KYRGYZSTAN 🇰🇬| S8, EP102",
       "duration": 1762,
       "recorded_at": "2025-12-14T15:01:10Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.309046Z"
     },
@@ -11535,7 +11535,7 @@
       "title": "The final push out of Bartang Valley - I have to make it!! 🇹🇯  |S8, EP101",
       "duration": 1466,
       "recorded_at": "2025-12-10T15:00:11Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.321363Z"
     },
@@ -11546,7 +11546,7 @@
       "title": "Suddenly I am bleeding - I totally underestimated this! Bartang Valley, Tajikistan 🇹🇯  |S8, EP100",
       "duration": 1693,
       "recorded_at": "2025-12-07T15:00:23Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.333013Z"
     },
@@ -11557,7 +11557,7 @@
       "title": "I have never seen anything like this. BARTANG valley, TAJIKISTAN 🇹🇯 |S8, EP99",
       "duration": 1329,
       "recorded_at": "2025-12-03T15:00:18Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.345764Z"
     },
@@ -11568,7 +11568,7 @@
       "title": "I’ve gone too far - this is the point of NO RETURN 🇹🇯 | S8, EP98",
       "duration": 1768,
       "recorded_at": "2025-11-30T15:01:05Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.358914Z"
     },
@@ -11579,7 +11579,7 @@
       "title": "Rising waterlevels of the Bartang River complicate everything - Tajikistan 🇹🇯 | S8, EP97",
       "duration": 1734,
       "recorded_at": "2025-11-26T15:00:31Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.371871Z"
     },
@@ -11590,7 +11590,7 @@
       "title": "I received an unexpected satellite message in Tajikistan 🇹🇯 |S8, EP96",
       "duration": 1558,
       "recorded_at": "2025-11-23T15:01:06Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.384495Z"
     },
@@ -11601,7 +11601,7 @@
       "title": "Losing power!! Was this shortcut a mistake? TAJKISTAN 🇹🇯 | S8, EP95",
       "duration": 1371,
       "recorded_at": "2025-11-19T15:00:05Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.397147Z"
     },
@@ -11612,7 +11612,7 @@
       "title": "I only have myself to blame for this - Tajikistan 🇹🇯 | S8, EP94",
       "duration": 1522,
       "recorded_at": "2025-11-16T15:01:27Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.410050Z"
     },
@@ -11623,7 +11623,7 @@
       "title": "This will NEVER work - Tajikistan 🇹🇯 | S8, EP93",
       "duration": 1365,
       "recorded_at": "2025-11-12T15:00:24Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.422731Z"
     },
@@ -11634,7 +11634,7 @@
       "title": "Getting around RED TAPE in TAJIKISTAN 🇹🇯 | S8, EP92",
       "duration": 1356,
       "recorded_at": "2025-11-09T15:00:01Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.435777Z"
     },
@@ -11645,7 +11645,7 @@
       "title": "I left Afghanistan 🇦🇫 - how this motorcycle journey changed me forever.",
       "duration": 3633,
       "recorded_at": "2025-11-02T15:01:57Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.447913Z"
     },
@@ -11656,7 +11656,7 @@
       "title": "Taliban finds my drone when I try to leave AFGHANISTAN 🇦🇫 |S8, EP91",
       "duration": 1170,
       "recorded_at": "2025-10-29T15:01:54Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.458381Z"
     },
@@ -11667,7 +11667,7 @@
       "title": "They don’t let me into Kunduz easily - AFGHANISTAN 🇦🇫 |S8, EP90",
       "duration": 1239,
       "recorded_at": "2025-10-26T15:00:46Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.468737Z"
     },
@@ -11678,7 +11678,7 @@
       "title": "I get taken into a large Taliban command post in mountains of Afghanistan 🇦🇫 | S8, EP89",
       "duration": 1419,
       "recorded_at": "2025-10-22T14:00:46Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.479137Z"
     },
@@ -11689,7 +11689,7 @@
       "title": "Heavily armed Taliban in mountains in Afghanistan 🇦🇫 | S8, EP88",
       "duration": 1359,
       "recorded_at": "2025-10-19T14:01:03Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.489483Z"
     },
@@ -11700,7 +11700,7 @@
       "title": "I try to avoid the Taliban checkpoints in Afghanistan through the mountains (fail) 🇦🇫 |S8, EP87",
       "duration": 1383,
       "recorded_at": "2025-10-15T14:00:52Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.499832Z"
     },
@@ -11711,7 +11711,7 @@
       "title": "Taliban in AFGHANISTAN catch me filming them 🇦🇫  |S8, EP86",
       "duration": 1984,
       "recorded_at": "2025-10-12T14:00:15Z",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-05-18T00:54:15.510128Z"
     }
