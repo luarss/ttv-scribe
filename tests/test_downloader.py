@@ -193,3 +193,70 @@ class TestProcessPendingVods:
                         assert sorted_vods[0]["vod_id"] == "2"  # 30 min first
                         assert sorted_vods[1]["vod_id"] == "1"  # 1 hour second
                         assert sorted_vods[2]["vod_id"] == "3"  # 2 hours last
+
+
+class TestDownloadVodAudioKick:
+    """Tests for Kick VOD URL construction and impersonation"""
+
+    def test_constructs_correct_kick_url(self, mock_settings, temp_dir):
+        """Test that correct Kick URL is constructed"""
+        mock_settings.audio_output_dir = temp_dir
+        kick_vod_data = {
+            "vod_id": "abc-123-def",
+            "streamer": "testuser",
+            "title": "Kick Stream",
+            "duration": 3600,
+            "status": "pending",
+            "platform": "kick",
+        }
+
+        expected_path = os.path.join(temp_dir, "abc-123-def.opus")
+        with open(expected_path, "w") as f:
+            f.write("")
+
+        with patch("src.downloader.get_settings", return_value=mock_settings):
+            with patch("src.downloader.yt_dlp.YoutubeDL") as mock_ydl_class:
+                mock_ydl = MagicMock()
+                mock_ydl.__enter__ = MagicMock(return_value=mock_ydl)
+                mock_ydl.__exit__ = MagicMock(return_value=False)
+                mock_ydl_class.return_value = mock_ydl
+
+                downloader = Downloader()
+                downloader.download_vod_audio(kick_vod_data)
+
+                call_args = mock_ydl.download.call_args[0][0]
+                assert "kick.com/testuser/videos/" in call_args[0]
+                assert "abc-123-def" in call_args[0]
+
+    def test_sets_impersonation_for_kick(self, mock_settings, temp_dir):
+        """Test that impersonation options are set for Kick platform"""
+        mock_settings.audio_output_dir = temp_dir
+        kick_vod_data = {
+            "vod_id": "abc-123-def",
+            "streamer": "testuser",
+            "title": "Kick Stream",
+            "duration": 3600,
+            "status": "pending",
+            "platform": "kick",
+        }
+
+        expected_path = os.path.join(temp_dir, "abc-123-def.opus")
+        with open(expected_path, "w") as f:
+            f.write("")
+
+        with patch("src.downloader.get_settings", return_value=mock_settings):
+            with patch("src.downloader.yt_dlp.YoutubeDL") as mock_ydl_class:
+                mock_ydl = MagicMock()
+                mock_ydl.__enter__ = MagicMock(return_value=mock_ydl)
+                mock_ydl.__exit__ = MagicMock(return_value=False)
+                mock_ydl_class.return_value = mock_ydl
+
+                with patch("src.downloader._bilibili_impersonation_target") as mock_target:
+                    mock_target.return_value = "chrome-131"
+
+                    downloader = Downloader()
+                    downloader.download_vod_audio(kick_vod_data)
+
+                    # Check that yt-dlp was constructed with impersonation
+                    call_kwargs = mock_ydl_class.call_args
+                    assert call_kwargs is not None

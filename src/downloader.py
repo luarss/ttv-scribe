@@ -59,6 +59,8 @@ class Downloader:
             video_url = f"https://www.bilibili.com/video/{vod_id}"
         elif platform == "youtube":
             video_url = f"https://www.youtube.com/watch?v={vod_id}"
+        elif platform == "kick":
+            video_url = f"https://kick.com/{vod_data['streamer']}/videos/{vod_id}"
         else:
             video_url = f"https://www.twitch.tv/videos/{vod_id}"
 
@@ -93,6 +95,17 @@ class Downloader:
             ydl_opts["http_headers"] = {
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
                 "Referer": "https://www.bilibili.com",
+            }
+            if target := _bilibili_impersonation_target():
+                ydl_opts["impersonate"] = target
+
+        # Kick anti-bot measures (Cloudflare bypass via impersonation)
+        if platform == "kick":
+            # Kick has no audio-only streams; use smallest video+audio format
+            ydl_opts["format"] = "worst[ext=mp4]"
+            ydl_opts["http_headers"] = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+                "Referer": "https://kick.com",
             }
             if target := _bilibili_impersonation_target():
                 ydl_opts["impersonate"] = target

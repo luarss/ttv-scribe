@@ -17,6 +17,7 @@ from .state import (
 from .twitch.client import TwitchClient
 from .bilibili.client import BilibiliClient
 from .youtube.client import YouTubeClient
+from .kick.client import KickClient
 
 logger = logging.getLogger(__name__)
 
@@ -54,6 +55,7 @@ def check_for_new_vods(
                 streamer_data.get("twitch_id"),
                 streamer_data.get("bilibili_mid"),
                 streamer_data.get("youtube_channel_id"),
+                streamer_data.get("kick_slug"),
                 max_duration_minutes,
                 min_days_old,
             )
@@ -85,6 +87,7 @@ def _check_streamer_vods(
     twitch_id: str | None,
     bilibili_mid: str | None,
     youtube_channel_id: str | None,
+    kick_slug: str | None = None,
     max_duration_minutes: int | None = None,
     min_days_old: int = 3,
 ) -> int:
@@ -92,10 +95,11 @@ def _check_streamer_vods(
 
     Args:
         username: The streamer's username
-        platform: The platform (twitch, bilibili, or youtube)
+        platform: The platform (twitch, bilibili, youtube, or kick)
         twitch_id: Optional Twitch user ID
         bilibili_mid: Optional Bilibili user ID (mid)
         youtube_channel_id: Optional YouTube channel ID
+        kick_slug: Optional Kick channel slug
         max_duration_minutes: Only include VODs shorter than this duration (None = no limit)
         min_days_old: Only include VODs older than this many days (to avoid live/in-progress VODs)
 
@@ -109,6 +113,10 @@ def _check_streamer_vods(
     elif platform == Platform.BILIBILI.value:
         return _check_bilibili_vods(
             username, bilibili_mid, max_duration_minutes, min_days_old
+        )
+    elif platform == Platform.KICK.value:
+        return _check_kick_vods(
+            username, kick_slug, max_duration_minutes, min_days_old
         )
     else:
         return _check_twitch_vods(
@@ -318,6 +326,98 @@ def _check_bilibili_vods(
         manager.add_vod(vod)
         new_count += 1
         logger.debug(f"Added new VOD {vod_id} for {username}: {video_data.get('title')}")
+
+    if new_count > 0:
+        logger.info(f"{username}: {new_count} new VODs queued")
+
+    return new_count
+
+
+def _check_kick_vods(
+    username: str,
+    kick_slug: str | None,
+    max_duration_minutes: int | None = None,
+    min_days_old: int = 3,
+) -> int:
+    """Check for new Kick VODs for a specific channel"""
+    with KickClient() as kick:
+        # Look up channel slug if not cached
+        if not kick_slug:
+            channel = kick.get_channel_by_slug(username)
+            if not channel:
+                logger.warning(f"Channel {username} not found on Kick")
+                return 0
+            kick_slug = channel.get("slug", username)
+            update_streamer(username, kick_slug=kick_slug)
+
+        vods_data = kick.get_vods_by_slug(kick_slug)
+
+    manager = get_state_manager()
+    new_count = 0
+
+    for vod_data in vods_data:
+        # Kick VODs use video.uuid as the unique identifier for download URLs
+        video = vod_data.get("video") or {}
+        vod_id = video.get("uuid") if isinstance(video, dict) else None
+        if not vod_id:
+            logger.debug("Skipping VOD with no video.uuid in Kick response")
+            continue
+
+        # Skip already-tracked VODs
+        existing = manager.get_vod(vod_id)
+        if existing:
+            continue
+
+        # Parse recorded_at (Kick returns "YYYY-MM-DD HH:MM:SS" in UTC, no timezone)
+        recorded_at = vod_data.get("created_at")
+        if recorded_at:
+            try:
+                # Kick returns space-separated naive datetime, assumed UTC
+                vod_time = datetime.strptime(recorded_at, "%Y-%m-%d %H:%M:%S").replace(tzinfo=timezone.utc)
+                recorded_at = vod_time.isoformat().replace("+00:00", "Z")
+                now = datetime.now(timezone.utc)
+                age_days = (now - vod_time).total_seconds() / 86400
+                if age_days < min_days_old:
+                    logger.debug(
+                        f"Skipping VOD {vod_id} - too recent ({age_days:.1f} days old)"
+                    )
+                    continue
+            except (ValueError, OSError):
+                pass
+
+        # Parse duration (Kick returns milliseconds as int)
+        duration = vod_data.get("duration")
+        if duration is not None:
+            try:
+                duration = int(duration) // 1000  # Convert ms to seconds
+            except (ValueError, TypeError):
+                duration = None
+
+        if (
+            max_duration_minutes is not None
+            and duration is not None
+            and duration > max_duration_minutes * 60
+        ):
+            logger.debug(f"Skipping VOD {vod_id} - too long ({duration}s)")
+            continue
+
+        if duration is not None:
+            logger.debug(
+                f"VOD {vod_id} duration: {duration}s ({duration / 60:.1f} min)"
+            )
+
+        vod = VodRecord(
+            vod_id=vod_id,
+            streamer=username,
+            platform=Platform.KICK.value,
+            title=vod_data.get("session_title") or vod_data.get("title"),
+            duration=duration,
+            recorded_at=recorded_at,
+            status=VodStatus.PENDING,
+        )
+        manager.add_vod(vod)
+        new_count += 1
+        logger.debug(f"Added new VOD {vod_id} for {username}: {vod_data.get('session_title') or vod_data.get('title')}")
 
     if new_count > 0:
         logger.info(f"{username}: {new_count} new VODs queued")
