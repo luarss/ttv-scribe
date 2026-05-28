@@ -74,7 +74,7 @@ class Downloader:
         vod_data: dict,
         proxy: str | None = None,
         max_proxy_failures: int = 3,
-        max_refresh_cycles: int = 2,
+        max_refresh_cycles: int = 5,
     ) -> str:
         """Download audio from a VOD
 
