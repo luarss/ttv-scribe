@@ -47,6 +47,20 @@ def _kick_impersonation_target():
     return None
 
 
+def _is_curl_error(error: Exception) -> bool:
+    """Check if an error originated from a curl/libcurl failure."""
+    msg = str(error).lower()
+    if "curl" in msg:
+        return True
+    # Walk the exception chain for wrapped curl errors
+    cause = error.__cause__
+    while cause is not None:
+        if "curl" in str(cause).lower():
+            return True
+        cause = cause.__cause__
+    return False
+
+
 class Downloader:
     """Downloader for Twitch VOD audio"""
 
@@ -55,47 +69,91 @@ class Downloader:
         self.output_dir = self.settings.audio_output_dir
         os.makedirs(self.output_dir, exist_ok=True)
 
-    def download_vod_audio(self, vod_data: dict, proxy: str | None = None) -> str:
+    def download_vod_audio(
+        self,
+        vod_data: dict,
+        proxy: str | None = None,
+        max_proxy_failures: int = 3,
+        max_refresh_cycles: int = 2,
+    ) -> str:
         """Download audio from a VOD
 
         Args:
             vod_data: The VOD data dictionary
             proxy: Optional proxy URL(s), comma-separated for rotation
                    (e.g. "socks5://a:1,socks5://b:2")
+            max_proxy_failures: Consecutive curl errors before fetching fresh proxies.
+            max_refresh_cycles: Max times to re-fetch fresh proxies and retry.
 
         Returns:
             Path to the downloaded audio file
 
         Raises:
-            Exception: If download fails with all proxies
+            Exception: If download fails after all retries.
         """
+        from .proxy import fetch_proxies
+
         vod_id = vod_data["vod_id"]
         title = vod_data.get("title", "Unknown")
         platform = vod_data.get("platform", "twitch")
 
-        # Build proxy list
-        proxies = []
         if proxy:
             proxies = [p.strip() for p in proxy.split(",") if p.strip()]
             random.shuffle(proxies)
+        else:
+            proxies = []
 
         last_error = None
-        for attempt, current_proxy in enumerate(proxies or [None]):
-            try:
-                ydl_opts = self._build_ydl_opts(vod_id, vod_data, platform, current_proxy)
-                duration_min = vod_data.get("duration", 0) / 60 if vod_data.get("duration") else 0
-                proxy_label = f" via {current_proxy}" if current_proxy else ""
+        consecutive_curl_failures = 0
+        refresh_cycle = 0
+
+        while refresh_cycle <= max_refresh_cycles:
+            candidates = proxies or [None]
+
+            for attempt, current_proxy in enumerate(candidates):
+                try:
+                    ydl_opts = self._build_ydl_opts(vod_id, vod_data, platform, current_proxy)
+                    duration_min = vod_data.get("duration", 0) / 60 if vod_data.get("duration") else 0
+                    proxy_label = f" via {current_proxy}" if current_proxy else " (direct)"
+                    refresh_label = f" [refresh {refresh_cycle}/{max_refresh_cycles}]" if refresh_cycle > 0 else ""
+                    logger.info(
+                        f"Downloading VOD {vod_id} ({title}, {duration_min:.0f}min){proxy_label}"
+                        f"{' [proxy %d/%d]' % (attempt + 1, len(candidates)) if proxies else ''}{refresh_label}"
+                    )
+                    return self._run_download(ydl_opts, vod_id, vod_data)
+                except Exception as e:
+                    last_error = e
+                    if _is_curl_error(e):
+                        consecutive_curl_failures += 1
+                        logger.warning(
+                            f"Proxy {current_proxy} curl failure "
+                            f"({consecutive_curl_failures}/{max_proxy_failures}): {e}"
+                        )
+                        if consecutive_curl_failures >= max_proxy_failures:
+                            break
+                    elif current_proxy:
+                        logger.warning(f"Proxy {current_proxy} failed (non-curl): {e}")
+                    else:
+                        raise
+
+            # If we didn't hit the curl-failure threshold, all proxies exhausted — give up
+            if consecutive_curl_failures < max_proxy_failures:
+                break
+
+            # Hit threshold — fetch fresh proxies and retry
+            refresh_cycle += 1
+            if refresh_cycle <= max_refresh_cycles:
                 logger.info(
-                    f"Downloading VOD {vod_id} ({title}, {duration_min:.0f}min){proxy_label}"
-                    f"{' [attempt %d/%d]' % (attempt + 1, len(proxies)) if proxies else ''}"
+                    f"Fetching fresh proxies after {consecutive_curl_failures} curl failures "
+                    f"(retry cycle {refresh_cycle}/{max_refresh_cycles})"
                 )
-                return self._run_download(ydl_opts, vod_id, vod_data)
-            except Exception as e:
-                last_error = e
-                if current_proxy:
-                    logger.warning(f"Proxy {current_proxy} failed: {e}")
-                else:
-                    raise
+                try:
+                    proxies = fetch_proxies(limit=15)
+                    random.shuffle(proxies)
+                    consecutive_curl_failures = 0
+                except Exception as fe:
+                    logger.warning(f"Failed to fetch fresh proxies: {fe}")
+                    break
 
         raise last_error  # type: ignore[misc]
 
