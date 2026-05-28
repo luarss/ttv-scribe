@@ -50,7 +50,7 @@ def run_pipeline(
     yt_start = time.time()
     youtube_transcribed = 0
     try:
-        youtube_transcribed = fetch_youtube_transcripts()
+        youtube_transcribed = fetch_youtube_transcripts(mark_failed=True)
         if youtube_transcribed > 0:
             logger.info(
                 f"YouTube transcripts: {youtube_transcribed} fetched "
@@ -81,7 +81,7 @@ def run_pipeline(
     )
 
 
-def fetch_youtube_transcripts(max_vods: Optional[int] = None) -> int:
+def fetch_youtube_transcripts(max_vods: Optional[int] = None, mark_failed: bool = False) -> int:
     """Fetch transcripts for PENDING YouTube VODs via youtube-transcript-api
 
     Bypasses yt-dlp entirely — gets YouTube's own captions directly.
@@ -89,6 +89,7 @@ def fetch_youtube_transcripts(max_vods: Optional[int] = None) -> int:
 
     Args:
         max_vods: Maximum number of YouTube VODs to process (None = no limit)
+        mark_failed: If True, mark VODs as failed on error. Default False to leave pending for retry.
 
     Returns:
         Number of transcripts successfully fetched
@@ -154,7 +155,8 @@ def fetch_youtube_transcripts(max_vods: Optional[int] = None) -> int:
 
         except Exception as e:
             logger.error(f"YouTube transcript failed: {vod_id} ({title[:60]}): {e}")
-            manager.update_vod(vod_id, status=VodStatus.FAILED.value)
+            if mark_failed:
+                manager.update_vod(vod_id, status=VodStatus.FAILED.value)
 
     return completed
 
