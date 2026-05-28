@@ -104,14 +104,20 @@ jobs:
           VOD_INFO=$(uv run python -c "
           import sys
           sys.path.insert(0, 'src')
-          from src.state import get_state_manager, Platform
+          from src.state import get_state_manager, Platform, VodStatus
+
+          MAX_DURATION_SEC = 4 * 60 * 60  # 4 hours — longer VODs time out the prepare job
 
           manager = get_state_manager()
           pending = manager.get_pending_vods()
+          # Mark unfinishably long VODs as failed so they don't block the queue
+          for v in pending:
+              if v.duration and v.duration > MAX_DURATION_SEC:
+                  manager.update_vod(v.vod_id, status=VodStatus.FAILED.value)
           # Skip YouTube VODs — they are handled by the main pipeline via youtube-transcript-api
-          non_yt = [v for v in pending if v.platform != Platform.YOUTUBE.value]
-          if non_yt:
-              vod = non_yt[0]
+          eligible = [v for v in pending if v.platform != Platform.YOUTUBE.value and (not v.duration or v.duration <= MAX_DURATION_SEC)]
+          if eligible:
+              vod = eligible[0]
               print(f'{vod.vod_id}|{vod.platform}')
           ")
 
