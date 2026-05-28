@@ -2,7 +2,7 @@ name: Transcribe VOD (Distributed)
 
 on:
   schedule:
-    - cron: '0 */2 * * *'
+    - cron: '0 */3 * * *'
   workflow_dispatch:
     inputs:
       vod_id:
@@ -33,7 +33,7 @@ jobs:
   # Job 1: Download VOD and split into chunks
   prepare:
     runs-on: ubuntu-latest
-    timeout-minutes: 360
+    timeout-minutes: 120
     permissions:
       contents: write
     outputs:
