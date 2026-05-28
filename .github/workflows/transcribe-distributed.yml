@@ -62,7 +62,7 @@ jobs:
         run: uv venv
 
       - name: Install dependencies
-        run: uv pip install -e .
+        run: uv sync
 
       - name: Create .env file
         run: |
@@ -226,7 +226,7 @@ jobs:
         run: uv venv
 
       - name: Install dependencies
-        run: uv pip install -e .
+        run: uv sync
 
       - name: Cache Whisper model
         uses: actions/cache@v4
@@ -331,7 +331,7 @@ jobs:
         run: uv venv
 
       - name: Install dependencies
-        run: uv pip install -e .
+        run: uv sync
 
       - name: Create .env file
         run: |
