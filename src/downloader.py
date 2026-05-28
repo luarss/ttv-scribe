@@ -184,6 +184,7 @@ class Downloader:
             "quiet": True,
             "no_warnings": True,
             "extract_flat": False,
+            "socket_timeout": 60,
         }
 
         if platform == "bilibili":
