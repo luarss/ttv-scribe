@@ -72,10 +72,30 @@ jobs:
           LOG_LEVEL=INFO
           EOF
 
+      - name: Fetch proxies
+        id: proxies
+        run: |
+          PROXY_CSV=$(uv run python -c "
+          from src.proxy import fetch_proxies
+          proxies = fetch_proxies(limit=15)
+          print(','.join(proxies))
+          ")
+          echo "csv=$PROXY_CSV" >> $GITHUB_OUTPUT
+          echo "Fetched $(echo "$PROXY_CSV" | tr ',' '\n' | grep -c .) proxies"
+
       - name: Fetch YouTube transcripts
         id: youtube-transcripts
         run: |
-          uv run python -c "from src.pipeline import fetch_youtube_transcripts; print(f'Fetched {fetch_youtube_transcripts(max_vods=1)} YouTube transcript')"
+          PROXIES="${{ steps.proxies.outputs.csv }}"
+          YT_PROXY=$(echo "$PROXIES" | cut -d, -f1)
+          if [ -n "$YT_PROXY" ] && [ "$YT_PROXY" != "None" ]; then
+            uv run python -c "
+          from src.pipeline import fetch_youtube_transcripts
+          print(f'Fetched {fetch_youtube_transcripts(max_vods=1, proxy=\"$YT_PROXY\")} YouTube transcript')
+          "
+          else
+            uv run python -c "from src.pipeline import fetch_youtube_transcripts; print(f'Fetched {fetch_youtube_transcripts(max_vods=1)} YouTube transcript')"
+          fi
 
       - name: Select VOD from queue
         id: select-vod
@@ -127,9 +147,19 @@ jobs:
           VOD_ID="${{ steps.select-vod.outputs.vod_id || github.event.inputs.vod_id }}"
           PLATFORM="${{ steps.select-vod.outputs.platform || inputs.platform || 'twitch' }}"
 
+          PROXY_ARG=""
+          if [ "$PLATFORM" = "kick" ]; then
+            PROXY_LIST="${{ steps.proxies.outputs.csv }}"
+            if [ -n "$PROXY_LIST" ] && [ "$PROXY_LIST" != "None" ]; then
+              PROXY_ARG="--proxy $PROXY_LIST"
+              echo "Using $(echo "$PROXY_LIST" | tr ',' '\n' | grep -c .) proxies for Kick"
+            fi
+          fi
+
           uv run python -m src.cli.split_vod \
             --platform "$PLATFORM" \
             --output-dir ./chunks \
+            $PROXY_ARG \
             -- "$VOD_ID"
 
           echo "platform=$PLATFORM" >> $GITHUB_OUTPUT

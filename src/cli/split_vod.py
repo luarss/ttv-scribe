@@ -31,11 +31,13 @@ def main():
                         help="Platform — required when VOD is not already in state")
     parser.add_argument("--streamer", default=None,
                         help="Streamer name — used when creating a new state entry")
+    parser.add_argument("--proxy", default=None,
+                        help="Proxy URL for download (e.g. socks5://host:port)")
     args = parser.parse_args()
 
     # Download VOD
     try:
-        audio_path, vod_data = download_vod_audio(args.vod_id, platform=args.platform, streamer=args.streamer)
+        audio_path, vod_data = download_vod_audio(args.vod_id, platform=args.platform, streamer=args.streamer, proxy=args.proxy)
     except (yt_dlp.utils.DownloadError, ValueError, FileNotFoundError) as e:
         logger.error(f"VOD {args.vod_id} not available: {e}")
         manager = get_state_manager()

@@ -38,6 +38,7 @@ def download_vod_audio(
     vod_id: str,
     platform: Optional[str] = None,
     streamer: Optional[str] = None,
+    proxy: Optional[str] = None,
 ) -> tuple[str, dict[str, Any]]:
     """Download VOD audio and return path + VOD metadata
 
@@ -71,7 +72,7 @@ def download_vod_audio(
     manager.update_vod(vod_id, status=VodStatus.TRANSCRIBING.value)
 
     downloader = Downloader()
-    audio_path = downloader.download_vod_audio(vod_data)
+    audio_path = downloader.download_vod_audio(vod_data, proxy=proxy)
 
     return audio_path, vod_data
 

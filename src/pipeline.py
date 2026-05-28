@@ -81,7 +81,11 @@ def run_pipeline(
     )
 
 
-def fetch_youtube_transcripts(max_vods: Optional[int] = None, mark_failed: bool = False) -> int:
+def fetch_youtube_transcripts(
+    max_vods: Optional[int] = None,
+    mark_failed: bool = False,
+    proxy: Optional[str] = None,
+) -> int:
     """Fetch transcripts for PENDING YouTube VODs via youtube-transcript-api
 
     Bypasses yt-dlp entirely — gets YouTube's own captions directly.
@@ -90,6 +94,7 @@ def fetch_youtube_transcripts(max_vods: Optional[int] = None, mark_failed: bool 
     Args:
         max_vods: Maximum number of YouTube VODs to process (None = no limit)
         mark_failed: If True, mark VODs as failed on error. Default False to leave pending for retry.
+        proxy: Optional proxy URL (e.g. socks5://host:port or http://host:port)
 
     Returns:
         Number of transcripts successfully fetched
@@ -118,8 +123,14 @@ def fetch_youtube_transcripts(max_vods: Optional[int] = None, mark_failed: bool 
         logger.info(f"Fetching transcripts for {total_yt} YouTube VODs")
 
     from youtube_transcript_api import YouTubeTranscriptApi
+    from youtube_transcript_api.proxies import GenericProxyConfig
 
-    api = YouTubeTranscriptApi()
+    proxy_config = None
+    if proxy:
+        proxy_config = GenericProxyConfig(http_url=proxy, https_url=proxy)
+        logger.info(f"YouTube transcripts using proxy: {proxy}")
+
+    api = YouTubeTranscriptApi(proxy_config=proxy_config)
     completed = 0
 
     for vod in yt_vods:

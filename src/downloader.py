@@ -2,6 +2,7 @@
 
 import logging
 import os
+import random
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import yt_dlp
@@ -54,47 +55,70 @@ class Downloader:
         self.output_dir = self.settings.audio_output_dir
         os.makedirs(self.output_dir, exist_ok=True)
 
-    def download_vod_audio(self, vod_data: dict) -> str:
+    def download_vod_audio(self, vod_data: dict, proxy: str | None = None) -> str:
         """Download audio from a VOD
 
         Args:
             vod_data: The VOD data dictionary
+            proxy: Optional proxy URL(s), comma-separated for rotation
+                   (e.g. "socks5://a:1,socks5://b:2")
 
         Returns:
             Path to the downloaded audio file
 
         Raises:
-            Exception: If download fails
+            Exception: If download fails with all proxies
         """
         vod_id = vod_data["vod_id"]
         title = vod_data.get("title", "Unknown")
         platform = vod_data.get("platform", "twitch")
 
-        # Construct URL based on platform
+        # Build proxy list
+        proxies = []
+        if proxy:
+            proxies = [p.strip() for p in proxy.split(",") if p.strip()]
+            random.shuffle(proxies)
+
+        last_error = None
+        for attempt, current_proxy in enumerate(proxies or [None]):
+            try:
+                ydl_opts = self._build_ydl_opts(vod_id, vod_data, platform, current_proxy)
+                duration_min = vod_data.get("duration", 0) / 60 if vod_data.get("duration") else 0
+                proxy_label = f" via {current_proxy}" if current_proxy else ""
+                logger.info(
+                    f"Downloading VOD {vod_id} ({title}, {duration_min:.0f}min){proxy_label}"
+                    f"{' [attempt %d/%d]' % (attempt + 1, len(proxies)) if proxies else ''}"
+                )
+                return self._run_download(ydl_opts, vod_id, vod_data)
+            except Exception as e:
+                last_error = e
+                if current_proxy:
+                    logger.warning(f"Proxy {current_proxy} failed: {e}")
+                else:
+                    raise
+
+        raise last_error  # type: ignore[misc]
+
+    def _build_ydl_opts(self, vod_id: str, vod_data: dict, platform: str, proxy: str | None = None) -> dict:
+        """Build yt-dlp options dict for a VOD download."""
         if platform == "bilibili":
             video_url = f"https://www.bilibili.com/video/{vod_id}"
         elif platform == "youtube":
             video_url = f"https://www.youtube.com/watch?v={vod_id}"
         elif platform == "kick":
-            video_url = f"https://kick.com/{vod_data['streamer']}/videos/{vod_id}"
+            streamer = vod_data.get("streamer", "unknown")
+            video_url = f"https://kick.com/{streamer}/videos/{vod_id}"
         else:
             video_url = f"https://www.twitch.tv/videos/{vod_id}"
 
-        # Create temp file for output
         output_template = os.path.join(self.output_dir, f"{vod_id}.%(ext)s")
 
         ydl_opts = {
-            # Limit source audio to 128k to avoid huge downloads before conversion
-            # Twitch typically offers audio-only streams at various qualities
             "format": "bestaudio[abr<=128k]/bestaudio",
             "outtmpl": output_template,
-            # Speed up HLS fragment downloads
             "concurrent_fragment_downloads": 8,
             "postprocessors": [
-                {
-                    "key": "FFmpegExtractAudio",
-                    "preferredcodec": "opus",
-                }
+                {"key": "FFmpegExtractAudio", "preferredcodec": "opus"}
             ],
             "postprocessor_args": {
                 "FFmpegExtractAudio": ["-b:a", "24k", "-ar", "16000", "-ac", "1"]
@@ -104,8 +128,6 @@ class Downloader:
             "extract_flat": False,
         }
 
-        # Bilibili anti-bot measures (challenge solver patches HTTP 412 at extractor level;
-        # these options reduce the chance of being challenged in the first place)
         if platform == "bilibili":
             ydl_opts["sleep_interval_requests"] = 2
             ydl_opts["http_headers"] = {
@@ -115,9 +137,7 @@ class Downloader:
             if target := _bilibili_impersonation_target():
                 ydl_opts["impersonate"] = target
 
-        # Kick anti-bot measures (Cloudflare bypass via impersonation)
         if platform == "kick":
-            # Kick has no audio-only streams; use smallest video+audio format
             ydl_opts["format"] = "worst[ext=mp4]"
             ydl_opts["http_headers"] = {
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
@@ -126,24 +146,26 @@ class Downloader:
             if target := _kick_impersonation_target():
                 ydl_opts["impersonate"] = target
 
-        # Use aria2c if available for faster downloads
-        # Skip for Kick: aria2c doesn't use TLS impersonation, so each fragment
-        # download has a standard TLS handshake that Cloudflare fingerprints.
+        if proxy:
+            ydl_opts["proxy"] = proxy
+
+        # Skip aria2c for Kick: it breaks TLS impersonation on fragments
         if platform != "kick" and (
             os.path.exists("/usr/bin/aria2c") or os.path.exists("/usr/local/bin/aria2c")
         ):
             ydl_opts["external_downloader"] = "aria2c"
             ydl_opts["external_downloader_args"] = ["-x", "8", "-k", "1M", "-s", "8"]
 
-        duration_min = vod_data.get("duration", 0) / 60 if vod_data.get("duration") else 0
-        logger.info(f"Downloading VOD {vod_id} ({title}, {duration_min:.0f}min)")
+        ydl_opts["_video_url"] = video_url
+        return ydl_opts
 
+    def _run_download(self, ydl_opts: dict, vod_id: str, vod_data: dict) -> str:
+        """Run yt-dlp download and return the output file path."""
+        video_url = ydl_opts.pop("_video_url")
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([video_url])
 
-        # Find the downloaded file
         opus_path = os.path.join(self.output_dir, f"{vod_id}.opus")
-
         if not os.path.exists(opus_path):
             raise FileNotFoundError(f"Expected output file not found: {opus_path}")
 
