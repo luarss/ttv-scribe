@@ -34,13 +34,13 @@ def _kick_impersonation_target():
     """Return an ImpersonateTarget for Kick (Cloudflare bypass) if curl_cffi is available.
 
     Kick uses Cloudflare which fingerprints TLS handshakes aggressively.
-    We target chrome-133 (newest cross-platform target in yt-dlp 2026.3.17).
+    We target chrome-131 — yt-dlp deprioritizes chrome-133 as "known to be blocked."
     """
     try:
         import curl_cffi  # noqa: F401
         from yt_dlp.networking.impersonate import ImpersonateTarget
 
-        return ImpersonateTarget.from_str("chrome-133")
+        return ImpersonateTarget.from_str("chrome-131")
     except (ImportError, ValueError):
         pass
     return None
@@ -120,14 +120,18 @@ class Downloader:
             # Kick has no audio-only streams; use smallest video+audio format
             ydl_opts["format"] = "worst[ext=mp4]"
             ydl_opts["http_headers"] = {
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36",
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
                 "Referer": "https://kick.com",
             }
             if target := _kick_impersonation_target():
                 ydl_opts["impersonate"] = target
 
         # Use aria2c if available for faster downloads
-        if os.path.exists("/usr/bin/aria2c") or os.path.exists("/usr/local/bin/aria2c"):
+        # Skip for Kick: aria2c doesn't use TLS impersonation, so each fragment
+        # download has a standard TLS handshake that Cloudflare fingerprints.
+        if platform != "kick" and (
+            os.path.exists("/usr/bin/aria2c") or os.path.exists("/usr/local/bin/aria2c")
+        ):
             ydl_opts["external_downloader"] = "aria2c"
             ydl_opts["external_downloader_args"] = ["-x", "8", "-k", "1M", "-s", "8"]
 
