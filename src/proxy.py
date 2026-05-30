@@ -14,7 +14,7 @@ PROXYSCRAPE_URL = (
 )
 
 # IP prefixes known to be dead/unreachable — filtered out before shuffling.
-DEFAULT_SKIP_PREFIXES: list[str] = ["206.123."]
+DEFAULT_SKIP_PREFIXES: list[str] = ["206.123.", "68.71.", "192.111.", "192.252."]
 
 
 def _extract_ip(proxy_url: str) -> str:
