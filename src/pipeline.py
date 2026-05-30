@@ -84,8 +84,8 @@ def run_pipeline(
 def _is_connection_error(exc: Exception) -> bool:
     msg = str(exc).lower()
     return any(k in msg for k in (
-        "connection refused", "newconnectionerror",
-        "failed to establish", "max retries exceeded",
+        "connection refused", "connection reset", "connection aborted",
+        "newconnectionerror", "failed to establish", "max retries exceeded",
         "socks", "connectionerror",
     ))
 
