@@ -155,7 +155,7 @@ def fetch_youtube_transcripts(
 
             api = YouTubeTranscriptApi(proxy_config=proxy_config)
             try:
-                transcript = api.fetch(vod_id)
+                transcript = api.fetch(vod_id, languages=("en", "hi", "zh"))
                 lines = list(transcript)
                 if not lines:
                     raise ValueError("Empty transcript (no captions available)")
