@@ -148,7 +148,7 @@ class Downloader:
                     f"(retry cycle {refresh_cycle}/{max_refresh_cycles})"
                 )
                 try:
-                    proxies = fetch_proxies(limit=15)
+                    proxies = fetch_proxies()
                     random.shuffle(proxies)
                     consecutive_curl_failures = 0
                 except Exception as fe:

@@ -77,7 +77,7 @@ jobs:
         run: |
           PROXY_CSV=$(uv run python -c "
           from src.proxy import fetch_proxies
-          proxies = fetch_proxies(limit=15)
+          proxies = fetch_proxies(limit=25)
           print(','.join(proxies))
           ")
           echo "csv=$PROXY_CSV" >> $GITHUB_OUTPUT
