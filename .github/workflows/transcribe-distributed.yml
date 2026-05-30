@@ -188,6 +188,10 @@ jobs:
         if: steps.split.outputs.num_chunks == '0'
         run: |
           VOD_ID="${{ steps.select-vod.outputs.vod_id || github.event.inputs.vod_id }}"
+          if [ -z "$VOD_ID" ]; then
+            echo "No VOD selected, nothing to commit"
+            exit 0
+          fi
           PLATFORM="${{ steps.select-vod.outputs.platform || inputs.platform || 'twitch' }}"
           if [ "$PLATFORM" = "bilibili" ]; then
             PREFIX="chore: mark Bilibili video"
