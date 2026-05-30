@@ -38,6 +38,7 @@ class Platform(str, enum.Enum):
     TWITCH = "twitch"
     BILIBILI = "bilibili"
     YOUTUBE = "youtube"
+    KUAISHOU = "kuaishou"
 
 
 @dataclass
@@ -49,6 +50,7 @@ class StreamerRecord:
     twitch_id: str | None = None
     bilibili_mid: str | None = None  # Bilibili user ID
     youtube_channel_id: str | None = None  # YouTube channel ID
+    kuaishou_id: str | None = None  # Kuaishou user ID (e.g., "3x84qugg4ch9zhs")
     created_at: str = field(
         default_factory=lambda: (
             datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
@@ -585,15 +587,17 @@ def add_streamer(
     twitch_id: str | None = None,
     bilibili_mid: str | None = None,
     youtube_channel_id: str | None = None,
+    kuaishou_id: str | None = None,
 ):
     """Add a new streamer to track
 
     Args:
         username: The streamer's username
-        platform: The platform (twitch, bilibili, or youtube)
+        platform: The platform (twitch, bilibili, youtube, or kuaishou)
         twitch_id: Optional Twitch user ID
         bilibili_mid: Optional Bilibili user ID (mid)
         youtube_channel_id: Optional YouTube channel ID
+        kuaishou_id: Optional Kuaishou user ID
     """
     manager = get_state_manager()
     streamer = StreamerRecord(
@@ -602,6 +606,7 @@ def add_streamer(
         twitch_id=twitch_id,
         bilibili_mid=bilibili_mid,
         youtube_channel_id=youtube_channel_id,
+        kuaishou_id=kuaishou_id,
     )
     manager.add_streamer(streamer)
 

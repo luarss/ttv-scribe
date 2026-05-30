@@ -90,6 +90,33 @@ def _is_connection_error(exc: Exception) -> bool:
     ))
 
 
+def _build_http_client():
+    """Build a requests.Session with sensible timeouts for proxy use.
+
+    Free proxies often hang on connect or read instead of failing fast.
+    A 15 s timeout prevents a single bad proxy from blocking the pipeline.
+    """
+    import requests
+    from requests.adapters import HTTPAdapter
+
+    DEFAULT_TIMEOUT = 15
+
+    class TimeoutAdapter(HTTPAdapter):
+        def send(self, request, stream=False, timeout=None, verify=True,
+                 cert=None, proxies=None):
+            if timeout is None:
+                timeout = DEFAULT_TIMEOUT
+            return super().send(
+                request, stream=stream, timeout=timeout,
+                verify=verify, cert=cert, proxies=proxies,
+            )
+
+    session = requests.Session()
+    session.mount("http://", TimeoutAdapter())
+    session.mount("https://", TimeoutAdapter())
+    return session
+
+
 def fetch_youtube_transcripts(
     max_vods: Optional[int] = None,
     mark_failed: bool = False,
@@ -136,7 +163,9 @@ def fetch_youtube_transcripts(
     from youtube_transcript_api.proxies import GenericProxyConfig
 
     proxy_list = [p.strip() for p in proxy.split(",") if p.strip()] if proxy else []
-    # Try each proxy in order, then fall back to direct connection
+    # HTTP proxies are more reliable than free SOCKS5 for HTTPS CONNECT tunneling.
+    # Sort so HTTP proxies are tried first, reducing SSLErrors from broken SOCKS5.
+    proxy_list.sort(key=lambda p: (0 if p.startswith("http://") else 1, p))
     proxy_candidates: list[Optional[str]] = proxy_list + [None]
 
     completed = 0
@@ -153,7 +182,8 @@ def fetch_youtube_transcripts(
                 proxy_config = GenericProxyConfig(http_url=attempt_proxy, https_url=attempt_proxy)
             proxy_label = f" via {attempt_proxy}" if attempt_proxy else " (direct)"
 
-            api = YouTubeTranscriptApi(proxy_config=proxy_config)
+            http_client = _build_http_client()
+            api = YouTubeTranscriptApi(proxy_config=proxy_config, http_client=http_client)
             try:
                 transcript = api.fetch(vod_id, languages=("en", "hi", "zh"))
                 lines = list(transcript)
@@ -263,6 +293,10 @@ def run_streaming_pipeline(
             v for v in pending_vods
             if v.get("platform") == Platform.BILIBILI.value
         ]
+        kuaishou_vods = [
+            v for v in pending_vods
+            if v.get("platform") == Platform.KUAISHOU.value
+        ]
 
         # Check Twitch VOD availability
         with TwitchClient() as twitch:
@@ -280,8 +314,8 @@ def run_streaming_pipeline(
                 else:
                     available_vods.append(vod_data)
 
-        # Add Bilibili VODs (no pre-check, just attempt download)
-        for vod_data in bilibili_vods:
+        # Add Bilibili and Kuaishou VODs (no pre-check, just attempt download)
+        for vod_data in bilibili_vods + kuaishou_vods:
             if max_vods is not None and len(available_vods) >= max_vods:
                 break
             checked_count += 1
