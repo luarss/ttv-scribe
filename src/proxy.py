@@ -1,8 +1,11 @@
 """Free proxy list fetching for CI (proxyscrape API)."""
 
+import concurrent.futures
 import logging
 import random
 import re
+import socket
+from urllib.parse import urlparse
 from urllib.request import Request, urlopen
 
 logger = logging.getLogger(__name__)
@@ -14,13 +17,40 @@ PROXYSCRAPE_URL = (
 )
 
 # IP prefixes known to be dead/unreachable — filtered out before shuffling.
-DEFAULT_SKIP_PREFIXES: list[str] = ["184.170.", "206.123.", "68.71.", "192.111.", "192.252."]
+DEFAULT_SKIP_PREFIXES: list[str] = ["138.199.", "142.54.", "167.71.", "184.170.", "206.123.", "68.71.", "85.155.", "192.111.", "192.252."]
 
 
 def _extract_ip(proxy_url: str) -> str:
     """Extract the IP address from a proxy URL like socks5://1.2.3.4:port."""
     m = re.search(r"://([^:/]+)", proxy_url)
     return m.group(1) if m else ""
+
+
+def _tcp_probe(proxy_url: str, timeout: float = 2.0) -> bool:
+    """Return True if a TCP connection to *proxy_url* succeeds within *timeout*."""
+    try:
+        parsed = urlparse(proxy_url)
+        host = parsed.hostname
+        port = parsed.port
+        if not host or not port:
+            return False
+        socket.create_connection((host, port), timeout=timeout).close()
+        return True
+    except Exception:
+        return False
+
+
+def _probe_all(proxies: list[str], timeout: float = 2.0) -> list[str]:
+    """Probe every proxy in parallel; return only the reachable ones."""
+    if not proxies:
+        return []
+    alive: list[str] = []
+    with concurrent.futures.ThreadPoolExecutor(max_workers=min(50, len(proxies))) as ex:
+        future_to_proxy = {ex.submit(_tcp_probe, p, timeout): p for p in proxies}
+        for future in concurrent.futures.as_completed(future_to_proxy):
+            if future.result():
+                alive.append(future_to_proxy[future])
+    return alive
 
 
 def fetch_proxies(
@@ -56,10 +86,16 @@ def fetch_proxies(
             if skipped:
                 logger.info(f"Filtered {skipped} proxies by IP prefix")
 
+        before_probe = len(proxies)
+        proxies = _probe_all(proxies)
+        dead = before_probe - len(proxies)
+        if dead:
+            logger.info(f"Probe filtered {dead} dead proxies, {len(proxies)} alive")
+
         random.shuffle(proxies)
         selected = proxies[:limit]
         logger.info(
-            f"Fetched {len(proxies)} proxies (filtered), using {len(selected)}"
+            f"Fetched {len(proxies)} proxies (probed), using {len(selected)}"
         )
         return selected
     except Exception as e:
