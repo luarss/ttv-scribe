@@ -293,10 +293,6 @@ def run_streaming_pipeline(
             v for v in pending_vods
             if v.get("platform") == Platform.BILIBILI.value
         ]
-        kuaishou_vods = [
-            v for v in pending_vods
-            if v.get("platform") == Platform.KUAISHOU.value
-        ]
 
         # Check Twitch VOD availability
         with TwitchClient() as twitch:
@@ -314,8 +310,8 @@ def run_streaming_pipeline(
                 else:
                     available_vods.append(vod_data)
 
-        # Add Bilibili and Kuaishou VODs (no pre-check, just attempt download)
-        for vod_data in bilibili_vods + kuaishou_vods:
+        # Add Bilibili VODs (no pre-check, just attempt download)
+        for vod_data in bilibili_vods:
             if max_vods is not None and len(available_vods) >= max_vods:
                 break
             checked_count += 1

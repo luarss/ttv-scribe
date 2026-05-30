@@ -82,9 +82,6 @@ class Downloader:
         title = vod_data.get("title", "Unknown")
         platform = vod_data.get("platform", "twitch")
 
-        if platform == "kuaishou":
-            return self._download_kuaishou(vod_data)
-
         if proxy:
             proxies = [p.strip() for p in proxy.split(",") if p.strip()]
             random.shuffle(proxies)
@@ -204,86 +201,6 @@ class Downloader:
 
         logger.debug(f"Downloaded VOD {vod_id} to {opus_path}")
         return opus_path
-
-    def _download_kuaishou(self, vod_data: dict) -> str:
-        """Download Kuaishou video by fetching stream URL from GraphQL API,
-        downloading the best quality stream, and extracting audio with ffmpeg.
-
-        Args:
-            vod_data: VOD data dict with vod_id (photoId).
-
-        Returns:
-            Path to the downloaded opus audio file.
-        """
-        import subprocess
-
-        import httpx
-
-        from .kuaishou.client import KuaishouClient
-
-        photo_id = vod_data["vod_id"]
-        title = vod_data.get("title", "Unknown")
-
-        with KuaishouClient() as ks:
-            work_info = ks.get_work_info(photo_id)
-            if not work_info:
-                raise Exception(f"Failed to get work info for Kuaishou video {photo_id}")
-
-            stream_urls = work_info.get("stream_urls", [])
-            if not stream_urls:
-                raise Exception(f"No stream URLs found for Kuaishou video {photo_id}")
-
-        # Pick best quality: sort by height desc, prefer direct mp4 over m3u8
-        best = sorted(
-            stream_urls,
-            key=lambda s: (
-                s.get("height") or 0,
-                0 if not s.get("m3u8") else 1,
-            ),
-            reverse=True,
-        )[0]
-        stream_url = best["url"]
-        quality = best.get("quality", "unknown")
-        height = best.get("height", "?")
-
-        logger.info(
-            f"Downloading Kuaishou video {photo_id} ({title[:60]}, "
-            f"{quality}, {height}p)"
-        )
-
-        video_path = os.path.join(self.output_dir, f"{photo_id}_video.mp4")
-        try:
-            with httpx.Client(timeout=120.0, follow_redirects=True) as client:
-                headers = {
-                    "User-Agent": (
-                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                        "AppleWebKit/537.36 (KHTML, like Gecko) "
-                        "Chrome/131.0.0.0 Safari/537.36"
-                    ),
-                    "Referer": "https://www.kuaishou.com",
-                }
-                with client.stream("GET", stream_url, headers=headers) as resp:
-                    resp.raise_for_status()
-                    with open(video_path, "wb") as f:
-                        for chunk in resp.iter_bytes(chunk_size=8192):
-                            f.write(chunk)
-
-            # Extract audio with ffmpeg (same format as yt-dlp output)
-            opus_path = os.path.join(self.output_dir, f"{photo_id}.opus")
-            subprocess.run(
-                [
-                    "ffmpeg", "-y", "-i", video_path,
-                    "-b:a", "24k", "-ar", "16000", "-ac", "1",
-                    "-c:a", "libopus", opus_path,
-                ],
-                capture_output=True,
-                check=True,
-            )
-            logger.debug(f"Kuaishou audio extracted: {opus_path}")
-            return opus_path
-        finally:
-            if os.path.exists(video_path):
-                os.remove(video_path)
 
     def cleanup_audio(self, filepath: str):
         """Remove downloaded audio file"""

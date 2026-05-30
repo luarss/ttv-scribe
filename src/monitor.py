@@ -17,8 +17,6 @@ from .state import (
 from .twitch.client import TwitchClient
 from .bilibili.client import BilibiliClient
 from .youtube.client import YouTubeClient
-from .kuaishou.client import KuaishouClient
-
 logger = logging.getLogger(__name__)
 
 
@@ -55,7 +53,6 @@ def check_for_new_vods(
                 streamer_data.get("twitch_id"),
                 streamer_data.get("bilibili_mid"),
                 streamer_data.get("youtube_channel_id"),
-                streamer_data.get("kuaishou_id"),
                 max_duration_minutes,
                 min_days_old,
             )
@@ -87,7 +84,6 @@ def _check_streamer_vods(
     twitch_id: str | None,
     bilibili_mid: str | None,
     youtube_channel_id: str | None,
-    kuaishou_id: str | None = None,
     max_duration_minutes: int | None = None,
     min_days_old: int = 3,
 ) -> int:
@@ -95,11 +91,10 @@ def _check_streamer_vods(
 
     Args:
         username: The streamer's username
-        platform: The platform (twitch, bilibili, youtube, or kuaishou)
+        platform: The platform (twitch, bilibili, or youtube)
         twitch_id: Optional Twitch user ID
         bilibili_mid: Optional Bilibili user ID (mid)
         youtube_channel_id: Optional YouTube channel ID
-        kuaishou_id: Optional Kuaishou user ID
         max_duration_minutes: Only include VODs shorter than this duration (None = no limit)
         min_days_old: Only include VODs older than this many days (to avoid live/in-progress VODs)
 
@@ -113,10 +108,6 @@ def _check_streamer_vods(
     elif platform == Platform.BILIBILI.value:
         return _check_bilibili_vods(
             username, bilibili_mid, max_duration_minutes, min_days_old
-        )
-    elif platform == Platform.KUAISHOU.value:
-        return _check_kuaishou_vods(
-            username, kuaishou_id, max_duration_minutes, min_days_old
         )
     else:
         return _check_twitch_vods(
@@ -438,98 +429,6 @@ def _check_youtube_vods(
         manager.add_vod(vod)
         new_count += 1
         logger.debug(f"Added new VOD {vod_id} for {username}: {video.get('title')}")
-
-    if new_count > 0:
-        logger.info(f"{username}: {new_count} new VODs queued")
-
-    return new_count
-
-
-def _check_kuaishou_vods(
-    username: str,
-    kuaishou_id: str | None,
-    max_duration_minutes: int | None = None,
-    min_days_old: int = 3,
-) -> int:
-    """Check for new Kuaishou videos for a specific user."""
-    with KuaishouClient() as ks:
-        # Discover user ID if we don't have it
-        if not kuaishou_id:
-            kuaishou_id = ks.discover_user_id(username)
-            if not kuaishou_id:
-                logger.warning(f"User {username} not found on Kuaishou")
-                return 0
-            update_streamer(username, kuaishou_id=kuaishou_id)
-
-        # Get all videos (paginated)
-        try:
-            videos_data = ks.get_videos_by_user_id(kuaishou_id)
-        except Exception as e:
-            logger.error(f"Failed to get Kuaishou videos for {username}: {e}")
-            return 0
-
-    manager = get_state_manager()
-    new_count = 0
-
-    for video_data in videos_data:
-        vod_id = video_data["photo_id"]
-        if not vod_id:
-            continue
-
-        existing = manager.get_vod(vod_id)
-        if existing:
-            continue
-
-        # Kuaishou returns duration in milliseconds
-        duration_ms = video_data.get("duration", 0) or 0
-        if duration_ms > 1e9:
-            duration = int(duration_ms / 1000)
-        else:
-            duration = int(duration_ms) if duration_ms else None
-
-        if (
-            max_duration_minutes is not None
-            and duration is not None
-            and duration > max_duration_minutes * 60
-        ):
-            logger.debug(f"Skipping VOD {vod_id} - too long ({duration}s)")
-            continue
-
-        # Parse recorded_at (Kuaishou returns timestamp in milliseconds)
-        recorded_at = None
-        timestamp_ms = video_data.get("timestamp_ms")
-        if timestamp_ms:
-            try:
-                ts = timestamp_ms / 1000 if timestamp_ms > 1e12 else timestamp_ms
-                vod_time = datetime.fromtimestamp(ts, timezone.utc)
-                recorded_at = vod_time.isoformat().replace("+00:00", "Z")
-                now = datetime.now(timezone.utc)
-                age_days = (now - vod_time).total_seconds() / 86400
-                if age_days < min_days_old:
-                    logger.debug(
-                        f"Skipping VOD {vod_id} - too recent ({age_days:.1f} days old)"
-                    )
-                    continue
-            except (ValueError, OSError):
-                pass
-
-        if duration is not None:
-            logger.debug(
-                f"VOD {vod_id} duration: {duration}s ({duration / 60:.1f} min)"
-            )
-
-        vod = VodRecord(
-            vod_id=vod_id,
-            streamer=username,
-            platform=Platform.KUAISHOU.value,
-            title=video_data.get("caption"),
-            duration=duration,
-            recorded_at=recorded_at,
-            status=VodStatus.PENDING,
-        )
-        manager.add_vod(vod)
-        new_count += 1
-        logger.debug(f"Added new VOD {vod_id} for {username}: {video_data.get('caption')}")
 
     if new_count > 0:
         logger.info(f"{username}: {new_count} new VODs queued")
