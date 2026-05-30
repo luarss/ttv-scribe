@@ -86,7 +86,7 @@ def _is_connection_error(exc: Exception) -> bool:
     return any(k in msg for k in (
         "connection refused", "connection reset", "connection aborted",
         "newconnectionerror", "failed to establish", "max retries exceeded",
-        "socks", "connectionerror",
+        "socks", "connectionerror", "timed out",
     ))
 
 
