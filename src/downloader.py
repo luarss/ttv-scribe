@@ -138,7 +138,14 @@ class Downloader:
 
             # If we didn't hit the curl-failure threshold, all proxies exhausted — give up
             if consecutive_curl_failures < max_proxy_failures:
-                break
+                # Kick + Cloudflare: direct download often blocked; force proxy fallback
+                if platform == "kick" and not proxies:
+                    logger.info(
+                        "Kick direct download failed (curl), forcing proxy fallback"
+                    )
+                    consecutive_curl_failures = max_proxy_failures
+                else:
+                    break
 
             # Hit threshold — fetch fresh proxies and retry
             refresh_cycle += 1
