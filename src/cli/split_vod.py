@@ -27,7 +27,7 @@ def main():
         help="Chunk duration in seconds (default: auto-calculate based on VOD length)",
     )
     parser.add_argument("--output-dir", default="./chunks", help="Output directory for chunks")
-    parser.add_argument("--platform", default=None, choices=["twitch", "bilibili", "youtube", "kick"],
+    parser.add_argument("--platform", default=None, choices=["twitch", "bilibili", "youtube"],
                         help="Platform — required when VOD is not already in state")
     parser.add_argument("--streamer", default=None,
                         help="Streamer name — used when creating a new state entry")

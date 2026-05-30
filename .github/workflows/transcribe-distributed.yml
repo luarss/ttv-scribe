@@ -142,20 +142,36 @@ jobs:
           VOD_ID="${{ steps.select-vod.outputs.vod_id || github.event.inputs.vod_id }}"
           PLATFORM="${{ steps.select-vod.outputs.platform || inputs.platform || 'twitch' }}"
 
+          PROXY_LIST="${{ steps.proxies.outputs.csv }}"
           PROXY_ARG=""
-          if [ "$PLATFORM" = "kick" ]; then
-            PROXY_LIST="${{ steps.proxies.outputs.csv }}"
-            if [ -n "$PROXY_LIST" ] && [ "$PROXY_LIST" != "None" ]; then
-              PROXY_ARG="--proxy $PROXY_LIST"
-              echo "Using $(echo "$PROXY_LIST" | tr ',' '\n' | grep -c .) proxies for Kick"
-            fi
+          if [ -n "$PROXY_LIST" ] && [ "$PROXY_LIST" != "None" ]; then
+            PROXY_ARG="--proxy $PROXY_LIST"
+            echo "Using $(echo "$PROXY_LIST" | tr ',' '\n' | grep -c .) proxies"
           fi
 
-          uv run python -m src.cli.split_vod \
-            --platform "$PLATFORM" \
-            --output-dir ./chunks \
-            $PROXY_ARG \
-            -- "$VOD_ID"
+          MAX_ATTEMPTS=3
+          ATTEMPT=1
+          while [ $ATTEMPT -le $MAX_ATTEMPTS ]; do
+            echo "Download attempt $ATTEMPT/$MAX_ATTEMPTS"
+            if uv run python -m src.cli.split_vod \
+              --platform "$PLATFORM" \
+              --output-dir ./chunks \
+              $PROXY_ARG \
+              -- "$VOD_ID"; then
+              echo "Download succeeded on attempt $ATTEMPT"
+              break
+            fi
+            EXIT_CODE=$?
+            echo "Download attempt $ATTEMPT failed with exit code $EXIT_CODE"
+            if [ $ATTEMPT -lt $MAX_ATTEMPTS ]; then
+              echo "Retrying in 30 seconds..."
+              sleep 30
+            else
+              echo "All $MAX_ATTEMPTS attempts failed"
+              exit $EXIT_CODE
+            fi
+            ATTEMPT=$((ATTEMPT + 1))
+          done
 
           echo "platform=$PLATFORM" >> $GITHUB_OUTPUT
 

@@ -6,7 +6,6 @@
       "twitch_id": null,
       "bilibili_mid": "110532277",
       "youtube_channel_id": null,
-      "kick_slug": null,
       "created_at": "2026-03-30T00:00:00.000000Z"
     },
     {
@@ -15,7 +14,6 @@
       "twitch_id": null,
       "bilibili_mid": "41291971",
       "youtube_channel_id": null,
-      "kick_slug": null,
       "created_at": "2026-03-30T00:00:00.000000Z"
     },
     {
@@ -24,7 +22,6 @@
       "twitch_id": "169185650",
       "bilibili_mid": null,
       "youtube_channel_id": null,
-      "kick_slug": null,
       "created_at": "2026-03-30T03:20:02.853413Z"
     },
     {
@@ -33,7 +30,6 @@
       "twitch_id": "41908566",
       "bilibili_mid": null,
       "youtube_channel_id": null,
-      "kick_slug": null,
       "created_at": "2026-03-30T03:20:02.856549Z"
     },
     {
@@ -42,7 +38,6 @@
       "twitch_id": "159498717",
       "bilibili_mid": null,
       "youtube_channel_id": null,
-      "kick_slug": null,
       "created_at": "2026-03-30T03:20:02.866599Z"
     },
     {
@@ -51,7 +46,6 @@
       "twitch_id": "59016177",
       "bilibili_mid": null,
       "youtube_channel_id": null,
-      "kick_slug": null,
       "created_at": "2026-03-30T03:20:03.403016Z"
     },
     {
@@ -60,7 +54,6 @@
       "twitch_id": "11249217",
       "bilibili_mid": null,
       "youtube_channel_id": null,
-      "kick_slug": null,
       "created_at": "2026-03-30T04:40:24.649180Z"
     },
     {
@@ -69,7 +62,6 @@
       "twitch_id": "44991151",
       "bilibili_mid": null,
       "youtube_channel_id": null,
-      "kick_slug": null,
       "created_at": "2026-03-30T04:40:24.870215Z"
     },
     {
@@ -78,7 +70,6 @@
       "twitch_id": "601213281",
       "bilibili_mid": null,
       "youtube_channel_id": null,
-      "kick_slug": null,
       "created_at": "2026-03-30T04:40:24.882374Z"
     },
     {
@@ -87,7 +78,6 @@
       "twitch_id": "557590551",
       "bilibili_mid": null,
       "youtube_channel_id": null,
-      "kick_slug": null,
       "created_at": "2026-03-30T04:40:24.990686Z"
     },
     {
@@ -96,7 +86,6 @@
       "twitch_id": "124569929",
       "bilibili_mid": null,
       "youtube_channel_id": null,
-      "kick_slug": null,
       "created_at": "2026-03-30T04:40:25.900083Z"
     },
     {
@@ -105,7 +94,6 @@
       "twitch_id": "123",
       "bilibili_mid": null,
       "youtube_channel_id": null,
-      "kick_slug": null,
       "created_at": "2026-03-30T04:47:34.315361Z"
     },
     {
@@ -114,7 +102,6 @@
       "twitch_id": "76020989",
       "bilibili_mid": null,
       "youtube_channel_id": null,
-      "kick_slug": null,
       "created_at": "2026-05-06T00:00:00.000000Z"
     },
     {
@@ -123,7 +110,6 @@
       "twitch_id": null,
       "bilibili_mid": null,
       "youtube_channel_id": "UCfoundChannelId",
-      "kick_slug": null,
       "created_at": "2026-05-16T08:04:13.039510Z"
     },
     {
@@ -132,7 +118,6 @@
       "twitch_id": null,
       "bilibili_mid": null,
       "youtube_channel_id": "UCKr68ZJ4vv6VloNdnS2hjhA",
-      "kick_slug": null,
       "created_at": "2026-05-16T08:04:13.041925Z"
     },
     {
@@ -141,7 +126,6 @@
       "twitch_id": null,
       "bilibili_mid": null,
       "youtube_channel_id": "UCxDZs_ltFFvn0FDHT6kmoXA",
-      "kick_slug": null,
       "created_at": "2026-05-16T08:04:13.042251Z"
     },
     {
@@ -150,7 +134,6 @@
       "twitch_id": null,
       "bilibili_mid": null,
       "youtube_channel_id": "UCgZM50Ig7STDS0l6f_QnrXw",
-      "kick_slug": null,
       "created_at": "2026-05-16T08:04:13.042558Z"
     },
     {
@@ -159,17 +142,7 @@
       "twitch_id": null,
       "bilibili_mid": null,
       "youtube_channel_id": "UCEIs9nkveW9WmYtsOcJBwTg",
-      "kick_slug": null,
       "created_at": "2026-05-16T08:04:13.042843Z"
-    },
-    {
-      "username": "sukasblood",
-      "platform": "kick",
-      "twitch_id": null,
-      "bilibili_mid": null,
-      "youtube_channel_id": null,
-      "kick_slug": "sukasblood",
-      "created_at": "2026-05-26T05:25:47.995511Z"
     }
   ]
 }

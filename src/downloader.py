@@ -31,21 +31,6 @@ def _bilibili_impersonation_target():
     return None
 
 
-def _kick_impersonation_target():
-    """Return an ImpersonateTarget for Kick (Cloudflare bypass) if curl_cffi is available.
-
-    Kick uses Cloudflare which fingerprints TLS handshakes aggressively.
-    We target chrome-131 — yt-dlp deprioritizes chrome-133 as "known to be blocked."
-    """
-    try:
-        import curl_cffi  # noqa: F401
-        from yt_dlp.networking.impersonate import ImpersonateTarget
-
-        return ImpersonateTarget.from_str("chrome-131")
-    except (ImportError, ValueError):
-        pass
-    return None
-
 
 def _is_curl_error(error: Exception) -> bool:
     """Check if an error originated from a curl/libcurl failure."""
@@ -138,14 +123,7 @@ class Downloader:
 
             # If we didn't hit the curl-failure threshold, all proxies exhausted — give up
             if consecutive_curl_failures < max_proxy_failures:
-                # Kick + Cloudflare: direct download often blocked; force proxy fallback
-                if platform == "kick" and not proxies:
-                    logger.info(
-                        "Kick direct download failed (curl), forcing proxy fallback"
-                    )
-                    consecutive_curl_failures = max_proxy_failures
-                else:
-                    break
+                break
 
             # Hit threshold — fetch fresh proxies and retry
             refresh_cycle += 1
@@ -170,9 +148,6 @@ class Downloader:
             video_url = f"https://www.bilibili.com/video/{vod_id}"
         elif platform == "youtube":
             video_url = f"https://www.youtube.com/watch?v={vod_id}"
-        elif platform == "kick":
-            streamer = vod_data.get("streamer", "unknown")
-            video_url = f"https://kick.com/{streamer}/videos/{vod_id}"
         else:
             video_url = f"https://www.twitch.tv/videos/{vod_id}"
 
@@ -204,22 +179,10 @@ class Downloader:
             if target := _bilibili_impersonation_target():
                 ydl_opts["impersonate"] = target
 
-        if platform == "kick":
-            ydl_opts["format"] = "worst[ext=mp4]"
-            ydl_opts["http_headers"] = {
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
-                "Referer": "https://kick.com",
-            }
-            if target := _kick_impersonation_target():
-                ydl_opts["impersonate"] = target
-
         if proxy:
             ydl_opts["proxy"] = proxy
 
-        # Skip aria2c for Kick: it breaks TLS impersonation on fragments
-        if platform != "kick" and (
-            os.path.exists("/usr/bin/aria2c") or os.path.exists("/usr/local/bin/aria2c")
-        ):
+        if os.path.exists("/usr/bin/aria2c") or os.path.exists("/usr/local/bin/aria2c"):
             ydl_opts["external_downloader"] = "aria2c"
             ydl_opts["external_downloader_args"] = ["-x", "8", "-k", "1M", "-s", "8"]
 
