@@ -87,15 +87,10 @@ jobs:
         id: youtube-transcripts
         run: |
           PROXIES="${{ steps.proxies.outputs.csv }}"
-          YT_PROXY=$(echo "$PROXIES" | cut -d, -f1)
-          if [ -n "$YT_PROXY" ] && [ "$YT_PROXY" != "None" ]; then
-            uv run python -c "
+          uv run python -c "
           from src.pipeline import fetch_youtube_transcripts
-          print(f'Fetched {fetch_youtube_transcripts(max_vods=1, proxy=\"$YT_PROXY\")} YouTube transcript')
+          print(f'Fetched {fetch_youtube_transcripts(max_vods=1, proxy=\"$PROXIES\")} YouTube transcript')
           "
-          else
-            uv run python -c "from src.pipeline import fetch_youtube_transcripts; print(f'Fetched {fetch_youtube_transcripts(max_vods=1)} YouTube transcript')"
-          fi
 
       - name: Select VOD from queue
         id: select-vod

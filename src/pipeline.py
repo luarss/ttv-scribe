@@ -81,6 +81,15 @@ def run_pipeline(
     )
 
 
+def _is_connection_error(exc: Exception) -> bool:
+    msg = str(exc).lower()
+    return any(k in msg for k in (
+        "connection refused", "newconnectionerror",
+        "failed to establish", "max retries exceeded",
+        "socks", "connectionerror",
+    ))
+
+
 def fetch_youtube_transcripts(
     max_vods: Optional[int] = None,
     mark_failed: bool = False,
@@ -94,7 +103,8 @@ def fetch_youtube_transcripts(
     Args:
         max_vods: Maximum number of YouTube VODs to process (None = no limit)
         mark_failed: If True, mark VODs as failed on error. Default False to leave pending for retry.
-        proxy: Optional proxy URL (e.g. socks5://host:port or http://host:port)
+        proxy: Optional proxy URL(s), comma-separated for rotation
+               (e.g. "socks5://a:1,socks5://b:2"). Falls back to direct on connection errors.
 
     Returns:
         Number of transcripts successfully fetched
@@ -125,49 +135,65 @@ def fetch_youtube_transcripts(
     from youtube_transcript_api import YouTubeTranscriptApi
     from youtube_transcript_api.proxies import GenericProxyConfig
 
-    proxy_config = None
-    if proxy:
-        proxy_config = GenericProxyConfig(http_url=proxy, https_url=proxy)
-        logger.info(f"YouTube transcripts using proxy: {proxy}")
+    proxy_list = [p.strip() for p in proxy.split(",") if p.strip()] if proxy else []
+    # Try each proxy in order, then fall back to direct connection
+    proxy_candidates: list[Optional[str]] = proxy_list + [None]
 
-    api = YouTubeTranscriptApi(proxy_config=proxy_config)
     completed = 0
 
     for vod in yt_vods:
         vod_id = vod.vod_id
         vod_data = vod.to_dict()
         title = vod.title or "Unknown"
+        all_connection_errors = True
 
-        try:
-            transcript = api.fetch(vod_id)
-            lines = list(transcript)
-            if not lines:
-                raise ValueError("Empty transcript (no captions available)")
+        for attempt_proxy in proxy_candidates:
+            proxy_config = None
+            if attempt_proxy:
+                proxy_config = GenericProxyConfig(http_url=attempt_proxy, https_url=attempt_proxy)
+            proxy_label = f" via {attempt_proxy}" if attempt_proxy else " (direct)"
 
-            text = " ".join(line.text for line in lines)
+            api = YouTubeTranscriptApi(proxy_config=proxy_config)
+            try:
+                transcript = api.fetch(vod_id)
+                lines = list(transcript)
+                if not lines:
+                    raise ValueError("Empty transcript (no captions available)")
 
-            metadata = {
-                "segments_count": len(lines),
-                "source": "youtube_captions",
-            }
+                text = " ".join(line.text for line in lines)
+                metadata = {
+                    "segments_count": len(lines),
+                    "source": "youtube_captions",
+                }
+                save_transcript_to_json(vod_data, text, metadata, cost=0.0)
+                export_transcript_to_text(vod_data, text)
+                manager.update_vod(vod_id, status=VodStatus.COMPLETED.value)
+                completed += 1
+                logger.info(
+                    f"YouTube transcript OK: {vod_id} ({title[:60]}){proxy_label}"
+                    f" — {len(lines)} segments, {len(text)} chars"
+                )
+                all_connection_errors = False
+                break
 
-            save_transcript_to_json(vod_data, text, metadata, cost=0.0)
-            export_transcript_to_text(vod_data, text)
+            except Exception as e:
+                if _is_connection_error(e):
+                    logger.warning(
+                        f"YouTube transcript connection error{proxy_label}: {vod_id} — {e}"
+                    )
+                    continue
+                else:
+                    all_connection_errors = False
+                    logger.error(f"YouTube transcript failed: {vod_id} ({title[:60]}): {e}")
+                    if mark_failed:
+                        manager.update_vod(vod_id, status=VodStatus.FAILED.value)
+                    break
 
-            manager.update_vod(
-                vod_id,
-                status=VodStatus.COMPLETED.value,
+        if all_connection_errors:
+            logger.error(
+                f"YouTube transcript failed: {vod_id} ({title[:60]}): "
+                f"all {len(proxy_candidates)} proxy attempt(s) refused — leaving pending for retry"
             )
-
-            completed += 1
-            logger.info(
-                f"YouTube transcript OK: {vod_id} ({title[:60]}) — {len(lines)} segments, {len(text)} chars"
-            )
-
-        except Exception as e:
-            logger.error(f"YouTube transcript failed: {vod_id} ({title[:60]}): {e}")
-            if mark_failed:
-                manager.update_vod(vod_id, status=VodStatus.FAILED.value)
 
     return completed
 
