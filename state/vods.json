@@ -10182,7 +10182,7 @@
       "title": "I Met the Shopkeeper’s Son 🥹",
       "duration": 33,
       "recorded_at": "2026-03-25T14:01:06Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.637594Z"
     },
@@ -12448,7 +12448,7 @@
       "title": "Tokyo | CLOSED RESTAURANT | !esim !vpn !yt",
       "duration": 32860,
       "recorded_at": "2026-05-28T03:36:13+00:00",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-06-01T01:02:19.859598Z"
     },
