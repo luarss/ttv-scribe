@@ -10248,7 +10248,7 @@
       "title": "This Camera Market is INCREDIBLE! 💯",
       "duration": 65,
       "recorded_at": "2026-03-21T06:30:12Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.704060Z"
     },
@@ -12569,7 +12569,7 @@
       "title": "❤️ IRL China 🇨🇳",
       "duration": 37997,
       "recorded_at": "2026-05-27T12:15:50+00:00",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-06-01T01:02:20.541447Z"
     },
