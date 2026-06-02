@@ -10237,7 +10237,7 @@
       "title": "$125 Vintage Soviet Camera?!",
       "duration": 21,
       "recorded_at": "2026-03-22T14:01:06Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.697487Z"
     },
@@ -12558,7 +12558,7 @@
       "title": "Tokyo | New SEGA Merch! | !esim !vpn !yt",
       "duration": 33715,
       "recorded_at": "2026-05-15T03:00:04+00:00",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-06-01T01:02:20.026517Z"
     },
