@@ -10270,7 +10270,7 @@
       "title": "This Dish Makes You 🥵",
       "duration": 15,
       "recorded_at": "2026-03-17T14:01:29Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:38.740744Z"
     },
@@ -12723,7 +12723,7 @@
       "title": "IRL 🌷 NEDERLAND DAY1 UTRECHT with @recharging | Utrecht, The Netherlands 🇳🇱 | !tc travel @GPUlive",
       "duration": 26474,
       "recorded_at": "2026-05-28T12:02:07+00:00",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-06-01T01:02:21.103906Z"
     },
