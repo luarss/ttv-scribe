@@ -81,7 +81,7 @@ class TestPrepareVodChunks:
 
         # Assert
         assert manifest["vod_id"] == "1234567890"
-        assert manifest["streamer"] == "testuser"
+        assert manifest["streamer"] == "streamer"
         assert manifest["total_duration"] == 1800.0
         assert manifest["chunk_duration"] == 600
         assert len(manifest["chunks"]) == 3
@@ -99,7 +99,7 @@ class TestSaveChunkManifest:
         """Test saving manifest to JSON"""
         manifest = {
             "vod_id": "1234567890",
-            "streamer": "testuser",
+            "streamer": "streamer",
             "title": "Test Stream",
             "recorded_at": "2024-01-15T12:00:00Z",
             "total_duration": 1800.0,

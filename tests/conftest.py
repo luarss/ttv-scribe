@@ -36,7 +36,7 @@ def sample_vod_data():
     """Sample VOD data for testing"""
     return {
         "vod_id": "1234567890",
-        "streamer": "testuser",
+        "streamer": "streamer",
         "title": "Test Stream Title",
         "duration": 3600,
         "recorded_at": "2024-01-15T12:00:00Z",
@@ -48,7 +48,7 @@ def sample_vod_data():
 def sample_streamer():
     """Sample streamer record for testing"""
     return {
-        "username": "testuser",
+        "username": "streamer",
         "twitch_id": "123456",
         "created_at": "2024-01-15T12:00:00Z",
     }
@@ -131,7 +131,7 @@ def mock_twitch_response():
         },
         "user": {
             "id": "123456",
-            "login": "testuser",
+            "login": "streamer",
             "display_name": "TestUser",
             "type": "",
             "broadcaster_type": "partner",
@@ -144,7 +144,7 @@ def mock_twitch_response():
         "vod": {
             "id": "1234567890",
             "user_id": "123456",
-            "user_login": "testuser",
+            "user_login": "streamer",
             "user_name": "TestUser",
             "title": "Test Stream Title",
             "description": "",

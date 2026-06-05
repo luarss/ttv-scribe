@@ -178,11 +178,11 @@ class TestGetUserByUsername:
 
         with patch("src.twitch.client.get_settings", return_value=mock_settings):
             client = TwitchClient()
-            user = client.get_user_by_username("testuser")
+            user = client.get_user_by_username("streamer")
 
             assert user is not None
             assert user["id"] == "123456"
-            assert user["login"] == "testuser"
+            assert user["login"] == "streamer"
             client.close()
 
     @respx.mock
@@ -215,7 +215,7 @@ class TestGetUserByUsername:
         with patch("src.twitch.client.get_settings", return_value=mock_settings):
             client = TwitchClient()
             with pytest.raises(httpx.HTTPStatusError):
-                client.get_user_by_username("testuser")
+                client.get_user_by_username("streamer")
             client.close()
 
 

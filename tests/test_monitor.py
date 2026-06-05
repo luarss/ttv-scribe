@@ -34,7 +34,7 @@ class TestDurationParsing:
                     "duration": "2h3m10s",  # 2*3600 + 3*60 + 10 = 7390 seconds
                 }]
 
-                count = _check_streamer_vods("testuser", "twitch", None, None, None, max_duration_minutes=None, min_days_old=0)
+                count = _check_streamer_vods("streamer", "twitch", None, None, None, max_duration_minutes=None, min_days_old=0)
 
                 assert count == 1
                 vod = mock_state_manager.get_vod("vod1")
@@ -57,7 +57,7 @@ class TestDurationParsing:
                     "duration": "45m30s",  # 45*60 + 30 = 2730 seconds
                 }]
 
-                count = _check_streamer_vods("testuser", "twitch", None, None, None, max_duration_minutes=None, min_days_old=0)
+                count = _check_streamer_vods("streamer", "twitch", None, None, None, max_duration_minutes=None, min_days_old=0)
 
                 assert count == 1
                 vod = mock_state_manager.get_vod("vod1")
@@ -80,7 +80,7 @@ class TestDurationParsing:
                     "duration": "30s",
                 }]
 
-                count = _check_streamer_vods("testuser", "twitch", None, None, None, max_duration_minutes=None, min_days_old=0)
+                count = _check_streamer_vods("streamer", "twitch", None, None, None, max_duration_minutes=None, min_days_old=0)
 
                 assert count == 1
                 vod = mock_state_manager.get_vod("vod1")
@@ -103,7 +103,7 @@ class TestDurationParsing:
                     "duration": "1h",
                 }]
 
-                count = _check_streamer_vods("testuser", "twitch", None, None, None, max_duration_minutes=None, min_days_old=0)
+                count = _check_streamer_vods("streamer", "twitch", None, None, None, max_duration_minutes=None, min_days_old=0)
 
                 assert count == 1
                 vod = mock_state_manager.get_vod("vod1")
@@ -139,7 +139,7 @@ class TestCheckStreamerVods:
                 ]
 
                 count = _check_streamer_vods(
-                    "testuser", "twitch", None, None, None,
+                    "streamer", "twitch", None, None, None,
                     max_duration_minutes=60,  # 1 hour max
                     min_days_old=0
                 )
@@ -177,7 +177,7 @@ class TestCheckStreamerVods:
                 ]
 
                 count = _check_streamer_vods(
-                    "testuser", "twitch", None, None, None,
+                    "streamer", "twitch", None, None, None,
                     max_duration_minutes=None,
                     min_days_old=3
                 )
@@ -203,12 +203,12 @@ class TestCheckStreamerVods:
                     "duration": "1h30m0s",
                 }]
 
-                _check_streamer_vods("testuser", "twitch", None, None, None, max_duration_minutes=None, min_days_old=0)
+                _check_streamer_vods("streamer", "twitch", None, None, None, max_duration_minutes=None, min_days_old=0)
 
                 vod = mock_state_manager.get_vod("vod1")
                 assert vod is not None
                 assert vod.vod_id == "vod1"
-                assert vod.streamer == "testuser"
+                assert vod.streamer == "streamer"
                 assert vod.title == "Test Stream"
                 assert vod.duration == 5400  # 1.5 hours
                 assert vod.status == VodStatus.PENDING.value
@@ -229,7 +229,7 @@ class TestCheckStreamerVods:
                     "duration": "30m0s",
                 }]
 
-                _check_streamer_vods("testuser", "twitch", "existing_id", None, None, max_duration_minutes=None, min_days_old=0)
+                _check_streamer_vods("streamer", "twitch", "existing_id", None, None, max_duration_minutes=None, min_days_old=0)
 
                 # Should not call get_user_by_username since we have twitch_id
                 mock_client.get_user_by_username.assert_not_called()
@@ -238,7 +238,7 @@ class TestCheckStreamerVods:
     def test_skips_existing_vods(self, mock_state_manager):
         """Test that already-tracked VODs are not re-added"""
         # Pre-add a VOD
-        mock_state_manager.add_vod(VodRecord(vod_id="vod1", streamer="testuser"))
+        mock_state_manager.add_vod(VodRecord(vod_id="vod1", streamer="streamer"))
 
         with patch("src.monitor.get_state_manager", return_value=mock_state_manager):
             with patch("src.monitor.TwitchClient") as mock_client_class:
@@ -255,7 +255,7 @@ class TestCheckStreamerVods:
                     "duration": "30m0s",
                 }]
 
-                count = _check_streamer_vods("testuser", "twitch", None, None, None, max_duration_minutes=None, min_days_old=0)
+                count = _check_streamer_vods("streamer", "twitch", None, None, None, max_duration_minutes=None, min_days_old=0)
 
                 assert count == 0  # No new VODs added
 
@@ -272,7 +272,7 @@ class TestCheckStreamerVodsErrors:
                 mock_client_class.return_value = mock_client
 
                 with pytest.raises(Exception, match="API Error"):
-                    _check_streamer_vods("testuser", "twitch", None, None, None, max_duration_minutes=None, min_days_old=0)
+                    _check_streamer_vods("streamer", "twitch", None, None, None, max_duration_minutes=None, min_days_old=0)
 
     def test_streamer_not_found(self, mock_state_manager):
         """Test handling when streamer is not found on Twitch"""
@@ -301,7 +301,7 @@ class TestCheckStreamerVodsErrors:
                 mock_client.get_user_by_username.return_value = {"id": "123"}
                 mock_client.get_vods_by_user.return_value = []
 
-                count = _check_streamer_vods("testuser", "twitch", None, None, None, max_duration_minutes=None, min_days_old=0)
+                count = _check_streamer_vods("streamer", "twitch", None, None, None, max_duration_minutes=None, min_days_old=0)
 
                 assert count == 0
 
@@ -371,13 +371,13 @@ class TestGetStreamer:
 
     def test_returns_streamer_dict(self, mock_state_manager):
         """Test that streamer dict is returned"""
-        mock_state_manager.add_streamer(StreamerRecord(username="testuser", twitch_id="123"))
+        mock_state_manager.add_streamer(StreamerRecord(username="streamer", twitch_id="123"))
 
         with patch("src.monitor.get_state_manager", return_value=mock_state_manager):
-            result = get_streamer("testuser")
+            result = get_streamer("streamer")
 
             assert result is not None
-            assert result["username"] == "testuser"
+            assert result["username"] == "streamer"
             assert result["twitch_id"] == "123"
 
     def test_returns_none_for_nonexistent(self, mock_state_manager):

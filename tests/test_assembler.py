@@ -70,7 +70,7 @@ class TestAssembleTranscript:
         """Test assembling chunk results into final transcript"""
         transcript = assemble_transcript(
             vod_id="1234567890",
-            streamer="testuser",
+            streamer="streamer",
             title="Test Stream",
             recorded_at="2024-01-15T12:00:00Z",
             total_duration=1800.0,
@@ -78,7 +78,7 @@ class TestAssembleTranscript:
         )
 
         assert transcript["vod_id"] == "1234567890"
-        assert transcript["streamer"] == "testuser"
+        assert transcript["streamer"] == "streamer"
         assert transcript["title"] == "Test Stream"
         assert transcript["text"] == "First segment.Second segment.Third segment."
         assert transcript["cost"] == 0.0
@@ -113,7 +113,7 @@ class TestAssembleTranscript:
 
         transcript = assemble_transcript(
             vod_id="test",
-            streamer="testuser",
+            streamer="streamer",
             title=None,
             recorded_at=None,
             total_duration=1800.0,
@@ -168,7 +168,7 @@ class TestSaveTranscript:
 
         transcript = {
             "vod_id": "1234567890",
-            "streamer": "testuser",
+            "streamer": "streamer",
             "title": "Test Stream",
             "text": "Hello world.",
             "metadata": {"segments_count": 1},
@@ -176,7 +176,7 @@ class TestSaveTranscript:
 
         path = save_transcript(transcript)
 
-        expected_path = os.path.join(temp_dir, "testuser", "1234567890.json")
+        expected_path = os.path.join(temp_dir, "streamer", "1234567890.json")
         assert path == expected_path
         assert os.path.exists(expected_path)
 

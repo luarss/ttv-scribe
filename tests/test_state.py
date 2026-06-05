@@ -52,35 +52,35 @@ class TestStreamerRecord:
 
     def test_create_with_username(self):
         """Test creating a streamer record with just username"""
-        streamer = StreamerRecord(username="testuser")
-        assert streamer.username == "testuser"
+        streamer = StreamerRecord(username="streamer")
+        assert streamer.username == "streamer"
         assert streamer.twitch_id is None
         assert streamer.created_at is not None
 
     def test_create_with_all_fields(self):
         """Test creating a streamer record with all fields"""
         streamer = StreamerRecord(
-            username="testuser",
+            username="streamer",
             twitch_id="123456",
             created_at="2024-01-15T12:00:00Z"
         )
-        assert streamer.username == "testuser"
+        assert streamer.username == "streamer"
         assert streamer.twitch_id == "123456"
         assert streamer.created_at == "2024-01-15T12:00:00Z"
 
     def test_to_dict(self):
         """Test converting streamer record to dict"""
-        streamer = StreamerRecord(username="testuser", twitch_id="123456")
+        streamer = StreamerRecord(username="streamer", twitch_id="123456")
         data = streamer.to_dict()
-        assert data["username"] == "testuser"
+        assert data["username"] == "streamer"
         assert data["twitch_id"] == "123456"
         assert "created_at" in data
 
     def test_from_dict(self):
         """Test creating streamer record from dict"""
-        data = {"username": "testuser", "twitch_id": "123456", "created_at": "2024-01-15T12:00:00Z"}
+        data = {"username": "streamer", "twitch_id": "123456", "created_at": "2024-01-15T12:00:00Z"}
         streamer = StreamerRecord.from_dict(data)
-        assert streamer.username == "testuser"
+        assert streamer.username == "streamer"
         assert streamer.twitch_id == "123456"
 
 
@@ -89,9 +89,9 @@ class TestVodRecord:
 
     def test_create_with_required_fields(self):
         """Test creating a VOD record with required fields"""
-        vod = VodRecord(vod_id="123", streamer="testuser")
+        vod = VodRecord(vod_id="123", streamer="streamer")
         assert vod.vod_id == "123"
-        assert vod.streamer == "testuser"
+        assert vod.streamer == "streamer"
         assert vod.status == VodStatus.PENDING.value
         assert vod.title is None
         assert vod.duration is None
@@ -100,7 +100,7 @@ class TestVodRecord:
         """Test creating a VOD record with all fields"""
         vod = VodRecord(
             vod_id="123",
-            streamer="testuser",
+            streamer="streamer",
             title="Test Stream",
             duration=3600,
             recorded_at="2024-01-15T12:00:00Z",
@@ -108,17 +108,17 @@ class TestVodRecord:
             transcript_path="/path/to/transcript.txt",
         )
         assert vod.vod_id == "123"
-        assert vod.streamer == "testuser"
+        assert vod.streamer == "streamer"
         assert vod.title == "Test Stream"
         assert vod.duration == 3600
         assert vod.status == "completed"
 
     def test_to_dict(self):
         """Test converting VOD record to dict"""
-        vod = VodRecord(vod_id="123", streamer="testuser", title="Test")
+        vod = VodRecord(vod_id="123", streamer="streamer", title="Test")
         data = vod.to_dict()
         assert data["vod_id"] == "123"
-        assert data["streamer"] == "testuser"
+        assert data["streamer"] == "streamer"
         assert data["title"] == "Test"
         assert "created_at" in data
 
@@ -126,7 +126,7 @@ class TestVodRecord:
         """Test creating VOD record from dict"""
         data = {
             "vod_id": "123",
-            "streamer": "testuser",
+            "streamer": "streamer",
             "title": "Test",
             "duration": 3600,
             "status": "completed",
@@ -134,7 +134,7 @@ class TestVodRecord:
         }
         vod = VodRecord.from_dict(data)
         assert vod.vod_id == "123"
-        assert vod.streamer == "testuser"
+        assert vod.streamer == "streamer"
         assert vod.title == "Test"
 
 
@@ -156,7 +156,7 @@ class TestStateManagerInit:
         state_dir = Path(temp_dir)
         vods_file = state_dir / "vods.json"
         vods_file.write_text(json.dumps({
-            "vods": [{"vod_id": "123", "streamer": "testuser", "created_at": "2024-01-15T12:00:00Z"}]
+            "vods": [{"vod_id": "123", "streamer": "streamer", "created_at": "2024-01-15T12:00:00Z"}]
         }))
 
         manager = StateManager(state_dir=str(state_dir), transcript_dir=str(temp_dir))
@@ -183,12 +183,12 @@ class TestStateManagerInit:
         state_dir = Path(temp_dir)
         streamers_file = state_dir / "streamers.json"
         streamers_file.write_text(json.dumps({
-            "streamers": [{"username": "testuser", "twitch_id": "123", "created_at": "2024-01-15T12:00:00Z"}]
+            "streamers": [{"username": "streamer", "twitch_id": "123", "created_at": "2024-01-15T12:00:00Z"}]
         }))
 
         manager = StateManager(state_dir=str(state_dir), transcript_dir=str(temp_dir))
 
-        assert "testuser" in manager._streamers_cache
+        assert "streamer" in manager._streamers_cache
 
 
 class TestStateManagerVods:
@@ -196,13 +196,13 @@ class TestStateManagerVods:
 
     def test_add_vod(self, mock_state_manager):
         """Test adding a VOD to state"""
-        vod = VodRecord(vod_id="123", streamer="testuser", title="Test Stream")
+        vod = VodRecord(vod_id="123", streamer="streamer", title="Test Stream")
         mock_state_manager.add_vod(vod)
 
         result = mock_state_manager.get_vod("123")
         assert result is not None
         assert result.vod_id == "123"
-        assert result.streamer == "testuser"
+        assert result.streamer == "streamer"
 
     def test_add_vod_creates_streamer_directory(self, mock_state_manager):
         """Test that adding a VOD creates the streamer directory"""
@@ -214,7 +214,7 @@ class TestStateManagerVods:
 
     def test_update_vod(self, mock_state_manager):
         """Test updating a VOD's fields"""
-        vod = VodRecord(vod_id="123", streamer="testuser")
+        vod = VodRecord(vod_id="123", streamer="streamer")
         mock_state_manager.add_vod(vod)
 
         mock_state_manager.update_vod("123", status=VodStatus.DOWNLOADING.value, title="Updated")
@@ -275,12 +275,12 @@ class TestStateManagerStreamers:
 
     def test_add_streamer(self, mock_state_manager):
         """Test adding a streamer"""
-        streamer = StreamerRecord(username="testuser", twitch_id="123")
+        streamer = StreamerRecord(username="streamer", twitch_id="123")
         mock_state_manager.add_streamer(streamer)
 
-        result = mock_state_manager.get_streamer("testuser")
+        result = mock_state_manager.get_streamer("streamer")
         assert result is not None
-        assert result.username == "testuser"
+        assert result.username == "streamer"
         assert result.twitch_id == "123"
 
     def test_add_streamer_creates_directory(self, mock_state_manager):
@@ -298,12 +298,12 @@ class TestStateManagerStreamers:
 
     def test_update_streamer(self, mock_state_manager):
         """Test updating a streamer's fields"""
-        streamer = StreamerRecord(username="testuser")
+        streamer = StreamerRecord(username="streamer")
         mock_state_manager.add_streamer(streamer)
 
-        mock_state_manager.update_streamer("testuser", twitch_id="999")
+        mock_state_manager.update_streamer("streamer", twitch_id="999")
 
-        result = mock_state_manager.get_streamer("testuser")
+        result = mock_state_manager.get_streamer("streamer")
         assert result.twitch_id == "999"
 
     def test_get_streamers(self, mock_state_manager):
@@ -330,7 +330,7 @@ class TestStateManagerScanCompleted:
     def test_scan_discovers_transcripts(self, temp_dir):
         """Test that scanning discovers transcript files"""
         # Create a transcript file
-        streamer_dir = Path(temp_dir) / "testuser"
+        streamer_dir = Path(temp_dir) / "streamer"
         streamer_dir.mkdir()
         (streamer_dir / "1234567890.txt").write_text("Transcript content")
 
@@ -338,7 +338,7 @@ class TestStateManagerScanCompleted:
 
         vod = manager.get_vod("1234567890")
         assert vod is not None
-        assert vod.streamer == "testuser"
+        assert vod.streamer == "streamer"
         assert vod.status == VodStatus.COMPLETED.value
 
     def test_scan_ignores_cache_with_more_info(self, temp_dir):
@@ -347,13 +347,13 @@ class TestStateManagerScanCompleted:
         manager = StateManager(state_dir=str(temp_dir), transcript_dir=str(temp_dir))
         manager.add_vod(VodRecord(
             vod_id="1234567890",
-            streamer="testuser",
+            streamer="streamer",
             title="Full Title",
             duration=3600,
         ))
 
         # Create transcript file (use exist_ok in case directory was created by add_vod)
-        streamer_dir = Path(temp_dir) / "testuser"
+        streamer_dir = Path(temp_dir) / "streamer"
         streamer_dir.mkdir(exist_ok=True)
         (streamer_dir / "1234567890.txt").write_text("Transcript")
 
@@ -368,7 +368,7 @@ class TestStateManagerFileIO:
 
     def test_save_vods_creates_file(self, mock_state_manager):
         """Test that saving VODs creates the JSON file"""
-        mock_state_manager.add_vod(VodRecord(vod_id="123", streamer="testuser"))
+        mock_state_manager.add_vod(VodRecord(vod_id="123", streamer="streamer"))
 
         vods_file = mock_state_manager.state_dir / "vods.json"
         assert vods_file.exists()
@@ -379,14 +379,14 @@ class TestStateManagerFileIO:
 
     def test_save_streamers_creates_file(self, mock_state_manager):
         """Test that saving streamers creates the JSON file"""
-        mock_state_manager.add_streamer(StreamerRecord(username="testuser"))
+        mock_state_manager.add_streamer(StreamerRecord(username="streamer"))
 
         streamers_file = mock_state_manager.state_dir / "streamers.json"
         assert streamers_file.exists()
 
         data = json.loads(streamers_file.read_text())
         assert len(data["streamers"]) == 1
-        assert data["streamers"][0]["username"] == "testuser"
+        assert data["streamers"][0]["username"] == "streamer"
 
     def test_is_processed(self, mock_state_manager):
         """Test checking if a VOD has been processed"""
@@ -466,18 +466,18 @@ class TestConvenienceFunctions:
     def test_add_get_streamer_convenience(self, mock_state_manager):
         """Test add_streamer and get_streamer convenience functions"""
         with patch("src.state.get_state_manager", return_value=mock_state_manager):
-            add_streamer("testuser", twitch_id="123")
+            add_streamer("streamer", twitch_id="123")
 
-            streamer = get_streamer("testuser")
+            streamer = get_streamer("streamer")
             assert streamer is not None
-            assert streamer["username"] == "testuser"
+            assert streamer["username"] == "streamer"
             assert streamer["twitch_id"] == "123"
 
     def test_update_streamer_convenience(self, mock_state_manager):
         """Test update_streamer convenience function"""
         with patch("src.state.get_state_manager", return_value=mock_state_manager):
-            add_streamer("testuser")
-            update_streamer("testuser", twitch_id="456")
+            add_streamer("streamer")
+            update_streamer("streamer", twitch_id="456")
 
-            streamer = get_streamer("testuser")
+            streamer = get_streamer("streamer")
             assert streamer["twitch_id"] == "456"
