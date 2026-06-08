@@ -10688,7 +10688,7 @@
       "title": "The Moment of Truth | Will I Get Out of the Middle East?",
       "duration": 1481,
       "recorded_at": "2026-03-08T11:38:27Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:39.172817Z"
     },
@@ -12943,7 +12943,7 @@
       "title": "Tokyo | A RIVER | !esim !vpn !yt",
       "duration": 37085,
       "recorded_at": "2026-05-31T03:24:39+00:00",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-06-08T01:02:12.755234Z"
     },
