@@ -10666,7 +10666,7 @@
       "title": "I Got Way Too Close to Being in a Middle Eastern Prison",
       "duration": 927,
       "recorded_at": "2026-03-09T10:05:29Z",
-      "status": "pending",
+      "status": "completed",
       "transcript_path": null,
       "created_at": "2026-05-16T08:04:39.155780Z"
     },
@@ -12899,7 +12899,7 @@
       "title": "Tokyo | the most expensive car I can find | !esim !vpn !yt",
       "duration": 36691,
       "recorded_at": "2026-06-04T03:06:53+00:00",
-      "status": "pending",
+      "status": "failed",
       "transcript_path": null,
       "created_at": "2026-06-08T01:02:12.690547Z"
     },
