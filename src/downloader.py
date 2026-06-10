@@ -92,8 +92,16 @@ class Downloader:
         consecutive_curl_failures = 0
         refresh_cycle = 0
 
+        # Always append a direct-connection fallback after all proxies.
+        # Without this, dead proxies (timeout / SSL MITM / 403) cause a
+        # false "unavailable" verdict even when the VOD is perfectly reachable.
+        def _candidates(proxy_list):
+            if proxy_list:
+                return proxy_list + [None]
+            return [None]
+
         while refresh_cycle <= max_refresh_cycles:
-            candidates = proxies or [None]
+            candidates = _candidates(proxies)
 
             for attempt, current_proxy in enumerate(candidates):
                 try:

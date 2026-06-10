@@ -189,6 +189,7 @@ jobs:
         run: |
           VOD_ID="${{ steps.select-vod.outputs.vod_id || github.event.inputs.vod_id }}"
           PLATFORM="${{ steps.select-vod.outputs.platform || inputs.platform || 'twitch' }}"
+          FAILURE_REASON="${{ steps.split.outputs.failure_reason || 'unavailable' }}"
 
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -203,7 +204,7 @@ jobs:
             else
               PREFIX="chore: mark VOD"
             fi
-            git commit -m "$PREFIX $VOD_ID as failed (unavailable)"
+            git commit -m "$PREFIX $VOD_ID as failed ($FAILURE_REASON)"
           else
             git commit -m "chore: update transcripts and state"
           fi

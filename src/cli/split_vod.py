@@ -39,7 +39,15 @@ def main():
     try:
         audio_path, vod_data = download_vod_audio(args.vod_id, platform=args.platform, streamer=args.streamer, proxy=args.proxy)
     except (yt_dlp.utils.DownloadError, ValueError, FileNotFoundError) as e:
-        logger.error(f"VOD {args.vod_id} not available: {e}")
+        # Classify the failure reason for better diagnostics
+        msg = str(e).lower()
+        if "subscriber-only" in msg:
+            reason = "subscriber-only"
+        elif "login" in msg or "account" in msg or "cookies" in msg:
+            reason = "auth-required"
+        else:
+            reason = "unavailable"
+        logger.error(f"VOD {args.vod_id} ({reason}): {e}")
         manager = get_state_manager()
         manager.update_vod(args.vod_id, status=VodStatus.FAILED.value)
         # Output empty matrix so downstream jobs skip gracefully
@@ -47,8 +55,9 @@ def main():
         if github_output:
             with open(github_output, "a") as f:
                 f.write("num_chunks=0\n")
-                f.write('matrix={"include": []}\n')
-        print(f"VOD {args.vod_id} not available, skipping")
+                f.write("matrix={\"include\": []}\n")
+                f.write(f"failure_reason={reason}\n")
+        print(f"VOD {args.vod_id} {reason}, skipping")
         return
 
     # Split into chunks
