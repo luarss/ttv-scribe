@@ -133,13 +133,14 @@ def main():
             channel = candidate
             break
 
-    if manifest is None:
+    if manifest is None or channel is None:
         logger.error(f"All {len(candidates)} channel(s) failed to record")
         _write_empty_matrix()
         return
 
     channel_id = channel["channel_id"]
     channel_name = channel["name"]
+    vod_id = channel_id.replace(".", "_").replace("/", "_")
 
     save_chunk_manifest(manifest, os.path.join(args.output_dir, "manifest.json"))
 
