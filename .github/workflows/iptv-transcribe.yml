@@ -1,0 +1,270 @@
+name: Transcribe IPTV Channel (Distributed)
+
+on:
+  workflow_dispatch:
+    inputs:
+      channel_id:
+        description: 'IPTV channel ID to record (leave empty to use first from allowlist)'
+        required: false
+        type: string
+        default: ''
+      record_minutes:
+        description: 'Minutes to record (default: 30)'
+        required: false
+        type: number
+        default: 30
+      max_parallel:
+        description: 'Max parallel transcription workers (default: 10)'
+        required: false
+        type: number
+        default: 10
+      beam_size:
+        description: 'Whisper beam size (1-5, lower = faster)'
+        required: false
+        type: number
+        default: 5
+
+concurrency:
+  group: iptv-transcribe
+  cancel-in-progress: false
+
+jobs:
+  # Job 1: Record IPTV channel and split into chunks
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    outputs:
+      vod_id: ${{ steps.record.outputs.vod_id }}
+      streamer: ${{ steps.record.outputs.streamer }}
+      title: ${{ steps.record.outputs.title }}
+      recorded_at: ${{ steps.record.outputs.recorded_at }}
+      total_duration: ${{ steps.record.outputs.total_duration }}
+      chunk_duration: ${{ steps.record.outputs.chunk_duration }}
+      num_chunks: ${{ steps.record.outputs.num_chunks }}
+      matrix: ${{ steps.record.outputs.matrix }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          python-version: "3.13"
+
+      - name: Set up environment
+        run: uv venv
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Create .env file
+        run: |
+          cat > .env << EOF
+          STATE_FILE_DIR=./state
+          TRANSCRIPT_DIR=./transcripts
+          LOG_LEVEL=INFO
+          EOF
+
+      - name: Record IPTV channel and split into chunks
+        id: record
+        run: |
+          CHANNEL_ID="${{ github.event.inputs.channel_id }}"
+          RECORD_MINUTES="${{ github.event.inputs.record_minutes || '30' }}"
+
+          CHANNEL_ARG=""
+          if [ -n "$CHANNEL_ID" ]; then
+            CHANNEL_ARG="--channel-id $CHANNEL_ID"
+          fi
+
+          uv run python -m src.cli.record_iptv \
+            $CHANNEL_ARG \
+            --record-minutes "$RECORD_MINUTES" \
+            --output-dir ./chunks
+
+      - name: Upload chunks artifact
+        if: steps.record.outcome == 'success' && steps.record.outputs.num_chunks != '0'
+        uses: actions/upload-artifact@v4
+        with:
+          name: chunks
+          path: chunks/
+          retention-days: 1
+          if-no-files-found: error
+
+  # Job 2: Transcribe chunks in parallel
+  transcribe:
+    needs: prepare
+    if: needs.prepare.outputs.num_chunks != '0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    strategy:
+      matrix: ${{ fromJson(needs.prepare.outputs.matrix) }}
+      max-parallel: ${{ github.event.inputs.max_parallel && fromJSON(github.event.inputs.max_parallel) || 10 }}
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          python-version: "3.13"
+
+      - name: Cache uv dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/share/uv
+          key: uv-${{ runner.os }}-${{ hashFiles('**/pyproject.toml', '**/uv.lock') }}
+          restore-keys: |
+            uv-${{ runner.os }}-
+
+      - name: Set up environment
+        run: uv venv
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Cache Whisper model
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface/hub
+          key: whisper-model-${{ runner.os }}-small
+          restore-keys: |
+            whisper-model-${{ runner.os }}-
+
+      - name: Create .env file
+        run: |
+          cat > .env << EOF
+          WHISPER_MODEL=small
+          WHISPER_DEVICE=cpu
+          WHISPER_COMPUTE_TYPE=int8
+          WHISPER_BEAM_SIZE=${{ github.event.inputs.beam_size || '5' }}
+          WHISPER_VAD_MIN_SILENCE_MS=500
+          LOG_LEVEL=INFO
+          EOF
+
+      - name: Download chunks with retry
+        uses: actions/download-artifact@v4
+        with:
+          name: chunks
+          path: chunks/
+        continue-on-error: true
+        id: download
+
+      - name: Retry download if failed
+        if: steps.download.outcome == 'failure'
+        run: |
+          echo "First download attempt failed, retrying in 30 seconds..."
+          sleep 30
+          gh run download ${{ github.run_id }} \
+            --name "chunks" \
+            --dir chunks/ \
+            || {
+              echo "::error::Failed to download chunks after retry"
+              exit 1
+            }
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Verify chunk file exists
+        run: |
+          CHUNK_INDEX=${{ matrix.index }}
+          VOD_ID="${{ needs.prepare.outputs.vod_id }}"
+          EXPECTED_FILE="chunks/${VOD_ID}_chunk_$(printf '%03d' ${CHUNK_INDEX}).opus"
+
+          if [ ! -f "$EXPECTED_FILE" ]; then
+            echo "::error::Expected chunk file not found: $EXPECTED_FILE"
+            echo "Available files in chunks/:"
+            ls -la chunks/ || echo "chunks/ directory does not exist"
+            exit 1
+          fi
+          echo "Found chunk file: $EXPECTED_FILE"
+
+      - name: Transcribe chunk ${{ matrix.index }}
+        id: transcribe
+        run: |
+          CHUNK_INDEX=${{ matrix.index }}
+          VOD_ID="${{ needs.prepare.outputs.vod_id }}"
+          CHUNK_FILE=$(ls chunks/${VOD_ID}_chunk_$(printf '%03d' ${CHUNK_INDEX}).* 2>/dev/null | head -1)
+
+          if [ -z "$CHUNK_FILE" ]; then
+            echo "Chunk file not found for index $CHUNK_INDEX"
+            exit 1
+          fi
+
+          CHUNK_DURATION="${{ needs.prepare.outputs.chunk_duration }}"
+
+          uv run python -m src.cli.transcribe_chunk "$CHUNK_FILE" \
+            --chunk-index $CHUNK_INDEX \
+            --chunk-duration $CHUNK_DURATION \
+            --output "./result-${CHUNK_INDEX}.json"
+
+      - name: Upload chunk result
+        uses: actions/upload-artifact@v4
+        with:
+          name: result-${{ matrix.index }}
+          path: result-${{ matrix.index }}.json
+          retention-days: 1
+
+  # Job 3: Assemble results into final transcript
+  assemble:
+    needs: [prepare, transcribe]
+    if: needs.prepare.outputs.num_chunks != '0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          python-version: "3.13"
+
+      - name: Set up environment
+        run: uv venv
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Create .env file
+        run: |
+          cat > .env << EOF
+          STATE_FILE_DIR=./state
+          TRANSCRIPT_DIR=./transcripts
+          LOG_LEVEL=INFO
+          EOF
+
+      - name: Download all chunk results
+        uses: actions/download-artifact@v4
+        with:
+          pattern: result-*
+          path: results/
+          merge-multiple: true
+
+      - name: Assemble transcript
+        run: |
+          uv run python -m src.cli.assemble_transcript \
+            --vod-id "${{ needs.prepare.outputs.vod_id }}" \
+            --streamer "${{ needs.prepare.outputs.streamer }}" \
+            --title "${{ needs.prepare.outputs.title }}" \
+            --recorded-at "${{ needs.prepare.outputs.recorded_at }}" \
+            --total-duration ${{ needs.prepare.outputs.total_duration }} \
+            --results-dir ./results
+
+      - name: Commit and push transcript
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add transcripts/ state/
+          if git diff --cached --quiet; then
+            echo "No changes to commit, skipping."
+            exit 0
+          fi
+          git commit -m "feat: transcribe IPTV ${{ needs.prepare.outputs.vod_id }} (distributed)"
+          git pull --rebase origin ${{ github.ref_name }}
+          git push origin ${{ github.ref_name }}

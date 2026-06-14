@@ -156,6 +156,10 @@ class Downloader:
             video_url = f"https://www.bilibili.com/video/{vod_id}"
         elif platform == "youtube":
             video_url = f"https://www.youtube.com/watch?v={vod_id}"
+        elif platform == "iptv":
+            video_url = vod_data.get("url", "")
+            if not video_url:
+                raise ValueError(f"IPTV VOD {vod_id} has no stream URL in vod_data")
         else:
             video_url = f"https://www.twitch.tv/videos/{vod_id}"
 
