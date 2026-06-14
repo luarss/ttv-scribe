@@ -1,0 +1,93 @@
+{
+  "vod_id": "BeachTVFloridaAlabama_us",
+  "streamer": "Beach TV Florida & Alabama",
+  "title": "Beach TV Florida & Alabama — live segment",
+  "recorded_at": "2026-06-14T07:39:48.639778Z",
+  "text": "and what surrounds me in this area is a perfect balance for both of us. Justin Gaffrey's gallery is unique. It is a beautiful, welcoming place. Justin welcomes everyone. He derives great joy from first-time visitors as they discover, enjoy and appreciate his work. Justin encourages all to view and engage in the essence of the beautiful and welcoming gallery. Justin Gaffrey Gallery is located along 30A at 21 Blue Golf Drive in Blue Mountain Beach. The gallery is open to the public seven days a week, 10am to 6pm. Learn more at justengaffrey.com Tacky Jacks is the place to be for great food and spectacular waterfront dining. Bring the family and enjoy a casual dining experience where the food is loved by locals and visitors alike. Whether you want to get away from all the hustle and bustle and peaceful Fort Morgan, sit back, relax and let the kids play in the sand and...",
+  "metadata": {
+    "segments_count": 13,
+    "total_duration_seconds": 60.0065,
+    "chunks": 1,
+    "chunk_transcription_times": [
+      10.759516477584839
+    ],
+    "languages": [
+      "en"
+    ],
+    "key_moments": [
+      {
+        "time": 4,
+        "text": "Justin Gaffrey's gallery is unique."
+      }
+    ]
+  },
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 4.0,
+      "text": " and what surrounds me in this area is a perfect balance for both of us."
+    },
+    {
+      "start": 4.0,
+      "end": 7.0,
+      "text": " Justin Gaffrey's gallery is unique."
+    },
+    {
+      "start": 7.0,
+      "end": 10.0,
+      "text": " It is a beautiful, welcoming place."
+    },
+    {
+      "start": 10.0,
+      "end": 12.0,
+      "text": " Justin welcomes everyone."
+    },
+    {
+      "start": 12.0,
+      "end": 17.0,
+      "text": " He derives great joy from first-time visitors as they discover, enjoy and appreciate his work."
+    },
+    {
+      "start": 17.0,
+      "end": 24.0,
+      "text": " Justin encourages all to view and engage in the essence of the beautiful and welcoming gallery."
+    },
+    {
+      "start": 24.0,
+      "end": 30.0,
+      "text": " Justin Gaffrey Gallery is located along 30A at 21 Blue Golf Drive in Blue Mountain Beach."
+    },
+    {
+      "start": 30.0,
+      "end": 35.0,
+      "text": " The gallery is open to the public seven days a week, 10am to 6pm."
+    },
+    {
+      "start": 35.0,
+      "end": 43.16,
+      "text": " Learn more at justengaffrey.com"
+    },
+    {
+      "start": 43.16,
+      "end": 47.16,
+      "text": " Tacky Jacks is the place to be for great food and spectacular waterfront dining."
+    },
+    {
+      "start": 47.16,
+      "end": 53.16,
+      "text": " Bring the family and enjoy a casual dining experience where the food is loved by locals and visitors alike."
+    },
+    {
+      "start": 53.16,
+      "end": 57.16,
+      "text": " Whether you want to get away from all the hustle and bustle and peaceful Fort Morgan,"
+    },
+    {
+      "start": 57.16,
+      "end": 60.16,
+      "text": " sit back, relax and let the kids play in the sand and..."
+    }
+  ],
+  "cost": 0.0,
+  "created_at": "2026-06-14T07:41:41.739367Z"
+}
