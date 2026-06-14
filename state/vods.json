@@ -13683,6 +13683,17 @@
       "status": "transcribing",
       "transcript_path": null,
       "created_at": "2026-06-14T13:01:37.192269Z"
+    },
+    {
+      "vod_id": "BeachTVMyrtleBeachTheGrandStrand_us",
+      "streamer": "Beach TV Myrtle Beach & The Grand Strand",
+      "platform": "iptv",
+      "title": "Beach TV Myrtle Beach & The Grand Strand — live segment",
+      "duration": null,
+      "recorded_at": "2026-06-14T18:23:46.987462Z",
+      "status": "transcribing",
+      "transcript_path": null,
+      "created_at": "2026-06-14T18:53:32.919992Z"
     }
   ]
 }
