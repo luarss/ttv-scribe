@@ -95,14 +95,16 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add state/iptv_state.json
+          git add state/
           if git diff --cached --quiet; then
             echo "No state changes to commit"
             exit 0
           fi
           git commit -m "chore(iptv): record ${{ steps.record.outputs.channel_id }}"
-          git pull --rebase origin ${{ github.ref_name }}
-          git push origin ${{ github.ref_name }}
+          for attempt in 1 2 3; do
+            git pull --rebase origin ${{ github.ref_name }} && git push origin ${{ github.ref_name }} && break
+            [ $attempt -lt 3 ] && sleep $((attempt * 10))
+          done
 
       - name: Upload chunks artifact
         if: steps.record.outcome == 'success' && steps.record.outputs.num_chunks != '0'
@@ -286,5 +288,7 @@ jobs:
             exit 0
           fi
           git commit -m "feat(iptv): transcribe ${{ needs.prepare.outputs.channel_id }} (distributed)"
-          git pull --rebase origin ${{ github.ref_name }}
-          git push origin ${{ github.ref_name }}
+          for attempt in 1 2 3; do
+            git pull --rebase origin ${{ github.ref_name }} && git push origin ${{ github.ref_name }} && break
+            [ $attempt -lt 3 ] && sleep $((attempt * 10))
+          done

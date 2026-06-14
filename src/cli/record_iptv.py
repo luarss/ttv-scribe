@@ -12,6 +12,7 @@ from src.config import get_settings
 from src.distributed.splitter import prepare_vod_chunks, save_chunk_manifest
 from src.iptv.channel_state import load_state, mark_recorded, save_state, sort_by_rotation
 from src.iptv.client import IPTVClient
+from src.state import VodRecord, VodStatus, get_state_manager
 
 logger = logging.getLogger(__name__)
 
@@ -162,6 +163,17 @@ def main():
     ch_state = mark_recorded(channel_id, ch_state)
     save_state(ch_state, state_dir)
     logger.info(f"Marked {channel_id} as recorded at {recorded_at}")
+
+    # Register VOD in vods.json so assemble can update its status later
+    manager = get_state_manager()
+    manager.add_vod(VodRecord(
+        vod_id=vod_id,
+        streamer=channel_name,
+        platform="iptv",
+        title=manifest.get("title"),
+        recorded_at=recorded_at,
+        status=VodStatus.TRANSCRIBING.value,
+    ))
 
     save_chunk_manifest(manifest, os.path.join(args.output_dir, "manifest.json"))
 

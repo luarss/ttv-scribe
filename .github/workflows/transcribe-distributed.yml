@@ -208,8 +208,10 @@ jobs:
           else
             git commit -m "chore: update transcripts and state"
           fi
-          git pull --rebase origin ${{ github.ref_name }}
-          git push origin ${{ github.ref_name }}
+          for attempt in 1 2 3; do
+            git pull --rebase origin ${{ github.ref_name }} && git push origin ${{ github.ref_name }} && break
+            [ $attempt -lt 3 ] && sleep $((attempt * 10))
+          done
 
   # Job 2: Transcribe chunks in parallel
   transcribe:
@@ -391,5 +393,7 @@ jobs:
             exit 0
           fi
           git commit -m "$PREFIX ${{ needs.prepare.outputs.vod_id }} (distributed)"
-          git pull --rebase origin ${{ github.ref_name }}
-          git push origin ${{ github.ref_name }}
+          for attempt in 1 2 3; do
+            git pull --rebase origin ${{ github.ref_name }} && git push origin ${{ github.ref_name }} && break
+            [ $attempt -lt 3 ] && sleep $((attempt * 10))
+          done

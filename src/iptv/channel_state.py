@@ -22,8 +22,10 @@ def load_state(state_dir: str) -> dict:
 
 def save_state(state: dict, state_dir: str):
     path = os.path.join(state_dir, _STATE_FILE)
-    with open(path, "w") as f:
+    tmp_path = path + ".tmp"
+    with open(tmp_path, "w") as f:
         json.dump(state, f, indent=2, ensure_ascii=False)
+    os.replace(tmp_path, path)
     logger.info(f"Saved IPTV channel state: {path}")
 
 
