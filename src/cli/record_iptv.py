@@ -8,7 +8,9 @@ import subprocess
 import tempfile
 from datetime import datetime, timezone
 
+from src.config import get_settings
 from src.distributed.splitter import prepare_vod_chunks, save_chunk_manifest
+from src.iptv.channel_state import load_state, mark_recorded, save_state, sort_by_rotation
 from src.iptv.client import IPTVClient
 
 logger = logging.getLogger(__name__)
@@ -47,6 +49,7 @@ def _write_empty_matrix():
         with open(github_output, "a") as f:
             f.write("num_chunks=0\n")
             f.write('matrix={"include": []}\n')
+            f.write("channel_id=\n")
     else:
         print("num_chunks=0")
         print('matrix={"include": []}')
@@ -57,7 +60,7 @@ def main():
     parser.add_argument(
         "--channel-id",
         default=None,
-        help="Channel ID to record (default: first from allowlist)",
+        help="Specific channel ID to record (default: next in rotation)",
     )
     parser.add_argument(
         "--record-minutes",
@@ -74,6 +77,10 @@ def main():
     )
     args = parser.parse_args()
 
+    settings = get_settings()
+    state_dir = settings.state_file_dir
+    ch_state = load_state(state_dir)
+
     with IPTVClient() as client:
         channels = client.get_travel_channels()
 
@@ -89,7 +96,16 @@ def main():
             _write_empty_matrix()
             return
     else:
-        candidates = channels
+        # Round-robin: try channels oldest-recorded first
+        candidates = sort_by_rotation(channels, ch_state)
+        logger.info(
+            "Channel rotation order: "
+            + ", ".join(
+                f"{c['channel_id']} ({ch_state.get('channels', {}).get(c['channel_id'], {}).get('last_recorded_at', 'never')})"
+                for c in candidates[:5]
+            )
+            + ("..." if len(candidates) > 5 else "")
+        )
 
     duration_seconds = args.record_minutes * 60
     recorded_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
@@ -111,7 +127,7 @@ def main():
             try:
                 record_stream(stream_url, audio_path, duration_seconds)
             except Exception as e:
-                logger.warning(f"Channel {channel_id} failed, trying next: {e}")
+                logger.warning(f"Channel {channel_id} unreachable, trying next: {e}")
                 continue
 
             vod_data = {
@@ -142,6 +158,11 @@ def main():
     channel_name = channel["name"]
     vod_id = channel_id.replace(".", "_").replace("/", "_")
 
+    # Persist rotation state so the next run picks the next channel
+    ch_state = mark_recorded(channel_id, ch_state)
+    save_state(ch_state, state_dir)
+    logger.info(f"Marked {channel_id} as recorded at {recorded_at}")
+
     save_chunk_manifest(manifest, os.path.join(args.output_dir, "manifest.json"))
 
     matrix = [
@@ -158,6 +179,7 @@ def main():
         with open(github_output, "a") as f:
             f.write(f"num_chunks={len(matrix)}\n")
             f.write(f"vod_id={vod_id}\n")
+            f.write(f"channel_id={channel_id}\n")
             f.write(f"streamer={channel_name}\n")
             f.write(f"total_duration={manifest['total_duration']}\n")
             f.write(f"chunk_duration={manifest['chunk_duration']}\n")
@@ -167,6 +189,7 @@ def main():
     else:
         print(f"num_chunks={len(matrix)}")
         print(f"vod_id={vod_id}")
+        print(f"channel_id={channel_id}")
         print(f"streamer={channel_name}")
         print(f"total_duration={manifest['total_duration']}")
         print(f"chunk_duration={manifest['chunk_duration']}")

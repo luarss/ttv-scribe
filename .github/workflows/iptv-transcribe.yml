@@ -1,10 +1,13 @@
 name: Transcribe IPTV Channel (Distributed)
 
 on:
+  schedule:
+    # Every 6 hours — cycles through all ~36 permitted channels over ~9 days
+    - cron: '0 */6 * * *'
   workflow_dispatch:
     inputs:
       channel_id:
-        description: 'IPTV channel ID to record (leave empty to use first from allowlist)'
+        description: 'Channel ID to record (leave empty to use round-robin rotation)'
         required: false
         type: string
         default: ''
@@ -29,12 +32,15 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Job 1: Record IPTV channel and split into chunks
+  # Job 1: Record next channel in rotation and split into chunks
   prepare:
     runs-on: ubuntu-latest
     timeout-minutes: 120
+    permissions:
+      contents: write
     outputs:
       vod_id: ${{ steps.record.outputs.vod_id }}
+      channel_id: ${{ steps.record.outputs.channel_id }}
       streamer: ${{ steps.record.outputs.streamer }}
       title: ${{ steps.record.outputs.title }}
       recorded_at: ${{ steps.record.outputs.recorded_at }}
@@ -83,6 +89,20 @@ jobs:
             $CHANNEL_ARG \
             --record-minutes "$RECORD_MINUTES" \
             --output-dir ./chunks
+
+      - name: Commit rotation state
+        if: steps.record.outputs.num_chunks != '0'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add state/iptv_state.json
+          if git diff --cached --quiet; then
+            echo "No state changes to commit"
+            exit 0
+          fi
+          git commit -m "chore(iptv): record ${{ steps.record.outputs.channel_id }}"
+          git pull --rebase origin ${{ github.ref_name }}
+          git push origin ${{ github.ref_name }}
 
       - name: Upload chunks artifact
         if: steps.record.outcome == 'success' && steps.record.outputs.num_chunks != '0'
@@ -256,7 +276,7 @@ jobs:
             --total-duration ${{ needs.prepare.outputs.total_duration }} \
             --results-dir ./results
 
-      - name: Commit and push transcript
+      - name: Commit transcript
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -265,6 +285,6 @@ jobs:
             echo "No changes to commit, skipping."
             exit 0
           fi
-          git commit -m "feat: transcribe IPTV ${{ needs.prepare.outputs.vod_id }} (distributed)"
+          git commit -m "feat(iptv): transcribe ${{ needs.prepare.outputs.channel_id }} (distributed)"
           git pull --rebase origin ${{ github.ref_name }}
           git push origin ${{ github.ref_name }}
