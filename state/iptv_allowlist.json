@@ -1,0 +1,292 @@
+{
+  "allowed_channels": [
+    {
+      "channel_id": "ArubaTV.aw",
+      "name": "Aruba.TV",
+      "country": "AW",
+      "url": "https://cdn01.setar.aw/Canal49/canal49/playlist.m3u8",
+      "label": null,
+      "legality_notes": "No ToS found; small regional island tourism channel. Stream probe: unreachable (000)."
+    },
+    {
+      "channel_id": "BamBarBiaTV.ua",
+      "name": "BamBarBia TV",
+      "country": "UA",
+      "url": "http://cdn1.live-tv.od.ua:8081/bbb/bbbtv-abr/playlist.m3u8",
+      "label": "Not 24/7",
+      "legality_notes": "No ToS found; website connection refused. Stream probe: dead (404)."
+    },
+    {
+      "channel_id": "BeachTVCSULB.us",
+      "name": "Beach TV CSULB",
+      "country": "US",
+      "url": "http://stream04.amp.csulb.edu:1935/Beach_TV/smil:BeachTV.smil/playlist.m3u8",
+      "label": "Not 24/7",
+      "legality_notes": "University student TV station; no ToS found. Stream probe: unreachable (000)."
+    },
+    {
+      "channel_id": "BeachTVFloridaAlabama.us",
+      "name": "Beach TV Florida & Alabama",
+      "country": "US",
+      "url": "http://media4.tripsmarter.com:1935/LiveTV/DTVHD/playlist.m3u8",
+      "label": null,
+      "legality_notes": "Destination Network: 'All Rights Reserved' copyright, no anti-scraping ToS found. Stream probe: live (200)."
+    },
+    {
+      "channel_id": "BeachTVKeyWestFloridaKeys.us",
+      "name": "Beach TV Key West & Florida Keys",
+      "country": "US",
+      "url": "https://5ed325193d4e1.streamlock.net:444/LiveTV/KTVHD/playlist.m3u8",
+      "label": null,
+      "legality_notes": "Destination Network: 'All Rights Reserved' copyright, no anti-scraping ToS found. Stream probe: live (200)."
+    },
+    {
+      "channel_id": "BeachTVMyrtleBeachTheGrandStrand.us",
+      "name": "Beach TV Myrtle Beach & The Grand Strand",
+      "country": "US",
+      "url": "http://media4.tripsmarter.com:1935/LiveTV/MTVHD/playlist.m3u8",
+      "label": null,
+      "legality_notes": "Destination Network: 'All Rights Reserved' copyright, no anti-scraping ToS found. Stream probe: live (200)."
+    },
+    {
+      "channel_id": "BeachTVPanamaCity.us",
+      "name": "Beach TV Panama City",
+      "country": "US",
+      "url": "http://media4.tripsmarter.com:1935/LiveTV/BTVHD/playlist.m3u8",
+      "label": null,
+      "legality_notes": "Destination Network: 'All Rights Reserved' copyright, no anti-scraping ToS found. Stream probe: live (200)."
+    },
+    {
+      "channel_id": "BHATV.bz",
+      "name": "BHA TV",
+      "country": "BZ",
+      "url": "https://streamer2.nexgen.bz/15-BHA/index.m3u8",
+      "label": null,
+      "legality_notes": "Belize Hotel Association; accessibility + privacy policy only, no content restrictions. Stream probe: blocked (403)."
+    },
+    {
+      "channel_id": "ChileChannel.cl",
+      "name": "Chile Channel",
+      "country": "CL",
+      "url": "https://v2.tustreaming.cl/chilechannel/index.m3u8",
+      "label": null,
+      "legality_notes": "Basic copyright notice only; no ToS found. Stream probe: live (200)."
+    },
+    {
+      "channel_id": "CostaRicaChannel.cr",
+      "name": "Costa Rica Channel",
+      "country": "CR",
+      "url": "https://video0.rogohosting.com:19360/8006/8006.m3u8",
+      "label": "Not 24/7",
+      "legality_notes": "Basic copyright notice only; no ToS found. Stream probe: live (200)."
+    },
+    {
+      "channel_id": "DiscoverPakistan.pk",
+      "name": "Discover Pakistan",
+      "country": "PK",
+      "url": "https://livecdn.live247stream.com/discoverpakistan/web/playlist.m3u8",
+      "label": null,
+      "legality_notes": "No ToS found on site. Stream probe: live (200)."
+    },
+    {
+      "channel_id": "GlazamiTurista.ru",
+      "name": "Glazami Turista",
+      "country": "RU",
+      "url": "https://stream8.cinerama.uz/1423/tracks-v1a1/mono.m3u8",
+      "label": null,
+      "legality_notes": "Russian travel channel; privacy and cookie policy only, no content restrictions found. Stream probe: live (200)."
+    },
+    {
+      "channel_id": "Journy.us",
+      "name": "Journy",
+      "country": "US",
+      "url": "https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/journy/playlist.m3u8?ads.vf=QFdKH3fCQ5m",
+      "label": null,
+      "legality_notes": "No website found in iptv-org API. Stream probe: dead (404)."
+    },
+    {
+      "channel_id": "LivingAsiaChannel.ph",
+      "name": "Living Asia Channel",
+      "country": "PH",
+      "url": "https://cdn.vegasplus.us/vegas/lac/playlist.m3u8",
+      "label": null,
+      "legality_notes": "CCI Asia Group; no ToS found, social media contact only. Stream probe: live (200)."
+    },
+    {
+      "channel_id": "MaldivesTV.mv",
+      "name": "Maldives TV",
+      "country": "MV",
+      "url": "https://lana.psm.mv/live/mtv.m3u8",
+      "label": null,
+      "legality_notes": "PSM: Maldives public state broadcaster; no ToS accessible (site timeout). Stream probe: live (200)."
+    },
+    {
+      "channel_id": "KNOVCD411.us",
+      "name": "NOTV New Orleans TV",
+      "country": "US",
+      "url": "http://media4.tripsmarter.com:1935/LiveTV/NOTVHD/playlist.m3u8",
+      "label": null,
+      "legality_notes": "Destination Network: 'All Rights Reserved' copyright, no anti-scraping ToS found. Stream probe: live (200)."
+    },
+    {
+      "channel_id": "OEPMTV.do",
+      "name": "OEPM TV",
+      "country": "DO",
+      "url": "https://cnn.hostlagarto.com/oepmtelevision/tracks-v1a1/mono.m3u8",
+      "label": null,
+      "legality_notes": "Dominican Republic investment promotion; 'Todos los derechos reservados' only, no ToS found. Stream probe: live (200)."
+    },
+    {
+      "channel_id": "PalmBeachesTV.us",
+      "name": "Palm Beaches TV",
+      "country": "US",
+      "url": "https://live.feed.thepalmbeaches.tv/index.m3u8",
+      "label": null,
+      "legality_notes": "Palm Beaches tourism authority; privacy policy covers data only, no content restrictions. Stream probe: live (200)."
+    },
+    {
+      "channel_id": "PeerTVAltoAdige.it",
+      "name": "Peer TV Alto Adige",
+      "country": "IT",
+      "url": "https://iptv.peer.biz/live/peertv-it.m3u8",
+      "label": null,
+      "legality_notes": "Peer srl; copyright policy states linking 'allowed and appreciated', no recording prohibition. Stream probe: live (200)."
+    },
+    {
+      "channel_id": "PeerTVSouthTyrol.it",
+      "name": "Peer TV South Tyrol",
+      "country": "IT",
+      "url": "https://iptv.peer.biz/live/peertv-en.m3u8",
+      "label": null,
+      "legality_notes": "Peer srl; copyright policy states linking 'allowed and appreciated', no recording prohibition. Stream probe: live (200)."
+    },
+    {
+      "channel_id": "PeerTVSudtirol.it",
+      "name": "Peer TV Südtirol",
+      "country": "IT",
+      "url": "https://iptv.peer.biz/live/peertv.m3u8",
+      "label": null,
+      "legality_notes": "Peer srl; copyright policy states linking 'allowed and appreciated', no recording prohibition. Stream probe: live (200)."
+    },
+    {
+      "channel_id": "RTGTV.ru",
+      "name": "RTG TV",
+      "country": "RU",
+      "url": "http://31.148.48.15/RTG_HD/index.m3u8",
+      "label": null,
+      "legality_notes": "Russian travel channel; website connection refused, no ToS accessible. Stream probe: live (200)."
+    },
+    {
+      "channel_id": "SchladmingDachsteinTV.at",
+      "name": "Schladming-Dachstein TV",
+      "country": "AT",
+      "url": "https://m317.video-stream-hosting.de/gzSoftware-live/_definst_/smil:livestream.smil/playlist.m3u8",
+      "label": null,
+      "legality_notes": "Austrian regional tourism board; EU Impressum + Datenschutz only, no content restrictions found. Stream probe: live (200)."
+    },
+    {
+      "channel_id": "SpaceLivepoweredbysen.uk",
+      "name": "Space Live powered by sen",
+      "country": "GB",
+      "url": "https://880ca9c9341c405f83d8664a18cc7134.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-1224-SPACELIVE-LG-UK/mt/lg-uk/1224/hls/master/playlist.m3u8",
+      "label": null,
+      "legality_notes": "sen.com; ToS page 404, no content restrictions found on homepage. Stream probe: dead (404)."
+    },
+    {
+      "channel_id": "TanzaniaSafariChannel.tz",
+      "name": "Tanzania Safari Channel",
+      "country": "TZ",
+      "url": "https://stream-134630.castr.net/5fe35eae8c53540cab83659a/live_31dabe40323511f08b8efff0016f3b67/index.m3u8",
+      "label": null,
+      "legality_notes": "Tanzanian government channel (.go.tz); TLS cert error on website. Stream probe: dead (404)."
+    },
+    {
+      "channel_id": "Teletur.do",
+      "name": "Teletur",
+      "country": "DO",
+      "url": "https://fox.hostlagarto.com:8081/teleturtv/tracks-v1a1/mono.m3u8",
+      "label": "Not 24/7",
+      "legality_notes": "Dominican Republic tourism channel; JS content protection active but no ToS found. Stream probe: live (200)."
+    },
+    {
+      "channel_id": "TravelTV.bg",
+      "name": "Travel TV",
+      "country": "BG",
+      "url": "https://streamer103.neterra.tv/travel/live.m3u8",
+      "label": null,
+      "legality_notes": "Globus Media Group; 'All Rights Reserved' + GDPR link only, no scraping restrictions. Stream probe: live (200)."
+    },
+    {
+      "channel_id": "TravelPlusAdventure.ru",
+      "name": "Travel+Adventure",
+      "country": "RU",
+      "url": "http://31.148.48.15/Travel_Adventure_HD/index.m3u8",
+      "label": null,
+      "legality_notes": "Russian travel channel; basic copyright year range only, no restrictions found. Stream probe: live (200)."
+    },
+    {
+      "channel_id": "TravelxpTamil.in",
+      "name": "Travelxp Tamil",
+      "country": "IN",
+      "url": "http://103.72.101.252:8080/live/814.m3u8",
+      "label": null,
+      "legality_notes": "Travelxp Tamil-language feed; separate from geo-blocked HD/4K feeds. No Tamil-specific ToS found. Stream probe: unreachable (000)."
+    },
+    {
+      "channel_id": "TurismoRDTV.do",
+      "name": "Turismo RDTV",
+      "country": "DO",
+      "url": "https://streamunoapp.com:3086/live/telemileniolive.m3u8",
+      "label": null,
+      "legality_notes": "Dominican Republic tourism channel; channel page 404, no ToS found. Stream probe: live (200)."
+    },
+    {
+      "channel_id": "TuristikTV.mx",
+      "name": "Turistik TV",
+      "country": "MX",
+      "url": "https://cdn1.cef-technology.com/stream_web/turistik/playlist.m3u8",
+      "label": null,
+      "legality_notes": "Mexican tourism channel; 'Todos los derechos reservados' only. Stream probe: blocked (403)."
+    },
+    {
+      "channel_id": "TVOFF.bo",
+      "name": "TV OFF",
+      "country": "BO",
+      "url": "https://seo.tv.bo/tv/TV-OFF.m3u8",
+      "label": null,
+      "legality_notes": "Bolivian channel; no ToS found. Stream probe: blocked (403)."
+    },
+    {
+      "channel_id": "TVParanaTurismo.br",
+      "name": "TV Paraná Turismo",
+      "country": "BR",
+      "url": "http://200.189.113.201/hls/tve.m3u8",
+      "label": "Not 24/7",
+      "legality_notes": "Brazilian state educational/tourism broadcaster (Paraná Educativa); government channel. Stream probe: unreachable (000)."
+    },
+    {
+      "channel_id": "TVSayohi.tj",
+      "name": "TV Sayohi",
+      "country": "TJ",
+      "url": "https://live.teleradiocom.tj/16/3m.m3u8",
+      "label": null,
+      "legality_notes": "Tajikistan state tourism television; no ToS found. Stream probe: live (200)."
+    },
+    {
+      "channel_id": "TVSTravelNetwork.us",
+      "name": "TVS Travel Network",
+      "country": "US",
+      "url": "https://rpn.bozztv.com/gusa/gusa-tvstravel/index.m3u8",
+      "label": "Not 24/7",
+      "legality_notes": "No website found in iptv-org API. Stream probe: live (200)."
+    },
+    {
+      "channel_id": "Teleputeshestviya.ru",
+      "name": "Телепутешествия",
+      "country": "RU",
+      "url": "http://31.148.48.15/Teleputeshestviya/index.m3u8",
+      "label": null,
+      "legality_notes": "Russian travel channel; website shows nginx default page (dead), no ToS accessible. Stream probe: live (200)."
+    }
+  ]
+}

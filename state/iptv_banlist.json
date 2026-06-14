@@ -1,0 +1,81 @@
+{
+  "banned_channels": [
+    {
+      "channel_id": "ChinaTravel.cn",
+      "name": "China Travel",
+      "operator": "CGTN (Chinese state media)",
+      "reason": "Explicit ToS §14: no robots/scrapers without written permission. §2: content for personal noncommercial use only, no copying or derivative works.",
+      "risk_level": "explicit_tos"
+    },
+    {
+      "channel_id": "DroneTV.us",
+      "name": "DroneTV",
+      "operator": "AirVuz",
+      "reason": "Explicit ToS: 'You shall not copy, reproduce, distribute, transmit, broadcast, display, sell, license, or otherwise exploit any Content without prior written consent.' Automated systems also banned.",
+      "risk_level": "explicit_tos"
+    },
+    {
+      "channel_id": "PlutoTVAnimaux.us",
+      "name": "Pluto TV Animaux",
+      "operator": "Paramount (Pluto TV)",
+      "reason": "Paramount-owned streaming platform. ToS prohibits recording and redistribution.",
+      "risk_level": "explicit_tos"
+    },
+    {
+      "channel_id": "PlutoTVHistoire.us",
+      "name": "Pluto TV Histoire",
+      "operator": "Paramount (Pluto TV)",
+      "reason": "Paramount-owned streaming platform. ToS prohibits recording and redistribution.",
+      "risk_level": "explicit_tos"
+    },
+    {
+      "channel_id": "VoyagesSaveurs.es",
+      "name": "Voyages & Saveurs",
+      "operator": "Paramount (Pluto TV)",
+      "reason": "Paramount-owned streaming platform. ToS prohibits recording and redistribution.",
+      "risk_level": "explicit_tos"
+    },
+    {
+      "channel_id": "GoUSATV.us",
+      "name": "Go USA TV",
+      "operator": "Brand USA / Samsung WURL",
+      "reason": "Distributed via Samsung WURL platform. Platform-level terms likely cover recording restrictions; no direct viewer ToS found but corporate distribution chain creates unclear liability.",
+      "risk_level": "caution"
+    },
+    {
+      "channel_id": "INTRAVEL.nl",
+      "name": "InTravel",
+      "operator": "Rakuten (NL distribution)",
+      "reason": "Distributed via Rakuten platform. No channel-specific ToS but Rakuten platform terms apply; corporate distribution chain creates unclear liability.",
+      "risk_level": "caution"
+    },
+    {
+      "channel_id": "GoTraveler.us",
+      "name": "GoTraveler",
+      "operator": "Amagi / Klowdtv",
+      "reason": "Geo-blocked from this region. Commercial distribution via Amagi platform.",
+      "risk_level": "caution"
+    },
+    {
+      "channel_id": "FunRoads.us",
+      "name": "Fun Roads TV",
+      "operator": "Fun Roads Media Inc.",
+      "reason": "ToS page linked on site but inaccessible (404). Copyright claimed by Fun Roads Media Inc. Terms unknown.",
+      "risk_level": "caution"
+    },
+    {
+      "channel_id": "Go2Travel.us",
+      "name": "Go2Travel",
+      "operator": "go2travel.tv",
+      "reason": "Website returned 402 Payment Required; unable to verify terms of use.",
+      "risk_level": "caution"
+    },
+    {
+      "channel_id": "Travelxp.in",
+      "name": "Travelxp (all feeds: HD, 4K HDR)",
+      "operator": "Travelxp India Private Limited",
+      "reason": "Geo-blocked in all available feeds. Privacy policy only covers data, not content terms. Base ID covers both HD and 4K HDR variants.",
+      "risk_level": "caution"
+    }
+  ]
+}

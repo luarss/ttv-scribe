@@ -39,6 +39,7 @@ class Platform(str, enum.Enum):
     BILIBILI = "bilibili"
     YOUTUBE = "youtube"
     KUAISHOU = "kuaishou"
+    IPTV = "iptv"
 
 
 @dataclass
