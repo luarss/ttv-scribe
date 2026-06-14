@@ -83,52 +83,63 @@ def main():
         return
 
     if args.channel_id:
-        channel = next((c for c in channels if c["channel_id"] == args.channel_id), None)
-        if not channel:
+        candidates = [c for c in channels if c["channel_id"] == args.channel_id]
+        if not candidates:
             logger.error(f"Channel {args.channel_id!r} not in permitted channels")
             _write_empty_matrix()
             return
     else:
-        channel = channels[0]
+        candidates = channels
 
-    channel_id = channel["channel_id"]
-    channel_name = channel["name"]
-    stream_url = channel["url"]
     duration_seconds = args.record_minutes * 60
     recorded_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
-    # Sanitize channel_id for use as a filename stem (audio_utils uses stem for chunk names)
-    vod_id = channel_id.replace(".", "_").replace("/", "_")
-
-    logger.info(f"Selected channel: {channel_name} ({channel_id})")
-
     os.makedirs(args.output_dir, exist_ok=True)
 
-    with tempfile.TemporaryDirectory(prefix="iptv_record_") as tmpdir:
-        audio_path = os.path.join(tmpdir, f"{vod_id}.opus")
-        try:
-            record_stream(stream_url, audio_path, duration_seconds)
-        except Exception as e:
-            logger.error(f"Failed to record {channel_id}: {e}")
-            _write_empty_matrix()
-            return
+    manifest = None
+    channel = None
+    for candidate in candidates:
+        channel_id = candidate["channel_id"]
+        channel_name = candidate["name"]
+        stream_url = candidate["url"]
+        vod_id = channel_id.replace(".", "_").replace("/", "_")
 
-        vod_data = {
-            "vod_id": vod_id,
-            "streamer": channel_name,
-            "platform": "iptv",
-            "title": f"{channel_name} — live segment",
-            "url": stream_url,
-            "recorded_at": recorded_at,
-        }
+        logger.info(f"Trying channel: {channel_name} ({channel_id})")
 
-        manifest = prepare_vod_chunks(
-            vod_id=vod_id,
-            audio_path=audio_path,
-            vod_data=vod_data,
-            chunk_duration=args.chunk_duration,
-            output_dir=args.output_dir,
-        )
+        with tempfile.TemporaryDirectory(prefix="iptv_record_") as tmpdir:
+            audio_path = os.path.join(tmpdir, f"{vod_id}.opus")
+            try:
+                record_stream(stream_url, audio_path, duration_seconds)
+            except Exception as e:
+                logger.warning(f"Channel {channel_id} failed, trying next: {e}")
+                continue
+
+            vod_data = {
+                "vod_id": vod_id,
+                "streamer": channel_name,
+                "platform": "iptv",
+                "title": f"{channel_name} — live segment",
+                "url": stream_url,
+                "recorded_at": recorded_at,
+            }
+
+            manifest = prepare_vod_chunks(
+                vod_id=vod_id,
+                audio_path=audio_path,
+                vod_data=vod_data,
+                chunk_duration=args.chunk_duration,
+                output_dir=args.output_dir,
+            )
+            channel = candidate
+            break
+
+    if manifest is None:
+        logger.error(f"All {len(candidates)} channel(s) failed to record")
+        _write_empty_matrix()
+        return
+
+    channel_id = channel["channel_id"]
+    channel_name = channel["name"]
 
     save_chunk_manifest(manifest, os.path.join(args.output_dir, "manifest.json"))
 
