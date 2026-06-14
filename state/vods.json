@@ -13672,6 +13672,17 @@
       "status": "pending",
       "transcript_path": null,
       "created_at": "2026-06-08T01:02:15.748277Z"
+    },
+    {
+      "vod_id": "BeachTVKeyWestFloridaKeys_us",
+      "streamer": "Beach TV Key West & Florida Keys",
+      "platform": "iptv",
+      "title": "Beach TV Key West & Florida Keys — live segment",
+      "duration": null,
+      "recorded_at": "2026-06-14T12:32:02.784212Z",
+      "status": "transcribing",
+      "transcript_path": null,
+      "created_at": "2026-06-14T13:01:37.192269Z"
     }
   ]
 }
