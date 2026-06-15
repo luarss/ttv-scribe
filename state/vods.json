@@ -14376,6 +14376,17 @@
       "status": "pending",
       "transcript_path": null,
       "created_at": "2026-06-15T01:05:40.660402Z"
+    },
+    {
+      "vod_id": "ChileChannel_cl",
+      "streamer": "Chile Channel",
+      "platform": "iptv",
+      "title": "Chile Channel — live segment",
+      "duration": null,
+      "recorded_at": "2026-06-15T07:45:41.965998Z",
+      "status": "transcribing",
+      "transcript_path": null,
+      "created_at": "2026-06-15T08:15:31.483183Z"
     }
   ]
 }
