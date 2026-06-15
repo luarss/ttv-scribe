@@ -14387,6 +14387,17 @@
       "status": "transcribing",
       "transcript_path": null,
       "created_at": "2026-06-15T08:15:31.483183Z"
+    },
+    {
+      "vod_id": "CostaRicaChannel_cr",
+      "streamer": "Costa Rica Channel",
+      "platform": "iptv",
+      "title": "Costa Rica Channel — live segment",
+      "duration": null,
+      "recorded_at": "2026-06-15T14:00:03.587178Z",
+      "status": "transcribing",
+      "transcript_path": null,
+      "created_at": "2026-06-15T14:11:37.467461Z"
     }
   ]
 }
