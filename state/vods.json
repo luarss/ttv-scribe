@@ -14398,6 +14398,17 @@
       "status": "transcribing",
       "transcript_path": null,
       "created_at": "2026-06-15T14:11:37.467461Z"
+    },
+    {
+      "vod_id": "DiscoverPakistan_pk",
+      "streamer": "Discover Pakistan",
+      "platform": "iptv",
+      "title": "Discover Pakistan — live segment",
+      "duration": null,
+      "recorded_at": "2026-06-15T19:13:47.871431Z",
+      "status": "transcribing",
+      "transcript_path": null,
+      "created_at": "2026-06-15T19:43:36.677202Z"
     }
   ]
 }
