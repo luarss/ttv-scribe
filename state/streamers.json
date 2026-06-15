@@ -63,7 +63,6 @@
       "kuaishou_id": null,
       "created_at": "2026-03-30T04:40:24.649180Z"
     },
-
     {
       "username": "studytme",
       "platform": "twitch",
@@ -144,6 +143,15 @@
       "youtube_channel_id": "UCEIs9nkveW9WmYtsOcJBwTg",
       "kuaishou_id": null,
       "created_at": "2026-05-16T08:04:13.042843Z"
+    },
+    {
+      "username": "bawnsai",
+      "platform": "twitch",
+      "twitch_id": "44991151",
+      "bilibili_mid": null,
+      "youtube_channel_id": null,
+      "kuaishou_id": null,
+      "created_at": "2026-06-15T01:05:40.555948Z"
     }
   ]
 }
