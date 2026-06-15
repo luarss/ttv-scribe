@@ -13694,6 +13694,17 @@
       "status": "transcribing",
       "transcript_path": null,
       "created_at": "2026-06-14T18:53:32.919992Z"
+    },
+    {
+      "vod_id": "BeachTVPanamaCity_us",
+      "streamer": "Beach TV Panama City",
+      "platform": "iptv",
+      "title": "Beach TV Panama City — live segment",
+      "duration": null,
+      "recorded_at": "2026-06-15T00:23:53.314856Z",
+      "status": "transcribing",
+      "transcript_path": null,
+      "created_at": "2026-06-15T00:53:46.335816Z"
     }
   ]
 }
