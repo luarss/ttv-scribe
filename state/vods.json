@@ -14442,6 +14442,17 @@
       "status": "transcribing",
       "transcript_path": null,
       "created_at": "2026-06-16T14:00:46.297495Z"
+    },
+    {
+      "vod_id": "KNOVCD411_us",
+      "streamer": "NOTV New Orleans TV",
+      "platform": "iptv",
+      "title": "NOTV New Orleans TV — live segment",
+      "duration": null,
+      "recorded_at": "2026-06-16T19:08:58.951264Z",
+      "status": "transcribing",
+      "transcript_path": null,
+      "created_at": "2026-06-16T19:38:43.560733Z"
     }
   ]
 }
