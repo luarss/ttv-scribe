@@ -14420,6 +14420,17 @@
       "status": "transcribing",
       "transcript_path": null,
       "created_at": "2026-06-16T01:00:43.481867Z"
+    },
+    {
+      "vod_id": "LivingAsiaChannel_ph",
+      "streamer": "Living Asia Channel",
+      "platform": "iptv",
+      "title": "Living Asia Channel — live segment",
+      "duration": null,
+      "recorded_at": "2026-06-16T07:47:55.772613Z",
+      "status": "transcribing",
+      "transcript_path": null,
+      "created_at": "2026-06-16T08:17:51.590892Z"
     }
   ]
 }
