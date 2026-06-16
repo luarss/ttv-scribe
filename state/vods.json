@@ -14409,6 +14409,17 @@
       "status": "transcribing",
       "transcript_path": null,
       "created_at": "2026-06-15T19:43:36.677202Z"
+    },
+    {
+      "vod_id": "GlazamiTurista_ru",
+      "streamer": "Glazami Turista",
+      "platform": "iptv",
+      "title": "Glazami Turista — live segment",
+      "duration": null,
+      "recorded_at": "2026-06-16T00:30:43.219588Z",
+      "status": "transcribing",
+      "transcript_path": null,
+      "created_at": "2026-06-16T01:00:43.481867Z"
     }
   ]
 }
