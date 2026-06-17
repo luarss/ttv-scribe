@@ -14486,6 +14486,17 @@
       "status": "transcribing",
       "transcript_path": null,
       "created_at": "2026-06-17T13:36:01.252389Z"
+    },
+    {
+      "vod_id": "PeerTVSouthTyrol_it",
+      "streamer": "Peer TV South Tyrol",
+      "platform": "iptv",
+      "title": "Peer TV South Tyrol — live segment",
+      "duration": null,
+      "recorded_at": "2026-06-17T18:44:20.391201Z",
+      "status": "transcribing",
+      "transcript_path": null,
+      "created_at": "2026-06-17T19:14:05.214101Z"
     }
   ]
 }
