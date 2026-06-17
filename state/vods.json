@@ -14464,6 +14464,17 @@
       "status": "transcribing",
       "transcript_path": null,
       "created_at": "2026-06-17T00:56:17.569483Z"
+    },
+    {
+      "vod_id": "PalmBeachesTV_us",
+      "streamer": "Palm Beaches TV",
+      "platform": "iptv",
+      "title": "Palm Beaches TV — live segment",
+      "duration": null,
+      "recorded_at": "2026-06-17T07:39:16.535716Z",
+      "status": "transcribing",
+      "transcript_path": null,
+      "created_at": "2026-06-17T08:08:55.904670Z"
     }
   ]
 }
