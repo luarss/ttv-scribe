@@ -14508,6 +14508,17 @@
       "status": "transcribing",
       "transcript_path": null,
       "created_at": "2026-06-18T00:56:30.672611Z"
+    },
+    {
+      "vod_id": "SchladmingDachsteinTV_at",
+      "streamer": "Schladming-Dachstein TV",
+      "platform": "iptv",
+      "title": "Schladming-Dachstein TV — live segment",
+      "duration": null,
+      "recorded_at": "2026-06-18T07:31:40.847303Z",
+      "status": "transcribing",
+      "transcript_path": null,
+      "created_at": "2026-06-18T08:33:51.367627Z"
     }
   ]
 }
