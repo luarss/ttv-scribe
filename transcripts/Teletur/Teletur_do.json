@@ -1,0 +1,54 @@
+{
+  "vod_id": "Teletur_do",
+  "streamer": "Teletur",
+  "title": "Teletur — live segment",
+  "recorded_at": "2026-06-18T12:59:54.128370Z",
+  "text": "nuevas tecnologías de fabricación han podido conseguir dos y cuál es la importancia de eso, de la limpiación de ser más ancho de lo que realmente es y por qué no lo podían hacer antes o no lo podían conseguir con dos líneas porque es importante esquina superior.",
+  "metadata": {
+    "segments_count": 5,
+    "total_duration_seconds": 20.763813,
+    "chunks": 2,
+    "chunk_transcription_times": [
+      6.671269416809082,
+      4.042713165283203
+    ],
+    "languages": [
+      "es"
+    ],
+    "key_moments": [
+      {
+        "time": 5,
+        "text": "importancia de eso, de la limpiación de ser más ancho de lo que realmente es y"
+      }
+    ]
+  },
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 5.74,
+      "text": " nuevas tecnologías de fabricación han podido conseguir dos y cuál es la"
+    },
+    {
+      "start": 5.74,
+      "end": 12.28,
+      "text": " importancia de eso, de la limpiación de ser más ancho de lo que realmente es y"
+    },
+    {
+      "start": 12.28,
+      "end": 16.3,
+      "text": " por qué no lo podían hacer antes o no lo podían conseguir con dos líneas"
+    },
+    {
+      "start": 16.3,
+      "end": 21.95,
+      "text": " porque es importante"
+    },
+    {
+      "start": 20.0,
+      "end": 20.8,
+      "text": " esquina superior."
+    }
+  ],
+  "cost": 0.0,
+  "created_at": "2026-06-18T13:34:07.154982Z"
+}
