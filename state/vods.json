@@ -14541,6 +14541,17 @@
       "status": "transcribing",
       "transcript_path": null,
       "created_at": "2026-06-18T19:50:58.648639Z"
+    },
+    {
+      "vod_id": "TurismoRDTV_do",
+      "streamer": "Turismo RDTV",
+      "platform": "iptv",
+      "title": "Turismo RDTV — live segment",
+      "duration": null,
+      "recorded_at": "2026-06-19T00:30:05.943381Z",
+      "status": "transcribing",
+      "transcript_path": null,
+      "created_at": "2026-06-19T02:03:59.515248Z"
     }
   ]
 }
