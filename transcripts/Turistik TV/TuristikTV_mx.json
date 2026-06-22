@@ -1,0 +1,23 @@
+{
+  "vod_id": "TuristikTV_mx",
+  "streamer": "Turistik TV",
+  "title": "Turistik TV — live segment",
+  "recorded_at": "2026-06-22T07:47:40.168818Z",
+  "text": "",
+  "metadata": {
+    "segments_count": 0,
+    "total_duration_seconds": 1800.0065,
+    "chunks": 2,
+    "chunk_transcription_times": [
+      6.554413318634033,
+      11.22451400756836
+    ],
+    "languages": [
+      "en"
+    ],
+    "key_moments": []
+  },
+  "segments": [],
+  "cost": 0.0,
+  "created_at": "2026-06-22T09:13:43.067592Z"
+}
