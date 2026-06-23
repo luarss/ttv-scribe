@@ -14827,6 +14827,17 @@
       "status": "transcribing",
       "transcript_path": null,
       "created_at": "2026-06-22T09:12:05.049806Z"
+    },
+    {
+      "vod_id": "TVParanaTurismo_br",
+      "streamer": "TV Paraná Turismo",
+      "platform": "iptv",
+      "title": "TV Paraná Turismo — live segment",
+      "duration": null,
+      "recorded_at": "2026-06-23T00:23:35.452682Z",
+      "status": "transcribing",
+      "transcript_path": null,
+      "created_at": "2026-06-23T01:57:47.408821Z"
     }
   ]
 }
