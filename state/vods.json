@@ -14838,6 +14838,17 @@
       "status": "transcribing",
       "transcript_path": null,
       "created_at": "2026-06-23T01:57:47.408821Z"
+    },
+    {
+      "vod_id": "BeachTVFloridaAlabama_us",
+      "streamer": "Beach TV Florida & Alabama",
+      "platform": "iptv",
+      "title": "Beach TV Florida & Alabama — live segment",
+      "duration": null,
+      "recorded_at": "2026-06-23T07:07:21.597807Z",
+      "status": "transcribing",
+      "transcript_path": null,
+      "created_at": "2026-06-23T08:41:37.878442Z"
     }
   ]
 }
