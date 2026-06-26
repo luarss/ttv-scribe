@@ -102,7 +102,7 @@ jobs:
           fi
           git commit -m "chore(iptv): record ${{ steps.record.outputs.channel_id }}"
           for attempt in 1 2 3; do
-            git pull --rebase origin ${{ github.ref_name }} && git push origin ${{ github.ref_name }} && break
+            git pull --rebase --autostash origin ${{ github.ref_name }} && git push origin ${{ github.ref_name }} && break
             git rebase --abort 2>/dev/null || true
             [ $attempt -lt 3 ] && sleep $((attempt * 10))
           done
@@ -290,7 +290,7 @@ jobs:
           fi
           git commit -m "feat(iptv): transcribe ${{ needs.prepare.outputs.channel_id }} (distributed)"
           for attempt in 1 2 3; do
-            git pull --rebase origin ${{ github.ref_name }} && git push origin ${{ github.ref_name }} && break
+            git pull --rebase --autostash origin ${{ github.ref_name }} && git push origin ${{ github.ref_name }} && break
             git rebase --abort 2>/dev/null || true
             [ $attempt -lt 3 ] && sleep $((attempt * 10))
           done
