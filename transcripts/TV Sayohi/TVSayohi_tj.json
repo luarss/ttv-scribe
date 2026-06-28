@@ -2,15 +2,15 @@
   "vod_id": "TVSayohi_tj",
   "streamer": "TV Sayohi",
   "title": "TV Sayohi — live segment",
-  "recorded_at": "2026-06-19T18:30:54.364714Z",
+  "recorded_at": "2026-06-28T18:20:22.044687Z",
   "text": "",
   "metadata": {
     "segments_count": 0,
     "total_duration_seconds": 1800.0065,
     "chunks": 2,
     "chunk_transcription_times": [
-      4.3456010818481445,
-      4.701877117156982
+      5.046795129776001,
+      4.310520172119141
     ],
     "languages": [
       "en"
@@ -19,5 +19,5 @@
   },
   "segments": [],
   "cost": 0.0,
-  "created_at": "2026-06-19T20:06:08.167337Z"
+  "created_at": "2026-06-28T20:06:53.766284Z"
 }
